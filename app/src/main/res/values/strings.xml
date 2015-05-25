@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Mobile GKY</string>
+
+    <string name="beranda">Beranda</string>
+    <string name="pelayanan">Pelayanan</string>
+    <string name="pembinaan">Pembinaan</string>
+    <string name="events">Events </string>
+    <string name="tentang_kami">Tentang Kami</string>
+    <string name="hubungi_kami">Hubungi Kami</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <!-- Untuk side menu -->
+    <string name="action_settings">Settings</string>
+    <string name="renungan">RENUNGAN GEMA</string>
+    <string name="marital">PRE-MARITAL CLASS</string>
+    <string name="katekisasi">KATEKISASI</string>
+    <string name="permohonan">PERMOHONAN DOA</string>
+    <string name="alkitab">ALKITAB</string>
+    <string name="kelompok">KELOMPOK KECIL</string>
+
+    <!--Untuk toggle switch -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+</resources>

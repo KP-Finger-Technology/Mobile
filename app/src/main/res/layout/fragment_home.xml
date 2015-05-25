@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".Home$PlaceholderFragment"
+    android:background="@drawable/background">
+
+    <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/renungan"
+        android:id="@+id/renungan"
+        android:layout_below="@+id/section_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffffff"
+        android:background="#40000000"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/marital"
+        android:id="@+id/marital"
+        android:layout_alignTop="@+id/renungan"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ffffffff"
+        android:background="@android:color/transparent"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/katekisasi"
+        android:id="@+id/katekisasi"
+        android:layout_below="@+id/renungan"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_toEndOf="@+id/section_label"
+        android:layout_marginTop="38dp"
+        android:textColor="#ffffffff"
+        android:background="@android:color/transparent"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/permohonan"
+        android:id="@+id/permohonan"
+        android:layout_alignBottom="@+id/katekisasi"
+        android:layout_alignRight="@+id/marital"
+        android:layout_alignEnd="@+id/marital"
+        android:textColor="#ffffffff"
+        android:background="#50000000"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alkitab"
+        android:id="@+id/alkitab"
+        android:layout_marginTop="43dp"
+        android:layout_below="@+id/katekisasi"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_toEndOf="@+id/section_label"
+        android:textColor="#ffffffff"
+        android:background="#60000000"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/kelompok"
+        android:id="@+id/kelompok"
+        android:layout_alignBottom="@+id/alkitab"
+        android:layout_alignRight="@+id/permohonan"
+        android:layout_alignEnd="@+id/permohonan"
+        android:textColor="#ffffffff"
+        android:background="@android:color/transparent"/>
+
+</RelativeLayout>
