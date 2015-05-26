@@ -18,8 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Home extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -36,6 +38,7 @@ public class Home extends ActionBarActivity
 
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
+    private Context activity;
 
 /*    // Untuk toggle switch
     private ActionBarDrawerToggle mDrawerToggle;
@@ -112,7 +115,6 @@ public class Home extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -144,6 +146,10 @@ public class Home extends ActionBarActivity
         }*/
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public Context getActivity() {
+        return activity;
     }
 
     /**
@@ -186,6 +192,27 @@ public class Home extends ActionBarActivity
             ((Home) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+    }
+
+    // Untuk button-button
+    public void renunganClicked(View v) {
+    }
+
+    public void maritalClicked(View v) {
+    }
+
+    public void katekisasiClicked(View v) {
+        Button katekisasi = (Button) v;
+        ((Button) v).setText("Rita Maso");
+    }
+
+    public void permohonanClicked(View v) {
+    }
+
+    public void alkitabClicked(View v) {
+    }
+
+    public void kelompokClicked(View v) {
     }
 
 /*    // Untuk toggle switch

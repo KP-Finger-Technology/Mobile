@@ -99,7 +99,25 @@ public class NavigationDrawerFragment extends Fragment {
             }*/
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Testing doang", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "Testing doang", Toast.LENGTH_LONG).show();
+                if (position == 0) {
+                    Toast.makeText(getActivity(), "0", Toast.LENGTH_SHORT).show();
+                }
+                else if (position == 1) {
+                    Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
+                }
+                else if (position == 2) {
+                    Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
+                }
+                else if (position == 3) {
+                    Toast.makeText(getActivity(), "3", Toast.LENGTH_SHORT).show();
+                }
+                else if (position == 4) {
+                    Toast.makeText(getActivity(), "4", Toast.LENGTH_SHORT).show();
+                }
+                else if (position == 5) {
+                    Toast.makeText(getActivity(), "5", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
@@ -259,7 +277,6 @@ public class NavigationDrawerFragment extends Fragment {
             Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

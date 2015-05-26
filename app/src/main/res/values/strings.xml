@@ -25,4 +25,10 @@
     <!--Untuk toggle switch -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="hintRenungan">Membuka renungan gema yang tersedia</string>
+    <string name="hintMarital">Membuka pelajaran pre-marital</string>
+    <string name="hintKatekisasi">Membuka pelajaran sebelum baptis</string>
+    <string name="hintPermohonan">Mendaftarkan diri untuk didoakan oleh gereja</string>
+    <string name="hintAlkitab">Membuka alkitab</string>
+    <string name="hintKelompok">Membuka daftar kelompok kecil yang ada</string>
 </resources>

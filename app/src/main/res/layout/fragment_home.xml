@@ -5,32 +5,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".Home$PlaceholderFragment"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:nestedScrollingEnabled="true">
 
     <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="renunganClicked" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/renungan"
         android:id="@+id/renungan"
+        android:textColor="#ffffffff"
+        android:background="#40000000"
+        android:clickable="true"
+        android:enabled="true"
+        android:elegantTextHeight="true"
+        android:hint="@string/hintRenungan"
+        android:onClick="renunganClicked"
+        android:nestedScrollingEnabled="false"
         android:layout_below="@+id/section_label"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#ffffffff"
-        android:background="#40000000"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/marital"
-        android:id="@+id/marital"
-        android:layout_alignTop="@+id/renungan"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="#ffffffff"
-        android:background="@android:color/transparent"/>
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -42,18 +39,11 @@
         android:layout_toEndOf="@+id/section_label"
         android:layout_marginTop="38dp"
         android:textColor="#ffffffff"
-        android:background="@android:color/transparent"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/permohonan"
-        android:id="@+id/permohonan"
-        android:layout_alignBottom="@+id/katekisasi"
-        android:layout_alignRight="@+id/marital"
-        android:layout_alignEnd="@+id/marital"
-        android:textColor="#ffffffff"
-        android:background="#50000000"/>
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:enabled="true"
+        android:hint="@string/hintKatekisasi"
+        android:onClick="katekisasiClicked" />
 
     <Button
         android:layout_width="wrap_content"
@@ -65,17 +55,55 @@
         android:layout_toRightOf="@+id/section_label"
         android:layout_toEndOf="@+id/section_label"
         android:textColor="#ffffffff"
-        android:background="#60000000"/>
+        android:background="#60000000"
+        android:clickable="true"
+        android:enabled="true"
+        android:hint="@string/hintAlkitab"
+        android:onClick="alkitabClicked" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/marital"
+        android:id="@+id/marital"
+        android:textColor="#ffffffff"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:enabled="true"
+        android:hint="@string/hintMarital"
+        android:onClick="maritalClicked"
+        android:layout_below="@+id/section_label"
+        android:layout_toRightOf="@+id/alkitab"
+        android:layout_toEndOf="@+id/alkitab" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/permohonan"
+        android:id="@+id/permohonan"
+        android:textColor="#ffffffff"
+        android:background="#50000000"
+        android:clickable="true"
+        android:enabled="true"
+        android:hint="@string/hintPermohonan"
+        android:layout_above="@+id/alkitab"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/kelompok"
         android:id="@+id/kelompok"
-        android:layout_alignBottom="@+id/alkitab"
-        android:layout_alignRight="@+id/permohonan"
-        android:layout_alignEnd="@+id/permohonan"
         android:textColor="#ffffffff"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:enabled="true"
+        android:hint="@string/hintKelompok"
+        android:nestedScrollingEnabled="false"
+        android:onClick="kelompokClicked"
+        android:layout_alignTop="@+id/alkitab"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
