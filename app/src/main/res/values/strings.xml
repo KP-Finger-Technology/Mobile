@@ -24,12 +24,26 @@
     <!-- Untuk toggle switch -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- Untuk hint -->
     <string name="hintRenungan">Membuka renungan gema yang tersedia</string>
     <string name="hintMarital">Membuka pelajaran pre-marital</string>
     <string name="hintKatekisasi">Membuka pelajaran sebelum baptis</string>
     <string name="hintPermohonan">Mendaftarkan diri untuk didoakan oleh gereja</string>
     <string name="hintAlkitab">Membuka alkitab</string>
     <string name="hintKelompok">Membuka daftar kelompok kecil yang ada</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Untuk halaman permohonan doa -->
+    <string name="permohonanDoa_textNama">Nama</string>
+    <string name="permohonanDoa_textEmail">Email</string>
+    <string name="permohonanDoa_textTelepon">Telepon</string>
+    <string name="permohonanDoa_textJenisKelamin">Jenis Kelamin</string>
+    <string name="permohonanDoa_textPria">Pria</string>
+    <string name="permohonanDoa_textWanita">Wanita</string>
+    <string name="permohonanDoa_textUmur">Umur</string>
+    <string name="permohonanDoa_textDoa">Permohonan Doa</string>
+
+    <!-- Untuk button -->
+    <string name="kirim">Kirim</string>
 
 </resources>
