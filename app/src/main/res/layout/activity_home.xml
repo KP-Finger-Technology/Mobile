@@ -24,5 +24,15 @@
         android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="fingertech.mobileclientgky.NavigationDrawerFragment"
-        tools:layout="@layout/fragment_navigation_drawer" /><![CDATA[-->]]>
+        tools:layout="@layout/fragment_navigation_drawer" />
+
+    <fragment android:id="@+id/permohonan_doa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.PermohonanDoaFragment"
+        tools:layout="@layout/fragment_permohonan_doa" />
+
+    <![CDATA[-->]]>
+
 </android.support.v4.widget.DrawerLayout>

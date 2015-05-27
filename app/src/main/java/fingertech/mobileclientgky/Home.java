@@ -2,6 +2,7 @@ package fingertech.mobileclientgky;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,10 @@ public class Home extends ActionBarActivity
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     private Context activity;
+
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
+    private FragmentManager fragManager;
 
 /*    // Untuk toggle switch
     private ActionBarDrawerToggle mDrawerToggle;
@@ -135,11 +140,6 @@ public class Home extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
 /*        // Untuk toggle switch
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -207,12 +207,22 @@ public class Home extends ActionBarActivity
     }
 
     public void permohonanClicked(View v) {
+        frag = new PermohonanDoaFragment();
+        switchFragment();
     }
 
     public void alkitabClicked(View v) {
     }
 
     public void kelompokClicked(View v) {
+    }
+
+    public void switchFragment() {
+        fragManager = getSupportFragmentManager();
+        fragTransaction = fragManager.beginTransaction();
+        fragTransaction.replace(R.id.container, frag);
+//                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag);
+        fragTransaction.commit();
     }
 
 /*    // Untuk toggle switch
