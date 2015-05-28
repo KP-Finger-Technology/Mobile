@@ -124,6 +124,7 @@ public class NavigationDrawerFragment extends Fragment {
                     switchFragment();
 //                    setUp(R.id.jadwal_pelayanan, mDrawerLayout);
                     Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
+                    cont.viewJadwalPelayanan();
                 }
                 else if (position == 2) {
                     // Pembinaan
