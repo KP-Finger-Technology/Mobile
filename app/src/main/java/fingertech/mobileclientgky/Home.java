@@ -20,9 +20,14 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Home extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -37,9 +42,12 @@ public class Home extends ActionBarActivity
      */
     private CharSequence mTitle;
 
-    private ListView mDrawerList;
-    private ArrayAdapter<String> mAdapter;
-    private Context activity;
+    // Untuk Navigation Drawer
+    private ExpandableListView mDrawerList;
+    private HashMap<String, List<String>> parentHashMap;
+    private List<String> parentHashMapKeys;
+    private NavigationDrawerAdapter adapter;
+
 
     private Fragment frag;
     private FragmentTransaction fragTransaction;
@@ -64,8 +72,37 @@ public class Home extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        mDrawerList = (ListView)findViewById(R.id.navList);
-        addDrawerItems();
+        mDrawerList = (ExpandableListView)findViewById(R.id.navList);
+        parentHashMap = NavigationDrawerDataProvider.getDataHashMap();
+        parentHashMapKeys = new ArrayList<String>(parentHashMap.keySet());
+
+        adapter = new NavigationDrawerAdapter(this, parentHashMap, parentHashMapKeys);
+        mDrawerList.setAdapter(adapter);
+
+        mDrawerList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(Home.this,
+                        parentHashMapKeys.get(groupPosition)
+                                + " expanded", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mDrawerList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(Home.this, parentHashMapKeys.get(groupPosition) + " collapsed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mDrawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View clickedView, int groupPosition, int childPosition, long id) {
+                Toast.makeText(Home.this, "Selected " + parentHashMap.get(parentHashMapKeys.get(groupPosition)).get(childPosition)
+                        + " from " + parentHashMapKeys.get(groupPosition), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
 /*        // Untuk toggle switch
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -75,11 +112,11 @@ public class Home extends ActionBarActivity
         mActivityTitle = getTitle().toString();*/
     }
 
-    private void addDrawerItems() {
+    /*private void addDrawerItems() {
         String[] menuArray = { "Beranda", "Pelayanan", "Pembinaan", "Events", "Tentang Kami", "Hubungi Kami" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuArray);
         mDrawerList.setAdapter(mAdapter);
-    }
+    }*/
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -150,9 +187,9 @@ public class Home extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public Context getActivity() {
+    /*public Context getActivity() {
         return activity;
-    }
+    }*/
 
     /**
      * A placeholder fragment containing a simple view.
