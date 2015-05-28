@@ -5,9 +5,9 @@ package fingertech.mobileclientgky;
  */
 public class NavigationDrawerData {
     static String[] berandaArray = {};
-    static String[] pelayananArray = {};
     static String[] alkitabArray = {};
     static String[] komisiArray = {"Komisi Anak", "Komisi Kaleb", "Komisi Pemuda Dewasa", "Komisi Remaja & Pemuda", "Komisi Wanita"};
+    static String[] pelayananArray = {};
     static String[] pembinaanArray = {};
     static String[] eventsArray = {};
     static String[] tentangKamiArray = {};

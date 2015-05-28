@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Home extends ActionBarActivity
@@ -44,8 +45,8 @@ public class Home extends ActionBarActivity
 
     // Untuk Navigation Drawer
     private ExpandableListView mDrawerList;
-    private HashMap<String, List<String>> parentHashMap;
-    private List<String> parentHashMapKeys;
+    private LinkedHashMap<String, ArrayList<String>> parentHashMap;
+    private ArrayList<String> parentHashMapKeys;
     private NavigationDrawerAdapter adapter;
 
 
@@ -82,24 +83,131 @@ public class Home extends ActionBarActivity
         mDrawerList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(Home.this,
+                // Beranda
+                if (groupPosition == 0) {
+                    Toast.makeText(Home.this,
                         parentHashMapKeys.get(groupPosition)
                                 + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Alkitab
+                else if (groupPosition == 1) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi
+                else if (groupPosition == 2) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Pelayanan
+                else if (groupPosition == 3) {
+                    frag = new JadwalPelayananFragment();
+                    switchFragment();
+                }
+                // Pembinaan
+                else if (groupPosition == 4) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Events
+                else if (groupPosition == 5) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Tentang Kami
+                else if (groupPosition == 6) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Hubungi Kami
+                else if (groupPosition == 7) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Login
+                else if (groupPosition == 8) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Register
+                else if (groupPosition == 9) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Pengaturan
+                else if (groupPosition == 10) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         mDrawerList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(Home.this, parentHashMapKeys.get(groupPosition) + " collapsed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Home.this,
+                        parentHashMapKeys.get(groupPosition)
+                                + " collapsed", Toast.LENGTH_SHORT).show();
             }
         });
 
         mDrawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View clickedView, int groupPosition, int childPosition, long id) {
-                Toast.makeText(Home.this, "Selected " + parentHashMap.get(parentHashMapKeys.get(groupPosition)).get(childPosition)
-                        + " from " + parentHashMapKeys.get(groupPosition), Toast.LENGTH_SHORT).show();
+                // Komisi Anak
+                if (childPosition == 0) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi Kaleb
+                else if (childPosition == 1) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi Pemuda Dewasa
+                else if (childPosition == 2) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi Remaja & Pemuda
+                else if (childPosition == 3) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi Wanita
+                else if (childPosition == 4) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
                 return false;
             }
         });

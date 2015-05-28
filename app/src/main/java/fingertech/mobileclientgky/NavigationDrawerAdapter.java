@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -16,10 +18,10 @@ import java.util.List;
 public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private HashMap<String, List<String>> parentHashMap;
-    private List<String> parentList;
+    private LinkedHashMap<String, ArrayList<String>> parentHashMap;
+    private ArrayList<String> parentList;
 
-    public NavigationDrawerAdapter (Context _context, HashMap<String, List<String>> _parentHashMap, List<String> _parentList) {
+    public NavigationDrawerAdapter (Context _context, LinkedHashMap<String, ArrayList<String>> _parentHashMap, ArrayList<String> _parentList) {
         parentHashMap = _parentHashMap;
         this.context = _context;
         this.parentHashMap = _parentHashMap;
