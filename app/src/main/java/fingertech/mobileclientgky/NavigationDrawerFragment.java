@@ -65,6 +65,8 @@ public class NavigationDrawerFragment extends Fragment {
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
 
+    Controller cont = new Controller();
+
     public NavigationDrawerFragment() {
     }
 
@@ -132,6 +134,7 @@ public class NavigationDrawerFragment extends Fragment {
                     frag = new EventFragment();
                     switchFragment();
                     Toast.makeText(getActivity(), "3", Toast.LENGTH_SHORT).show();
+                    cont.viewEvent();
                 }
                 else if (position == 4) {
                     // Tentang Kami

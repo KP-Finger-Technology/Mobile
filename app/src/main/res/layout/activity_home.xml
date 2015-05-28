@@ -96,6 +96,6 @@
         android:name="fingertech.mobileclientgky.HubungiKamiFragment"
         tools:layout="@layout/fragment_hubungi_kami" />
 
-    <![CDATA[-->]]>
+    <!-- <![CDATA[&ndash;&gt;]]> -->
 
 </android.support.v4.widget.DrawerLayout>
