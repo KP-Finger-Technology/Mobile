@@ -112,7 +112,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Viewer().execute(url+"view_jadwalkomisipenerjemah.php");
+                Viewer v = new Viewer();
+                v.execute(url+"view_jadwalkomisipenerjemah.php");
             }
         });
     }
@@ -122,18 +123,20 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url+"add_doa.php");
+                new Writer().execute(url + "add_doa.php");
+
             }
         });
     }
 
 
     class Viewer extends AsyncTask<String, String, String> {
-        String result = "";
-        String statu ="";
+        JSONArray arr = new JSONArray();
 
         @Override
         protected String doInBackground(String... params) {
+            String result = "";
+            String statu ="";
             for (String urlp : params) {
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet(urlp); // ngikutin ip disini loh
@@ -157,7 +160,6 @@ public class Controller {
 
                     try {
                         JSONObject res = new JSONObject(result);
-                        JSONArray arr = new JSONArray();
                         arr = res.getJSONArray("data");
                         Log.d("Array", arr.toString());
                         statu = "ok";
