@@ -33,6 +33,69 @@
         android:name="fingertech.mobileclientgky.PermohonanDoaFragment"
         tools:layout="@layout/fragment_permohonan_doa" />
 
+    <fragment android:id="@+id/jadwal_pelayanan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.JadwalPelayananFragment"
+        tools:layout="@layout/fragment_permohonan_doa" />
+
+    <fragment android:id="@+id/alkitab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.AlkitabFragment"
+        tools:layout="@layout/fragment_alkitab" />
+
+    <fragment android:id="@+id/event"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.EventFragment"
+        tools:layout="@layout/fragment_event" />
+
+    <fragment android:id="@+id/renunganGema"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.RenunganGemaFragment"
+        tools:layout="@layout/fragment_renungan_gema" />
+
+    <fragment android:id="@+id/preMaritalClass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.PreMaritalClassFragment"
+        tools:layout="@layout/fragment_pre_marital_class" />
+
+    <fragment android:id="@+id/katekisasi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.KatekisasiFragment"
+        tools:layout="@layout/fragment_katekisasi" />
+
+    <fragment android:id="@+id/kelompokKecil"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.KelompokKecilFragment"
+        tools:layout="@layout/fragment_kelompok_kecil" />
+
+    <fragment android:id="@+id/tentangKami"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.TentangKamiFragment"
+        tools:layout="@layout/fragment_tentang_kami" />
+
+    <fragment android:id="@+id/hubungiKami"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.HubungiKamiFragment"
+        tools:layout="@layout/fragment_hubungi_kami" />
+
     <![CDATA[-->]]>
 
 </android.support.v4.widget.DrawerLayout>

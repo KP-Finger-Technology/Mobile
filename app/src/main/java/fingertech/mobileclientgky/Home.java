@@ -140,6 +140,8 @@ public class Home extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+
 /*        // Untuk toggle switch
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -196,14 +198,18 @@ public class Home extends ActionBarActivity
 
     // Untuk button-button
     public void renunganClicked(View v) {
+        frag = new RenunganGemaFragment();
+        switchFragment();
     }
 
     public void maritalClicked(View v) {
+        frag = new PreMaritalClassFragment();
+        switchFragment();
     }
 
     public void katekisasiClicked(View v) {
-        Button katekisasi = (Button) v;
-        ((Button) v).setText("Rita Maso");
+        frag = new KatekisasiFragment();
+        switchFragment();
     }
 
     public void permohonanClicked(View v) {
@@ -212,9 +218,13 @@ public class Home extends ActionBarActivity
     }
 
     public void alkitabClicked(View v) {
+        frag = new AlkitabFragment();
+        switchFragment();
     }
 
     public void kelompokClicked(View v) {
+        frag = new KelompokKecilFragment();
+        switchFragment();
     }
 
     public void switchFragment() {
@@ -222,6 +232,7 @@ public class Home extends ActionBarActivity
         fragTransaction = fragManager.beginTransaction();
         fragTransaction.replace(R.id.container, frag);
 //                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag);
+        fragTransaction.addToBackStack(null);
         fragTransaction.commit();
     }
 

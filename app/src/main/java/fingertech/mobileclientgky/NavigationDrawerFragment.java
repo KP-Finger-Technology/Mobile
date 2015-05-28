@@ -1,5 +1,7 @@
 package fingertech.mobileclientgky;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -59,6 +61,10 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mUserLearnedDrawer;
     private ActionBar supportActionBar;
 
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
+    private FragmentManager fragManager;
+
     public NavigationDrawerFragment() {
     }
 
@@ -87,6 +93,12 @@ public class NavigationDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    public void switchFragment() {
+        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag);
+        fragTransaction.addToBackStack(null);
+        fragTransaction.commit();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,21 +113,36 @@ public class NavigationDrawerFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Toast.makeText(getActivity(), "Testing doang", Toast.LENGTH_LONG).show();
                 if (position == 0) {
+                    // Beranda
                     Toast.makeText(getActivity(), "0", Toast.LENGTH_SHORT).show();
                 }
                 else if (position == 1) {
+                    // Pelayanan
+                    frag = new JadwalPelayananFragment();
+                    switchFragment();
+//                    setUp(R.id.jadwal_pelayanan, mDrawerLayout);
                     Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
                 }
                 else if (position == 2) {
+                    // Pembinaan
                     Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
                 }
                 else if (position == 3) {
+                    // Events
+                    frag = new EventFragment();
+                    switchFragment();
                     Toast.makeText(getActivity(), "3", Toast.LENGTH_SHORT).show();
                 }
                 else if (position == 4) {
+                    // Tentang Kami
+                    frag = new TentangKamiFragment();
+                    switchFragment();
                     Toast.makeText(getActivity(), "4", Toast.LENGTH_SHORT).show();
                 }
                 else if (position == 5) {
+                    // Hubungi Kami
+                    frag = new HubungiKamiFragment();
+                    switchFragment();
                     Toast.makeText(getActivity(), "5", Toast.LENGTH_SHORT).show();
                 }
             }
