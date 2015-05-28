@@ -33,7 +33,8 @@ public class Controller {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        new Viewer().execute(url+"view_event.php");
+                        Viewer v = new Viewer();
+                        v.execute(url+"view_event.php");
                         Log.d("Now running", "execute viewer");
                     }
         });
@@ -44,7 +45,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Viewer().execute(url+"view_kolportase.php");
+                Viewer v = new Viewer();
+                v.execute(url+"view_kolportase.php");
             }
         });
     }
@@ -54,7 +56,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Viewer().execute(url+"view_warta.php");
+                Viewer v = new Viewer();
+                v.execute(url+"view_warta.php");
             }
         });
     }
@@ -64,7 +67,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Viewer().execute(url+"view_gema.php");
+                Viewer v = new Viewer();
+                v.execute(url+"view_gema.php");
             }
         });
     }
@@ -74,7 +78,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Viewer().execute(url+"view_jadwalkotbah.php");
+                Viewer v = new Viewer();
+                v.execute(url+"view_jadwalkotbah.php");
             }
         });
     }
@@ -84,7 +89,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Viewer().execute(url+"view_jadwalpelayanan.php");
+                Viewer v = new Viewer();
+                v.execute(url+"view_jadwalpelayanan.php");
             }
         });
     }
@@ -93,7 +99,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Viewer().execute(url+"view_jadwalteduhpagi.php");
+                Viewer v = new Viewer();
+                v.execute(url+"view_jadwalteduhpagi.php");
             }
         });
     }
@@ -102,7 +109,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Viewer().execute(url+"view_jadwalkomisipembicara.php");
+                Viewer v = new Viewer();
+                v.execute(url+"view_jadwalkomisipembicara.php");
             }
         });
     }
@@ -113,7 +121,7 @@ public class Controller {
             @Override
             public void run() {
                 Viewer v = new Viewer();
-                v.execute(url+"view_jadwalkomisipenerjemah.php");
+                v.execute(url + "view_jadwalkomisipenerjemah.php");
             }
         });
     }
