@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
@@ -48,7 +49,7 @@ public class Home extends ActionBarActivity
     private LinkedHashMap<String, ArrayList<String>> parentHashMap;
     private ArrayList<String> parentHashMapKeys;
     private NavigationDrawerAdapter adapter;
-
+    private DrawerLayout mDrawerLayout;
 
     private Fragment frag;
     private FragmentTransaction fragTransaction;
@@ -74,6 +75,7 @@ public class Home extends ActionBarActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         mDrawerList = (ExpandableListView)findViewById(R.id.navList);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         parentHashMap = NavigationDrawerDataProvider.getDataHashMap();
         parentHashMapKeys = new ArrayList<String>(parentHashMap.keySet());
 
@@ -83,7 +85,7 @@ public class Home extends ActionBarActivity
         mDrawerList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                // Beranda
+                /*// Beranda
                 if (groupPosition == 0) {
                     Toast.makeText(Home.this,
                         parentHashMapKeys.get(groupPosition)
@@ -105,11 +107,12 @@ public class Home extends ActionBarActivity
                     Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
                 }
                 // Pelayanan
-                else if (groupPosition == 3) {
+                else */if (groupPosition == 3) {
                     frag = new JadwalPelayananFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
-                // Pembinaan
+                /*// Pembinaan
                 else if (groupPosition == 4) {
                     Toast.makeText(Home.this,
                             parentHashMapKeys.get(groupPosition)
@@ -157,18 +160,18 @@ public class Home extends ActionBarActivity
                             parentHashMapKeys.get(groupPosition)
                                     + " expanded", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
-                }
+                }*/
             }
         });
 
-        mDrawerList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+        /*mDrawerList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
                 Toast.makeText(Home.this,
                         parentHashMapKeys.get(groupPosition)
                                 + " collapsed", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         mDrawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override

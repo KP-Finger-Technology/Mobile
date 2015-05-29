@@ -28,7 +28,7 @@ public class Controller {
     String url = "http://192.168.0.111/server/";
 
     public void viewEvent() {
-        Log.d("Now running","run");
+        Log.d("Now running.","Event running.");
         final Handler handler = new Handler();
                 handler.post(new Runnable() {
                     @Override
@@ -150,7 +150,7 @@ public class Controller {
                 HttpGet request = new HttpGet(urlp); // ngikutin ip disini loh
                 HttpResponse response;
 
-                Log.d("now running","do in bg");
+                Log.d("Now running,","do in background.");
 
                 try {
 
