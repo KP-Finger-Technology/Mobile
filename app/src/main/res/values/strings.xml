@@ -43,8 +43,31 @@
     <string name="permohonanDoa_textUmur">Umur</string>
     <string name="permohonanDoa_textDoa">Permohonan Doa</string>
 
+    <!-- Untuk halaman register -->
+    <string name="register_textNama">Nama</string>
+    <string name="register_textPassword">Password</string>
+    <string name="register_textKonfirmasiPassword">Konfirmasi Password</string>
+    <string name="register_textEmail">Email</string>
+    <string name="register_textTelepon">Telepon</string>
+    <string name="register_textAlamat">Alamat</string>
+    <string name="register_textDataPribadi">Data Pribadi</string>
+    <string name="register_textTanggalLahir">Tanggal Lahir</string>
+    <string name="register_textDataGereja">Data Gereja</string>
+    <string name="register_textIdBaptis">ID Baptis</string>
+    <string name="register_textKomisi">Komisi</string>
+    <string name="register_textPelayanan">Pelayanan</string>
+    <string name="register_textKomisiAnak">Anak</string>
+    <string name="register_textKomisiKaleb">Kaleb</string>
+    <string name="register_textKomisiPemudaDewasa">Pemuda Dewasa</string>
+    <string name="register_textKomisiRemajaPemuda">Remaja dan Pemuda</string>
+    <string name="register_textKomisiWanita">Wanita</string>
+
+    <!-- Untuk halaman login -->
+    <string name="login_textUsername">Nama</string>
+    <string name="login_textPassword">Password</string>
+
     <!-- Untuk button -->
     <string name="kirim">Kirim</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="daftar">Daftar</string>
+    <string name="masuk">Masuk</string>
 </resources>

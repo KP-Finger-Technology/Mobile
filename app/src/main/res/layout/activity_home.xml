@@ -96,6 +96,20 @@
         android:name="fingertech.mobileclientgky.HubungiKamiFragment"
         tools:layout="@layout/fragment_hubungi_kami" />
 
+    <fragment android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.LoginFragment"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.RegisterFragment"
+        tools:layout="@layout/fragment_register" />
+
     <!-- <![CDATA[&ndash;&gt;]]> -->
 
 </android.support.v4.widget.DrawerLayout>

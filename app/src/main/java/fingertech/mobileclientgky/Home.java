@@ -85,82 +85,76 @@ public class Home extends ActionBarActivity
         mDrawerList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                /*// Beranda
+                // Beranda
                 if (groupPosition == 0) {
-                    Toast.makeText(Home.this,
+                    /*Toast.makeText(Home.this,
                         parentHashMapKeys.get(groupPosition)
                                 + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
                 }
                 // Alkitab
                 else if (groupPosition == 1) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(groupPosition)
-                                    + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                    frag = new AlkitabFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Komisi
                 else if (groupPosition == 2) {
-                    Toast.makeText(Home.this,
+                    /*Toast.makeText(Home.this,
                             parentHashMapKeys.get(groupPosition)
                                     + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
                 }
                 // Pelayanan
-                else */if (groupPosition == 3) {
+                else if (groupPosition == 3) {
                     frag = new JadwalPelayananFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
-                /*// Pembinaan
+                // Pembinaan
                 else if (groupPosition == 4) {
-                    Toast.makeText(Home.this,
+                    /*Toast.makeText(Home.this,
                             parentHashMapKeys.get(groupPosition)
                                     + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
                 }
                 // Events
                 else if (groupPosition == 5) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(groupPosition)
-                                    + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                    frag = new EventFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Tentang Kami
                 else if (groupPosition == 6) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(groupPosition)
-                                    + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                    frag = new TentangKamiFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Hubungi Kami
                 else if (groupPosition == 7) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(groupPosition)
-                                    + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                    frag = new HubungiKamiFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Login
                 else if (groupPosition == 8) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(groupPosition)
-                                    + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                    frag = new LoginFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Register
                 else if (groupPosition == 9) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(groupPosition)
-                                    + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                    frag = new RegisterFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Pengaturan
                 else if (groupPosition == 10) {
-                    Toast.makeText(Home.this,
+                    /*Toast.makeText(Home.this,
                             parentHashMapKeys.get(groupPosition)
                                     + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
-                }*/
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
+                }
             }
         });
 
