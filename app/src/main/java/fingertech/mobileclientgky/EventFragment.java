@@ -2,12 +2,33 @@ package fingertech.mobileclientgky;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
 
 
 /**
@@ -29,6 +50,20 @@ public class EventFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+
+    private LinearLayout myLinearLayout;
+    private ImageView GambarIV;
+    private TextView TitleEventTV;
+    private TextView JudulEventTV;
+    private TextView TitleTanggalTV;
+    private TextView JudulTanggalTV;
+    private TextView TitleWaktuTV;
+    private TextView JudulWaktuTV;
+    private TextView TitleKeteranganTV;
+    private TextView IsiKeteranganTV;
+    private Button SelengkapnyaBtn;
+    private View rootView;
 
     /**
      * Use this factory method to create a new instance of
@@ -61,11 +96,160 @@ public class EventFragment extends Fragment {
         }
     }
 
+//    @Override
+//    public void onActivityCreated (Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        generateEventContent();
+//    }
+
+    public void generateEventContent() {
+//        try{
+//        Controller C = new Controller();
+//        C.viewEvent();
+//        JSONArray dataArr2 = C.Viewer.arr;
+//        Controller.Viewer.execute(Controller.url);
+//        JSONArray dataArr = Controller.Viewer.arr;
+            String x = "{\"data\":[{\"judul\":\"event judul\",\"tanggal\":\"2015-05-05\",\"keterangan\":\"event keterangan\",\"gambarevent\":\"event.jpg\"},{\"judul\":\"event judul2\",\"tanggal\":\"2015-05-05\",\"keterangan\":\"event keterangan2\",\"gambarevent\":\"event2.jpg\"}]}";
+//            JSONArray data = new JSONArray(x);
+//            JSONArray data = result.getJSONArray("data");
+//            int dataLength = data.length();
+//            JSONObject temp = null;
+            String judul, tanggal, keterangan, linkGambar;
+
+            //add LInearLayout
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_event);
+            //add LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout rowLayout = new LinearLayout(getActivity());
+            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            //buat linear layout vertical utk menampung kata2
+            LinearLayout colLayout = new LinearLayout(getActivity());
+            colLayout.setOrientation(LinearLayout.VERTICAL);
+            colLayout.setPadding(0,10,10,0);
+
+            LinearLayout subRowLayout = new LinearLayout(getActivity());
+            subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            int dataLength = 3;
+
+            LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            int image_width = 250;
+            int image_height = 320;
+
+            // Generate konten Event dalam loop for
+            for (int i=0; i<dataLength; i++){
+//                temp = data.getJSONObject(i);
+//                judul = temp.getString("judul");
+//                tanggal = temp.getString("tanggal");
+//                keterangan = temp.getString("keterangan");
+//                linkGambar = temp.getString("gambarevent");
+                judul = "ini judul loh";
+                tanggal = "25 Mei 2015";
+                keterangan = "debugging aplikasi android";
+                linkGambar = "www.com";
+
+                //add image View
+                GambarIV = new ImageView(getActivity());
+                GambarIV.setBackgroundColor(923423432);
+//                GambarIV.setPadding(0,10,10,0);
+                GambarIV.setMinimumWidth(image_width);
+                GambarIV.setMinimumHeight(image_height);
+                GambarIV.setMaxHeight(image_height);
+                GambarIV.setMaxWidth(image_width);
+                rowLayout.addView(GambarIV);
+
+                //add text View TitleEventTV
+                TitleEventTV = new TextView(getActivity());
+                TitleEventTV.setText("Event: ");
+                TitleEventTV.setLayoutParams(params);
+                subRowLayout.addView(TitleEventTV);
+                //add text View JudulEventTV
+                JudulEventTV = new TextView(getActivity());
+                JudulEventTV.setText(judul);
+                JudulEventTV.setLayoutParams(params);
+                subRowLayout.addView(JudulEventTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add text View TitleTanggalTV
+                TitleTanggalTV = new TextView(getActivity());
+                TitleTanggalTV.setText("Tanggal: ");
+                TitleTanggalTV.setLayoutParams(params);
+                subRowLayout.addView(TitleTanggalTV);
+                //add text View JudulTanggalTV
+                JudulTanggalTV= new TextView(getActivity());
+                JudulTanggalTV.setText(tanggal);
+                JudulTanggalTV.setLayoutParams(params);
+                subRowLayout.addView(JudulTanggalTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add text View TitleWaktuTV
+                TitleWaktuTV = new TextView(getActivity());
+                TitleWaktuTV.setText("Waktu: ");
+                TitleWaktuTV.setLayoutParams(params);
+                subRowLayout.addView(TitleWaktuTV);
+                //add text View JudulWaktuTV
+                JudulWaktuTV = new TextView(getActivity());
+                JudulWaktuTV.setText(tanggal);
+                JudulWaktuTV.setLayoutParams(params);
+                subRowLayout.addView(JudulWaktuTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add text View TitleKeteranganTV
+                TitleKeteranganTV = new TextView(getActivity());
+                TitleKeteranganTV.setText("Keterangan: ");
+                TitleKeteranganTV.setLayoutParams(params);
+                subRowLayout.addView(TitleKeteranganTV);
+                //add text View IsiKeteranganTV
+                IsiKeteranganTV = new TextView(getActivity());
+                if (keterangan.length()>80) {
+                    keterangan = keterangan.substring(0, 80);
+                    keterangan = keterangan + "...";
+                }
+                IsiKeteranganTV.setText(keterangan);
+                IsiKeteranganTV.setLayoutParams(params);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add selengkapnya button
+                SelengkapnyaBtn = new Button(getActivity());
+                SelengkapnyaBtn.setText("Selengkapnya");
+                SelengkapnyaBtn.setLayoutParams(params);
+                SelengkapnyaBtn.setBackgroundColor(0);
+                subRowLayout.addView(SelengkapnyaBtn);
+                colLayout.addView(subRowLayout);
+
+                if (i!=dataLength) {
+                    rowLayout.addView(colLayout);
+                    myLinearLayout.addView(rowLayout);
+                    rowLayout = new LinearLayout(getActivity());
+                    colLayout = new LinearLayout(getActivity());
+                    colLayout.setOrientation(LinearLayout.VERTICAL);
+                    subRowLayout = new LinearLayout(getActivity());
+                    params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                }
+            }
+//        } catch(JSONException e){e.printStackTrace();}
+    }
+
+    @Override
+    public void onViewCreated (View view, Bundle savedInstanceState){
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_event, container, false);
+        generateEventContent();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event, container, false);
+//        return inflater.inflate(R.layout.fragment_event, container, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -106,5 +290,4 @@ public class EventFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
 }
