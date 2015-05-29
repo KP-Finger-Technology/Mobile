@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public class PermohonanDoaFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    Controller cont = new Controller();
 
     /**
      * Use this factory method to create a new instance of
@@ -73,6 +76,22 @@ public class PermohonanDoaFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+
+    }
+
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
+    private FragmentManager fragManager;
+
+    /*public void KirimDoa(View v) {
+        frag = new AlkitabFragment();
+        switchFragment();
+    }*/
+
+    public void switchFragment() {
+        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag);
+        fragTransaction.addToBackStack(null);
+        fragTransaction.commit();
     }
 
 //    @Override

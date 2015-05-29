@@ -33,6 +33,8 @@ public class JadwalPelayananFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    Controller cont = new Controller();
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -62,6 +64,9 @@ public class JadwalPelayananFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        cont.setEmptyArr();
+        cont.viewJadwalPelayanan();
+        Log.d("Jadwal ", cont.getArrData().toString());
     }
 
     @Override

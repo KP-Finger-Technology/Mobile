@@ -25,105 +25,138 @@ import java.util.TimerTask;
  * Created by ASUS on 5/27/2015.
  */
 public class Controller {
-    String url = "http://192.168.0.111/server/";
+    String url = "http://192.168.0.101/server/";
+    boolean lock = true;
+    private JSONArray arrData = new JSONArray();
 
-    public void viewEvent() {
-        Log.d("Now running.","Event running.");
+    public JSONArray getArrData(){
+        return arrData;
+    }
+
+    public void setEmptyArr(){
+        JSONArray newEmpty = new JSONArray();
+        arrData = newEmpty;
+    }
+
+    public boolean viewEvent() {
+        Log.d("Now running","run");
         final Handler handler = new Handler();
                 handler.post(new Runnable() {
+                    Viewer v = new Viewer();
                     @Override
                     public void run() {
-                        Viewer v = new Viewer();
-                        v.execute(url+"view_event.php");
+                        v.execute(url + "view_event.php");
                         Log.d("Now running", "execute viewer");
+//                        while(lock){
+////                        Log.d("Print isi array",v.arr.toString());
+//                            Log.d("arrData",arrData.toString());
+//                        }
+                        Log.d("arrData",arrData.toString());
                     }
         });
+        return true;
     }
 
-    public void viewKolportase(){
+    public boolean viewKolportase(){
         final Handler handler = new Handler();
         handler.post(new Runnable() {
+            Viewer v = new Viewer();
             @Override
             public void run() {
-                Viewer v = new Viewer();
-                v.execute(url+"view_kolportase.php");
+                v.execute(url + "view_kolportase.php");
+                Log.d("Now running", "execute viewer");
+                Log.d("arrData",arrData.toString());
             }
         });
+        return true;
     }
 
-    public void viewWarta(){
+    public boolean viewWarta(){
         final Handler handler = new Handler();
         handler.post(new Runnable() {
+            Viewer v = new Viewer();
             @Override
             public void run() {
-                Viewer v = new Viewer();
-                v.execute(url+"view_warta.php");
+                v.execute(url + "view_warta.php");
+                Log.d("arrData",arrData.toString());
             }
         });
+        return true;
     }
 
-    public void viewGema(){
+    public boolean viewGema(){
         final Handler handler = new Handler();
         handler.post(new Runnable() {
+            Viewer v = new Viewer();
             @Override
             public void run() {
-                Viewer v = new Viewer();
-                v.execute(url+"view_gema.php");
+                v.execute(url + "view_gema.php");
+                Log.d("arrData",arrData.toString());
             }
         });
+        return true;
     }
 
-    public void viewJadwalKotbah(){
+    public boolean viewJadwalKotbah(){
         final Handler handler = new Handler();
         handler.post(new Runnable() {
+            Viewer v = new Viewer();
             @Override
             public void run() {
-                Viewer v = new Viewer();
-                v.execute(url+"view_jadwalkotbah.php");
+                v.execute(url + "view_jadwalkotbah.php");
+                Log.d("arrData",arrData.toString());
             }
         });
+        return true;
+    }
+    public boolean viewJadwalPelayanan(){
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            Viewer v = new Viewer();
+            @Override
+            public void run() {
+                v.execute(url + "view_jadwalpelayanan.php");
+                Log.d("arrData",arrData.toString());
+            }
+        });
+        return true;
+    }
+    public boolean viewJadwalTeduhPagi(){
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            Viewer v = new Viewer();
+            @Override
+            public void run() {
+                v.execute(url + "view_jadwalteduhpagi.php");
+                Log.d("arrData",arrData.toString());
+            }
+        });
+        return true;
+    }
+    public boolean viewJadwalKomisiPembicara(){
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            Viewer v = new Viewer();
+            @Override
+            public void run() {
+                v.execute(url + "view_jadwalkomisipembicara.php");
+                Log.d("arrData",arrData.toString());
+            }
+        });
+        return true;
     }
 
-    public void viewJadwalPelayanan(){
+    public boolean viewJadwalKomisiPenerjemah(){
         final Handler handler = new Handler();
         handler.post(new Runnable() {
+            Viewer v = new Viewer();
             @Override
             public void run() {
-                Viewer v = new Viewer();
-                v.execute(url+"view_jadwalpelayanan.php");
-            }
-        });
-    }
-    public void viewJadwalTeduhPagi(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Viewer v = new Viewer();
-                v.execute(url+"view_jadwalteduhpagi.php");
-            }
-        });
-    }
-    public void viewJadwalKomisiPembicara(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Viewer v = new Viewer();
-                v.execute(url+"view_jadwalkomisipembicara.php");
-            }
-        });
-    }
-
-    public void viewJadwalKomisiPenerjemah(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Viewer v = new Viewer();
                 v.execute(url + "view_jadwalkomisipenerjemah.php");
+                Log.d("arrData",arrData.toString());
             }
         });
+        return true;
     }
 
     public void addDoa(){
@@ -132,14 +165,65 @@ public class Controller {
             @Override
             public void run() {
                 new Writer().execute(url + "add_doa.php");
-
             }
         });
     }
 
+    public void reader (final String urlp){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                JSONArray arr = new JSONArray();
+                String result = "";
+                String statu ="";
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet(urlp); // ngikutin ip disini loh
+                HttpResponse response;
+
+                Log.d("now running","do in bg");
+
+                try {
+
+                    response = client.execute(request);
+
+                    // Get the response
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                    String line = "";
+                    while ((line = rd.readLine()) != null) {
+                        result += line;
+                    }
+//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
+                    Log.d("Result", result);
+
+                    try {
+                        JSONObject res = new JSONObject(result);
+                        arr = res.getJSONArray("data");
+                        Log.d("Array", arr.toString());
+                        statu = "ok";
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
     class Viewer extends AsyncTask<String, String, String> {
         JSONArray arr = new JSONArray();
+
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        protected void onPostExecute(Long result) {
+            lock = false;
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -168,8 +252,8 @@ public class Controller {
 
                     try {
                         JSONObject res = new JSONObject(result);
-                        arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
+                        arrData = res.getJSONArray("data");
+                        Log.d("Array", arrData.toString());
                         statu = "ok";
 
                     } catch (JSONException e) {
