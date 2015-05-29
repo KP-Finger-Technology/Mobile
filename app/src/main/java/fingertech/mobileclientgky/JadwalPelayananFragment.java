@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 
 /**
@@ -70,8 +72,25 @@ public class JadwalPelayananFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+//        View rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
+//        LinearLayout myLinearLayout;
+//        Log.d("masuk 1:", "yes");
+//        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
+//        Log.d("masuk 2:", "yes");
+//        //add LayoutParams
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+//        Log.d("masuk 3:", "yes");
+//
+//        Button dummy = new Button(getActivity());
+//        dummy.setText("dummy!");
+//        dummy.setLayoutParams(params);
+//        myLinearLayout.addView(dummy);
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
+//        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

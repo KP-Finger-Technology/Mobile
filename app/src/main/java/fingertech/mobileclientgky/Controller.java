@@ -208,7 +208,6 @@ public class Controller {
                     }
 
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -235,7 +234,7 @@ public class Controller {
                 HttpGet request = new HttpGet(urlp); // ngikutin ip disini loh
                 HttpResponse response;
 
-                Log.d("now running","do in bg");
+                Log.d("Now running,","do in background.");
 
                 try {
 

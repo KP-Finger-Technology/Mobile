@@ -19,13 +19,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class Home extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -40,9 +47,12 @@ public class Home extends ActionBarActivity
      */
     private CharSequence mTitle;
 
-    private ListView mDrawerList;
-    private ArrayAdapter<String> mAdapter;
-    private Context activity;
+    // Untuk Navigation Drawer
+    private ExpandableListView mDrawerList;
+    private LinkedHashMap<String, ArrayList<String>> parentHashMap;
+    private ArrayList<String> parentHashMapKeys;
+    private NavigationDrawerAdapter adapter;
+    private DrawerLayout mDrawerLayout;
 
     private Fragment frag;
     private FragmentTransaction fragTransaction;
@@ -69,8 +79,146 @@ public class Home extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        mDrawerList = (ListView)findViewById(R.id.navList);
-        addDrawerItems();
+        mDrawerList = (ExpandableListView)findViewById(R.id.navList);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        parentHashMap = NavigationDrawerDataProvider.getDataHashMap();
+        parentHashMapKeys = new ArrayList<String>(parentHashMap.keySet());
+
+        adapter = new NavigationDrawerAdapter(this, parentHashMap, parentHashMapKeys);
+        mDrawerList.setAdapter(adapter);
+
+        mDrawerList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                /*// Beranda
+                if (groupPosition == 0) {
+                    Toast.makeText(Home.this,
+                        parentHashMapKeys.get(groupPosition)
+                                + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Alkitab
+                else if (groupPosition == 1) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi
+                else if (groupPosition == 2) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Pelayanan
+                else */if (groupPosition == 3) {
+                    frag = new JadwalPelayananFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+                /*// Pembinaan
+                else if (groupPosition == 4) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Events
+                else if (groupPosition == 5) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Tentang Kami
+                else if (groupPosition == 6) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Hubungi Kami
+                else if (groupPosition == 7) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Login
+                else if (groupPosition == 8) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Register
+                else if (groupPosition == 9) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }
+                // Pengaturan
+                else if (groupPosition == 10) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(groupPosition)
+                                    + " expanded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();
+                }*/
+            }
+        });
+
+        /*mDrawerList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(Home.this,
+                        parentHashMapKeys.get(groupPosition)
+                                + " collapsed", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+        mDrawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View clickedView, int groupPosition, int childPosition, long id) {
+                // Komisi Anak
+                if (childPosition == 0) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi Kaleb
+                else if (childPosition == 1) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi Pemuda Dewasa
+                else if (childPosition == 2) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi Remaja & Pemuda
+                else if (childPosition == 3) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
+                // Komisi Wanita
+                else if (childPosition == 4) {
+                    Toast.makeText(Home.this,
+                            parentHashMapKeys.get(childPosition)
+                                    + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                }
+                return false;
+            }
+        });
 
 /*        // Untuk toggle switch
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,11 +228,11 @@ public class Home extends ActionBarActivity
         mActivityTitle = getTitle().toString();*/
     }
 
-    private void addDrawerItems() {
+    /*private void addDrawerItems() {
         String[] menuArray = { "Beranda", "Pelayanan", "Pembinaan", "Events", "Tentang Kami", "Hubungi Kami" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuArray);
         mDrawerList.setAdapter(mAdapter);
-    }
+    }*/
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -155,9 +303,9 @@ public class Home extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public Context getActivity() {
+    /*public Context getActivity() {
         return activity;
-    }
+    }*/
 
     /**
      * A placeholder fragment containing a simple view.
