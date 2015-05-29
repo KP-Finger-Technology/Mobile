@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -132,10 +133,13 @@ public class NavigationDrawerFragment extends Fragment {
                 }
                 else if (position == 3) {
                     // Events
+                    cont.viewEvent();
                     frag = new EventFragment();
                     switchFragment();
                     Toast.makeText(getActivity(), "3", Toast.LENGTH_SHORT).show();
-                    cont.viewEvent();
+//                    while (!cont.viewEvent() ) {
+                        Log.d("isi aray", cont.getArrData().toString());
+//                    }
                 }
                 else if (position == 4) {
                     // Tentang Kami

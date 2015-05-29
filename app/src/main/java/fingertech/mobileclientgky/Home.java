@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,7 +21,9 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +47,8 @@ public class Home extends ActionBarActivity
     private Fragment frag;
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
+
+    Controller cont = new Controller();
 
 /*    // Untuk toggle switch
     private ActionBarDrawerToggle mDrawerToggle;
@@ -225,6 +230,29 @@ public class Home extends ActionBarActivity
     public void kelompokClicked(View v) {
         frag = new KelompokKecilFragment();
         switchFragment();
+    }
+
+    public void KirimDoa(View v) {
+        frag = new AlkitabFragment();
+        switchFragment();
+        ambilDataDoa();
+    }
+
+    public void ambilDataDoa(){
+        EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
+        EditText umurET = (EditText) findViewById(R.id.permohonanDoa_editUmur);
+        EditText emailET = (EditText) findViewById(R.id.permohonanDoa_editEmail);
+        EditText teleponET = (EditText) findViewById(R.id.permohonanDoa_editTelepon);
+        EditText doaET = (EditText) findViewById(R.id.permohonanDoa_editDoa);
+//        RadioButton jenisKelamin = (RadioButton) findViewById((R.id.permohonanDoa_editJenisKelamin));
+
+        String nama = namaET.getText().toString();
+        String umur = umurET.getText().toString();
+        String email = emailET.getText().toString();
+        String telepon = teleponET.getText().toString();
+        String doa = doaET.getText().toString();
+
+        Log.d("edit nama ", nama);
     }
 
     public void switchFragment() {

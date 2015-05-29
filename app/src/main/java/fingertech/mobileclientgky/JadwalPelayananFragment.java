@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 //import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -29,6 +30,8 @@ public class JadwalPelayananFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    Controller cont = new Controller();
 
     /**
      * Use this factory method to create a new instance of
@@ -59,6 +62,9 @@ public class JadwalPelayananFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        cont.setEmptyArr();
+        cont.viewJadwalPelayanan();
+        Log.d("Jadwal ", cont.getArrData().toString());
     }
 
     @Override
