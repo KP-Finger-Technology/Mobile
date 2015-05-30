@@ -1,6 +1,8 @@
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.res.Configuration;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -22,6 +24,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
@@ -30,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -59,6 +63,10 @@ public class Home extends ActionBarActivity
     private FragmentManager fragManager;
 
     Controller cont = new Controller();
+
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private int year, month, day;
 
 /*    // Untuk toggle switch
     private ActionBarDrawerToggle mDrawerToggle;
@@ -162,6 +170,12 @@ public class Home extends ActionBarActivity
                 }
             }
         });
+;
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
 
         /*mDrawerList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
@@ -227,6 +241,33 @@ public class Home extends ActionBarActivity
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuArray);
         mDrawerList.setAdapter(mAdapter);
     }*/
+
+    @SuppressWarnings("deprecation")
+    public void setDate(View view) {
+        showDialog(999);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            // TODO Auto-generated method stub
+            // arg1 = year
+            // arg2 = month
+            // arg3 = day
+            EditText ET = (EditText) findViewById(R.id.datePickerEdit);
+            String temp = Integer.toString(arg3) + "/" +Integer.toString(arg2) + "/" + Integer.toString(arg1);
+            ET.setText(temp);
+        }
+    };
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -379,6 +420,7 @@ public class Home extends ActionBarActivity
         switchFragment();
         ambilDataDoa();
     }
+
 
     public void ambilDataDoa(){
         EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
