@@ -3,6 +3,7 @@ package fingertech.mobileclientgky;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 //import android.app.Fragment;
@@ -105,14 +106,18 @@ public class RenunganGemaFragment extends Fragment {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
         //add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0,0,0,30);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        int colorWhite = Color.WHITE;
 
         // Isi Ayat
         String IsiAyat = "Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal. - Yohanes 3:16";
-        Log.d("masuk isi ayat!!",IsiAyat);
         TextView ayatRenungan = new TextView(getActivity());
         ayatRenungan.setText(IsiAyat);
         ayatRenungan.setLayoutParams(params);
+//        ayatRenungan.setTextColor(colorWhite);
+        ayatRenungan.setGravity(1);
         myLinearLayout.addView(ayatRenungan);
 
         // Isi Renungan
@@ -120,6 +125,8 @@ public class RenunganGemaFragment extends Fragment {
         TextView isiRenungan = new TextView(getActivity());
         isiRenungan.setText(IsiRenungan);
         isiRenungan.setLayoutParams(params);
+        isiRenungan.setGravity(0);
+//        isiRenungan.setTextColor(colorWhite);
         myLinearLayout.addView(isiRenungan);
 
 //        } catch(JSONException e){e.printStackTrace();}

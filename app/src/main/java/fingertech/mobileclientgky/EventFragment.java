@@ -1,11 +1,13 @@
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -121,6 +123,7 @@ public class EventFragment extends Fragment {
             //add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            params.setMargins(0, 10, 20, 0);
 
             LinearLayout rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -137,8 +140,11 @@ public class EventFragment extends Fragment {
 
             LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            int image_width = 250;
-            int image_height = 320;
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            int image_width = display.getWidth()/3;
+            int image_height = (int) (display.getHeight()/4.3);
+
+            int colorWhite = Color.WHITE;
 
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
@@ -160,12 +166,14 @@ public class EventFragment extends Fragment {
                 GambarIV.setMinimumHeight(image_height);
                 GambarIV.setMaxHeight(image_height);
                 GambarIV.setMaxWidth(image_width);
+                GambarIV.setLayoutParams(params);
                 rowLayout.addView(GambarIV);
 
                 //add text View TitleEventTV
                 TitleEventTV = new TextView(getActivity());
                 TitleEventTV.setText("Event: ");
                 TitleEventTV.setLayoutParams(params);
+                TitleEventTV.setTextColor(colorWhite);
                 subRowLayout.addView(TitleEventTV);
                 //add text View JudulEventTV
                 JudulEventTV = new TextView(getActivity());
@@ -178,6 +186,7 @@ public class EventFragment extends Fragment {
                 //add text View TitleTanggalTV
                 TitleTanggalTV = new TextView(getActivity());
                 TitleTanggalTV.setText("Tanggal: ");
+                TitleTanggalTV.setTextColor(colorWhite);
                 TitleTanggalTV.setLayoutParams(params);
                 subRowLayout.addView(TitleTanggalTV);
                 //add text View JudulTanggalTV
@@ -191,6 +200,7 @@ public class EventFragment extends Fragment {
                 //add text View TitleWaktuTV
                 TitleWaktuTV = new TextView(getActivity());
                 TitleWaktuTV.setText("Waktu: ");
+                TitleWaktuTV.setTextColor(colorWhite);
                 TitleWaktuTV.setLayoutParams(params);
                 subRowLayout.addView(TitleWaktuTV);
                 //add text View JudulWaktuTV
@@ -204,6 +214,7 @@ public class EventFragment extends Fragment {
                 //add text View TitleKeteranganTV
                 TitleKeteranganTV = new TextView(getActivity());
                 TitleKeteranganTV.setText("Keterangan: ");
+                TitleKeteranganTV.setTextColor(colorWhite);
                 TitleKeteranganTV.setLayoutParams(params);
                 subRowLayout.addView(TitleKeteranganTV);
                 //add text View IsiKeteranganTV
@@ -232,7 +243,6 @@ public class EventFragment extends Fragment {
                     colLayout = new LinearLayout(getActivity());
                     colLayout.setOrientation(LinearLayout.VERTICAL);
                     subRowLayout = new LinearLayout(getActivity());
-                    params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 }
             }
 //        } catch(JSONException e){e.printStackTrace();}
