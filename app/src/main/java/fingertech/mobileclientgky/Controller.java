@@ -38,6 +38,15 @@ public class Controller {
         arrData = newEmpty;
     }
 
+    public boolean isArrEmpty(){
+        if(arrData.length()==0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public boolean viewEvent() {
         Log.d("Now running","run");
         final Handler handler = new Handler();
@@ -47,10 +56,9 @@ public class Controller {
                     public void run() {
                         v.execute(url + "view_event.php");
                         Log.d("Now running", "execute viewer");
-//                        while(lock){
-////                        Log.d("Print isi array",v.arr.toString());
-//                            Log.d("arrData",arrData.toString());
-//                        }
+                        while(isArrEmpty()){
+                            Log.d("Processing","...");
+                        }
                         Log.d("arrData",arrData.toString());
                     }
         });
@@ -116,6 +124,9 @@ public class Controller {
             @Override
             public void run() {
                 v.execute(url + "view_jadwalpelayanan.php");
+                while(isArrEmpty()){
+                    Log.d("Processing","...");
+                }
                 Log.d("arrData",arrData.toString());
             }
         });
@@ -174,7 +185,6 @@ public class Controller {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                JSONArray arr = new JSONArray();
                 String result = "";
                 String statu ="";
                 HttpClient client = new DefaultHttpClient();
@@ -184,7 +194,6 @@ public class Controller {
                 Log.d("now running","do in bg");
 
                 try {
-
                     response = client.execute(request);
 
                     // Get the response
@@ -199,8 +208,8 @@ public class Controller {
 
                     try {
                         JSONObject res = new JSONObject(result);
-                        arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
+                        arrData = res.getJSONArray("data");
+                        Log.d("Array", arrData.toString());
                         statu = "ok";
 
                     } catch (JSONException e) {
