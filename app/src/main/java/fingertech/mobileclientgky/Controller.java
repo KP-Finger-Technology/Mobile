@@ -25,7 +25,7 @@ import java.util.TimerTask;
  * Created by ASUS on 5/27/2015.
  */
 public class Controller {
-    String url = "http://192.168.0.101/server/";
+    String url = "http://192.168.0.100/server/";
     boolean lock = true;
     private JSONArray arrData = new JSONArray();
 
@@ -57,7 +57,7 @@ public class Controller {
                         v.execute(url + "view_event.php");
                         Log.d("Now running", "execute viewer");
                         while(isArrEmpty()){
-                            Log.d("Processing","...");
+//                            Log.d("Processing","...");
                         }
                         Log.d("arrData",arrData.toString());
                     }
@@ -125,7 +125,7 @@ public class Controller {
             public void run() {
                 v.execute(url + "view_jadwalpelayanan.php");
                 while(isArrEmpty()){
-                    Log.d("Processing","...");
+//                    Log.d("Processing","...");
                 }
                 Log.d("arrData",arrData.toString());
             }
@@ -362,4 +362,3 @@ public class Controller {
         }
     }
 }
-

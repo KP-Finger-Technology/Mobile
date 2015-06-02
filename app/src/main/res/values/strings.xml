@@ -70,4 +70,33 @@
     <string name="kirim">Kirim</string>
     <string name="daftar">Daftar</string>
     <string name="masuk">Masuk</string>
+    <string name="tentangKami_textPenjelasanKomisi">Selain mengikuti kegiatan yang diadakan untuk umum, jemaat juga bisa mengikuti kegiatan komisi-komisi yang ada. Mulai dari anak kecil sampai manula, tidak ada yang terlewatkan.</string>
+    <string name="tentangKami_textKomisiAnak">Komisi Anak</string>
+    <string name="tentangKami_textPenjelasanKomisiAnak">Melayani usia balita sampai kelas 6 SD. Pelayanan ini penting karena berdampak sampai anak-anak dewasa. Saat ini ada sekitar 3200 anak dengan guru.</string>
+    <string name="tentangKami_textKomisiRemaja">Komisi Remaja</string>
+    <string name="tentangKami_textPenjelasanKomisiRemaja">Yang disebut remaja adalah mereka yang telah duduk di bangku SMP dan SMA. Saat ini ada sekitar 1300 remaja yang bertekad membuktikan bahwa tidak semua remaja terlibat \"kenakalan remaja\", tapi masih ada yang hidup memuliakan Tuhan.</string>
+    <string name="tentangKami_textKomisiPemuda">Komisi Pemuda</string>
+    <string name="tentangKami_textPenjelasanKomisiPemuda">Semuanya telah lulus SMA, ada yang masih kuliah, ada juga yang sudah bekerja. Sekitar 800 pemuda yang aktif mempersembahkan tenaga mudanya untuk Tuhan.</string>
+    <string name="tentangKami_textKomisiPasutri">Komisi Pasutri</string>
+    <string name="tentangKami_textPenjelasanKomisiPasutri">Kepanjangannya adalah Komisi Pasangan Suami-Istri. Kebanyakan anggotanya adalah pasangan muda. Tapi yang sudah mempunyai anak remajapun tetap aktif dalam komisi yang ingin membentuk keluarga-keluarga Kristen yang beribadah ini.</string>
+    <string name="tentangKami_textKomisiWanita">Komisi Wanita</string>
+    <string name="tentangKami_textPenjelasanKomisiWanita">Ibu-ibu rumah tangga ini seringkali justru paling banyak waktu melayani di Rumah Tuhan. Sekitar 700-800 mengikuti pembinaan, pelayanan dalam komisi ini.</string>
+    <string name="hubungiKami_textAlamat">Alamat</string>
+    <string name="hubungiKami_textDetailAlamat">Jalan Pluit Permai Dalam I Nomor 9, Jakarta, 14450</string>
+    <string name="hubungiKami_textDetailTelepon">(021) 6696826</string>
+    <string name="hubungiKami_textTelepon">Telepon</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pengakuanIman_textPengakuanIman1">1. Kami percaya kepada Allah Yang Esa yang memiliki tiga pribadi yang setara di dalam kekekalan, yaitu: Allah Bapa, Allah Putra (Tuhan Yesus Kristus), dan Allah Roh Kudus yang adalah Pencipta dan Pemelihara alam semesta ini.</string>
+    <string name="pengakuanIman_textPengakuanIman2">2. Kami percaya kepada Yesus Kristus yang adalah satu-satunya Juruselamat manusia; Allah Anak yang menjadi manusia, yang telah dikandung dari Roh Kudus dan lahir dari anak dara Maria; yang hidup tanpa dosa, disalibkan dan mati untuk menebus manusia yang berdosa, bangkit dari antara orang mati pada hari ketiga, naik ke sorga dan duduk di sebelah kanan Allah Bapa untuk menjadi Pengantara bagi umatNya sebagai Imam Besar yang sempurna, dan akan datang kembali untuk menghakimi orang yang hidup dan yang mati.</string>
+    <string name="pengakuanIman_textPengakuanIman3">3. Kami percaya kepada Roh Kudus yang menginsyafkan manusia berdosa supaya bertobat dan percaya kepada Yesus Kristus; yang melahirbarukan orang percaya menjadi anak-anak Allah; yang memeteraikan setiap orang percaya sebagai warga Kerajaan Allah, yang memimpin orang percaya kepada kebenaran Allah yang sejati; serta yang memperlengkapi setiap orang percaya dengan karunia-karunia rohani untuk pelayanan tubuh Kristus.</string>
+    <string name="pengakuanIman_textPengakuanIman4">4. Kami percaya bahwa Alkitab, yaitu Perjanjian Lama dan Perjanjian Baru, adalah pernyataan/wahyu Allah yang sempurna, yang diilhamkan oleh Roh Kudus. dan merupakan otoritas tinggal dan mutlak bagi iman, moral, dan kehidupan semua orang percaya (II Tim 3:16-17).</string>
+    <string name="pengakuanIman_textPengakuanIman5">5. Kami percaya bahwa manusia diciptakan oleh Allah menurut gambar dan rupaNya, namun manusia telah jatuh ke dalam dosa sehingga kehilangan kemuliaan Allah. (Roma 3:23) dan menanggung upah dosa, yaitu maut (Roma 6:23).</string>
+    <string name="pengakuanIman_textPengakuanIman6">6. Kami percaya bahwa Allah sangat mengasihi manusia sehingga mengaruniakan anakNya Yang Tunggal, yaitu Yesus Kristus supaya setiap orang yang percaya dan menerimaNya sebagai Tuhan dan Juruselamat pribadi diselamatkan dan beroleh hidup kekal (Yoh 3:16).</string>
+    <string name="pengakuanIman_textPengakuanIman7">7. Kami percaya bahwa setiap orang percaya menerima baptisan Roh Kudus pada saat ia beriman dan menerima Yesus Kristus sebagai Tuhan dan Juruselamat-Nya.</string>
+    <string name="pengakuanIman_textPengakuanIman8">8. Kami percaya bahwa setiap orang percaya perlu menyatakan sikap imannya di depan umum melalui memberi diri dibaptis dengan baptisan air sebagai lambang persekutuan dengan kematian dan kebangkitan Yesus Kristus.</string>
+    <string name="pengakuanIman_textPengakuanIman9">9. Kami percaya kepada satu Gereja yang Kudus dan Am (universal), yaitu persekutuan semua orang percaya kepada Yesus Kristus dari segala abad dan tempat, yang terpanggil untuk hidup dalam kasih dan kekudusanNya, taat kepada kebenaran Firman Allah dan menjadi saksi Kristus untuk memberitakan Injil ke seluruh permukaan bumi.</string>
+    <string name="pengakuanIman_textPengakuanIman10">10. Kami percaya bahwa Gereja adalah tubuh Kristus di mana setiap anggotanya dengan teguh berpegang pada kebenaran di dalam kasih, saling melayani, serta bertumbuh bersama untuk mencapai kedewasaan penuh di dalam kasih, saling melayani, serta bertumbuh bersama untuk mencapai kedewasaan penuh di dalam segala hal ke arah Kristus Yesus yang adalah Kepala Gereja (Efesus 4:11-16).</string>
+    <string name="pengakuanIman_textPengakuanIman11">11. Kami percaya dan memiliki pengharapan penuh bahwa Tuhan Yesus akan datang kedua kalinya untuk menghakimi orang yang hidup dan yang mati. Setiap orang yang telah menerima Yesus Kristus sebagai Juruselamat pribadinya akan menerima tubuh kebangkitan dan memperoleh kehidupan kekal di surga, sedangkan setiap orang yang tidak menerima Yesus Kristus sebagai Tuhan dan Juruselamatnya akan mengalami hukuman kekal.</string>
 </resources>

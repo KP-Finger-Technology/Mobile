@@ -120,9 +120,9 @@ public class Home extends ActionBarActivity
                 }
                 // Pelayanan
                 else if (groupPosition == 3) {
-                    frag = new JadwalPelayananFragment();
+                    /*frag = new JadwalPelayananFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment();*/
                 }
                 // Pembinaan
                 else if (groupPosition == 4) {
@@ -133,9 +133,9 @@ public class Home extends ActionBarActivity
                 }
                 // Events
                 else if (groupPosition == 5) {
-                    frag = new EventFragment();
+                    /*frag = new EventFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment();*/
                 }
                 // Tentang Kami
                 else if (groupPosition == 6) {
@@ -189,41 +189,136 @@ public class Home extends ActionBarActivity
         mDrawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View clickedView, int groupPosition, int childPosition, long id) {
+                // Sub menu dari menu Komisi
                 // Komisi Anak
-                if (childPosition == 0) {
+                if (groupPosition == 2 && childPosition == 0) {
                     Toast.makeText(Home.this,
                             parentHashMapKeys.get(childPosition)
                                     + " selected", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
                 }
                 // Komisi Kaleb
-                else if (childPosition == 1) {
+                else if (groupPosition == 2 && childPosition == 1) {
                     Toast.makeText(Home.this,
                             parentHashMapKeys.get(childPosition)
                                     + " selected", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
                 }
                 // Komisi Pemuda Dewasa
-                else if (childPosition == 2) {
+                else if (groupPosition == 2 && childPosition == 2) {
                     Toast.makeText(Home.this,
                             parentHashMapKeys.get(childPosition)
                                     + " selected", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
                 }
                 // Komisi Remaja & Pemuda
-                else if (childPosition == 3) {
+                else if (groupPosition == 2 && childPosition == 3) {
                     Toast.makeText(Home.this,
                             parentHashMapKeys.get(childPosition)
                                     + " selected", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
                 }
                 // Komisi Wanita
-                else if (childPosition == 4) {
+                else if (groupPosition == 2 && childPosition == 4) {
                     Toast.makeText(Home.this,
                             parentHashMapKeys.get(childPosition)
                                     + " selected", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
                 }
+
+                // Sub menu dari menu Pelayanan
+                // Diakonia dan Oikumene
+                else if (groupPosition == 2 && childPosition == 0) {
+                    frag = new JadwalPelayananFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+
+                // Kebaktian Doa
+                else if (groupPosition == 2 && childPosition == 1) {
+                    frag = new JadwalPelayananFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+
+                // Kebaktian Umum
+                else if (groupPosition == 2 && childPosition == 2) {
+                    frag = new JadwalPelayananFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+
+                // Kelompok Kecil
+                else if (groupPosition == 2 && childPosition == 3) {
+                    frag = new JadwalPelayananFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+
+                // Misi / Pengabaran Injil
+                else if (groupPosition == 2 && childPosition == 4) {
+                    frag = new JadwalPelayananFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+
+                // Sub menu dari menu Pembinaan
+                // Katekisasi
+                else if (groupPosition == 3 && childPosition == 0) {
+
+                }
+
+                // Pre-marital
+                else if (groupPosition == 3 && childPosition == 1) {
+
+                }
+
+                // Renungan Gema
+                else if (groupPosition == 3 && childPosition == 2) {
+
+                }
+
+                // Rekaman Khotbah
+                else if (groupPosition == 3 && childPosition == 3) {
+
+                }
+
+                // Permohonan Doa
+                else if (groupPosition == 3 && childPosition == 4) {
+                    frag = new PermohonanDoaFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+
+                // KPPK
+                else if (groupPosition == 3 && childPosition == 5) {
+
+                }
+
+                // Lirik Lagu Rohani
+                else if (groupPosition == 3 && childPosition == 6) {
+
+                }
+
+                // Pengakuan Iman
+                else if (groupPosition == 3 && childPosition == 7) {
+
+                }
+
+                // Kolportase
+                else if (groupPosition == 3 && childPosition == 8) {
+
+                }
+
+                // Jadwal Pelayanan
+                else if (groupPosition == 3 && childPosition == 9) {
+                    frag = new JadwalPelayananFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+
+                // Sub menu dari menu Events
+
                 return false;
             }
         });

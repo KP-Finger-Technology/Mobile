@@ -3,25 +3,21 @@ package fingertech.mobileclientgky;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link JadwalPelayananFragment.OnFragmentInteractionListener} interface
+ * {@link PengakuanIman.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link JadwalPelayananFragment#newInstance} factory method to
+ * Use the {@link PengakuanIman#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class JadwalPelayananFragment extends Fragment {
+public class PengakuanIman extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,19 +29,17 @@ public class JadwalPelayananFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    // Controller cont = new Controller();
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment JadwalPelayananFragment.
+     * @return A new instance of fragment PengakuanIman.
      */
     // TODO: Rename and change types and number of parameters
-    public static JadwalPelayananFragment newInstance(String param1, String param2) {
-        JadwalPelayananFragment fragment = new JadwalPelayananFragment();
+    public static PengakuanIman newInstance(String param1, String param2) {
+        PengakuanIman fragment = new PengakuanIman();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,7 +47,7 @@ public class JadwalPelayananFragment extends Fragment {
         return fragment;
     }
 
-    public JadwalPelayananFragment() {
+    public PengakuanIman() {
         // Required empty public constructor
     }
 
@@ -64,32 +58,13 @@ public class JadwalPelayananFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        /*cont.viewJadwalPelayanan();
-        Log.d("Jadwal ", cont.getArrData().toString());*/
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-//        View rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
-//        LinearLayout myLinearLayout;
-//        Log.d("masuk 1:", "yes");
-//        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
-//        Log.d("masuk 2:", "yes");
-//        //add LayoutParams
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-//        Log.d("masuk 3:", "yes");
-//
-//        Button dummy = new Button(getActivity());
-//        dummy.setText("dummy!");
-//        dummy.setLayoutParams(params);
-//        myLinearLayout.addView(dummy);
-
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
-//        return rootView;
+        return inflater.inflate(R.layout.fragment_pengakuan_iman, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -99,16 +74,16 @@ public class JadwalPelayananFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    /*@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }*/
 
     @Override
     public void onDetach() {

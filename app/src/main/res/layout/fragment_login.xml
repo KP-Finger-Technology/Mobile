@@ -49,8 +49,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/login_textUsername"
-                        android:id="@+id/login_textNama"
-                        android:textColor="#ffffffff"/>
+                        android:id="@+id/login_textNama"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -59,16 +58,14 @@
                         android:hint="contoh: RitaSarah"
                         android:ems="15"
                         android:id="@+id/login_editNama"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#ffffffff"/>
+                        android:layout_marginTop="5dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/login_textPassword"
-                        android:id="@+id/login_textPassword"
-                        android:textColor="#ffffffff"/>
+                        android:id="@+id/login_textPassword"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -77,8 +74,7 @@
                         android:hint="contoh: ritasarah"
                         android:ems="15"
                         android:id="@+id/login_editPassword"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#ffffffff"/>
+                        android:layout_marginTop="5dp"/>
 
                     <Button
                         style="?android:attr/buttonStyle"

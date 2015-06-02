@@ -1,9 +1,8 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="fingertech.mobileclientgky.HubungiKamiFragment"
-    android:orientation="vertical">
+    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.HubungiKamiFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,27 +25,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffddbb"
-        android:id="@+id/shell_hubungiKami"
-        android:orientation="vertical">
+        >
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/scroll_hubungiKami">
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/container_hubungiKami"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="8dp">
+                android:layout_height="match_parent">
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-        </ScrollView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/hubungiKami_textAlamat"
+                        android:id="@+id/hubungiKami_textAlamat"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/hubungiKami_textDetailAlamat"
+                        android:id="@+id/hubungiKami_textDetailAlamat"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/hubungiKami_textTelepon"
+                        android:id="@+id/hubungiKami_textTelepon"
+                        android:layout_marginTop="5dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/hubungiKami_textDetailTelepon"
+                        android:id="@+id/hubungiKami_textDetailTelepon"/>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
 
     </LinearLayout>
 
