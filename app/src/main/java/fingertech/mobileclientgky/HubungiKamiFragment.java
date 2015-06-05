@@ -89,8 +89,8 @@ public class HubungiKamiFragment extends Fragment {
         }
 
         /*buttonGetDirection = (Button) getActivity().findViewById(R.id.hubungiKami_getDirection);
-
         buttonGetDirection.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 openMapApps();
@@ -214,7 +214,6 @@ public class HubungiKamiFragment extends Fragment {
         Intent intent = null;
         intent = new Intent(android.content.Intent.ACTION_VIEW);
         intent.setData(Uri.parse("geo:" + latitude + "," + longitude));
-        chooser = Intent.createChooser(intent, "Launch Maps");
-        startActivity(chooser);
+        startActivity(intent);
     }
 }
