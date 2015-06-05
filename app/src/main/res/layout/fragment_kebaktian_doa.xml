@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.TentangKamiFragment">
+    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.KebaktianDoaFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Tentang Kami"
+            android:text="Kebaktian Doa"
             android:id="@+id/textView"
             android:textColor="#ffffffff"
             android:layout_marginLeft="20dp"
@@ -48,83 +48,123 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisi"
-                        android:id="@+id/tentangKami_textPenjelasanKomisi"/>
+                        android:text="@string/kebaktianDoa_textVisi"
+                        android:id="@+id/kebaktianDoa_textVisi"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiAnak"
-                        android:id="@+id/tentangKami_textKomisiAnak"
+                        android:text="@string/kebaktianDoa_textDetailVisi"
+                        android:id="@+id/kebaktianDoa_textDetailVisi"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/kebaktianDoa_textParagraf1"
+                        android:id="@+id/kebaktianDoa_textParagraf1"
+                        android:layout_marginTop="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/kebaktianDoa_textParagraf2"
+                        android:id="@+id/kebaktianDoa_textParagraf2"
                         android:layout_marginTop="5dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiAnak"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiAnak"/>
+                        android:text="@string/kebaktianDoa_textKutipanInjil1"
+                        android:id="@+id/kebaktianDoa_textKutipanInjil1"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold|italic"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiRemaja"
-                        android:id="@+id/tentangKami_textKomisiRemaja"
-                        android:layout_marginTop="5dp"/>
+                        android:text="@string/kebaktianDoa_textKutipanInjil2"
+                        android:id="@+id/kebaktianDoa_textKutipanInjil2"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold|italic"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiRemaja"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiRemaja"/>
+                        android:text="@string/kebaktianDoa_textParagraf3"
+                        android:id="@+id/kebaktianDoa_textParagraf3"
+                        android:layout_marginTop="20dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiPemuda"
-                        android:id="@+id/tentangKami_textKomisiPemuda"
-                        android:layout_marginTop="5dp"/>
+                        android:text="@string/kebaktianDoa_textJadwal"
+                        android:id="@+id/kebaktianDoa_textJadwal"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiPemuda"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiPemuda"/>
+                        android:text="@string/kebaktianDoa_textJadwal1"
+                        android:id="@+id/kebaktianDoa_textJadwal1"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiPasutri"
-                        android:id="@+id/tentangKami_textKomisiPasutri"
-                        android:layout_marginTop="5dp"/>
+                        android:text="@string/kebaktianDoa_textDetailJadwal1"
+                        android:id="@+id/kebaktianDoa_textDetailJadwal1"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiPasutri"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiPasutri"/>
+                        android:text="@string/kebaktianDoa_textJadwal2"
+                        android:id="@+id/kebaktianDoa_textJadwal2"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiWanita"
-                        android:id="@+id/tentangKami_textKomisiWanita"
-                        android:layout_marginTop="5dp"/>
+                        android:text="@string/kebaktianDoa_textDetailJadwal2"
+                        android:id="@+id/kebaktianDoa_textDetailJadwal2"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiWanita"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiWanita"/>
+                        android:text="@string/kebaktianDoa_textPembina"
+                        android:id="@+id/kebaktianDoa_textPembina"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/kebaktianDoa_textDetailPembina"
+                        android:id="@+id/kebaktianDoa_textDetailPembina"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/kebaktianDoa_textParagraf4"
+                        android:id="@+id/kebaktianDoa_textParagraf4"
+                        android:layout_marginTop="20dp"/>
 
                 </LinearLayout>
             </ScrollView>

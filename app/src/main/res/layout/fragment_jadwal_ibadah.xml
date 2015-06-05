@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.KatekisasiFragment">
+    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.JadwalIbadahFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Katekisasi"
+            android:text="Jadwal Ibadah"
             android:id="@+id/textView"
             android:textColor="#ffffffff"
             android:layout_marginLeft="20dp"
@@ -43,14 +43,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/katekisasi_text"
-                        android:id="@+id/katekisasi_text"
-                        android:textStyle="bold"/>
 
                 </LinearLayout>
             </ScrollView>

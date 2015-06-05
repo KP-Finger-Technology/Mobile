@@ -3,9 +3,6 @@ package fingertech.mobileclientgky;
 import java.util.Date;
 import java.util.Timer;
 
-/**
- * Created by ASUS on 5/29/2015.
- */
 public class Pelayanan {
 
     private String jenis;

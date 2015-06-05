@@ -3,16 +3,13 @@ package fingertech.mobileclientgky;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.res.Configuration;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,22 +18,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 public class Home extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -68,6 +59,11 @@ public class Home extends ActionBarActivity
     private Calendar calendar;
     private int year, month, day;
 
+    // Untuk ViewPager
+    private SmartFragmentStatePagerAdapter adapterViewPager;
+    static final int NUMBER_OF_KOLPORTASE = 4;
+    ViewPager mPager;
+
 /*    // Untuk toggle switch
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -75,6 +71,7 @@ public class Home extends ActionBarActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Untuk Navigation Drawer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -82,7 +79,6 @@ public class Home extends ActionBarActivity
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
@@ -192,133 +188,173 @@ public class Home extends ActionBarActivity
                 // Sub menu dari menu Komisi
                 // Komisi Anak
                 if (groupPosition == 2 && childPosition == 0) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(childPosition)
-                                    + " selected", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                    frag = new KomisiAnakFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Komisi Kaleb
                 else if (groupPosition == 2 && childPosition == 1) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(childPosition)
-                                    + " selected", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                    frag = new KomisiKalebFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+                // Komisi Pasutri
+                else if (groupPosition == 2 && childPosition == 2) {
+                    frag = new KomisiPasutriFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Komisi Pemuda Dewasa
-                else if (groupPosition == 2 && childPosition == 2) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(childPosition)
-                                    + " selected", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                else if (groupPosition == 2 && childPosition == 3) {
+                    frag = new KomisiPemudaDewasaFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Komisi Remaja & Pemuda
-                else if (groupPosition == 2 && childPosition == 3) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(childPosition)
-                                    + " selected", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                else if (groupPosition == 2 && childPosition == 4) {
+                    frag = new KomisiRemajaDanPemudaFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Komisi Wanita
-                else if (groupPosition == 2 && childPosition == 4) {
-                    Toast.makeText(Home.this,
-                            parentHashMapKeys.get(childPosition)
-                                    + " selected", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "childPosition : " + childPosition, Toast.LENGTH_LONG).show();
+                else if (groupPosition == 2 && childPosition == 5) {
+                    frag = new KomisiWanitaFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // Sub menu dari menu Pelayanan
                 // Diakonia dan Oikumene
-                else if (groupPosition == 2 && childPosition == 0) {
-                    frag = new JadwalPelayananFragment();
+                else if (groupPosition == 3 && childPosition == 0) {
+                    frag = new DiakoniaDanOikumeneFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
 
                 // Kebaktian Doa
-                else if (groupPosition == 2 && childPosition == 1) {
-                    frag = new JadwalPelayananFragment();
+                else if (groupPosition == 3 && childPosition == 1) {
+                    frag = new KebaktianDoaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
 
                 // Kebaktian Umum
-                else if (groupPosition == 2 && childPosition == 2) {
-                    frag = new JadwalPelayananFragment();
+                else if (groupPosition == 3 && childPosition == 2) {
+                    frag = new KebaktianUmumFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
 
                 // Kelompok Kecil
-                else if (groupPosition == 2 && childPosition == 3) {
-                    frag = new JadwalPelayananFragment();
+                else if (groupPosition == 3 && childPosition == 3) {
+                    frag = new KelompokKecilFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
 
                 // Misi / Pengabaran Injil
-                else if (groupPosition == 2 && childPosition == 4) {
-                    frag = new JadwalPelayananFragment();
+                else if (groupPosition == 3 && childPosition == 4) {
+                    frag = new MisiPengabaranInjilFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
 
                 // Sub menu dari menu Pembinaan
                 // Katekisasi
-                else if (groupPosition == 3 && childPosition == 0) {
-
+                else if (groupPosition == 4 && childPosition == 0) {
+                    frag = new KatekisasiFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // Pre-marital
-                else if (groupPosition == 3 && childPosition == 1) {
-
+                else if (groupPosition == 4 && childPosition == 1) {
+                    frag = new PreMaritalClassFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // Renungan Gema
-                else if (groupPosition == 3 && childPosition == 2) {
-
+                else if (groupPosition == 4 && childPosition == 2) {
+                    frag = new RenunganGemaFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // Rekaman Khotbah
-                else if (groupPosition == 3 && childPosition == 3) {
-
+                else if (groupPosition == 4 && childPosition == 3) {
+                    frag = new RekamanKhotbahFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // Permohonan Doa
-                else if (groupPosition == 3 && childPosition == 4) {
+                else if (groupPosition == 4 && childPosition == 4) {
                     frag = new PermohonanDoaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
 
                 // KPPK
-                else if (groupPosition == 3 && childPosition == 5) {
-
+                else if (groupPosition == 4 && childPosition == 5) {
+                    frag = new KPPKFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // Lirik Lagu Rohani
-                else if (groupPosition == 3 && childPosition == 6) {
-
+                else if (groupPosition == 4 && childPosition == 6) {
+                    frag = new LirikLaguRohaniFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // Pengakuan Iman
-                else if (groupPosition == 3 && childPosition == 7) {
-
+                else if (groupPosition == 4 && childPosition == 7) {
+                    frag = new PengakuanImanFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // Kolportase
-                else if (groupPosition == 3 && childPosition == 8) {
-
+                else if (groupPosition == 4 && childPosition == 8) {
+                    frag = new KolportaseFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // Jadwal Pelayanan
-                else if (groupPosition == 3 && childPosition == 9) {
+                else if (groupPosition == 4 && childPosition == 9) {
                     frag = new JadwalPelayananFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
 
                 // Sub menu dari menu Events
-
+                // Warta Mingguan
+                else if (groupPosition == 5 && childPosition == 0) {
+                    frag = new WartaMingguanFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+                // Liturgi Mingguan
+                else if (groupPosition == 5 && childPosition == 1) {
+                    frag = new LiturgiMingguanFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+                // Past and Upcoming Events
+                else if (groupPosition == 5 && childPosition == 2) {
+                    frag = new PastAndUpcomingEventsFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
+                // Jadwal Ibadah
+                else if (groupPosition == 5 && childPosition == 3) {
+                    frag = new JadwalIbadahFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                }
                 return false;
             }
         });
@@ -329,6 +365,15 @@ public class Home extends ActionBarActivity
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();*/
+
+        // Untuk ViewPager
+        /*setContentView(R.layout.fragment_kolportase);*/
+
+        Log.d("Home", "onCreate");
+        adapterViewPager = new SmartFragmentStatePagerAdapter(getSupportFragmentManager());
+
+        mPager = (ViewPager) findViewById(R.id.vpPager);
+        mPager.setAdapter(adapterViewPager);
     }
 
     /*private void addDrawerItems() {

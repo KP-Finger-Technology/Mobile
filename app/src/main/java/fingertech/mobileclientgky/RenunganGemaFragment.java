@@ -102,7 +102,7 @@ public class RenunganGemaFragment extends Fragment {
 //            JSONObject temp = null;
 
 
-        //add LInearLayout
+        //add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
         //add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -191,16 +191,16 @@ public class RenunganGemaFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    /*@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }*/
 
     @Override
     public void onDetach() {

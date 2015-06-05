@@ -12,7 +12,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
 
-    <!-- Untuk side menu -->
+    <!-- Untuk Navigation Drawer -->
     <string name="action_settings">Settings</string>
     <string name="renungan">RENUNGAN GEMA</string>
     <string name="marital">PRE-MARITAL CLASS</string>
@@ -43,7 +43,7 @@
     <string name="permohonanDoa_textUmur">Umur</string>
     <string name="permohonanDoa_textDoa">Permohonan Doa</string>
 
-    <!-- Untuk halaman register -->
+    <!-- Untuk halaman Register -->
     <string name="register_textNama">Nama</string>
     <string name="register_textPassword">Password</string>
     <string name="register_textKonfirmasiPassword">Konfirmasi Password</string>
@@ -62,7 +62,7 @@
     <string name="register_textKomisiRemajaPemuda">Remaja dan Pemuda</string>
     <string name="register_textKomisiWanita">Wanita</string>
 
-    <!-- Untuk halaman login -->
+    <!-- Untuk halaman Login -->
     <string name="login_textUsername">Nama</string>
     <string name="login_textPassword">Password</string>
 
@@ -70,6 +70,8 @@
     <string name="kirim">Kirim</string>
     <string name="daftar">Daftar</string>
     <string name="masuk">Masuk</string>
+
+    <!-- Untuk halaman Tentang Kami -->
     <string name="tentangKami_textPenjelasanKomisi">Selain mengikuti kegiatan yang diadakan untuk umum, jemaat juga bisa mengikuti kegiatan komisi-komisi yang ada. Mulai dari anak kecil sampai manula, tidak ada yang terlewatkan.</string>
     <string name="tentangKami_textKomisiAnak">Komisi Anak</string>
     <string name="tentangKami_textPenjelasanKomisiAnak">Melayani usia balita sampai kelas 6 SD. Pelayanan ini penting karena berdampak sampai anak-anak dewasa. Saat ini ada sekitar 3200 anak dengan guru.</string>
@@ -86,8 +88,7 @@
     <string name="hubungiKami_textDetailTelepon">(021) 6696826</string>
     <string name="hubungiKami_textTelepon">Telepon</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Untuk halaman Pengakuan Iman -->
     <string name="pengakuanIman_textPengakuanIman1">1. Kami percaya kepada Allah Yang Esa yang memiliki tiga pribadi yang setara di dalam kekekalan, yaitu: Allah Bapa, Allah Putra (Tuhan Yesus Kristus), dan Allah Roh Kudus yang adalah Pencipta dan Pemelihara alam semesta ini.</string>
     <string name="pengakuanIman_textPengakuanIman2">2. Kami percaya kepada Yesus Kristus yang adalah satu-satunya Juruselamat manusia; Allah Anak yang menjadi manusia, yang telah dikandung dari Roh Kudus dan lahir dari anak dara Maria; yang hidup tanpa dosa, disalibkan dan mati untuk menebus manusia yang berdosa, bangkit dari antara orang mati pada hari ketiga, naik ke sorga dan duduk di sebelah kanan Allah Bapa untuk menjadi Pengantara bagi umatNya sebagai Imam Besar yang sempurna, dan akan datang kembali untuk menghakimi orang yang hidup dan yang mati.</string>
     <string name="pengakuanIman_textPengakuanIman3">3. Kami percaya kepada Roh Kudus yang menginsyafkan manusia berdosa supaya bertobat dan percaya kepada Yesus Kristus; yang melahirbarukan orang percaya menjadi anak-anak Allah; yang memeteraikan setiap orang percaya sebagai warga Kerajaan Allah, yang memimpin orang percaya kepada kebenaran Allah yang sejati; serta yang memperlengkapi setiap orang percaya dengan karunia-karunia rohani untuk pelayanan tubuh Kristus.</string>
@@ -99,4 +100,161 @@
     <string name="pengakuanIman_textPengakuanIman9">9. Kami percaya kepada satu Gereja yang Kudus dan Am (universal), yaitu persekutuan semua orang percaya kepada Yesus Kristus dari segala abad dan tempat, yang terpanggil untuk hidup dalam kasih dan kekudusanNya, taat kepada kebenaran Firman Allah dan menjadi saksi Kristus untuk memberitakan Injil ke seluruh permukaan bumi.</string>
     <string name="pengakuanIman_textPengakuanIman10">10. Kami percaya bahwa Gereja adalah tubuh Kristus di mana setiap anggotanya dengan teguh berpegang pada kebenaran di dalam kasih, saling melayani, serta bertumbuh bersama untuk mencapai kedewasaan penuh di dalam kasih, saling melayani, serta bertumbuh bersama untuk mencapai kedewasaan penuh di dalam segala hal ke arah Kristus Yesus yang adalah Kepala Gereja (Efesus 4:11-16).</string>
     <string name="pengakuanIman_textPengakuanIman11">11. Kami percaya dan memiliki pengharapan penuh bahwa Tuhan Yesus akan datang kedua kalinya untuk menghakimi orang yang hidup dan yang mati. Setiap orang yang telah menerima Yesus Kristus sebagai Juruselamat pribadinya akan menerima tubuh kebangkitan dan memperoleh kehidupan kekal di surga, sedangkan setiap orang yang tidak menerima Yesus Kristus sebagai Tuhan dan Juruselamatnya akan mengalami hukuman kekal.</string>
+
+    <!-- Untuk halaman Komisi Anak -->
+    <string name="komisiAnak_textPembuka1">Sekolah Minggu, sekolah minggu, rumah anak-anak semua</string>
+    <string name="komisiAnak_textPembuka2">Bakti Allah, cinta bangsa, hidup penuh sukacita</string>
+    <string name="komisiAnak_textPembuka3">Belajarlah Kitab Suci, cinta Tuhan, gereja maju</string>
+    <string name="komisiAnak_textPembuka4">Jalankanlah perintah-Nya, muliakan-Hu sepanjang hidup</string>
+    <string name="komisiAnak_textParagraf1">Sekolah Minggu GKY Pluit merupakan sebuah wadah bagi anak-anak usia 0 hingga 12 tahun (bayi hingga kelas 6 SD) untuk beribadah, bertumbuh serta melayani Tuhan. Pertama kali diadakan pada tahun 1973, hingga kini Sekolah Minggu GKY Pluit telah memiliki tiga tempat pelayanan, yaitu: sekolah minggu di Gedung Pluit, sekolah minggu di Gedung PIK, dan sekolah minggu di Sekolah Ipeka Pluit. Sekolah Minggu GKY Pluit memiliki visi dan misi sebagai berikut.</string>
+    <string name="komisiAnak_textVisi">Visi</string>
+    <string name="komisiAnak_textDetailVisi">Anak-anak sekolah minggu dapat menjadi murid Yesus dan guru sekolah minggu menjadi alat yang Tuhan pakai untuk menjadikan anak-anak murid Tuhan.</string>
+    <string name="komisiAnak_textMisi">Misi</string>
+    <string name="komisiAnak_textDetailMisi">Melalui ibadah, pembinaan/pemuridan, persekutuan, pelayanan sosial dan pelayanan misi membimbing anak-anak untuk mengenal, percaya, dan taat kepada Kristus Yesus dan menjadi anggota keluarga sekolah minggu dan gereja. Sekolah minggu menjadi keluarga/rumah kedua bagi anak-anak.</string>
+    <string name="komisiAnak_textMisi1">Ibadah</string>
+    <string name="komisiAnak_textDetailMisi1">Menciptakan ibadah yang membawa anak-anak bisa memuji nama Tuhan, mendengarkan firman Tuhan dan mengaplikasikan firman Tuhan dengan tertib dan bersemangat.</string>
+    <string name="komisiAnak_textMisi2">Pembinaan/Pemuridan</string>
+    <string name="komisiAnak_textDetailMisi2">Mengusahakan pembinaan yang baik untuk pertumbuhan kerohanian anak, sehingga mengalami perubahan karakter yang semakin menyerupai Kristus.</string>
+    <string name="komisiAnak_textMisi3">Persekutuan</string>
+    <string name="komisiAnak_textDetailMisi3">Sekolah minggu menjadi sebuah sarana persekutuan yang baik bagi anak-anak dalam hubungan mereka dengan sesama mereka maupun dengan guru di kelas.</string>
+    <string name="komisiAnak_textMisi4">Pelayanan Sosial</string>
+    <string name="komisiAnak_textDetailMisi4">Anak-anak memiliki kepedulian sosial terhadap orang-orang di sekitar mereka.</string>
+    <string name="komisiAnak_textMisi5">Pemberitaan Injil</string>
+    <string name="komisiAnak_textDetailMisi5">Anak-anak dapat menjadi seorang yang memberitakan Injil.</string>
+    <string name="komisiAnak_textMisiGuru">Misi Guru</string>
+    <string name="komisiAnak_textDetailMisiGuru">Melengkapi  guru-guru dan mengusahakan pembinaan untuk meningkatkan kualitas pelayanan guru sekolah minggu, serta kerohanian mereka, melalui training, kelas-kelas pembinaan, dll.</string>
+
+    <!-- Untuk halaman Komisi Kaleb -->
+    <string name="komisiKaleb_textParagraf1">Ketika seseorang memasuki usia tua dan pensiun seringkali ia merasa \"tidak berguna\" karena dianggap tidak bisa berbuat apa-apa lagi, bahkan banyak bergantung kepada orang lain dan akhirnya ia akan merasa hari-hari yang dilaluinya terasa begitu panjang dan membosankan.</string>
+    <string name="komisiKaleb_textParagraf2">Komisi Kaleb lahir untuk menjadi wadah persekutuan dan kegiatan kaum lansia (usia lanjut), yaitu mereka yang telah berusia 50 tahun keatas. Melalui Komisi Kaleb ini kaum lansia akan merasakan kembali kehidupan yang penuh sukacita, bahkan dapat tetap melayani sesuai dengan talenta dan kemampuan mereka.</string>
+    <string name="komisiKaleb_textJadwal">Jadwal</string>
+    <string name="komisiKaleb_textDetailJadwal">Setiap hari Selasa dan Minggu pada minggu ke-I, ke-III, dan ke-V setiap bulan pukul 16.30</string>
+    <string name="komisiKaleb_textLokasi">Lokasi</string>
+    <string name="komisiKaleb_textDetailLokasi">Gedung Pluit</string>
+    <string name="komisiKaleb_textPembina">Pembina</string>
+    <string name="komisiKaleb_textDetailPembina">Gl. Titi Mutiara</string>
+
+    <!-- Untukk halaman Komisi Pasutri -->
+    <string name="komisiPasutri_textParagraf1">Dengan ini \"Keluarga yang Melayani\", Komisi Pasutri GKY Jemaat Pluit hadir untuk menjadi berkat bagi pasangan suami istri Kristen agar mereka mengalami kasih Allah, membangun keluarga yang sehat dan turut menggenapkan rencana Tuhan bagi keluarga-keluarga.</string>
+    <string name="komisiPasutri_textJadwal">Jadwal</string>
+    <string name="komisiPasutri_textDetailJadwal">Setiap hari Sabtu dan Minggu pada minggu ke-I setiap bulan pukul 16.00</string>
+    <string name="komisiPasutri_textPembina">Pembina</string>
+    <string name="komisiPasutri_textDetailPembina">Pdt. Lucky Effendi</string>
+
+    <!-- Untuk halaman Komisi Pemuda Dewasa -->
+    <string name="komisiPemudaDewasa_textVisi">Visi</string>
+    <string name="komisiPemudaDewasa_textDetailVisi">Pemuda dewasa yang mengenal dan hidup dekat dengan Tuhan berdasarkan firman (Christlikeliness).</string>
+    <string name="komisiPemudaDewasa_textMisi">Misi</string>
+    <string name="komisiPemudaDewasa_textDetailMisi1">Untuk mewujudkan visi tersebut secara komprehensif maka misi yang dijalankan mencakup 2 kehidupan orang percaya, yaitu: aspek ke dalam (contemplative life) dan aspek ke luar (active life).</string>
+    <string name="komisiPemudaDewasa_textDetailMisi2">Kebanyakan orang berpikir bahwa pemuda dewasa (25 tahun keatas atau yang sudah bekerja) adalah pemuda yang matang, mandiri, dan tidak memerlukan perhatian, pembimbingan atau pembinaan khusus. Mereka berpikir karena sudah dewasa tentunya pemuda sanggup menghadapi masalahnya sendiri. Itu sebabnya perhatian khusus lebih diberikan kepada anak-anak, remaja ataupun pemuda belia. Dan itu terjadi di banyak gereja.</string>
+    <string name="komisiPemudaDewasa_textDetailMisi3">Akan tetapi, orang lupa pemuda-pemuda dewasa yang baru saja memulai masa kariernya justru pemuda yang membutuhkan bimbingan yang kuat karena justru inilah masa-masa dimana mereka memasuki dunia yang sebenarnya (real world) yang keras dan kompetitif. Dan bukan saja dunia karir yang memberi mereka kesulitan hidup, tetapi pencarian kehidupan pribadi yang komplit dan mapan menambah tekanan pada mereka. Masa dimana mereka meniti karir dan pencarian jati diri adalah masa dimana spiritualitas dan kebijaksanaan sangat diperlukan.</string>
+    <string name="komisiPemudaDewasa_textDetailMisi4">Dengan latar belakang pemikiran ini, Komisi Pemuda Dewasa rindu menjadi suatu wadah dimana pemuda dewasa dapat menemukan spiritualitas sejati yang mampu menuntun mereka menghadapi dunia yang penuh tantangan. Hubungan dengan Tuhan menjadi fondasi yang kuat untuk membangun hubungan yang sehat dengan sesama sekaligus mengembangkan karir yang berkenan di hadapan Tuhan.</string>
+    <string name="komisiPemudaDewasa_textJadwal">Jadwal</string>
+    <string name="komisiPemudaDewasa_textDetailJadwal">Setiap hari Sabtu dan Minggu pada minggu ke-I, ke-II, dan ke-III setiap bulan pukul 17.00</string>
+    <string name="komisiPemudaDewasa_textPembina">Pembina</string>
+    <string name="komisiPemudaDewasa_textDetailPembina">Gl. Suprapti</string>
+
+    <!-- Untuk halaman Komisi Remaja dan Pemuda -->
+    <string name="komisiRemajaDanPemuda_textVisi">Visi</string>
+    <string name="komisiRemajaDanPemuda_textDetailVisi">Menjadikan remaja pemuda sebagai murid Tuhhan Yesus yang memuridkan generasinya.</string>
+    <string name="komisiRemajaDanPemuda_textMisi">Misi</string>
+    <string name="komisiRemajaDanPemuda_textDetailMisi">Melalui kebaktian, kelompok kecil, dan pembinaan mempersiapkan dan melengkapi remaja pemuda untuk menjangkau dan memuridkan generasinya.</string>
+    <string name="komisiRemajaDanPemuda_textJadwal">Jadwal</string>
+    <string name="komisiRemajaDanPemuda_textJadwal1">Komisi Remaja SMP</string>
+    <string name="komisiRemajaDanPemuda_textDetailJadwal1">Setiap hari Minggu pukul 07.00 dan 09.00</string>
+    <string name="komisiRemajaDanPemuda_textJadwal2">Komisi Remaja SMA</string>
+    <string name="komisiRemajaDanPemuda_textDetailJadwal2">Setiap hari Minggu pukul 07.00</string>
+    <string name="komisiRemajaDanPemuda_textJadwal3">Komisi Remaja Ipeka</string>
+    <string name="komisiRemajaDanPemuda_textDetailJadwal3">Setiap hari Minggu pukul 09.30</string>
+    <string name="komisiRemajaDanPemuda_textPembina">Pembina</string>
+    <string name="komisiRemajaDanPemuda_textDetailPembina">Gl. Mario Novanno</string>
+
+    <!-- Untuk halaman Komisi Wanita -->
+    <string name="komisiWanita_textParagraf1">Di tengah-tengah perubahan zaman seorang ibu/wanita terkadang tidak tahu bagaimana harus menjalani hidup agar dapat menjadi seorang ibu/wanita yang dapat memberi pengaruh yang baik di tengah keluarga dan masyarakat sekitarnya.</string>
+    <string name="komisiWanita_textParagraf2">Komisi Wanita (KW) GKY Jemaat Pluit hadir dengan tujuan untuk melengkapi para ibu/wanita agar dapat menjadi teladan di dalam keluarga, gereja, dan orang-orang di sekelilingnya.</string>
+    <string name="komisiWanita_textParagraf3">Kami juga mengajak para ibu/wanita untuk bersama melayani Tuhan melalui pelayanan paduan suara sharon dan pelayanan doa. Marilah bergabung bersama kami dan bertumbuh untuk menjadi ibu-ibu dan wanita Kristen yang memuliakan Tuhan.</string>
+    <string name="komisiWanita_textJadwal">Jadwal</string>
+    <string name="komisiWanita_textDetailJadwal">Setiap hari Jumat pukul 10.30</string>
+    <string name="komisiWanita_textLokasi">Lokasi</string>
+    <string name="komisiWanita_textDetailLokasi">Gedung Pluit</string>
+    <string name="komisiWanita_textPembina">Pembina</string>
+    <string name="komisiWanita_textDetailPembina">Gl. Titi Mutiara</string>
+
+    <!-- Untuk halaman Diakonia dan Oikumene -->
+    <string name="diakoniaDanOikumene_textParagraf1">Pelayanan ini mencakup pelayanan internal/ke dalam (untuk jemaat sendiri) maupun eksternal (untuk masyarakat) dimana dalam menunjukkan kasih dan kepedulian kepada sesama, kita bekerja sama dengan lingkungan sekitar, antar gereja dan antar umat beragama lainnya.</string>
+    <string name="diakoniaDanOikumene_textParagraf2">Pelayanan yang dilakukan antara lain:</string>
+    <string name="diakoniaDanOikumene_textPelayanan1">1. Menolong mereka  yang dalam keadaan kesulitan ekonomi/ekonomi lemah, misalnya melaluii pemberian tunjangan hidup secara terbatas, uang bantuan pengobatan, pemberian beasiswa studi secara terbatas, dsb.</string>
+    <string name="diakoniaDanOikumene_textPelayanan2">2. Menghibur mereka yang berduka, dengan hadir dalam acara kedukaan (kebaktian penghiburan maupun acara pemakaman/kremasi).</string>
+    <string name="diakoniaDanOikumene_textPelayanan3">3. Mengunjungi mereka yang tinggal di panti asuhan, panti werdha/jompo, panti cacat ganda, dll.</string>
+    <string name="diakoniaDanOikumene_textPelayanan4">4. Memberikan bantuan kepada korban-korban bencana alam.</string>
+    <string name="diakoniaDanOikumene_textPelayanan5">5. Ikut ambil bagian dalam pelayanan masyarakat bagi lingkungan sekitarnya, seperti: pengobatan murah bagi warga sekitar (setiap hari Senin dan Kamis), mendirikan dan membantu posko banjir pada musim banjir, melakukan fogging/penyemprotan anti nyamuk demam berdarah, dsb.</string>
+    <string name="diakoniaDanOikumene_textPelayanan6">6. Ikut dalam kegiatan sosial seperti pengobatan gratis, donor darah, dsb.</string>
+    <string name="diakoniaDanOikumene_textPelayanan7">7. Ikut mewakili gereja dalam pertemuan-pertemuan dengan gereja-gereja lain, baik dalam lingkungan GKY mapun non-GKY.</string>
+    <string name="diakoniaDanOikumene_textPelayanan8">8. Ikut mewakili gereja untuk aktif dalam Forum Komunikasi Umat Beragama (FKKUB) dalam melakukan pelayanan kemasyarakatan, seperti: antisipasi banjir, aksi sosial bersama, dsb.</string>
+
+    <!-- Untuk halaman Kebaktian Doa -->
+    <string name="kebaktianDoa_textVisi">Visi</string>
+    <string name="kebaktianDoa_textDetailVisi">Membangun jemaat yang setia pada firman, tekun dalam doa, sehati dalam pelayanan dan akrab dalam persekutuan.</string>
+    <string name="kebaktianDoa_textParagraf1">Persekutuan Doa (PD) merupakan karakteristik dalam gerak hidup gereja sejak dimulainya gereja ini pada tahun 1981. Tuhan Yesus berkata, \"Rumah-Ku akan disebut rumah doa\", maka GKY Pluit juga adalah sebuah rumah doa, dimana setiap jemaat dapat dengan bebas datang berdoa.</string>
+    <string name="kebaktianDoa_textParagraf2">Sejarah gereja menyaksikan, tidak ada kebangunan rohani tanpa kedatangan doa. Doa merupakan kunci pertumbuhan rohani, Alkitab dengan rinci mencatat berbagai pengajaran dan peristiwa menakjubkan ketika umat yang percaya bersehati dalam doa, disitulah terjadi perkara ajaib dan indah.</string>
+    <string name="kebaktianDoa_textKutipanInjil1">\"Tuhan berjanji bila kita berseru kepada-Nya, maka Ia akan menjawab!\" (Yer. 33:3)</string>
+    <string name="kebaktianDoa_textKutipanInjil2">\"Doa orang benar bila dengan yakin didoakan sangat besar kuasanya\" (Yak. 5:16b)</string>
+    <string name="kebaktianDoa_textParagraf3">Marilah bergabung bersama kami dalam doa bersama.</string>
+    <string name="kebaktianDoa_textJadwal">Jadwal</string>
+    <string name="kebaktianDoa_textJadwal1">Saat Teduh Pagi</string>
+    <string name="kebaktianDoa_textDetailJadwal1">Setiap hari Senin-Jumat pukul 06.30</string>
+    <string name="kebaktianDoa_textJadwal2">Persekutuan Doa dan Persekutuan Doa PIK</string>
+    <string name="kebaktianDoa_textDetailJadwal2">Setiap hari Rabu pukul 19.00</string>
+    <string name="kebaktianDoa_textPembina">Pembina</string>
+    <string name="kebaktianDoa_textDetailPembina">Gl. Yohanes</string>
+    <string name="kebaktianDoa_textParagraf4">Bila Anda membutuhkan pelyanan doa pribadi, hubungilah hamba Tuhan atau penyambut jemaat, atau Anda dapat mengisi formulir permhonan doa yang juga disediakan aplikasi ini pada menu \"Pembinaan\".</string>
+
+    <!-- Untuk halaman Kebaktian Umum -->
+    <string name="kebaktianUmum_textParagraf1">Kebaktian umum diadakan dengan jadwal sebagai berikut.</string>
+    <string name="kebaktianUmum_textJadwal1">Kebaktian I - IV</string>
+    <string name="kebaktianUmum_textDetailJadwal1">Setiap hari Minggu pukul 07.00, 09.30, dan 17.00</string>
+    <string name="kebaktianUmum_textJadwal2">Kebaktian PIK I - II</string>
+    <string name="kebaktianUmum_textDetailJadwal2">Setiap hari Minggu pukul 07.30 dan pukul 10.00</string>
+
+    <!-- Untuk halaman Kelompok Kecil -->
+    <string name="kelompokKecil_textParagraf1">Banyak orang dalam dunia masih belum mengenal Tuhan Yesus Kristus. Ia sendiri telah mempercayakan amanat-Nya untuk memuridkan bangsa-bangsa kepada para rasul, murid-murid dan gereja-Nya.</string>
+    <string name="kelompokKecil_kutipanInjil">\"Karena itu pergilah, jadikanlah semua bangsa murid-Ku dan baptislah mereka dalam nama Bapa dan Anak dan Roh Kudus, dan ajarlah mereka melakukan segala sesuatu yang telah Kuperintahkan padamu.\" (Matius 28:19-20)</string>
+    <string name="kelompokKecil_textParagraf2">Tetapi sebelum kita dapat memuridkan bangsa-bangsa, perlu kita sendiri terlebih dahulu menjadi murid yang sejati.</string>
+    <string name="kelompokKecil_textParagraf3">Kelompok Kecil (KK) adalah ketaaatan kita pada kepercayaan dan pendelegasian Yesus Kristus untuk menerima panggilan dan pembentukan menjadi seorang murid Tuhan Yesus. Kita rindu bahwa kita semua dapat bersama-sama bertumbuh dan mengalirkan kehidupan seorang murid Yesus yang sejati kepada orang lain, sehingga banyak orang dapat juga menjadi murid Tuhan.</string>
+    <string name="kelompokKecil_textParagraf4">Untuk itu kita memuji Tuhan Yesus Kristus, karena gereja kita terpanggil untuk menjadi gereja berbasiskan KK. Dalam kelompok kecil, kita akan menemnukan 3F1P1M. Penjelasannya adalah sebagai berikut.</string>
+    <string name="kelompokKecil_text3F1P1M_1">1. Fun - KK memberikan sukacita dan kesenangan.</string>
+    <string name="kelompokKecil_text3F1P1M_2">2. Firman - KK memuaskan kita dengan makanan rohani yang kita butuhkan</string>
+    <string name="kelompokKecil_text3F1P1M_3">3. Fellowship - KK pada dasarnya adalah sebuah persekutuan dan keluarga kecil.</string>
+    <string name="kelompokKecil_text3F1P1M_4">4. Pray - Dalam KK kita berdoa dan saling mendoakan.</string>
+    <string name="kelompokKecil_text3F1P1M_5">5. Multiplikasi - KK membukakan diri bagi orang lain.</string>
+    <string name="kelompokKecil_textParagraf5">Mari bergabung dalam KK! Di dalam KK kita bersama-sama belajar, bertumbuh dan menjadi berkat.</string>
+    <string name="kelompokKecil_textDefinisi">Definisi Kelompok Kecil</string>
+    <string name="kelompokKecil_textDefinisi1">1. Gerakan yang melibatkan jemaat untuk berkumpul dan melayani dalam kelompok-kelompok kecil yang bersifat kekeluargaan, dan</string>
+    <string name="kelompokKecil_textDefinisi2">2. mengarahkan jemaat untuk mengemban amanat agung Tuhan Yesus Kristus sehingga setiap orang percaya bersama-sama.</string>
+    <string name="kelompokKecil_textDefinisi3">a. Menjadi murid yang sejati dan bertumbuh menuju kepada keserupaan hidup seperti Kristus, dan</string>
+    <string name="kelompokKecil_textDefinisi4">b. memikul tanggung jawab memuridkan bangsa-bangsa, sehingga membawa kemuliaan bagi Allah.</string>
+    <string name="kelompokKecil_textVisi">Visi</string>
+    <string name="kelompokKecil_textDetailVisi">Pemenuhan amanat agung Tuhan (Matius 28:19-20) dan keserupaan dengan Kristus (Roma 8:29, 1Yoh. 3:2).</string>
+    <string name="kelompokKecil_textMisi">Misi</string>
+    <string name="kelompokKecil_textMisi1">1. Membawa jemaat bertumbuh menyerupai Kristus dalam semua aspek kehidupan, yang dilandasi dengan pengenalan dan kedekatan akan Tuhan, dan menikmati kelimpahan hidup rohani yang sesungguhnya secara nyata dalam kehidupan sehari-hari.</string>
+    <string name="kelompokKecil_textMisi2">2. Mendorong jemaat untuk mengambil tanggung jawab rohani dan untuk turut serta dalam kegiatan penginjilan dan pemuridan.</string>
+    <string name="kelompokKecil_textMisi3">3. Membangun kualitas hidup jemaat yang mampu menciptakan keluarga, gereja, dan masyarakat yang berkenan di hadapan Tuhan.</string>
+
+    <!-- Untuk halaman Misi/Pengabaran Injil (PI) -->
+    <string name="misiPengabaranInjil_textParagraf1">Tuhan mengasihi semua manusia, dan Ia ingin memakai setiap kita yang sudah mengalami kasih-Nya untuk menyaksikan dan mengabarkan kabar baik itu pada semua orang. Diharapkan mereka pun mengalami kasih Allah (keselamatan yang kekal di dalam Kristus). Saat ini GKY Jemaat Pluit menyediakan kelas pelatihan PI pribadi dengan metode EE (Evangelism Explosion) untuk melengkapi jemaat memberitakan kabar baik itu secara sederhana, lengkap, dan bersahabat. Bagi yang sudah mengikuti kelas ini dapat melayani dalam Perkabaran Injil di rumah sakit, Lembaga Permasyarakatan (LP) dan rumah tahanan (rutan), anak jalanan, dan perjalanan misi ke daerah-daerah terpencil.</string>
+    <string name="misiPengabaranInjil_textParagraf2">Selain melalui PI pribadi, jemaat dapat ikut terlibat dalam pelayanan misi lainnya seperti membawa jiwa baru ke dalam KKR, serta mendampingi orang baru tersebut dalam bergereja. Jemaat juga dapat mendukung pelayanan misi melalui persembahan iman untuk mendukung pelayanan hamba Tuhan dan misionari yang melayani di daerah terpencil.</string>
+
+    <!-- Untuk halaman Katekisasi-->
+    <string name="katekisasi_text">Setiap hari Minggu pukul 13.00</string>
+
+    <!-- Untuk halaman Pre-marital Class -->
+    <string name="preMaritalClass_textParagraf1">Memilih pasangan hidup yang tepat adalah salah satu hal terpenting dalam kehidupan seorang Kristen yang akan menjalani kehidupan pernikahan. Oleh karena itu, GKY Pluit menyediakan layanan untuk menyiapkan pasangan-pasangan yang sedang berpacaran dan berniat masuk ke jenjang pernikahan. Pelayanan ini melibatkan mentor-mentor untuk membantu para peserta melalui bimbingan dan sharing. Pelayanan diharapkan membantu meyakinkan bahwa pasangan yang dipilih sudah tepat, membantu mengerti makna pernikahan sesuai dengan ajaran firman Tuhan dan nantinya dapat membentuk keluarga yang menjadikan Kristus sebagai pusat dan kepala keluarga.</string>
+    <string name="preMaritalClass_textParagraf2">Pembinaan pre-marital di GKY Pluit diberikan dalam 2 bentuk, yaitu kelas pranikah dan retreat pranikah:</string>
+    <string name="preMaritalClass_textKelas1">Kelas Pranikah</string>
+    <string name="preMaritalClass_textDetailKelas1">Diikuti oleh mereka yang sudah serius dalam berpacaran walaupun belum memiliki tanggal/waktu pernikahan. Materi-materi yang diberikan adalah materi yang mempersiapkan mereka untuk mengerti makna pernikahan Kristen serta membantu mereka mengenal pasangan mereka masing-masing secara lebih dalam. Selain itu kelas pranikah juga dapat membantu mengatasi perbedaan atau melakukan penyesuaian dengan pasangannya sebelum memasuki jenjang pernikahan, seperti: komunikasi dan konflik, keluarga inti dan keluarga besar.</string>
+    <string name="preMaritalClass_textKelas2">Retreat Pranikah</string>
+    <string name="preMaritalClass_textDetailKelas2">Pesertanya adalah mereka yang telah selesai mengikuti kelas pranikah dan sudah memiliki tanggal/waktu pernikahan kurang dari 1 tahun. Hal ini dikarenakan materi-materi yang diberikan sangat spesifik dan praktikal untuk pasangan yang akan menikah, seperti rencana keuangan keluarga, tata cara pernikahan, seksualitas dalam keluarga, dll.  Kedua pembinaan ini tidak harus diikuti berturut-turut. Sehingga yang telah mengikuti kelas tetapi masih belum memiliki rencana pernikahan memiliki waktu untuk menerapkan apa yang mereka dapatkan di kelas pada relasi mereka. Ketika mereka sudah memiliki rencana pernikahan maka mereka dapat mendaftarkan diri mengikuti retreat pranikah.</string>
+    <string name="preMaritalClass_textParagraf3">Diskusi kelompok, ceramah, pemutaran film, games, dan sharing adalah beberapa metode penyampaian yang digunakan agar memudahkan peserta mencerna materi yang disampaikan. Peserta juga akan diberikan sepasang mentor yang akan menjadi teman sharing dan konselor untuk mendampingi mereka hingga masuk ke jenjang pernikahan.</string>
+
+    <string name="hello_blank_fragment" />
 </resources>

@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.PreMaritalClassFragment">
+    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.KebaktianUmumFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Pre-marital Class"
+            android:text="Kebaktian Umum"
             android:id="@+id/textView"
             android:textColor="#ffffffff"
             android:layout_marginLeft="20dp"
@@ -48,23 +48,31 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/preMaritalClass_textParagraf1"
-                        android:id="@+id/preMaritalClass_textParagraf1"/>
+                        android:text="@string/kebaktianUmum_textParagraf1"
+                        android:id="@+id/kebaktianUmum_textParagraf1"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/preMaritalClass_textParagraf2"
-                        android:id="@+id/preMaritalClass_textParagraf2"
-                        android:layout_marginTop="20dp"/>
+                        android:text="@string/kebaktianUmum_textJadwal1"
+                        android:id="@+id/kebaktianUmum_textJadwal1"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/preMaritalClass_textKelas1"
-                        android:id="@+id/preMaritalClass_textKelas1"
+                        android:text="@string/kebaktianUmum_textDetailJadwal1"
+                        android:id="@+id/kebaktianUmum_textDetailJadwal1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/kebaktianUmum_textJadwal2"
+                        android:id="@+id/kebaktianUmum_textJadwal2"
                         android:layout_marginTop="5dp"
                         android:textStyle="bold"/>
 
@@ -72,32 +80,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/preMaritalClass_textDetailKelas1"
-                        android:id="@+id/preMaritalClass_textDetailKelas1"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/preMaritalClass_textKelas2"
-                        android:id="@+id/preMaritalClass_textKelas2"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/preMaritalClass_textDetailKelas2"
-                        android:id="@+id/preMaritalClass_textDetailKelas2"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/preMaritalClass_textParagraf3"
-                        android:id="@+id/preMaritalClass_textParagraf3"
-                        android:layout_marginTop="20dp"/>
+                        android:text="@string/kebaktianUmum_textDetailJadwal2"
+                        android:id="@+id/kebaktianUmum_textDetailJadwal2"/>
 
                 </LinearLayout>
             </ScrollView>

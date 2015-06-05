@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.TentangKamiFragment">
+    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.KomisiPemudaDewasaFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Tentang Kami"
+            android:text="Komisi Pemuda Dewasa"
             android:id="@+id/textView"
             android:textColor="#ffffffff"
             android:layout_marginLeft="20dp"
@@ -48,83 +48,88 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisi"
-                        android:id="@+id/tentangKami_textPenjelasanKomisi"/>
+                        android:text="@string/komisiPemudaDewasa_textVisi"
+                        android:id="@+id/komisiPemudaDewasa_textVisi"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiAnak"
-                        android:id="@+id/tentangKami_textKomisiAnak"
+                        android:text="@string/komisiPemudaDewasa_textDetailVisi"
+                        android:id="@+id/komisiPemudaDewasa_textDetailVisi"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiPemudaDewasa_textMisi"
+                        android:id="@+id/komisiPemudaDewasa_textMisi"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiPemudaDewasa_textDetailMisi1"
+                        android:id="@+id/komisiPemudaDewasa_textDetailMisi1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiPemudaDewasa_textDetailMisi2"
+                        android:id="@+id/komisiPemudaDewasa_textDetailMisi2"
                         android:layout_marginTop="5dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiAnak"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiAnak"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiRemaja"
-                        android:id="@+id/tentangKami_textKomisiRemaja"
+                        android:text="@string/komisiPemudaDewasa_textDetailMisi3"
+                        android:id="@+id/komisiPemudaDewasa_textDetailMisi3"
                         android:layout_marginTop="5dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiRemaja"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiRemaja"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiPemuda"
-                        android:id="@+id/tentangKami_textKomisiPemuda"
+                        android:text="@string/komisiPemudaDewasa_textDetailMisi4"
+                        android:id="@+id/komisiPemudaDewasa_textDetailMisi4"
                         android:layout_marginTop="5dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiPemuda"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiPemuda"/>
+                        android:text="@string/komisiPemudaDewasa_textJadwal"
+                        android:id="@+id/komisiPemudaDewasa_textJadwal"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiPasutri"
-                        android:id="@+id/tentangKami_textKomisiPasutri"
-                        android:layout_marginTop="5dp"/>
+                        android:text="@string/komisiPemudaDewasa_textDetailJadwal"
+                        android:id="@+id/komisiPemudaDewasa_textDetailJadwal"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiPasutri"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiPasutri"/>
+                        android:text="@string/komisiPemudaDewasa_textPembina"
+                        android:id="@+id/komisiPemudaDewasa_textPembina"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textKomisiWanita"
-                        android:id="@+id/tentangKami_textKomisiWanita"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/tentangKami_textPenjelasanKomisiWanita"
-                        android:id="@+id/tentangKami_textPenjelasanKomisiWanita"/>
+                        android:text="@string/komisiPemudaDewasa_textDetailPembina"
+                        android:id="@+id/komisiPemudaDewasa_textDetailPembina"/>
 
                 </LinearLayout>
             </ScrollView>

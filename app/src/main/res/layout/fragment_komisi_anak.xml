@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.KelompokKecilFragment">
+    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.KomisiAnakFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Kelompok Kecil"
+            android:text="Komisi Anak"
             android:id="@+id/textView"
             android:textColor="#ffffffff"
             android:layout_marginLeft="20dp"
@@ -48,136 +48,56 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textParagraf1"
-                        android:id="@+id/kelompokKecil_textParagraf1"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_kutipanInjil"
-                        android:id="@+id/kelompokKecil_kutipanInjil"
-                        android:layout_marginTop="20dp"
+                        android:text="@string/komisiAnak_textPembuka1"
+                        android:id="@+id/komisiAnak_textPembuka1"
+                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textStyle="bold|italic"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textParagraf2"
-                        android:id="@+id/kelompokKecil_textParagraf2"
+                        android:text="@string/komisiAnak_textPembuka2"
+                        android:id="@+id/komisiAnak_textPembuka2"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textPembuka3"
+                        android:id="@+id/komisiAnak_textPembuka3"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textPembuka4"
+                        android:id="@+id/komisiAnak_textPembuka4"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textParagraf1"
+                        android:id="@+id/komisiAnak_textParagraf1"
                         android:layout_marginTop="20dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textParagraf3"
-                        android:id="@+id/kelompokKecil_textParagraf3"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textParagraf4"
-                        android:id="@+id/kelompokKecil_textParagraf4"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_text3F1P1M_1"
-                        android:id="@+id/kelompokKecil_text3F1P1M_1"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_text3F1P1M_2"
-                        android:id="@+id/kelompokKecil_text3F1P1M_2"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_text3F1P1M_3"
-                        android:id="@+id/kelompokKecil_text3F1P1M_3"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_text3F1P1M_4"
-                        android:id="@+id/kelompokKecil_text3F1P1M_4"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_text3F1P1M_5"
-                        android:id="@+id/kelompokKecil_text3F1P1M_5"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textParagraf5"
-                        android:id="@+id/kelompokKecil_textParagraf5"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textDefinisi"
-                        android:id="@+id/kelompokKecil_textDefinisi"
-                        android:layout_marginTop="20dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textDefinisi1"
-                        android:id="@+id/kelompokKecil_textDefinisi1"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textDefinisi2"
-                        android:id="@+id/kelompokKecil_textDefinisi2"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textDefinisi3"
-                        android:id="@+id/kelompokKecil_textDefinisi3"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textDefinisi4"
-                        android:id="@+id/kelompokKecil_textDefinisi4"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textVisi"
-                        android:id="@+id/kelompokKecil_textVisi"
+                        android:text="@string/komisiAnak_textVisi"
+                        android:id="@+id/komisiAnak_textVisi"
                         android:layout_marginTop="20dp"
                         android:textStyle="bold"/>
 
@@ -185,15 +105,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textDetailVisi"
-                        android:id="@+id/kelompokKecil_textDetailVisi"/>
+                        android:text="@string/komisiAnak_textDetailVisi"
+                        android:id="@+id/komisiAnak_textDetailVisi"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textMisi"
-                        android:id="@+id/kelompokKecil_textMisi"
+                        android:text="@string/komisiAnak_textMisi"
+                        android:id="@+id/komisiAnak_textMisi"
                         android:layout_marginTop="20dp"
                         android:textStyle="bold"/>
 
@@ -201,25 +121,104 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textMisi1"
-                        android:id="@+id/kelompokKecil_textMisi1"
-                        android:layout_marginTop="5dp"/>
+                        android:text="@string/komisiAnak_textDetailMisi"
+                        android:id="@+id/komisiAnak_textDetailMisi"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textMisi2"
-                        android:id="@+id/kelompokKecil_textMisi2"
-                        android:layout_marginTop="5dp"/>
+                        android:text="@string/komisiAnak_textMisi1"
+                        android:id="@+id/komisiAnak_textMisi1"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kelompokKecil_textMisi3"
-                        android:id="@+id/kelompokKecil_textMisi3"
-                        android:layout_marginTop="5dp"/>
+                        android:text="@string/komisiAnak_textDetailMisi1"
+                        android:id="@+id/komisiAnak_textDetailMisi1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textMisi2"
+                        android:id="@+id/komisiAnak_textMisi2"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textDetailMisi2"
+                        android:id="@+id/komisiAnak_textDetailMisi2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textMisi3"
+                        android:id="@+id/komisiAnak_textMisi3"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textDetailMisi3"
+                        android:id="@+id/komisiAnak_textDetailMisi3"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textMisi4"
+                        android:id="@+id/komisiAnak_textMisi4"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textDetailMisi4"
+                        android:id="@+id/komisiAnak_textDetailMisi4"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textMisi5"
+                        android:id="@+id/komisiAnak_textMisi5"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textDetailMisi5"
+                        android:id="@+id/komisiAnak_textDetailMisi5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textMisiGuru"
+                        android:id="@+id/komisiAnak_textMisiGuru"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/komisiAnak_textDetailMisiGuru"
+                        android:id="@+id/komisiAnak_textDetailMisiGuru"/>
 
                 </LinearLayout>
             </ScrollView>

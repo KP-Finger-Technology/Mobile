@@ -72,20 +72,20 @@ public class JadwalPelayananFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        View rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
-//        LinearLayout myLinearLayout;
-//        Log.d("masuk 1:", "yes");
-//        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
-//        Log.d("masuk 2:", "yes");
-//        //add LayoutParams
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-//        Log.d("masuk 3:", "yes");
-//
-//        Button dummy = new Button(getActivity());
-//        dummy.setText("dummy!");
-//        dummy.setLayoutParams(params);
-//        myLinearLayout.addView(dummy);
+        /*View rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
+        LinearLayout myLinearLayout;
+        Log.d("masuk 1:", "yes");
+        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
+        Log.d("masuk 2:", "yes");
+        //add LayoutParams
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        Log.d("masuk 3:", "yes");
+
+        Button dummy = new Button(getActivity());
+        dummy.setText("dummy!");
+        dummy.setLayoutParams(params);
+        myLinearLayout.addView(dummy);*/
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
@@ -99,16 +99,16 @@ public class JadwalPelayananFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    /*@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }*/
 
     @Override
     public void onDetach() {

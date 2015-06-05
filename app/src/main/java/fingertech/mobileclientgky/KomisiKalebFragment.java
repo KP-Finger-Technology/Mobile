@@ -3,9 +3,9 @@ package fingertech.mobileclientgky;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.app.Fragment;
-import android.view.LayoutInflater;
+/*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AlkitabFragment.OnFragmentInteractionListener} interface
+ * {@link KomisiKalebFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AlkitabFragment#newInstance} factory method to
+ * Use the {@link KomisiKalebFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AlkitabFragment extends Fragment {
+public class KomisiKalebFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,11 +36,11 @@ public class AlkitabFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AlkitabFragment.
+     * @return A new instance of fragment KomisiKaleb.
      */
     // TODO: Rename and change types and number of parameters
-    public static AlkitabFragment newInstance(String param1, String param2) {
-        AlkitabFragment fragment = new AlkitabFragment();
+    public static KomisiKalebFragment newInstance(String param1, String param2) {
+        KomisiKalebFragment fragment = new KomisiKalebFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -48,7 +48,7 @@ public class AlkitabFragment extends Fragment {
         return fragment;
     }
 
-    public AlkitabFragment() {
+    public KomisiKalebFragment() {
         // Required empty public constructor
     }
 
@@ -65,7 +65,7 @@ public class AlkitabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alkitab, container, false);
+        return inflater.inflate(R.layout.fragment_komisi_kaleb, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

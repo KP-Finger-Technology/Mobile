@@ -102,11 +102,11 @@ public class EventFragment extends Fragment {
         Log.d("Events ", cont.getArrData().toString());*/
     }
 
-//    @Override
-//    public void onActivityCreated (Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        generateEventContent();
-//    }
+    /*@Override
+    public void onActivityCreated (Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        generateEventContent();
+    }*/
 
     public void generateEventContent() {
 //        try{
@@ -273,16 +273,16 @@ public class EventFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    /*@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }*/
 
     @Override
     public void onDetach() {
