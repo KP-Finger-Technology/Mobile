@@ -9,6 +9,21 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
+// Untuk Map
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+import android.util.Log;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +44,11 @@ public class HubungiKamiFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    // Untuk map
+    MapView mMapView;
+    private GoogleMap googleMap;
+    private UiSettings mapSettings;
 
     /**
      * Use this factory method to create a new instance of
@@ -65,7 +85,53 @@ public class HubungiKamiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hubungi_kami, container, false);
+        View v = inflater.inflate(R.layout.fragment_hubungi_kami, container,
+                false);
+        mMapView = (MapView) v.findViewById(R.id.mapView);
+        mMapView.onCreate(savedInstanceState);
+
+        mMapView.onResume();// needed to get the map to display immediately
+
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        googleMap = mMapView.getMap();
+
+        // settings
+        mapSettings = googleMap.getUiSettings();
+        mapSettings.setZoomControlsEnabled(true);
+        mapSettings.setScrollGesturesEnabled(true);
+
+        // user's location
+        if(googleMap != null)
+            googleMap.setMyLocationEnabled(true);
+
+        // latitude and longitude
+        double latitude = -6.113887;
+        double longitude = 106.791796;
+        LatLng ll = new LatLng(latitude, longitude);
+
+        // create marker
+        MarkerOptions marker = new MarkerOptions().position(
+                new LatLng(latitude, longitude)).title("GKY Pluit");
+
+        // Changing marker icon
+        marker.icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+        /*marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.logo));*/
+
+        // adding marker
+        googleMap.addMarker(marker);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(-6.113887, 106.791796)).zoom(12).build();
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, 17));;
+
+        // Perform any camera updates here
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,4 +173,28 @@ public class HubungiKamiFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    // Untuk map
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
+    }
 }

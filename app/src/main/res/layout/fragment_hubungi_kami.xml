@@ -35,10 +35,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="15dp">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -49,7 +45,8 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/hubungiKami_textAlamat"
-                        android:id="@+id/hubungiKami_textAlamat"/>
+                        android:id="@+id/hubungiKami_textAlamat"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -64,17 +61,25 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/hubungiKami_textTelepon"
                         android:id="@+id/hubungiKami_textTelepon"
-                        android:layout_marginTop="5dp"/>
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/hubungiKami_textDetailTelepon"
-                        android:id="@+id/hubungiKami_textDetailTelepon"/>
+                        android:id="@+id/hubungiKami_textDetailTelepon"
+                        android:layout_marginBottom="30dp"/>
 
+                    <com.google.android.gms.maps.MapView
+                        android:id="@+id/mapView"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        class="com.google.android.gms.maps.SupportMapFragment"
+                        android:onClick="mapClicked"/>
                 </LinearLayout>
-            </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -52,12 +52,21 @@
         tools:layout="@layout/fragment_tentang_kami" />
 
     <!-- Hubungi Kami -->
+    <!-- Dengan Map -->
     <fragment android:id="@+id/hubungiKami"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="fingertech.mobileclientgky.HubungiKamiFragment"
-        tools:layout="@layout/fragment_hubungi_kami" />
+        tools:layout="@layout/fragment_hubungi_kami"/>
+
+    <!-- Tanpa Map -->
+    <!--<fragment android:id="@+id/hubungiKami"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.HubungiKamiFragment"
+        tools:layout="@layout/fragment_hubungi_kami" />-->
 
     <!-- Login -->
     <fragment android:id="@+id/login"

@@ -561,7 +561,6 @@ public class Home extends ActionBarActivity
         ambilDataDoa();
     }
 
-
     public void ambilDataDoa(){
         EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
         EditText umurET = (EditText) findViewById(R.id.permohonanDoa_editUmur);
