@@ -72,12 +72,22 @@
                         android:id="@+id/hubungiKami_textDetailTelepon"
                         android:layout_marginBottom="30dp"/>
 
+                    <!--<Button
+                        style="?android:attr/buttonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hubungiKami_getDirection"
+                        android:id="@+id/hubungiKami_getDirection"
+                        android:layout_marginTop="15dp"
+                        android:background="#ffb01815"
+                        android:textColor="#ffffffff"/>-->
+
                     <com.google.android.gms.maps.MapView
                         android:id="@+id/mapView"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        class="com.google.android.gms.maps.SupportMapFragment"
-                        android:onClick="mapClicked"/>
+                        class="com.google.android.gms.maps.SupportMapFragment"/>
+
                 </LinearLayout>
 
         </LinearLayout>

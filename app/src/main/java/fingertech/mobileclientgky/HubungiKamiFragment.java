@@ -1,6 +1,7 @@
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 //import android.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -49,6 +51,12 @@ public class HubungiKamiFragment extends Fragment {
     MapView mMapView;
     private GoogleMap googleMap;
     private UiSettings mapSettings;
+    private Button buttonGetDirection;
+
+    // latitude and longitude
+    double latitude = -6.113887;
+    double longitude = 106.791796;
+    LatLng ll = new LatLng(latitude, longitude);
 
     /**
      * Use this factory method to create a new instance of
@@ -79,6 +87,15 @@ public class HubungiKamiFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        /*buttonGetDirection = (Button) getActivity().findViewById(R.id.hubungiKami_getDirection);
+
+        buttonGetDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMapApps();
+            }
+        });*/
     }
 
     @Override
@@ -108,11 +125,6 @@ public class HubungiKamiFragment extends Fragment {
         // user's location
         if(googleMap != null)
             googleMap.setMyLocationEnabled(true);
-
-        // latitude and longitude
-        double latitude = -6.113887;
-        double longitude = 106.791796;
-        LatLng ll = new LatLng(latitude, longitude);
 
         // create marker
         MarkerOptions marker = new MarkerOptions().position(
@@ -196,5 +208,13 @@ public class HubungiKamiFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+
+    public void openMapApps() {
+        Intent intent = null;
+        intent = new Intent(android.content.Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("geo:" + latitude + "," + longitude));
+        chooser = Intent.createChooser(intent, "Launch Maps");
+        startActivity(chooser);
     }
 }

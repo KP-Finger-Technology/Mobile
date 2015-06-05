@@ -69,17 +69,17 @@ public class NavigationDrawerDataProvider {
             pengaturanList.add(NavigationDrawerData.pengaturanArray[i]);
         }
 
-        parentHashMap.put("Beranda", berandaList);
-        parentHashMap.put("Alkitab", alkitabList);
-        parentHashMap.put("Komisi", komisiList);
-        parentHashMap.put("Pelayanan", pelayananList);
-        parentHashMap.put("Pembinaan", pembinaanList);
-        parentHashMap.put("Events", eventsList);
-        parentHashMap.put("Tentang Kami", tentangKamiList);
-        parentHashMap.put("Hubungi Kami", hubungiKamiList);
-        parentHashMap.put("Login", loginList);
-        parentHashMap.put("Register", registerList);
-        parentHashMap.put("Pengaturan", pengaturanList);
+        parentHashMap.put(" Beranda", berandaList);
+        parentHashMap.put(" Alkitab", alkitabList);
+        parentHashMap.put(" Komisi", komisiList);
+        parentHashMap.put(" Pelayanan", pelayananList);
+        parentHashMap.put(" Pembinaan", pembinaanList);
+        parentHashMap.put(" Events", eventsList);
+        parentHashMap.put(" Tentang Kami", tentangKamiList);
+        parentHashMap.put(" Hubungi Kami", hubungiKamiList);
+        parentHashMap.put(" Login", loginList);
+        parentHashMap.put(" Register", registerList);
+        parentHashMap.put(" Pengaturan", pengaturanList);
 
         return parentHashMap;
     }

@@ -88,6 +88,9 @@
     <string name="hubungiKami_textDetailTelepon">(021) 6696826</string>
     <string name="hubungiKami_textTelepon">Telepon</string>
 
+    <!-- Untuk halaman Hubungi Kami -->
+    <string name="hubungiKami_getDirection">Get Direction</string>
+
     <!-- Untuk halaman Pengakuan Iman -->
     <string name="pengakuanIman_textPengakuanIman1">1. Kami percaya kepada Allah Yang Esa yang memiliki tiga pribadi yang setara di dalam kekekalan, yaitu: Allah Bapa, Allah Putra (Tuhan Yesus Kristus), dan Allah Roh Kudus yang adalah Pencipta dan Pemelihara alam semesta ini.</string>
     <string name="pengakuanIman_textPengakuanIman2">2. Kami percaya kepada Yesus Kristus yang adalah satu-satunya Juruselamat manusia; Allah Anak yang menjadi manusia, yang telah dikandung dari Roh Kudus dan lahir dari anak dara Maria; yang hidup tanpa dosa, disalibkan dan mati untuk menebus manusia yang berdosa, bangkit dari antara orang mati pada hari ketiga, naik ke sorga dan duduk di sebelah kanan Allah Bapa untuk menjadi Pengantara bagi umatNya sebagai Imam Besar yang sempurna, dan akan datang kembali untuk menghakimi orang yang hidup dan yang mati.</string>
@@ -256,6 +259,9 @@
     <string name="preMaritalClass_textDetailKelas2">Pesertanya adalah mereka yang telah selesai mengikuti kelas pranikah dan sudah memiliki tanggal/waktu pernikahan kurang dari 1 tahun. Hal ini dikarenakan materi-materi yang diberikan sangat spesifik dan praktikal untuk pasangan yang akan menikah, seperti rencana keuangan keluarga, tata cara pernikahan, seksualitas dalam keluarga, dll.  Kedua pembinaan ini tidak harus diikuti berturut-turut. Sehingga yang telah mengikuti kelas tetapi masih belum memiliki rencana pernikahan memiliki waktu untuk menerapkan apa yang mereka dapatkan di kelas pada relasi mereka. Ketika mereka sudah memiliki rencana pernikahan maka mereka dapat mendaftarkan diri mengikuti retreat pranikah.</string>
     <string name="preMaritalClass_textParagraf3">Diskusi kelompok, ceramah, pemutaran film, games, dan sharing adalah beberapa metode penyampaian yang digunakan agar memudahkan peserta mencerna materi yang disampaikan. Peserta juga akan diberikan sepasang mentor yang akan menjadi teman sharing dan konselor untuk mendampingi mereka hingga masuk ke jenjang pernikahan.</string>
 
-    <string name="hello_blank_fragment" />
+    <!-- Untuk Map -->
     <string name="title_activity_maps">Map</string>
+    <string name="Google_Maps">Google Maps</string>
+
+    <string name="hello_blank_fragment" />
 </resources>

@@ -3,6 +3,8 @@ package fingertech.mobileclientgky;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -63,6 +65,10 @@ public class Home extends ActionBarActivity
     private SmartFragmentStatePagerAdapter adapterViewPager;
     static final int NUMBER_OF_KOLPORTASE = 4;
     ViewPager mPager;
+
+    // Untuk Map
+    private double latitude = -6.113887;
+    private double longitude = 106.791796;
 
 /*    // Untuk toggle switch
     private ActionBarDrawerToggle mDrawerToggle;
@@ -560,6 +566,13 @@ public class Home extends ActionBarActivity
         switchFragment();
         ambilDataDoa();
     }
+
+    /*public void openMapApps(View v) {
+        Intent intent = null;
+        intent = new Intent(android.content.Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("geo:" + latitude + "," + longitude));
+        startActivity(intent);
+    }*/
 
     public void ambilDataDoa(){
         EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
