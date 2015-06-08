@@ -86,7 +86,8 @@
                         android:id="@+id/login_masuk"
                         android:layout_marginTop="15dp"
                         android:background="#ffb01815"
-                        android:textColor="#ffffffff"/>
+                        android:textColor="#ffffffff"
+                        android:onClick="loginClicked"/>
 
                 </LinearLayout>
             </ScrollView>

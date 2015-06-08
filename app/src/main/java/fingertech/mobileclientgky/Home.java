@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 public class Home extends ActionBarActivity
@@ -567,6 +568,7 @@ public class Home extends ActionBarActivity
         ambilDataDoa();
     }
 
+
     /*public void openMapApps(View v) {
         Intent intent = null;
         intent = new Intent(android.content.Intent.ACTION_VIEW);
@@ -582,14 +584,60 @@ public class Home extends ActionBarActivity
         EditText doaET = (EditText) findViewById(R.id.permohonanDoa_editDoa);
 //        RadioButton jenisKelamin = (RadioButton) findViewById((R.id.permohonanDoa_editJenisKelamin));
 
-        String nama = namaET.getText().toString();
-        String umur = umurET.getText().toString();
+        String nama = namaET.getText().toString().replace(" ","%20");
+        int umur = Integer.parseInt(umurET.getText().toString());
         String email = emailET.getText().toString();
         String telepon = teleponET.getText().toString();
-        String doa = doaET.getText().toString();
+        String doa = doaET.getText().toString().replace(" ","%20").replace(":","").replace("/","").replace("#","");
 
-        Log.d("edit nama ", nama);
+        cont.addDoa(nama,umur,email,telepon,"p", doa);
+        frag = new AlkitabFragment();
+        switchFragment();
     }
+
+    public void registerClicked(View v){
+        EditText namaET = (EditText) findViewById(R.id.register_editNama);
+        EditText passET = (EditText) findViewById(R.id.register_editPassword);
+        EditText passconET = (EditText) findViewById(R.id.register_editKonfirmasiPassword);
+        EditText alamatET = (EditText) findViewById(R.id.register_editAlamat);
+        EditText emailET = (EditText) findViewById(R.id.register_editEmail);
+        EditText teleponET = (EditText) findViewById(R.id.register_editTelepon);
+        EditText idbaptisET = (EditText) findViewById(R.id.register_editIdBaptis);
+
+        String pass = passET.getText().toString();
+        String passcon = passconET.getText().toString();
+        if (pass.equals(passcon)) {
+            String nama = namaET.getText().toString().replace(" ", "%20");
+            String email = emailET.getText().toString();
+            String telepon = teleponET.getText().toString();
+            String alamat = alamatET.getText().toString().replace(" ", "%20").replace(":", "").replace("/", "").replace("#", "");
+            String idbaptis = idbaptisET.getText().toString().replace("/","");
+            Date x = new Date();
+
+            cont.register(nama,pass,email,telepon,alamat,x,idbaptis);
+            switchFragment();
+        }else{
+            //password dan konfirmasi tidak sama, keluarin toast.
+            Toast.makeText(Home.this, "Re-enter Password", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    public void loginClicked(View v){
+        Toast.makeText(Home.this, "login clicked", Toast.LENGTH_LONG).show();
+        EditText namaET = (EditText) findViewById(R.id.login_editNama);
+        EditText passET = (EditText) findViewById(R.id.login_editPassword);
+
+        String nama = namaET.getText().toString().replace(" ", "%20");
+        String pass = passET.getText().toString();
+
+        Log.d("nama",nama);
+        Log.d("pass",pass);
+
+        cont.login(nama,pass);
+        switchFragment();
+    }
+
 
     public void switchFragment() {
         fragManager = getSupportFragmentManager();
