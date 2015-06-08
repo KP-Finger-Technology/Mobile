@@ -27,6 +27,8 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -584,11 +586,18 @@ public class Home extends ActionBarActivity
         EditText doaET = (EditText) findViewById(R.id.permohonanDoa_editDoa);
 //        RadioButton jenisKelamin = (RadioButton) findViewById((R.id.permohonanDoa_editJenisKelamin));
 
-        String nama = namaET.getText().toString().replace(" ","%20");
-        int umur = Integer.parseInt(umurET.getText().toString());
-        String email = emailET.getText().toString();
-        String telepon = teleponET.getText().toString();
-        String doa = doaET.getText().toString().replace(" ","%20").replace(":","").replace("/","").replace("#","");
+        String nama = null,email = null,telepon = null,doa = null;
+        int umur = 0;
+        try {
+            nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
+            umur = Integer.parseInt(umurET.getText().toString());
+            email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
+            telepon = URLEncoder.encode(teleponET.getText().toString(), "utf-8");
+            doa = URLEncoder.encode(doaET.getText().toString(), "utf-8");
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         cont.addDoa(nama,umur,email,telepon,"p", doa);
         frag = new AlkitabFragment();
@@ -607,11 +616,17 @@ public class Home extends ActionBarActivity
         String pass = passET.getText().toString();
         String passcon = passconET.getText().toString();
         if (pass.equals(passcon)) {
-            String nama = namaET.getText().toString().replace(" ", "%20");
-            String email = emailET.getText().toString();
-            String telepon = teleponET.getText().toString();
-            String alamat = alamatET.getText().toString().replace(" ", "%20").replace(":", "").replace("/", "").replace("#", "");
-            String idbaptis = idbaptisET.getText().toString().replace("/","");
+        String nama = null,email = null,telepon = null,alamat = null,idbaptis = null;
+            try {
+                nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
+                email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
+                telepon = URLEncoder.encode(teleponET.getText().toString(),"utf-8");
+                alamat = URLEncoder.encode(alamatET.getText().toString(), "utf-8");
+                idbaptis = URLEncoder.encode(idbaptisET.getText().toString(), "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
             Date x = new Date();
 
             cont.register(nama,pass,email,telepon,alamat,x,idbaptis);
