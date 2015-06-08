@@ -109,6 +109,9 @@ public class Home extends ActionBarActivity
                         parentHashMapKeys.get(groupPosition)
                                 + " expanded", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
+                    frag = new Home.PlaceholderFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
                 // Alkitab
                 else if (groupPosition == 1) {
@@ -376,13 +379,13 @@ public class Home extends ActionBarActivity
         mActivityTitle = getTitle().toString();*/
 
         // Untuk ViewPager
-        /*setContentView(R.layout.fragment_kolportase);*/
+        /*setContentView(R.layout.fragment_kolportase);
 
         Log.d("Home", "onCreate");
         adapterViewPager = new SmartFragmentStatePagerAdapter(getSupportFragmentManager());
 
         mPager = (ViewPager) findViewById(R.id.vpPager);
-        mPager.setAdapter(adapterViewPager);
+        mPager.setAdapter(adapterViewPager);*/
     }
 
     /*private void addDrawerItems() {
@@ -525,12 +528,12 @@ public class Home extends ActionBarActivity
             return rootView;
         }
 
-        @Override
+        /*@Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
             ((Home) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
-        }
+        }*/
     }
 
     // Untuk button-button
