@@ -639,15 +639,17 @@ public class Home extends ActionBarActivity
     }
 
     public void loginClicked(View v){
-        Toast.makeText(Home.this, "login clicked", Toast.LENGTH_LONG).show();
+//        Toast.makeText(Home.this, "login clicked", Toast.LENGTH_LONG).show();
         EditText namaET = (EditText) findViewById(R.id.login_editNama);
         EditText passET = (EditText) findViewById(R.id.login_editPassword);
 
-        String nama = namaET.getText().toString().replace(" ", "%20");
-        String pass = passET.getText().toString();
-
-        Log.d("nama",nama);
-        Log.d("pass",pass);
+        String nama = null, pass = null;
+        try {
+            nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
+            pass = URLEncoder.encode(passET.getText().toString(),"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         cont.login(nama,pass);
         switchFragment();
