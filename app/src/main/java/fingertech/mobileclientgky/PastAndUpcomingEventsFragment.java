@@ -82,7 +82,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         }
 
         Viewer v = new Viewer();
-        v.execute();
+        /*v.execute();*/
     }
 
     @Override

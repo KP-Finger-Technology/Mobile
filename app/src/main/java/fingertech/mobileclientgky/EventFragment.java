@@ -53,7 +53,7 @@ public class EventFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-
+    // Untuk komponen-komponen
     private LinearLayout myLinearLayout;
     private ImageView GambarIV;
     private TextView TitleEventTV;
@@ -123,9 +123,9 @@ public class EventFragment extends Fragment {
 //            JSONObject temp = null;
             String judul, tanggal, keterangan, linkGambar;
 
-            //add LInearLayout
+            // Add LinearLayout
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_event);
-            //add LayoutParams
+            // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
@@ -133,7 +133,7 @@ public class EventFragment extends Fragment {
             LinearLayout rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            //buat linear layout vertical utk menampung kata2
+            // Membuat linear layout vertical untuk menampung kata-kata
             LinearLayout colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0,10,10,0);
@@ -163,7 +163,7 @@ public class EventFragment extends Fragment {
                 keterangan = "debugging aplikasi android";
                 linkGambar = "www.com";
 
-                //add image View
+                // Add imageView
                 GambarIV = new ImageView(getActivity());
                 GambarIV.setBackgroundColor(923423432);
 //                GambarIV.setPadding(0,10,10,0);
@@ -174,13 +174,14 @@ public class EventFragment extends Fragment {
                 GambarIV.setLayoutParams(params);
                 rowLayout.addView(GambarIV);
 
-                //add text View TitleEventTV
+                // Add textView TitleEventTV
                 TitleEventTV = new TextView(getActivity());
                 TitleEventTV.setText("Event: ");
                 TitleEventTV.setLayoutParams(params);
                 TitleEventTV.setTextColor(colorWhite);
                 subRowLayout.addView(TitleEventTV);
-                //add text View JudulEventTV
+
+                // Add textView JudulEventTV
                 JudulEventTV = new TextView(getActivity());
                 JudulEventTV.setText(judul);
                 JudulEventTV.setLayoutParams(params);
@@ -188,13 +189,14 @@ public class EventFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                //add text View TitleTanggalTV
+                // Add textView TitleTanggalTV
                 TitleTanggalTV = new TextView(getActivity());
                 TitleTanggalTV.setText("Tanggal: ");
                 TitleTanggalTV.setTextColor(colorWhite);
                 TitleTanggalTV.setLayoutParams(params);
                 subRowLayout.addView(TitleTanggalTV);
-                //add text View JudulTanggalTV
+
+                // Add textView JudulTanggalTV
                 JudulTanggalTV= new TextView(getActivity());
                 JudulTanggalTV.setText(tanggal);
                 JudulTanggalTV.setLayoutParams(params);
@@ -202,13 +204,14 @@ public class EventFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                //add text View TitleWaktuTV
+                // Add textView TitleWaktuTV
                 TitleWaktuTV = new TextView(getActivity());
                 TitleWaktuTV.setText("Waktu: ");
                 TitleWaktuTV.setTextColor(colorWhite);
                 TitleWaktuTV.setLayoutParams(params);
                 subRowLayout.addView(TitleWaktuTV);
-                //add text View JudulWaktuTV
+
+                // Add textView JudulWaktuTV
                 JudulWaktuTV = new TextView(getActivity());
                 JudulWaktuTV.setText(tanggal);
                 JudulWaktuTV.setLayoutParams(params);
@@ -216,13 +219,14 @@ public class EventFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                //add text View TitleKeteranganTV
+                // Add textView TitleKeteranganTV
                 TitleKeteranganTV = new TextView(getActivity());
                 TitleKeteranganTV.setText("Keterangan: ");
                 TitleKeteranganTV.setTextColor(colorWhite);
                 TitleKeteranganTV.setLayoutParams(params);
                 subRowLayout.addView(TitleKeteranganTV);
-                //add text View IsiKeteranganTV
+
+                // Add textView IsiKeteranganTV
                 IsiKeteranganTV = new TextView(getActivity());
                 if (keterangan.length()>80) {
                     keterangan = keterangan.substring(0, 80);
@@ -233,7 +237,7 @@ public class EventFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                //add selengkapnya button
+                // Add selengkapnya button
                 SelengkapnyaBtn = new Button(getActivity());
                 SelengkapnyaBtn.setText("Selengkapnya");
                 SelengkapnyaBtn.setLayoutParams(params);
@@ -306,8 +310,4 @@ public class EventFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
-
-
-
 }
