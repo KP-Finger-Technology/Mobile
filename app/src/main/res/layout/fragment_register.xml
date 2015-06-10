@@ -52,8 +52,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textDataPribadi"
-                        android:id="@+id/register_textDataPribadi"
-                        android:textStyle="bold"/>
+                        android:id="@+id/register_textDataPribadi"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -61,8 +60,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textNama"
                         android:id="@+id/register_textNama"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -78,8 +76,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textPassword"
                         android:id="@+id/register_textPassword"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -95,8 +92,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textKonfirmasiPassword"
                         android:id="@+id/register_textKonfirmasiPassword"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -113,8 +109,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textEmail"
                         android:id="@+id/register_textEmail"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -130,8 +125,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textTelepon"
                         android:id="@+id/register_textTelepon"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -147,8 +141,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textAlamat"
                         android:id="@+id/register_textAlamat"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -164,16 +157,16 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textTanggalLahir"
                         android:id="@+id/register_textTanggalLahir"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
-                    <DatePicker
+                    <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="date"
-                        android:hint="contoh: 17-08-1994"
+                        android:focusable="false"
+                        android:hint="dd/mm/yyyy"
                         android:ems="15"
-                        android:id="@+id/register_editTanggalLahir"/>
+                        android:id="@+id/register_editTanggalLahir"
+                        android:onClick="setDate"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -182,8 +175,7 @@
                         android:text="@string/register_textDataGereja"
                         android:id="@+id/register_textDataGereja"
                         android:textColor="#ffffffff"
-                        android:layout_marginTop="20dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="15dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -191,8 +183,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textIdBaptis"
                         android:id="@+id/register_textIdBaptis"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -208,8 +199,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textKomisi"
                         android:id="@+id/register_textKomisi"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
                     <CheckBox
                         android:id="@+id/register_checkboxKomisiAnak"
@@ -243,8 +233,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textPelayanan"
                         android:id="@+id/register_textPelayanan"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="5dp"/>
 
                     <CheckBox
                         android:id="@+id/register_checkboxPelayananAnak"
@@ -280,8 +269,7 @@
                         android:id="@+id/register_daftar"
                         android:layout_marginTop="15dp"
                         android:background="#ffb01815"
-                        android:textColor="#ffffffff"
-                        android:onClick="registerClicked"/>
+                        android:textColor="#ffffffff"/>
 
                 </LinearLayout>
             </ScrollView>
