@@ -1,16 +1,34 @@
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 /**
@@ -21,7 +39,7 @@ import android.widget.LinearLayout;
  * Use the {@link JadwalPelayananFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class JadwalPelayananFragment extends Fragment {
+public class JadwalPelayananFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,6 +50,9 @@ public class JadwalPelayananFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private Button buttonFetchData;
+    private View rootView;
 
     // Controller cont = new Controller();
 
@@ -72,8 +93,8 @@ public class JadwalPelayananFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        /*View rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
-        LinearLayout myLinearLayout;
+        View rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
+        /*LinearLayout myLinearLayout;
         Log.d("masuk 1:", "yes");
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
         Log.d("masuk 2:", "yes");
@@ -88,8 +109,11 @@ public class JadwalPelayananFragment extends Fragment {
         myLinearLayout.addView(dummy);*/
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
-//        return rootView;
+        /*return inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);*/
+        buttonFetchData = (Button)rootView.findViewById(R.id.jadwalPelayanan_fetchData);
+        buttonFetchData.setOnClickListener(this);
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -116,6 +140,11 @@ public class JadwalPelayananFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -129,6 +158,204 @@ public class JadwalPelayananFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    class Viewer extends AsyncTask<String, String, String> {
+        private LinearLayout myLinearLayout;
+        private TableLayout myTableLayout;
+        private TableRow TR;
+        private TextView JudulTabel;
+        private TextView IsiTabel;
+
+        JSONArray arr = new JSONArray();
+
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+        };
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+            String statu = "";
+//            for (String urlp : params) {
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet("http://192.168.0.105/server/view_jadwalpelayanan.php"); // ngikutin ip disini loh
+            HttpResponse response;
+
+            try {
+
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
+//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
+                Log.d("Result", result);
+
+                try {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+                    statu = "ok";
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+//            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
+
+            //add LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            params.setMargins(0, 10, 20, 0);
+
+            int dataLength = arr.length();
+
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+
+            int colorWhite = Color.WHITE;
+
+            String jenisPelayanan =null, tanggal=null, gedung=null, kebaktian=null, waktuMulai=null, waktuSelesai=null, judulLagu =null;
+            // Generate konten Event dalam loop for
+            for (int i=0; i<dataLength; i++){
+                JSONObject jsonobj = null;
+                try {
+                    jsonobj = arr.getJSONObject(i);
+                    Log.d("JSONObject",arr.getJSONObject(i).toString());
+                    jenisPelayanan = jsonobj.getString("jenispelayanan");
+                    tanggal = jsonobj.getString("tanggal");
+                    gedung = jsonobj.getString("gedung");
+                    kebaktian= jsonobj.getString("kebaktian");
+                    waktuMulai = jsonobj.getString("waktumulai");
+                    waktuSelesai = jsonobj.getString("waktuselesai");
+                    judulLagu = jsonobj.getString("judul");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JudulTabel = new TextView(getActivity());
+                JudulTabel.setText(jenisPelayanan);
+                JudulTabel.setLayoutParams(params);
+                myLinearLayout.addView(JudulTabel);
+
+                myTableLayout = new TableLayout(getActivity());
+
+                TR = new TableRow(getActivity());
+
+                /*//add image View
+                GambarIV = new ImageView(getActivity());
+                GambarIV.setBackgroundColor(923423432);
+
+//                GambarIV.setPadding(0,10,10,0);
+                GambarIV.setMinimumWidth(image_width);
+                GambarIV.setMinimumHeight(image_height);
+                GambarIV.setMaxHeight(image_height);
+                GambarIV.setMaxWidth(image_width);
+                GambarIV.setLayoutParams(params);
+                rowLayout.addView(GambarIV);
+
+                //add text View TitleEventTV
+                TitleEventTV = new TextView(getActivity());
+                TitleEventTV.setText("Event: ");
+                TitleEventTV.setLayoutParams(params);
+                TitleEventTV.setTextColor(colorWhite);
+                subRowLayout.addView(TitleEventTV);
+
+                //add text View JudulEventTV
+                JudulEventTV = new TextView(getActivity());
+                JudulEventTV.setText(judul);
+                JudulEventTV.setLayoutParams(params);
+                subRowLayout.addView(JudulEventTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add text View TitleTanggalTV
+                TitleTanggalTV = new TextView(getActivity());
+                TitleTanggalTV.setText("Tanggal: ");
+                TitleTanggalTV.setTextColor(colorWhite);
+                TitleTanggalTV.setLayoutParams(params);
+                subRowLayout.addView(TitleTanggalTV);
+
+                //add text View JudulTanggalTV
+                JudulTanggalTV= new TextView(getActivity());
+                JudulTanggalTV.setText(tanggal);
+                JudulTanggalTV.setLayoutParams(params);
+                subRowLayout.addView(JudulTanggalTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add text View TitleWaktuTV
+                TitleWaktuTV = new TextView(getActivity());
+                TitleWaktuTV.setText("Waktu: ");
+                TitleWaktuTV.setTextColor(colorWhite);
+                TitleWaktuTV.setLayoutParams(params);
+                subRowLayout.addView(TitleWaktuTV);
+
+                //add text View JudulWaktuTV
+                JudulWaktuTV = new TextView(getActivity());
+                JudulWaktuTV.setText(tanggal);
+                JudulWaktuTV.setLayoutParams(params);
+                subRowLayout.addView(JudulWaktuTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add text View TitleKeteranganTV
+                TitleKeteranganTV = new TextView(getActivity());
+                TitleKeteranganTV.setText("Keterangan: ");
+                TitleKeteranganTV.setTextColor(colorWhite);
+                TitleKeteranganTV.setLayoutParams(params);
+                subRowLayout.addView(TitleKeteranganTV);
+                //add text View IsiKeteranganTV
+                IsiKeteranganTV = new TextView(getActivity());
+                if (keterangan.length()>80) {
+                    keterangan = keterangan.substring(0, 80);
+                    keterangan = keterangan + "...";
+                }
+                IsiKeteranganTV.setText(keterangan);
+                IsiKeteranganTV.setLayoutParams(params);
+                subRowLayout.addView(IsiKeteranganTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add selengkapnya button
+                SelengkapnyaBtn = new Button(getActivity());
+                SelengkapnyaBtn.setText("Selengkapnya");
+                SelengkapnyaBtn.setLayoutParams(params);
+                SelengkapnyaBtn.setBackgroundColor(0);
+                subRowLayout.addView(SelengkapnyaBtn);
+                colLayout.addView(subRowLayout);
+
+                if (i!=dataLength) {
+                    rowLayout.addView(colLayout);
+                    myLinearLayout.addView(rowLayout);
+                    rowLayout = new LinearLayout(getActivity());
+                    colLayout = new LinearLayout(getActivity());
+                    colLayout.setOrientation(LinearLayout.VERTICAL);
+                    subRowLayout = new LinearLayout(getActivity());
+                }*/
+            }
+        }
     }
 
 }

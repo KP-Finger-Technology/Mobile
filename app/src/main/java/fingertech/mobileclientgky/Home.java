@@ -659,6 +659,9 @@ public class Home extends ActionBarActivity
         switchFragment();
     }
 
+    public void fetchDataJadwalPelayanan(View v){
+
+    }
 
     public void switchFragment() {
         fragManager = getSupportFragmentManager();
