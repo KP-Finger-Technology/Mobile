@@ -54,6 +54,7 @@ public class LiturgiMingguanFragment extends Fragment {
     private TextView judulAcaraTV;
     private TextView keteranganTV;
     private TextView idSubAcaraTV;
+    private TextView subAcaraTV;
     private View rootView;
 
     /**
@@ -201,7 +202,7 @@ public class LiturgiMingguanFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            String idLiturgi = null, judulAcara = null, keterangan = null, idSubAcara = null;
+            String idLiturgi = null, judulAcara = null, subAcara = null, keterangan = null, idSubAcara = null;
 
             // Add LinearLayout
             View v = rootView.findViewById(R.id.container_liturgi_mingguan);
@@ -233,67 +234,93 @@ public class LiturgiMingguanFragment extends Fragment {
             int dataLength = arr.length();
 
             // Generate konten Liturgi Mingguan dalam loop for
+
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    JSONArray jsonArr = new JSONArray();
-                    jsonArr = jsonobj.getJSONArray("atribut");;
+                    JSONArray jsonArr = jsonobj.getJSONArray("atribut");
 
                     Log.d("JSONObject", arr.getJSONObject(i).toString());
                     idLiturgi = jsonobj.getString("idliturgi");
                     Log.d("jsonf_idliturgi:", idLiturgi);
 
+                    // Add textView idLiturgiTV
+                    idLiturgiTV = new TextView(getActivity());
+                    idLiturgiTV.setText(idLiturgi);
+                    idLiturgiTV.setLayoutParams(params);
+                    idLiturgiTV.setTextColor(colorBlack);
+                    subRowLayout.addView(idLiturgiTV);
+                    rowLayout.addView(subRowLayout);
+
+                    // Add textView judulAcaraTV
+                    subRowLayout = new LinearLayout(getActivity());
+                    judulAcaraTV = new TextView(getActivity());
+                    judulAcaraTV.setText(judulAcara);
+                    judulAcaraTV.setLayoutParams(params);
+                    judulAcaraTV.setTextColor(colorBlack);
+                    subRowLayout.addView(judulAcaraTV);
+                    rowLayout.addView(subRowLayout);
+                    colLayout.addView(rowLayout);
+
                     for(int j = 0; j < jsonArr.length(); j++) {
-                        judulAcara = jsonArr.getJSONObject(i).getString("judulacara");
-                        keterangan = jsonArr.getJSONObject(i).getString("keterangan");
-                        idSubAcara = jsonArr.getJSONObject(i).getString("idsubacara");
+                        judulAcara = jsonArr.getJSONObject(j).getString("judulacara");
+                        keterangan = jsonArr.getJSONObject(j).getString("keterangan");
+                        idSubAcara = jsonArr.getJSONObject(j).getString("idsubacara");
+                        subAcara = jsonArr.getJSONObject(j).getString("subacara");
 
                         Log.d("jsonf_judul:", judulAcara);
                         Log.d("jsonf_ket:", keterangan);
                         Log.d("jsonf_idsub:", idSubAcara);
+                        Log.d("jsonf_sub:", subAcara);
+
+                        // Add textView idSubAcaraTV
+                        rowLayout = new LinearLayout(getActivity());
+                        subRowLayout = new LinearLayout(getActivity());
+                        idSubAcaraTV = new TextView(getActivity());
+                        idSubAcaraTV.setText(idSubAcara);
+                        idSubAcaraTV.setLayoutParams(params);
+                        idSubAcaraTV.setTextColor(colorBlack);
+                        subRowLayout.addView(idSubAcaraTV);
+                        rowLayout.addView(subRowLayout);
+
+                        // Add textView subAcaraTV
+                        subRowLayout = new LinearLayout(getActivity());
+                        subAcaraTV = new TextView(getActivity());
+                        subAcaraTV.setText(subAcara);
+                        subAcaraTV.setLayoutParams(params);
+                        subAcaraTV.setTextColor(colorBlack);
+                        subRowLayout.addView(subAcaraTV);
+                        rowLayout.addView(subRowLayout);
+
+                        // Add textView keteranganTV
+                        subRowLayout = new LinearLayout(getActivity());
+                        keteranganTV = new TextView(getActivity());
+                        keteranganTV.setText(keterangan);
+                        keteranganTV.setLayoutParams(params);
+                        keteranganTV.setTextColor(colorBlack);
+                        subRowLayout.addView(keteranganTV);
+                        rowLayout.addView(subRowLayout);
+                        colLayout.addView(rowLayout);
+
+                        myLinearLayout.addView(colLayout);
+                        rowLayout = new LinearLayout(getActivity());
+                        subRowLayout = new LinearLayout(getActivity());
+                        colLayout = new LinearLayout(getActivity());
+                        colLayout.setOrientation(LinearLayout.VERTICAL);
+
+                        if (j!=jsonArr.length()) {
+                            rowLayout.addView(colLayout);
+                            myLinearLayout.addView(rowLayout);
+                            rowLayout = new LinearLayout(getActivity());
+                            colLayout = new LinearLayout(getActivity());
+                            colLayout.setOrientation(LinearLayout.VERTICAL);
+                            subRowLayout = new LinearLayout(getActivity());
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                // Add textView idLiturgiTV
-                idLiturgiTV = new TextView(getActivity());
-                idLiturgiTV.setText(idLiturgi);
-                idLiturgiTV.setLayoutParams(params);
-                idLiturgiTV.setTextColor(colorBlack);
-                subRowLayout.addView(idLiturgiTV);
-                rowLayout.addView(subRowLayout);
-
-                // Add textView judulAcaraTV
-                subRowLayout = new LinearLayout(getActivity());
-                judulAcaraTV = new TextView(getActivity());
-                judulAcaraTV.setText(judulAcara);
-                judulAcaraTV.setLayoutParams(params);
-                judulAcaraTV.setTextColor(colorBlack);
-                subRowLayout.addView(judulAcaraTV);
-                rowLayout.addView(subRowLayout);
-                colLayout.addView(rowLayout);
-
-                // Add textView idSubAcaraTV
-                rowLayout = new LinearLayout(getActivity());
-                subRowLayout = new LinearLayout(getActivity());
-                idSubAcaraTV = new TextView(getActivity());
-                idSubAcaraTV.setText(idSubAcara);
-                idSubAcaraTV.setLayoutParams(params);
-                idSubAcaraTV.setTextColor(colorBlack);
-                subRowLayout.addView(idSubAcaraTV);
-                rowLayout.addView(subRowLayout);
-
-                // Add keteranganTV
-                subRowLayout = new LinearLayout(getActivity());
-                keteranganTV = new TextView(getActivity());
-                keteranganTV.setText(keterangan);
-                keteranganTV.setLayoutParams(params);
-                keteranganTV.setTextColor(colorBlack);
-                subRowLayout.addView(keteranganTV);
-                rowLayout.addView(subRowLayout);
-                colLayout.addView(rowLayout);
 
                 myLinearLayout.addView(colLayout);
                 rowLayout = new LinearLayout(getActivity());
