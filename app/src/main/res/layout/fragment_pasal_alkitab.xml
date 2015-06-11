@@ -44,6 +44,12 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="8dp">
 
+                <SearchView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pasalAlkitab_searchView"
+                    android:hint="cari pasal alkitab"/>
+
             </LinearLayout>
 
         </ScrollView>

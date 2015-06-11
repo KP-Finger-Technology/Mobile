@@ -90,7 +90,6 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/komisiRemajaDanPemuda_textJadwal1"
                         android:id="@+id/komisiRemajaDanPemuda_textJadwal1"
-                        android:layout_marginTop="5dp"
                         android:textStyle="bold"/>
 
                     <TextView

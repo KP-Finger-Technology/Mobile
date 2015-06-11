@@ -27,14 +27,14 @@
 
     <!-- Menu-menu utama Navigation Drawer -->
     <!-- Alkitab -->
-    <fragment android:id="@+id/alkitab"
+    <!--<fragment android:id="@+id/alkitab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="fingertech.mobileclientgky.AlkitabFragment"
         tools:layout="@layout/fragment_alkitab" />
 
-    <!-- Event -->
+    &lt;!&ndash; Event &ndash;&gt;
     <fragment android:id="@+id/event"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,7 +42,7 @@
         android:name="fingertech.mobileclientgky.EventFragment"
         tools:layout="@layout/fragment_event" />
 
-    <!-- Tentang Kami -->
+    &lt;!&ndash; Tentang Kami &ndash;&gt;
     <fragment android:id="@+id/tentangKami"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,8 +50,8 @@
         android:name="fingertech.mobileclientgky.TentangKamiFragment"
         tools:layout="@layout/fragment_tentang_kami" />
 
-    <!-- Hubungi Kami -->
-    <!-- Dengan Map -->
+    &lt;!&ndash; Hubungi Kami &ndash;&gt;
+    &lt;!&ndash; Dengan Map &ndash;&gt;
     <fragment android:id="@+id/hubungiKami"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -59,15 +59,15 @@
         android:name="fingertech.mobileclientgky.HubungiKamiFragment"
         tools:layout="@layout/fragment_hubungi_kami"/>
 
-    <!-- Tanpa Map -->
-    <!--<fragment android:id="@+id/hubungiKami"
+    &lt;!&ndash; Tanpa Map &ndash;&gt;
+    &lt;!&ndash;<fragment android:id="@+id/hubungiKami"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="fingertech.mobileclientgky.HubungiKamiFragment"
-        tools:layout="@layout/fragment_hubungi_kami" />-->
+        tools:layout="@layout/fragment_hubungi_kami" />&ndash;&gt;
 
-    <!-- Login -->
+    &lt;!&ndash; Login &ndash;&gt;
     <fragment android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -75,7 +75,7 @@
         android:name="fingertech.mobileclientgky.LoginFragment"
         tools:layout="@layout/fragment_login" />
 
-    <!-- Register -->
+    &lt;!&ndash; Register &ndash;&gt;
     <fragment android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -83,8 +83,8 @@
         android:name="fingertech.mobileclientgky.RegisterFragment"
         tools:layout="@layout/fragment_register" />
 
-    <!-- Sub menu dari Menu Komisi -->
-    <!-- Komisi Anak -->
+    &lt;!&ndash; Sub menu dari Menu Komisi &ndash;&gt;
+    &lt;!&ndash; Komisi Anak &ndash;&gt;
     <fragment android:id="@+id/komisiAnak"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -92,7 +92,7 @@
         android:name="fingertech.mobileclientgky.KomisiAnakFragment"
         tools:layout="@layout/fragment_komisi_anak" />
 
-    <!-- Komisi Kaleb -->
+    &lt;!&ndash; Komisi Kaleb &ndash;&gt;
     <fragment android:id="@+id/komisiKaleb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -100,7 +100,7 @@
         android:name="fingertech.mobileclientgky.KomisiKalebFragment"
         tools:layout="@layout/fragment_komisi_kaleb" />
 
-    <!-- Komisi Pasutri -->
+    &lt;!&ndash; Komisi Pasutri &ndash;&gt;
     <fragment android:id="@+id/komisiPasutri"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -108,7 +108,7 @@
         android:name="fingertech.mobileclientgky.KomisiPasutriFragment"
         tools:layout="@layout/fragment_komisi_pasutri" />
 
-    <!-- Komisi Pemuda Dewasa -->
+    &lt;!&ndash; Komisi Pemuda Dewasa &ndash;&gt;
     <fragment android:id="@+id/komisiPemudaDewasa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -116,7 +116,7 @@
         android:name="fingertech.mobileclientgky.KomisiPemudaDewasaFragment"
         tools:layout="@layout/fragment_komisi_pemuda_dewasa" />
 
-    <!-- Komisi Remaja dan Pemuda -->
+    &lt;!&ndash; Komisi Remaja dan Pemuda &ndash;&gt;
     <fragment android:id="@+id/komisiRemajaDanPemuda"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -124,7 +124,7 @@
         android:name="fingertech.mobileclientgky.KomisiRemajaDanPemudaFragment"
         tools:layout="@layout/fragment_komisi_remaja_dan_pemuda" />
 
-    <!-- Komisi Wanita -->
+    &lt;!&ndash; Komisi Wanita &ndash;&gt;
     <fragment android:id="@+id/komisiWanita"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -132,8 +132,8 @@
         android:name="fingertech.mobileclientgky.KomisiWanitaFragment"
         tools:layout="@layout/fragment_komisi_wanita" />
 
-    <!-- Sub menu dari menu Pelayanan -->
-    <!-- Diakonia dan Oikumene -->
+    &lt;!&ndash; Sub menu dari menu Pelayanan &ndash;&gt;
+    &lt;!&ndash; Diakonia dan Oikumene &ndash;&gt;
     <fragment android:id="@+id/diakoniaDanOikumene"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -141,7 +141,7 @@
         android:name="fingertech.mobileclientgky.DiakoniaDanOikumeneFragment"
         tools:layout="@layout/fragment_diakonia_dan_oikumene" />
 
-    <!-- Kebaktian Doa -->
+    &lt;!&ndash; Kebaktian Doa &ndash;&gt;
     <fragment android:id="@+id/kebaktianDoa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -149,7 +149,7 @@
         android:name="fingertech.mobileclientgky.KebaktianDoaFragment"
         tools:layout="@layout/fragment_kebaktian_doa" />
 
-    <!-- Kebaktian Umum -->
+    &lt;!&ndash; Kebaktian Umum &ndash;&gt;
     <fragment android:id="@+id/kebaktianUmum"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -157,7 +157,7 @@
         android:name="fingertech.mobileclientgky.KebaktianUmumFragment"
         tools:layout="@layout/fragment_kebaktian_umum" />
 
-    <!-- Kelompok Kecil -->
+    &lt;!&ndash; Kelompok Kecil &ndash;&gt;
     <fragment android:id="@+id/kelompokKecil"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -165,7 +165,7 @@
         android:name="fingertech.mobileclientgky.KelompokKecilFragment"
         tools:layout="@layout/fragment_kelompok_kecil" />
 
-    <!-- Misi/Pengabaran Injil (PI) -->
+    &lt;!&ndash; Misi/Pengabaran Injil (PI) &ndash;&gt;
     <fragment android:id="@+id/misiPengabaranInjil"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -173,8 +173,8 @@
         android:name="fingertech.mobileclientgky.MisiPengabaranInjilFragment"
         tools:layout="@layout/fragment_misi_pengabaran_injil" />
 
-    <!-- Sub menu dari menu Pembinaan -->
-    <!-- Katekisasi -->
+    &lt;!&ndash; Sub menu dari menu Pembinaan &ndash;&gt;
+    &lt;!&ndash; Katekisasi &ndash;&gt;
     <fragment android:id="@+id/katekisasi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -182,7 +182,7 @@
         android:name="fingertech.mobileclientgky.KatekisasiFragment"
         tools:layout="@layout/fragment_katekisasi" />
 
-    <!-- Pre-marital -->
+    &lt;!&ndash; Pre-marital &ndash;&gt;
     <fragment android:id="@+id/preMaritalClass"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -190,7 +190,7 @@
         android:name="fingertech.mobileclientgky.PreMaritalClassFragment"
         tools:layout="@layout/fragment_pre_marital_class" />
 
-    <!-- Renungan Gema -->
+    &lt;!&ndash; Renungan Gema &ndash;&gt;
     <fragment android:id="@+id/renunganGema"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -198,10 +198,10 @@
         android:name="fingertech.mobileclientgky.RenunganGemaFragment"
         tools:layout="@layout/fragment_renungan_gema" />
 
-    <!-- Rekaman Khotbah -->
+    &lt;!&ndash; Rekaman Khotbah &ndash;&gt;
 
 
-    <!-- Permohonan Doa -->
+    &lt;!&ndash; Permohonan Doa &ndash;&gt;
     <fragment android:id="@+id/permohonan_doa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -209,13 +209,13 @@
         android:name="fingertech.mobileclientgky.PermohonanDoaFragment"
         tools:layout="@layout/fragment_permohonan_doa" />
 
-    <!-- KPPK -->
+    &lt;!&ndash; KPPK &ndash;&gt;
 
 
-    <!-- Lirik Lagu Rohani -->
+    &lt;!&ndash; Lirik Lagu Rohani &ndash;&gt;
 
 
-    <!-- Pengakuan Iman -->
+    &lt;!&ndash; Pengakuan Iman &ndash;&gt;
     <fragment android:id="@+id/pengakuanIman"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -223,7 +223,7 @@
         android:name="fingertech.mobileclientgky.PengakuanImanFragment"
         tools:layout="@layout/fragment_pengakuan_iman" />
 
-    <!-- Kolportase -->
+    &lt;!&ndash; Kolportase &ndash;&gt;
     <fragment android:id="@+id/kolportase"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -231,7 +231,7 @@
         android:name="fingertech.mobileclientgky.KolportaseFragment"
         tools:layout="@layout/fragment_kolportase" />
 
-    <!-- Jadwal Pelayanan -->
+    &lt;!&ndash; Jadwal Pelayanan &ndash;&gt;
     <fragment android:id="@+id/jadwal_pelayanan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -239,8 +239,8 @@
         android:name="fingertech.mobileclientgky.JadwalPelayananFragment"
         tools:layout="@layout/fragment_jadwal_pelayanan" />
 
-    <!-- Sub menu dari menu Events -->
-    <!-- Warta Mingguan -->
+    &lt;!&ndash; Sub menu dari menu Events &ndash;&gt;
+    &lt;!&ndash; Warta Mingguan &ndash;&gt;
     <fragment android:id="@+id/wartaMingguan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -248,7 +248,7 @@
         android:name="fingertech.mobileclientgky.WartaMingguanFragment"
         tools:layout="@layout/fragment_warta_mingguan" />
 
-    <!-- Liturgi Mingguan -->
+    &lt;!&ndash; Liturgi Mingguan &ndash;&gt;
     <fragment android:id="@+id/liturgiMingguan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -256,7 +256,7 @@
         android:name="fingertech.mobileclientgky.LiturgiMingguanFragment"
         tools:layout="@layout/fragment_liturgi_mingguan" />
 
-    <!-- Past and Upcoming Events -->
+    &lt;!&ndash; Past and Upcoming Events &ndash;&gt;
     <fragment android:id="@+id/pastAndUpcomingEvents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -264,13 +264,13 @@
         android:name="fingertech.mobileclientgky.PastAndUpcomingEventsFragment"
         tools:layout="@layout/fragment_past_and_upcoming_events" />
 
-    <!-- Jadwal Ibadah -->
+    &lt;!&ndash; Jadwal Ibadah &ndash;&gt;
     <fragment android:id="@+id/jadwalIbadah"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="fingertech.mobileclientgky.JadwalIbadahFragment"
-        tools:layout="@layout/fragment_jadwal_ibadah" />
+        tools:layout="@layout/fragment_jadwal_ibadah" />-->
 
     <!-- <![CDATA[&ndash;&gt;]]> -->
 
