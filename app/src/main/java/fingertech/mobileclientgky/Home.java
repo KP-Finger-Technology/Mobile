@@ -63,6 +63,7 @@ public class Home extends ActionBarActivity
     private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
+    private int year_chosen, month_chosen, day_chosen;
 
     // Untuk ViewPager
     private SmartFragmentStatePagerAdapter adapterViewPager;
@@ -412,12 +413,14 @@ public class Home extends ActionBarActivity
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
             // TODO Auto-generated method stub
-            // arg1 = year
-            // arg2 = month
-            // arg3 = day
+            year_chosen = arg1;
+            month_chosen = arg2+1;
+            day_chosen = arg3;
             EditText ET = (EditText) findViewById(R.id.datePickerEdit);
-            String temp = Integer.toString(arg3) + "/" +Integer.toString(arg2) + "/" + Integer.toString(arg1);
+            EditText ET2 = (EditText) findViewById(R.id.register_editTanggalLahir);
+            String temp = Integer.toString(day_chosen) + "/" +Integer.toString(month_chosen) + "/" + Integer.toString(year_chosen);
             ET.setText(temp);
+            ET2.setText(temp);
         }
     };
 
@@ -663,6 +666,9 @@ public class Home extends ActionBarActivity
 
     }
 
+    public void fetchDataJadwalPelayanan(View v){
+
+    }
 
     public void switchFragment() {
         fragManager = getSupportFragmentManager();

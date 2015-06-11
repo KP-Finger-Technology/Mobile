@@ -161,7 +161,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu ="";
+            String statu = "";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet("http://192.168.0.103/gky_web_service/view_event.php"); // ngikutin ip disini loh
@@ -251,6 +251,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 //add image View
                 GambarIV = new ImageView(getActivity());
                 GambarIV.setBackgroundColor(923423432);
+
 //                GambarIV.setPadding(0,10,10,0);
                 GambarIV.setMinimumWidth(image_width);
                 GambarIV.setMinimumHeight(image_height);
@@ -265,6 +266,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 TitleEventTV.setLayoutParams(params);
                 TitleEventTV.setTextColor(colorWhite);
                 subRowLayout.addView(TitleEventTV);
+
                 //add text View JudulEventTV
                 JudulEventTV = new TextView(getActivity());
                 JudulEventTV.setText(judul);
@@ -279,6 +281,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 TitleTanggalTV.setTextColor(colorWhite);
                 TitleTanggalTV.setLayoutParams(params);
                 subRowLayout.addView(TitleTanggalTV);
+
                 //add text View JudulTanggalTV
                 JudulTanggalTV= new TextView(getActivity());
                 JudulTanggalTV.setText(tanggal);
@@ -293,6 +296,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 TitleWaktuTV.setTextColor(colorWhite);
                 TitleWaktuTV.setLayoutParams(params);
                 subRowLayout.addView(TitleWaktuTV);
+
                 //add text View JudulWaktuTV
                 JudulWaktuTV = new TextView(getActivity());
                 JudulWaktuTV.setText(tanggal);

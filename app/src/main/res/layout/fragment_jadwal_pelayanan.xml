@@ -43,14 +43,22 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="8dp">
 
-                <TextView
+                <Button
+                    style="?android:attr/buttonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Sub-Judul Pelayanan 1"
-                    android:id="@+id/textView2"
-                    android:layout_gravity="left"
-                    android:textColor="#ffffffff"/>
+                    android:text="@string/fetchData"
+                    android:id="@+id/jadwalPelayanan_fetchData"
+                    android:layout_marginTop="15dp"
+                    android:background="#ffb01815"
+                    android:textColor="#ffffffff"
+                    android:onClick="fetchDataJadwalPelayanan"/>
+
+                <!--<TableLayout-->
+                    <!--android:id="@+id/tabelJadwalPelayanan"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                <!--</TableLayout>-->
 
             </LinearLayout>
 

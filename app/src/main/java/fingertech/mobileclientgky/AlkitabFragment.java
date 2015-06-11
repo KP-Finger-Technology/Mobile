@@ -1,17 +1,23 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.app.Fragment;
-import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+//import android.app.Fragment;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link android.support.v4.app.Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link AlkitabFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
@@ -28,7 +34,17 @@ public class AlkitabFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private View rootView;
+    private Button kitabBtn;
+    private LinearLayout myLinearLayout;
+    private DataBaseHelper DB;
+
     private OnFragmentInteractionListener mListener;
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
+    private FragmentManager fragManager;
+
+    private Context context;
 
     /**
      * Use this factory method to create a new instance of
@@ -52,6 +68,17 @@ public class AlkitabFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public AlkitabFragment(Context _context) {
+//        DB = new DataBaseHelper(_context);
+//        Log.d("Fro AlkitabFragment","Persiapan buka database..");
+//        DB.openDataBase();
+//        generateBtnKitab();
+//        if (rootView != null)
+//            Log.d("rootView tidak null, from AlkitabFragment","..");
+//        else
+//            Log.d("rootView null, from AlkitabFragment","..");
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,13 +86,56 @@ public class AlkitabFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+//        context = getActivity().getApplicationContext();
+        DB = new DataBaseHelper(getActivity().getApplicationContext());
+        Log.d("Fro AlkitabFragment","Persiapan buka database..");
+        DB.openDataBase();
+    }
+
+    public void generateBtnKitab() {
+        //add LinearLayout
+        myLinearLayout=(LinearLayout) rootView.findViewById(R.id.container_alkitab);
+        //add LayoutParams
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+//        params.setMargins(0, 10, 20, 0);
+
+        DB.getDaftarKitab();
+        int length = DB.getJumlahPasal().length;
+        int jumPasal = 0;
+
+        for (int i=0; i<length; i++) {
+            kitabBtn = new Button(getActivity());
+            kitabBtn.setText(DB.getPasalAlkitab()[i]);
+            kitabBtn.setLayoutParams(params);
+//            kitabBtn.setBackgroundColor(0);
+            final int finalI = i;
+            kitabBtn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        frag = new PasalAlkitabFragment(DB.getPasalAlkitab()[finalI], DB.getJumlahPasal()[finalI]);
+                        fragManager = getActivity().getSupportFragmentManager();
+                        fragTransaction = fragManager.beginTransaction();
+                        fragTransaction.replace(R.id.container, frag);
+                        fragTransaction.addToBackStack(null);
+                        fragTransaction.commit();
+                    }
+                }
+            );
+            myLinearLayout.addView(kitabBtn);
+        }
+        DB.closeDataBase();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alkitab, container, false);
+        rootView = inflater.inflate(R.layout.fragment_alkitab, container, false);
+        generateBtnKitab();
+        return rootView;
+//        return inflater.inflate(R.layout.fragment_alkitab, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -75,16 +145,16 @@ public class AlkitabFragment extends Fragment {
         }
     }
 
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        try {
+//            mListener = (OnFragmentInteractionListener) activity;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(activity.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
 
     @Override
     public void onDetach() {
