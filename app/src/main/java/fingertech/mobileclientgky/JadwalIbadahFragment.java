@@ -1,13 +1,32 @@
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 /*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 /**
@@ -27,6 +46,8 @@ public class JadwalIbadahFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View rootView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -107,4 +128,174 @@ public class JadwalIbadahFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    class Viewer extends AsyncTask<String, String, String> {
+        private LinearLayout myLinearLayout;
+        private ImageView GambarIV;
+        private TextView TitleEventTV;
+        private TextView JudulEventTV;
+        private TextView TitleTanggalTV;
+        private TextView JudulTanggalTV;
+        private TextView TitleWaktuTV;
+        private TextView JudulWaktuTV;
+        private TextView TitleKeteranganTV;
+        private TextView IsiKeteranganTV;
+        private Button SelengkapnyaBtn;
+
+        JSONArray arr = new JSONArray();
+
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+        };
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+            String statu ="";
+//            for (String urlp : params) {
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet("http://192.168.0.103/gky_web_service/view_jadwalkotbah.php"); // ngikutin ip disini loh
+            HttpResponse response;
+
+            try {
+
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
+//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
+                Log.d("Result", result);
+
+                try {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+                    statu = "ok";
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+//            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
+            //add LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            params.setMargins(0, 10, 20, 0);
+
+            LinearLayout rowLayout = new LinearLayout(getActivity());
+            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            //buat linear layout vertical utk menampung kata2
+            LinearLayout colLayout = new LinearLayout(getActivity());
+            colLayout.setOrientation(LinearLayout.VERTICAL);
+            colLayout.setPadding(0,10,10,0);
+
+            LinearLayout subRowLayout = new LinearLayout(getActivity());
+            subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            int dataLength = arr.length();
+
+            LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            int image_width = display.getWidth()/3;
+            int image_height = (int) (display.getHeight()/4.3);
+
+            int colorWhite = Color.WHITE;
+
+            String judul = null,tanggal = null ,gedung = null,linkGambar = null,kebaktianumum=null;
+            // Generate konten Event dalam loop for
+            for (int i=0; i<dataLength; i++){
+                JSONObject jsonobj = null;
+                try {
+                    jsonobj = arr.getJSONObject(i);
+                    Log.d("JSONObject",arr.getJSONObject(i).toString());
+                    judul = jsonobj.getString("judul");
+                    tanggal = jsonobj.getString("tanggal");
+                    gedung = jsonobj.getString("gedung");
+                    kebaktianumum = jsonobj.getString("kebaktianumum");
+
+                    linkGambar = jsonobj.getString("gambarevent");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //add image View
+                GambarIV = new ImageView(getActivity());
+                GambarIV.setBackgroundColor(923423432);
+//                GambarIV.setPadding(0,10,10,0);
+                GambarIV.setMinimumWidth(image_width);
+                GambarIV.setMinimumHeight(image_height);
+                GambarIV.setMaxHeight(image_height);
+                GambarIV.setMaxWidth(image_width);
+                GambarIV.setLayoutParams(params);
+                rowLayout.addView(GambarIV);
+
+                //add text View TitleEventTV
+                TitleEventTV = new TextView(getActivity());
+                TitleEventTV.setText("Event: ");
+                TitleEventTV.setLayoutParams(params);
+                TitleEventTV.setTextColor(colorWhite);
+                subRowLayout.addView(TitleEventTV);
+                //add text View JudulEventTV
+                JudulEventTV = new TextView(getActivity());
+                JudulEventTV.setText(judul);
+                JudulEventTV.setLayoutParams(params);
+                subRowLayout.addView(JudulEventTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add text View TitleTanggalTV
+                TitleTanggalTV = new TextView(getActivity());
+                TitleTanggalTV.setText("Tanggal: ");
+                TitleTanggalTV.setTextColor(colorWhite);
+                TitleTanggalTV.setLayoutParams(params);
+                subRowLayout.addView(TitleTanggalTV);
+                //add text View JudulTanggalTV
+                JudulTanggalTV= new TextView(getActivity());
+                JudulTanggalTV.setText(tanggal);
+                JudulTanggalTV.setLayoutParams(params);
+                subRowLayout.addView(JudulTanggalTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                //add text View TitleWaktuTV
+                TitleWaktuTV = new TextView(getActivity());
+                TitleWaktuTV.setText("Waktu: ");
+                TitleWaktuTV.setTextColor(colorWhite);
+                TitleWaktuTV.setLayoutParams(params);
+                subRowLayout.addView(TitleWaktuTV);
+                //add text View JudulWaktuTV
+                JudulWaktuTV = new TextView(getActivity());
+                JudulWaktuTV.setText(tanggal);
+                JudulWaktuTV.setLayoutParams(params);
+                subRowLayout.addView(JudulWaktuTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+
+            }
+        }
+    }
 }

@@ -1,13 +1,32 @@
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 /*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 /**
@@ -29,6 +48,8 @@ public class KPPKFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private View rootView;
 
     /**
      * Use this factory method to create a new instance of
@@ -65,7 +86,9 @@ public class KPPKFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_kppk, container, false);
+//        return inflater.inflate(R.layout.fragment_kppk, container, false);
+        rootView = inflater.inflate(R.layout.fragment_kppk, container, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,6 +128,109 @@ public class KPPKFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    class Viewer extends AsyncTask<String, String, String> {
+        private LinearLayout myLinearLayout;
+        private Button ListKPPK;
+
+        JSONArray arr = new JSONArray();
+
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+        };
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+            String status ="";
+//            for (String urlp : params) {
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet("http://192.168.0.103/gky_web_service/view_kppk.php"); // ngikutin ip disini loh
+            HttpResponse response;
+
+            try {
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
+//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
+                Log.d("Result", result);
+
+                try {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+                    status = "ok";
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+//            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kppk);
+            //add LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            params.setMargins(0, 10, 20, 0);
+
+            int dataLength = arr.length();
+
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+
+            int colorWhite = Color.WHITE;
+
+            String container,judul,isi = null;
+            // Generate konten Event dalam loop for
+            for (int i=0; i<dataLength; i++){
+                JSONObject jsonobj = null;
+                judul = "";
+                try {
+                    jsonobj = arr.getJSONObject(i);
+                    Log.d("JSONObject",arr.getJSONObject(i).toString());
+                    judul = jsonobj.getString("judul");
+                    isi = jsonobj.getString("isi");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                container = "KPPK " + Integer.toString(i+1) + " - " + judul;
+                //add Button Judul KPPk
+                ListKPPK = new Button(getActivity());
+                ListKPPK.setText(container);
+                ListKPPK.setLayoutParams(params);
+                ListKPPK.setTextColor(colorWhite);
+                ListKPPK.setBackgroundColor(0);
+
+                //add button listener here
+//                ListKPPK.setOnClickListener(
+//                    // masuk ke kosntruktor parameter kppkLiengkapFragment dgn parameternya: isi
+//                );
+
+                myLinearLayout.addView(ListKPPK);
+            }
+        }
     }
 
 }

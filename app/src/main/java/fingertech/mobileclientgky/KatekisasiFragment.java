@@ -1,7 +1,9 @@
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.Fragment;
 import android.util.Log;
@@ -11,6 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 /**
@@ -30,6 +44,8 @@ public class KatekisasiFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View rootView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -126,6 +142,108 @@ public class KatekisasiFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    class Viewer extends AsyncTask<String, String, String> {
+        private LinearLayout myLinearLayout;
+
+        JSONArray arr = new JSONArray();
+
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+        };
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+            String statu ="";
+            String now = null;
+            now = "2015-06-16";
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet("http://192.168.0.103/gky_web_service/view_katekisasi"); // ngikutin ip disini loh
+            HttpResponse response;
+
+            try {
+
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
+//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
+                Log.d("Result", result);
+
+                try {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+                    statu = "ok";
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            String judul= null,IsiAyat=null,kitab,pasal,ayat,IsiRenungan=null,linkGambar;
+            //add LinearLayout
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
+            //add LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0,0,0,30);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
+            int colorWhite = Color.WHITE;
+
+            JSONObject jsonobj = null;
+            try {
+                jsonobj = arr.getJSONObject(1);
+                Log.d("JSONObject", arr.getJSONObject(1).toString());
+                judul = jsonobj.getString("judul");
+                IsiAyat = jsonobj.getString("firman");
+                IsiRenungan = jsonobj.getString("deskripsi");
+                linkGambar = jsonobj.getString("gambar");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // Isi Ayat
+            TextView ayatRenungan = new TextView(getActivity());
+            ayatRenungan.setText(IsiAyat);
+            ayatRenungan.setLayoutParams(params);
+//        ayatRenungan.setTextColor(colorWhite);
+            ayatRenungan.setGravity(1);
+            myLinearLayout.addView(ayatRenungan);
+
+            // Isi Renungan
+            TextView isiRenungan = new TextView(getActivity());
+            isiRenungan.setText(IsiRenungan);
+            isiRenungan.setLayoutParams(params);
+            isiRenungan.setGravity(0);
+//        isiRenungan.setTextColor(colorWhite);
+            myLinearLayout.addView(isiRenungan);
+
+//        } catch(JSONException e){e.printStackTrace();}
+
+        }
     }
 
 }

@@ -5,9 +5,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -20,7 +22,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -86,21 +99,12 @@ public class RenunganGemaFragment extends Fragment {
 
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        Viewer v = new Viewer();
+        v.execute();
     }
 
     public void generateRenunganContent() {
-//        try{
-//        Controller C = new Controller();
-//        C.viewEvent();
-//        JSONArray dataArr2 = C.Viewer.arr;
-//        Controller.Viewer.execute(Controller.url);
-//        JSONArray dataArr = Controller.Viewer.arr;
-
-//            JSONArray data = new JSONArray(x);
-//            JSONArray data = result.getJSONArray("data");
-//            int dataLength = data.length();
-//            JSONObject temp = null;
-
 
         //add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
@@ -146,7 +150,7 @@ public class RenunganGemaFragment extends Fragment {
 //            }
 //        });
 
-        generateRenunganContent();
+//        generateRenunganContent();
 
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_renungan_gema, container, false);
@@ -223,4 +227,109 @@ public class RenunganGemaFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+
+    class Viewer extends AsyncTask<String, String, String> {
+        private LinearLayout myLinearLayout;
+
+        JSONArray arr = new JSONArray();
+
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+        };
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+            String statu ="";
+            String now = null;
+            now = "2015-06-16";
+            HttpClient client = new DefaultHttpClient();
+
+            HttpGet request = new HttpGet("http://192.168.1.108/gky_web_service/view_gema.php?Tanggal="+now+""); // ngikutin ip disini loh
+            HttpResponse response;
+
+            try {
+
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
+//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
+                Log.d("Result", result);
+
+                try {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+                    statu = "ok";
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            String judul= null,IsiAyat=null,kitab,pasal,ayat,IsiRenungan=null,linkGambar;
+            //add LinearLayout
+                myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
+                //add LayoutParams
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0,0,0,30);
+                myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
+                int colorWhite = Color.WHITE;
+
+                JSONObject jsonobj = null;
+                try {
+                    jsonobj = arr.getJSONObject(0);
+                    Log.d("JSONObject", arr.getJSONObject(0).toString());
+                    judul = jsonobj.getString("judul");
+                    IsiAyat = jsonobj.getString("firman");
+                    IsiRenungan = jsonobj.getString("deskripsi");
+                    linkGambar = jsonobj.getString("gambar");
+
+                    Log.d("Isi renungan",IsiRenungan);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // Isi Ayat
+                TextView ayatRenungan = new TextView(getActivity());
+                ayatRenungan.setText(IsiAyat);
+                ayatRenungan.setLayoutParams(params);
+//        ayatRenungan.setTextColor(colorWhite);
+                ayatRenungan.setGravity(1);
+                myLinearLayout.addView(ayatRenungan);
+
+                // Isi Renungan
+                TextView isiRenungan = new TextView(getActivity());
+                isiRenungan.setText(IsiRenungan);
+                isiRenungan.setLayoutParams(params);
+                isiRenungan.setGravity(0);
+//        isiRenungan.setTextColor(colorWhite);
+                myLinearLayout.addView(isiRenungan);
+
+//        } catch(JSONException e){e.printStackTrace();}
+
+            }
+    }
 }

@@ -658,6 +658,11 @@ public class Home extends ActionBarActivity
         switchFragment();
     }
 
+    public void pickRenungan(View v){
+        //Pilih tanggal
+
+    }
+
 
     public void switchFragment() {
         fragManager = getSupportFragmentManager();

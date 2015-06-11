@@ -57,7 +57,8 @@
                 android:text="Submit"
                 android:id="@+id/datePickerBtn"
                 android:background="#ffb01815"
-                android:textColor="#ffffffff"/>
+                android:textColor="#ffffffff"
+                android:onClick="pickRenungan"/>
 
         </LinearLayout>
 
