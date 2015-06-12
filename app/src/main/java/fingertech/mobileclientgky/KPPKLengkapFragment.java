@@ -1,13 +1,31 @@
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.Fragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 /**
@@ -29,6 +47,8 @@ public class KPPKLengkapFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private View rootView;
 
     /**
      * Use this factory method to create a new instance of
@@ -58,6 +78,22 @@ public class KPPKLengkapFragment extends Fragment {
         this.isi = _isi;
     }
 
+    public void generateIsiKPPK() {
+        //add LinearLayout
+        LinearLayout myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kppkLengkap);
+        //add LayoutParams
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+//        params.setMargins(0, 10, 20, 0);
+
+        if (isi!=null) {
+            TextView kppkTV = new TextView(getActivity());
+            kppkTV.setText(isi);
+            kppkTV.setLayoutParams(params);
+            myLinearLayout.addView(kppkTV);
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +107,10 @@ public class KPPKLengkapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_kppklengkap, container, false);
+//        return inflater.inflate(R.layout.fragment_kppklengkap, container, false);
+        rootView = inflater.inflate(R.layout.fragment_kppklengkap, container, false);
+        generateIsiKPPK();
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

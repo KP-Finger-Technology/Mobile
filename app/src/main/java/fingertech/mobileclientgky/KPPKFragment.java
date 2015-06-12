@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 /*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -51,6 +53,9 @@ public class KPPKFragment extends Fragment {
 
     private View rootView;
 
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
+    private FragmentManager fragManager;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -69,8 +74,16 @@ public class KPPKFragment extends Fragment {
         return fragment;
     }
 
+    Viewer v = new Viewer();
+
     public KPPKFragment() {
         // Required empty public constructor
+        v.execute();
+    }
+
+    @Override
+    public void onResume () {
+        v.execute();
     }
 
     @Override
@@ -151,7 +164,7 @@ public class KPPKFragment extends Fragment {
             String status ="";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://192.168.0.103/gky_web_service/view_kppk.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet("http://192.168.0.100/gky_web_service/view_kppk.php"); // ngikutin ip disini loh
             HttpResponse response;
 
             try {
@@ -196,7 +209,7 @@ public class KPPKFragment extends Fragment {
 
             int dataLength = arr.length();
 
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
+//            Display display = getActivity().getWindowManager().getDefaultDisplay();
 
             int colorWhite = Color.WHITE;
 
@@ -223,10 +236,23 @@ public class KPPKFragment extends Fragment {
                 ListKPPK.setTextColor(colorWhite);
                 ListKPPK.setBackgroundColor(0);
 
+                final String _isi = isi;
+
                 //add button listener here
-//                ListKPPK.setOnClickListener(
-//                    // masuk ke kosntruktor parameter kppkLiengkapFragment dgn parameternya: isi
-//                );
+                ListKPPK.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // masuk ke kosntruktor parameter kppkLiengkapFragment dgn parameternya: isi
+                            frag = new KPPKLengkapFragment(_isi);
+                            fragManager = getActivity().getSupportFragmentManager();
+                            fragTransaction = fragManager.beginTransaction();
+                            fragTransaction.replace(R.id.container, frag);
+                            fragTransaction.addToBackStack(null);
+                            fragTransaction.commit();
+                        }
+                    }
+                );
 
                 myLinearLayout.addView(ListKPPK);
             }

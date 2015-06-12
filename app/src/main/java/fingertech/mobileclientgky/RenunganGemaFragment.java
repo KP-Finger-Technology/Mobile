@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -246,11 +247,15 @@ public class RenunganGemaFragment extends Fragment {
         protected String doInBackground(String... params) {
             String result = "";
             String statu ="";
+
             String now = null;
-            now = "2015-06-16";
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+            now = df.format(calendar.getTime());
+            Log.d("now", now.toString());
             HttpClient client = new DefaultHttpClient();
 
-            HttpGet request = new HttpGet("http://192.168.1.108/gky_web_service/view_gema.php?Tanggal="+now+""); // ngikutin ip disini loh
+            HttpGet request = new HttpGet("http://192.168.0.100/gky_web_service/view_gema.php?Tanggal="+now); // ngikutin ip disini loh
             HttpResponse response;
 
             try {
