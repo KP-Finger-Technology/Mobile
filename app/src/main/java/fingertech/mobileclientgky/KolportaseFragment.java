@@ -264,7 +264,7 @@ public class KolportaseFragment extends Fragment {
 
             int dataLength = arr.length();
 
-            // Generate konten Event dalam loop for
+            // Generate konten Kolportase dalam loop for
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
                 try {

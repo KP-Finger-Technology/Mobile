@@ -70,6 +70,7 @@
     <string name="kirim">Kirim</string>
     <string name="daftar">Daftar</string>
     <string name="masuk">Masuk</string>
+    <string name="fetchData">Fetch Data</string>
 
     <!-- Untuk halaman Tentang Kami -->
     <string name="tentangKami_textPenjelasanKomisi">Selain mengikuti kegiatan yang diadakan untuk umum, jemaat juga bisa mengikuti kegiatan komisi-komisi yang ada. Mulai dari anak kecil sampai manula, tidak ada yang terlewatkan.</string>
@@ -126,6 +127,46 @@
     <string name="komisiAnak_textDetailMisi5">Anak-anak dapat menjadi seorang yang memberitakan Injil.</string>
     <string name="komisiAnak_textMisiGuru">Misi Guru</string>
     <string name="komisiAnak_textDetailMisiGuru">Melengkapi  guru-guru dan mengusahakan pembinaan untuk meningkatkan kualitas pelayanan guru sekolah minggu, serta kerohanian mereka, melalui training, kelas-kelas pembinaan, dll.</string>
+
+    <string name="komisiAnak_jadwalSekolahMinggu">Jadwal Sekolah Minggu</string>
+    <string name="komisiAnak_jadwalSekolahMinggu1">Gedung Pluit</string>
+    <string name="komisiAnak_jadwalSekolahMinggu2">Gedung IPK</string>
+    <string name="komisiAnak_jadwalSekolahMinggu3">Sekolah Ipeka</string>
+    <string name="komisiAnak_kebaktianWaktu">Kebaktian/Waktu</string>
+    <string name="komisiAnak_kelas">Kelas</string>
+    <string name="komisiAnak_tempat">Tempat</string>
+    <string name="komisiAnak_kebaktianI">Kebaktian I (07.00 – 08.30)</string>
+    <string name="komisiAnak_kelas_KecilIndo">Kecil (Bahasa Indonesia)</string>
+    <string name="komisiAnak_tempatI_GedungLt1">Gedung SM Pluit lt. 1</string>
+    <string name="komisiAnak_tempatI_GedungLt2">Gedung SM Pluit lt. 2</string>
+    <string name="komisiAnak_tempatI_GedungLt3">Gedung SM Pluit lt. 3</string>
+    <string name="komisiAnak_kelas_TengahIndo">Tengah (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_TengahIng">Tengah (Bahasa Inggris)</string>
+    <string name="komisiAnak_kelas_BesarIndo">Besar (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_BesarIng">Besar (Bahasa Inggris)</string>
+    <string name="komisiAnak_kebaktianII">Kebaktian II (09.30 - 11.00)</string>
+    <string name="komisiAnak_kelas_BayiIndo">Bayi (0 – 2 tahun) (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_BatitaIndo">Batita (3 tahun) (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_PraTKIndo">Pra TK (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_TKAIndo">TK – A (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_TKBIndo">TK – B (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_SD1Indo">SD kelas 1 (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_SD2Indo">SD kelas 2 (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_SD3Indo">SD kelas 3 (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_TengahMandarin">Tengah (Bahasa Mandarin)</string>
+    <string name="komisiAnak_kelas_SD4Indo">SD kelas 4 (Bahasa Indonesia)</string>
+    <string name="komisiAnak_tempatII_GedungLt2">Gereja PIK lt. 2</string>
+    <string name="komisiAnak_kelas_SD5Indo">SD kelas 5 (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_SD6Indo">SD kelas 6 (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kelas_BesarMandarin">Besar (Bahasa Indonesia)</string>
+    <string name="komisiAnak_kebaktianIII">Kebaktian III (17.00 – 18.30)</string>
+    <string name="komisiAnak2_kebaktianI">Kebaktian I (07.30 – 09.00)</string>
+    <string name="komisiAnak_tempatII_GedungLt3">Gereja PIK lt. 3</string>
+    <string name="komisiAnak2_kebaktianII">Kebaktian II (10.00 – 11.30)</string>
+    <string name="komisiAnak_kelas_BayiBalitaIndo">Bayi - Balita (0 - 3 tahun) (Bahasa Indonesia)</string>
+    <string name="komisiAnak_tempatII_GedungLt4">Gereja PIK lt. 4</string>
+    <string name="komisiAnak3_kebaktianI">Kebaktian I (10.00 – 11.30)</string>
+    <string name="komisiAnak_tempatIII_GedungSD">Sekolah Ipeka, gedung SD</string>
 
     <!-- Untuk halaman Komisi Kaleb -->
     <string name="komisiKaleb_textParagraf1">Ketika seseorang memasuki usia tua dan pensiun seringkali ia merasa \"tidak berguna\" karena dianggap tidak bisa berbuat apa-apa lagi, bahkan banyak bergantung kepada orang lain dan akhirnya ia akan merasa hari-hari yang dilaluinya terasa begitu panjang dan membosankan.</string>
@@ -264,44 +305,6 @@
     <string name="Google_Maps">Google Maps</string>
 
     <string name="hello_blank_fragment" />
-    <string name="fetchData">Fetch Data</string>
-    <string name="komisiAnak_jadwalSekolahMinggu">Jadwal Sekolah Minggu</string>
-    <string name="komisiAnak_jadwalSekolahMinggu1">Gedung Pluit</string>
-    <string name="komisiAnak_jadwalSekolahMinggu2">Gedung IPK</string>
-    <string name="komisiAnak_jadwalSekolahMinggu3">Sekolah Ipeka</string>
-    <string name="komisiAnak_kebaktianWaktu">Kebaktian/Waktu</string>
-    <string name="komisiAnak_kelas">Kelas</string>
-    <string name="komisiAnak_tempat">Tempat</string>
-    <string name="komisiAnak_kebaktianI">Kebaktian I (07.00 – 08.30)</string>
-    <string name="komisiAnak_kelas_KecilIndo">Kecil (Bahasa Indonesia)</string>
-    <string name="komisiAnak_tempatI_GedungLt1">Gedung SM Pluit lt. 1</string>
-    <string name="komisiAnak_tempatI_GedungLt2">Gedung SM Pluit lt. 2</string>
-    <string name="komisiAnak_tempatI_GedungLt3">Gedung SM Pluit lt. 3</string>
-    <string name="komisiAnak_kelas_TengahIndo">Tengah (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_TengahIng">Tengah (Bahasa Inggris)</string>
-    <string name="komisiAnak_kelas_BesarIndo">Besar (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_BesarIng">Besar (Bahasa Inggris)</string>
-    <string name="komisiAnak_kebaktianII">Kebaktian II (09.30 - 11.00)</string>
-    <string name="komisiAnak_kelas_BayiIndo">Bayi (0 – 2 tahun) (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_BatitaIndo">Batita (3 tahun) (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_PraTKIndo">Pra TK (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_TKAIndo">TK – A (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_TKBIndo">TK – B (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_SD1Indo">SD kelas 1 (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_SD2Indo">SD kelas 2 (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_SD3Indo">SD kelas 3 (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_TengahMandarin">Tengah (Bahasa Mandarin)</string>
-    <string name="komisiAnak_kelas_SD4Indo">SD kelas 4 (Bahasa Indonesia)</string>
-    <string name="komisiAnak_tempatII_GedungLt2">Gereja PIK lt. 2</string>
-    <string name="komisiAnak_kelas_SD5Indo">SD kelas 5 (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_SD6Indo">SD kelas 6 (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kelas_BesarMandarin">Besar (Bahasa Indonesia)</string>
-    <string name="komisiAnak_kebaktianIII">Kebaktian III (17.00 – 18.30)</string>
-    <string name="komisiAnak2_kebaktianI">Kebaktian I (07.30 – 09.00)</string>
-    <string name="komisiAnak_tempatII_GedungLt3">Gereja PIK lt. 3</string>
-    <string name="komisiAnak2_kebaktianII">Kebaktian II (10.00 – 11.30)</string>
-    <string name="komisiAnak_kelas_BayiBalitaIndo">Bayi - Balita (0 - 3 tahun) (Bahasa Indonesia)</string>
-    <string name="komisiAnak_tempatII_GedungLt4">Gereja PIK lt. 4</string>
-    <string name="komisiAnak3_kebaktianI">Kebaktian I (10.00 – 11.30)</string>
-    <string name="komisiAnak_tempatIII_GedungSD">Sekolah Ipeka, gedung SD</string>
+    <string name="cari">Cari</string>
+
 </resources>

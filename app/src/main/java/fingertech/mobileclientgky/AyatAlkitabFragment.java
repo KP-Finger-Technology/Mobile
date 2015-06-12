@@ -104,7 +104,7 @@ public class AyatAlkitabFragment extends Fragment {
         //add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-//        params.setMargins(0, 10, 20, 0);
+        params.setMargins(0, 10, 0, 0);
 
         Log.d("from AyatAlkitabFragment","kitab="+kitab+" & pasal="+Integer.toString(pasal));
         if (kitab!=null) {
