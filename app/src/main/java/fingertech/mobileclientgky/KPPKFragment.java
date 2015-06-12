@@ -81,10 +81,10 @@ public class KPPKFragment extends Fragment {
         v.execute();
     }
 
-    @Override
-    public void onResume () {
-        v.execute();
-    }
+//    @Override
+//    public void onResume () {
+//        v.execute();
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

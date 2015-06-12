@@ -27,7 +27,7 @@ import java.util.TimerTask;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-    String url = "http://192.168.0.103/gky_web_service/";
+    public static final String url = "http://192.168.0.107/gky_web_service/";
 
     boolean lock = true;
     private JSONArray arrData = new JSONArray();
