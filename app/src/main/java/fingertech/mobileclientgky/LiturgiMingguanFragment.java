@@ -141,12 +141,6 @@ public class LiturgiMingguanFragment extends Fragment {
     }
 
     class Viewer extends AsyncTask<String, String, String> {
-        private LinearLayout myLinearLayout;
-        private ImageView GambarIV;
-        private TextView TitleKeteranganTV;
-        private TextView IsiKeteranganTV;
-        private Button SelengkapnyaBtn;
-
         JSONArray arr = new JSONArray();
 
         public JSONArray getArr() {

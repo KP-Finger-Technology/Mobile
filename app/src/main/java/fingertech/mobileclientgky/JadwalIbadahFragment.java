@@ -13,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -80,13 +83,19 @@ public class JadwalIbadahFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        Viewer viewer = new Viewer();
+        viewer.execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_jadwal_ibadah, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jadwal_ibadah, container, false);
+        /*return inflater.inflate(R.layout.fragment_jadwal_ibadah, container, false);*/
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -129,17 +138,13 @@ public class JadwalIbadahFragment extends Fragment {
     }
 
     class Viewer extends AsyncTask<String, String, String> {
+        // Untuk komponen-komponen
         private LinearLayout myLinearLayout;
-        private ImageView GambarIV;
-        private TextView TitleEventTV;
-        private TextView JudulEventTV;
-        private TextView TitleTanggalTV;
-        private TextView JudulTanggalTV;
-        private TextView TitleWaktuTV;
-        private TextView JudulWaktuTV;
-        private TextView TitleKeteranganTV;
-        private TextView IsiKeteranganTV;
-        private Button SelengkapnyaBtn;
+        private TableLayout myTableLayout;
+        private TableRow TR;
+        private TextView JudulTabel;
+        private TextView IsiTabel;
+        private LinearLayout.LayoutParams params;
 
         JSONArray arr = new JSONArray();
 
@@ -155,10 +160,10 @@ public class JadwalIbadahFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu ="";
+            String statu = "";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://192.168.0.103/gky_web_service/view_jadwalkotbah.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet("http://192.168.0.107/gky_web_service/view_jadwalibadah.php"); // ngikutin ip disini loh
             HttpResponse response;
 
             try {
@@ -176,11 +181,10 @@ public class JadwalIbadahFragment extends Fragment {
                 Log.d("Result", result);
 
                 try {
+                    // data
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
-                    Log.d("Array", arr.toString());
-                    statu = "ok";
-
+                    Log.d("Array data", arr.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -194,108 +198,73 @@ public class JadwalIbadahFragment extends Fragment {
             return "";
         }
 
+        private void IsiTabel (String text) {
+            IsiTabel = new TextView(getActivity());
+            IsiTabel.setText(text);
+            IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            IsiTabel.setBackground(getResources().getDrawable(R.drawable.cell_shape));
+            TR.addView(IsiTabel);
+        }
+
         @Override
         protected void onPostExecute(String result) {
-            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
-            //add LayoutParams
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalIbadah);
+
+            // Add LayoutParams
+            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
 
-            LinearLayout rowLayout = new LinearLayout(getActivity());
-            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            //buat linear layout vertical utk menampung kata2
-            LinearLayout colLayout = new LinearLayout(getActivity());
-            colLayout.setOrientation(LinearLayout.VERTICAL);
-            colLayout.setPadding(0,10,10,0);
-
-            LinearLayout subRowLayout = new LinearLayout(getActivity());
-            subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
             int dataLength = arr.length();
 
-            LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
             Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int image_width = display.getWidth()/3;
-            int image_height = (int) (display.getHeight()/4.3);
 
-            int colorWhite = Color.WHITE;
+            int colorBlack = Color.BLACK;
+            TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+            TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+            HorizontalScrollView HSV;
 
-            String judul = null,tanggal = null ,gedung = null,linkGambar = null,kebaktianumum=null;
-            // Generate konten Event dalam loop for
-            for (int i=0; i<dataLength; i++){
+            String tanggal=null, isi=null;
+
+            myTableLayout = new TableLayout(getActivity());
+            myTableLayout.setLayoutParams(tableParams);
+            HSV = new HorizontalScrollView(getActivity());
+
+            TR = new TableRow(getActivity());
+            TR.setLayoutParams(tableParams);
+
+            // Judul kolom
+            // Tanggal
+            IsiTabel("Tanggal");
+            // Isi
+            IsiTabel("Isi");
+            // Add row to table
+            myTableLayout.addView(TR);
+
+            // Generate konten Jadwal Ibadah dalam loop for
+            for (int i=0; i < dataLength; i++){
                 JSONObject jsonobj = null;
+
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject",arr.getJSONObject(i).toString());
-                    judul = jsonobj.getString("judul");
+                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     tanggal = jsonobj.getString("tanggal");
-                    gedung = jsonobj.getString("gedung");
-                    kebaktianumum = jsonobj.getString("kebaktianumum");
+                    isi = jsonobj.getString("isi");
 
-                    linkGambar = jsonobj.getString("gambarevent");
-
+                    TR = new TableRow(getActivity());
+                    TR.setLayoutParams(rowTableParams);
+                    // Tanggal
+                    IsiTabel(tanggal);
+                    // Isi
+                    IsiTabel(isi);
+                    // Add row to table
+                    myTableLayout.addView(TR, tableParams);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                //add image View
-                GambarIV = new ImageView(getActivity());
-                GambarIV.setBackgroundColor(923423432);
-//                GambarIV.setPadding(0,10,10,0);
-                GambarIV.setMinimumWidth(image_width);
-                GambarIV.setMinimumHeight(image_height);
-                GambarIV.setMaxHeight(image_height);
-                GambarIV.setMaxWidth(image_width);
-                GambarIV.setLayoutParams(params);
-                rowLayout.addView(GambarIV);
-
-                //add text View TitleEventTV
-                TitleEventTV = new TextView(getActivity());
-                TitleEventTV.setText("Event: ");
-                TitleEventTV.setLayoutParams(params);
-                TitleEventTV.setTextColor(colorWhite);
-                subRowLayout.addView(TitleEventTV);
-                //add text View JudulEventTV
-                JudulEventTV = new TextView(getActivity());
-                JudulEventTV.setText(judul);
-                JudulEventTV.setLayoutParams(params);
-                subRowLayout.addView(JudulEventTV);
-                colLayout.addView(subRowLayout);
-                subRowLayout = new LinearLayout(getActivity());
-
-                //add text View TitleTanggalTV
-                TitleTanggalTV = new TextView(getActivity());
-                TitleTanggalTV.setText("Tanggal: ");
-                TitleTanggalTV.setTextColor(colorWhite);
-                TitleTanggalTV.setLayoutParams(params);
-                subRowLayout.addView(TitleTanggalTV);
-                //add text View JudulTanggalTV
-                JudulTanggalTV= new TextView(getActivity());
-                JudulTanggalTV.setText(tanggal);
-                JudulTanggalTV.setLayoutParams(params);
-                subRowLayout.addView(JudulTanggalTV);
-                colLayout.addView(subRowLayout);
-                subRowLayout = new LinearLayout(getActivity());
-
-                //add text View TitleWaktuTV
-                TitleWaktuTV = new TextView(getActivity());
-                TitleWaktuTV.setText("Waktu: ");
-                TitleWaktuTV.setTextColor(colorWhite);
-                TitleWaktuTV.setLayoutParams(params);
-                subRowLayout.addView(TitleWaktuTV);
-                //add text View JudulWaktuTV
-                JudulWaktuTV = new TextView(getActivity());
-                JudulWaktuTV.setText(tanggal);
-                JudulWaktuTV.setLayoutParams(params);
-                subRowLayout.addView(JudulWaktuTV);
-                colLayout.addView(subRowLayout);
-                subRowLayout = new LinearLayout(getActivity());
-
-
             }
+            HSV.addView(myTableLayout);
+            myLinearLayout.addView(HSV);
         }
     }
 }

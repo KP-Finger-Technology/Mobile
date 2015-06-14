@@ -250,7 +250,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
             TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
             HorizontalScrollView HSV;
 
-            String jenisPelayanan =null, tanggal=null, gedung=null, kebaktian=null, waktuMulai=null, waktuSelesai=null, judulLagu =null;
+            String jenisPelayanan=null, tanggal=null, gedung=null, kebaktian=null, waktuMulai=null, waktuSelesai=null, judulLagu =null;
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
                 JSONObject jsonobj = null;
