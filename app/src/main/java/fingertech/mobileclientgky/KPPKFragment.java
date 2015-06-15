@@ -164,7 +164,7 @@ public class KPPKFragment extends Fragment {
             String status ="";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://192.168.0.100/gky_web_service/view_kppk.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_kppk.php"); // ngikutin ip disini loh
             HttpResponse response;
 
             try {

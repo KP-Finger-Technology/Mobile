@@ -251,11 +251,12 @@ public class RenunganGemaFragment extends Fragment {
             String now = null;
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-            now = df.format(calendar.getTime());
+//            now = df.format(calendar.getTime());
+            now = "2015-06-15";
             Log.d("now", now.toString());
             HttpClient client = new DefaultHttpClient();
 
-            HttpGet request = new HttpGet("http://192.168.0.100/gky_web_service/view_gema.php?Tanggal="+now); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_gema.php?Tanggal="+now); // ngikutin ip disini loh
             HttpResponse response;
 
             try {

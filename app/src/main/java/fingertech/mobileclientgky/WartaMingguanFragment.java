@@ -169,7 +169,7 @@ public class WartaMingguanFragment extends Fragment {
             String statu = "";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://192.168.1.108/gky_web_service/view_wartamingguan.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_wartamingguan.php"); // ngikutin ip disini loh
             HttpResponse response;
 
             try {

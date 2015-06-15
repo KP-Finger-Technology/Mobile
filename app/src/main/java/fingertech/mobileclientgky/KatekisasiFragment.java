@@ -165,7 +165,7 @@ public class KatekisasiFragment extends Fragment {
             String now = null;
             now = "2015-06-16";
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://192.168.0.103/gky_web_service/view_katekisasi"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_katekisasi"); // ngikutin ip disini loh
             HttpResponse response;
 
             try {

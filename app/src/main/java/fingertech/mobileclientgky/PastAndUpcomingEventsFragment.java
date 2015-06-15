@@ -164,7 +164,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             String statu = "";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://192.168.0.100/gky_web_service/view_event.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_event.php"); // ngikutin ip disini loh
             HttpResponse response;
 
             try {
