@@ -658,6 +658,8 @@ public class Home extends ActionBarActivity
         }
 
         cont.login(nama,pass);
+        SessionManager sm = new SessionManager(getApplicationContext());
+        sm.createLoginSession(nama,pass);
         switchFragment();
     }
 

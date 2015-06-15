@@ -184,6 +184,11 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
         @Override
         protected String doInBackground(String... params) {
+
+            SessionManager sm = new SessionManager(getActivity().getApplicationContext());
+
+            Log.d("Preferen Jadwal Pelayanan",sm.pref.getAll().toString());
+            Log.d("Nm",sm.pref.getAll().get("name").toString());
             String result = "";
             String statu = "";
 //            for (String urlp : params) {
