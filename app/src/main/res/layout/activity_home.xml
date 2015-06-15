@@ -25,6 +25,20 @@
         android:name="fingertech.mobileclientgky.NavigationDrawerFragment"
         tools:layout="@layout/fragment_navigation_drawer" />
 
+    <fragment android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.RegisterFragment"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment android:id="@+id/renunganGema"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="fingertech.mobileclientgky.RenunganGemaFragment"
+        tools:layout="@layout/fragment_renungan_gema" />
+
     <!-- Menu-menu utama Navigation Drawer -->
     <!-- Alkitab -->
     <!--<fragment android:id="@+id/alkitab"-->
