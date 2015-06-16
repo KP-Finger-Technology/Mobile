@@ -58,7 +58,7 @@ public class Home extends ActionBarActivity
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
 
-    Controller cont = new Controller();
+    Controller cont = new Controller(this);
 
     private DatePicker datePicker;
     private Calendar calendar;

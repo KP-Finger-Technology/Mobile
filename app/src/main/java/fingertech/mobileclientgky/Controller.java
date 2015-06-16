@@ -1,9 +1,11 @@
 package fingertech.mobileclientgky;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -29,11 +31,24 @@ import java.util.TimerTask;
 public class Controller {
     public static final String url = "http://192.168.0.107/gky_web_service/";
 
-    boolean lock = true;
     private JSONArray arrData = new JSONArray();
+    private String writeResponse = null;
+    private Context context;
+
+    public Controller (){
+
+    }
+
+    public Controller(Context _context){
+        this.context = _context;
+    }
 
     public JSONArray getArrData(){
         return arrData;
+    }
+
+    public String getWriteResponse() {
+        return writeResponse;
     }
 
     public void setEmptyArr(){
@@ -49,6 +64,7 @@ public class Controller {
             return false;
         }
     }
+
 
     public boolean viewEvent() {
         Log.d("Now running","run");
@@ -353,9 +369,12 @@ public class Controller {
 //                    resultString = resultString.substring(1, resultString.length() - 1); // remove wrapping "[" and "]"
 
                     result = new JSONObject(resultString);
+                    writeResponse = result.getString("status");
+                    Log.d("write response ", writeResponse);
 
 //                    Raw DEBUG output of our received JSON object:
                     Log.i(TAG, "<JSONObject>\n" + resultString + "\n</JSONObject>");
+
 
                     return result;
 //                }
@@ -365,6 +384,52 @@ public class Controller {
             }
             return null;
         }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+        String operation = null;
+            try {
+                operation = result.getString("operation");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        if(operation.equals("login")){
+            String nama=null, id=null;
+            try {
+                nama = result.getString("nama");
+                id = result.getString("id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (writeResponse.equals("ok")) {
+                SessionManager sm = new SessionManager(context);
+                sm.createLoginSession(nama, id);
+                Toast.makeText(context, "login success", Toast.LENGTH_LONG).show();
+                Log.d("log in ","success");
+            } else {
+                Toast.makeText(context, "login failed", Toast.LENGTH_LONG).show();
+                Log.d("log in ", "fail");
+            }
+        }
+            else if (operation.equals("register")){
+            if (writeResponse.equals("ok")) {
+                Toast.makeText(context, "register success", Toast.LENGTH_LONG).show();
+                Log.d("Register ","success");
+            } else {
+                Toast.makeText(context, "register failed", Toast.LENGTH_LONG).show();
+                Log.d("Register ", "fail");
+            }
+        }
+            else { //operation.eq("add doa")
+            if (writeResponse.equals("ok")) {
+                Toast.makeText(context, "Permohonan Doa success", Toast.LENGTH_LONG).show();
+                Log.d("Permohonan Doa ","success");
+            } else {
+                Toast.makeText(context, "Permohonan Doa failed", Toast.LENGTH_LONG).show();
+                Log.d("permohonan doa ", "fail");
+            }
+        }
+    }
 
         private String convertStreamToString(InputStream is) {
 

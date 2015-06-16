@@ -269,7 +269,8 @@
                         android:id="@+id/register_daftar"
                         android:layout_marginTop="15dp"
                         android:background="#ffb01815"
-                        android:textColor="#ffffffff"/>
+                        android:textColor="#ffffffff"
+                        android:onClick="registerClicked"/>
 
                 </LinearLayout>
             </ScrollView>
