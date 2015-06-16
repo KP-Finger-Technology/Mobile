@@ -1,5 +1,6 @@
 package fingertech.mobileclientgky;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -13,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 /**
  * Created by Andarias Silvanus on 15/06/03.
@@ -158,11 +160,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         myDataBase.close();
     }
 
-    private boolean isTableExists(SQLiteDatabase db, String tableName) {
-        if (tableName == null || db == null || !db.isOpen()) {
+//    private boolean isTableExists(SQLiteDatabase db, String tableName) {
+    public boolean isTableExists(String tableName) {
+        if (tableName == null || myDataBase == null || !myDataBase.isOpen()) {
             return false;
         }
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = ? AND name = ?", new String[] {"table", tableName});
+        Cursor cursor = myDataBase.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = ? AND name = ?", new String[] {"table", tableName});
         if (!cursor.moveToFirst()) {
             return false;
         }
@@ -174,7 +177,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void getDaftarKitab() {
         if (DB_PATH != null) {
             String tableName = "BOOKS";
-            boolean check = isTableExists(this.myDataBase, tableName);
+            boolean check = isTableExists(tableName);
             if (check) {
                 Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS ORDER BY keyid ASC", null);
                 int colKitab = cursor.getColumnIndex("isi");
@@ -192,6 +195,65 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     } while (cursor.moveToNext());
                 }
             }
+        }
+    }
+
+    public ArrayList<String> getKPPK() {
+        ArrayList<String> res = new ArrayList<String>();
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM KPPK", null);
+        int colJudul = cursor.getColumnIndex("judul");
+        int colIsi = cursor.getColumnIndex("isi");
+
+        cursor.moveToFirst();
+        if (cursor != null) {
+            do {
+                String judul = cursor.getString(colJudul);
+                String isi = cursor.getString(colIsi);
+                res.add(judul);
+                res.add(isi);
+            }while(cursor.moveToNext());
+        }
+        return res;
+    }
+
+    public boolean createTableKPPK () {
+        boolean isSuccess = false;
+        if (isTableExists("KPPK"))
+            return isSuccess;
+        else {
+            myDataBase=this.getWritableDatabase() ;
+            String query = "CREATE TABLE KPPK ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, judul TEXT, isi TEXT)";
+            myDataBase.execSQL(query);
+
+            isSuccess = true;
+            return isSuccess;
+        }
+    }
+
+    public boolean deleteTableKPPK () {
+        boolean isSuccess = false;
+        if (!isTableExists("KPPK"))
+            return isSuccess;
+        else {
+            myDataBase=this.getWritableDatabase() ;
+            String query = "DROP TABLE KPPK";
+            myDataBase.execSQL(query);
+
+            isSuccess = true;
+            return isSuccess;
+        }
+    }
+
+    public void insertDataKPPK(ArrayList<String> container) {
+        ContentValues cv = new ContentValues(2);
+        int len = container.size();
+        myDataBase=this.getWritableDatabase() ;
+        for (int i=0; i<len; i=i+2) {
+            String judul = container.get(i);
+            String isi = container.get(i+1);
+            cv.put("judul", judul);
+            cv.put("isi", isi);
+            myDataBase.insert("KPPK",null,cv);
         }
     }
 
@@ -235,12 +297,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        try {
+        /*try {
             Log.d("akan create database","...");
             createDataBase();
         } catch (IOException e) {
             Log.d("gagal create database","...");
-        }
+        }*/
     }
 
     @Override
