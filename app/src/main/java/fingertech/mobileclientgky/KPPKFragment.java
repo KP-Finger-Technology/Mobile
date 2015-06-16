@@ -17,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 /**
@@ -39,7 +42,7 @@ import java.io.InputStreamReader;
  * Use the {@link KPPKFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class KPPKFragment extends Fragment {
+public class KPPKFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,6 +59,8 @@ public class KPPKFragment extends Fragment {
     private Fragment frag;
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
+
+    private boolean isKPPKExist = false;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -78,13 +83,15 @@ public class KPPKFragment extends Fragment {
 
     public KPPKFragment() {
         // Required empty public constructor
-        v.execute();
     }
 
 //    @Override
 //    public void onResume () {
 //        v.execute();
 //    }
+
+    private DataBaseHelper DB;
+    private Button kppk_download;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,12 +102,77 @@ public class KPPKFragment extends Fragment {
         }
     }
 
+    private LinearLayout myLinearLayout;
+
+    private void generateKontenKPPK() {
+        ArrayList<String> containerString = new ArrayList<String>();
+        containerString = DB.getKPPK();
+
+        myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
+        //add LayoutParams
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        params.setMargins(0, 10, 20, 0);
+
+        int dataLength = containerString.size();
+        Button ListKPPK;
+
+        int cnt = 1;
+        for (int i=0; i<dataLength; i=i+2) {
+            String container = "KPPK " + Integer.toString(cnt) + " - " + containerString.get(i);
+            cnt++;
+            //add Button Judul KPPk
+            ListKPPK = new Button(getActivity());
+            ListKPPK.setText(container);
+            ListKPPK.setLayoutParams(params);
+//            ListKPPK.setTextColor(colorWhite);
+            ListKPPK.setBackgroundColor(0);
+
+            final String _isi = containerString.get(i+1);
+
+            //add button listener here
+            ListKPPK.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // masuk ke kosntruktor parameter kppkLiengkapFragment dgn parameternya: isi
+                        frag = new KPPKLengkapFragment(_isi);
+                        fragManager = getActivity().getSupportFragmentManager();
+                        fragTransaction = fragManager.beginTransaction();
+                        fragTransaction.replace(R.id.container, frag);
+                        fragTransaction.addToBackStack(null);
+                        fragTransaction.commit();
+                    }
+                }
+            );
+
+            myLinearLayout.addView(ListKPPK);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_kppk, container, false);
         rootView = inflater.inflate(R.layout.fragment_kppk, container, false);
+        kppk_download = (Button) rootView.findViewById(R.id.kppk_download);
+        kppk_download.setOnClickListener(this);
+
+        DB = new DataBaseHelper(getActivity().getApplicationContext());
+        DB.openDataBase();
+        if (DB.isTableExists("KPPK")) {
+            // Jika tabel KPPK exist, berarti sudah pernah di-download. Tampilkan daftar KPPK dari database
+//            isKPPKExist = true;
+            kppk_download.setVisibility(View.INVISIBLE);
+            Log.d("tabel KPPK sudah exist","..");
+            generateKontenKPPK();
+        }
+        else {
+            // Belum pernah download KPPK, maka tampilkan dari ambil JSON ke server
+//            isKPPKExist = false;
+            v.execute();
+        }
         return rootView;
     }
 
@@ -128,6 +200,14 @@ public class KPPKFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View view) {
+//        v.execute();
+        Toast.makeText(getActivity(), "Downloading..", Toast.LENGTH_LONG).show();
+        v.downloadKPPK();
+        Toast.makeText(getActivity(), "Download Success!", Toast.LENGTH_LONG).show();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -144,7 +224,6 @@ public class KPPKFragment extends Fragment {
     }
 
     class Viewer extends AsyncTask<String, String, String> {
-        private LinearLayout myLinearLayout;
         private Button ListKPPK;
 
         JSONArray arr = new JSONArray();
@@ -199,9 +278,38 @@ public class KPPKFragment extends Fragment {
             return "";
         }
 
+        public void downloadKPPK() {
+            int dataLength = arr.length();
+            ArrayList<String> tmp = new ArrayList<String>();
+
+            String judul=null, isi=null;
+            // Generate konten Event dalam loop for
+            for (int i = 0; i < dataLength; i++) {
+                JSONObject jsonobj = null;
+                try {
+                    jsonobj = arr.getJSONObject(i);
+                    Log.d("JSONObject", arr.getJSONObject(i).toString());
+                    judul = jsonobj.getString("judul");
+                    isi = jsonobj.getString("isi");
+                    tmp.add(judul);
+                    tmp.add(isi);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (DB.isTableExists("KPPK")) {
+                Log.d("tabel KPPK exist! persiapan delete tabel kppk..","..");
+                DB.deleteTableKPPK();
+            }
+            Log.d("persiapan membuat tabel kppk baru..","..");
+            DB.createTableKPPK();
+            Log.d("persiapan insert data pada tabel kppk..","..");
+            DB.insertDataKPPK(tmp);
+        }
+
         @Override
         protected void onPostExecute(String result) {
-            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kppk);
+            myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
             //add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -209,18 +317,18 @@ public class KPPKFragment extends Fragment {
 
             int dataLength = arr.length();
 
-//            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            //            Display display = getActivity().getWindowManager().getDefaultDisplay();
 
             int colorWhite = Color.WHITE;
 
-            String container,judul,isi = null;
-            // Generate konten Event dalam loop for
-            for (int i=0; i<dataLength; i++){
+            String container, judul, isi = null;
+            // Generate konten KPPK dalam loop for
+            for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
                 judul = "";
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject",arr.getJSONObject(i).toString());
+                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
 
@@ -228,7 +336,8 @@ public class KPPKFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                container = "KPPK " + Integer.toString(i+1) + " - " + judul;
+                container = "KPPK " + Integer.toString(i + 1) + " - " + judul;
+                Log.d("KPPK: ", "akan masuk add button");
                 //add Button Judul KPPk
                 ListKPPK = new Button(getActivity());
                 ListKPPK.setText(container);
@@ -236,20 +345,25 @@ public class KPPKFragment extends Fragment {
                 ListKPPK.setTextColor(colorWhite);
                 ListKPPK.setBackgroundColor(0);
 
+                Log.d("KPPK: ", "selesai add button");
+
                 final String _isi = isi;
 
                 //add button listener here
+                Log.d("KPPK: ", "akan masuk onClickListener");
                 ListKPPK.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             // masuk ke kosntruktor parameter kppkLiengkapFragment dgn parameternya: isi
+                            Log.d("KPPK: ", "masuk onClickListener");
                             frag = new KPPKLengkapFragment(_isi);
                             fragManager = getActivity().getSupportFragmentManager();
                             fragTransaction = fragManager.beginTransaction();
                             fragTransaction.replace(R.id.container, frag);
                             fragTransaction.addToBackStack(null);
                             fragTransaction.commit();
+                            Log.d("KPPK: ", "selesai onClickListener");
                         }
                     }
                 );

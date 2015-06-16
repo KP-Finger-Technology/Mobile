@@ -33,7 +33,38 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="15dp">
+            android:layout_marginRight="15dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <SearchView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/kppk_searchview"
+                    android:hint="Cari Judul KPPK"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="right">
+
+                    <Button
+                        style="?android:attr/buttonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Download KPPK"
+                        android:id="@+id/kppk_download"
+                        android:background="#ffb01815"
+                        android:textColor="#ffffffff"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <ScrollView
                 android:layout_width="match_parent"
