@@ -69,6 +69,11 @@ public class NavigationDrawerDataProvider {
             pengaturanList.add(NavigationDrawerData.pengaturanArray[i]);
         }
 
+        ArrayList<String> logoutList = new ArrayList<String>();
+        for (int i = 0; i < NavigationDrawerData.logoutArray.length; i++) {
+            logoutList.add(NavigationDrawerData.logoutArray[i]);
+        }
+
         parentHashMap.put(" Beranda", berandaList);
         parentHashMap.put(" Alkitab", alkitabList);
         parentHashMap.put(" Komisi", komisiList);
@@ -80,6 +85,7 @@ public class NavigationDrawerDataProvider {
         parentHashMap.put(" Login", loginList);
         parentHashMap.put(" Register", registerList);
         parentHashMap.put(" Pengaturan", pengaturanList);
+        parentHashMap.put(" Logout", logoutList);
 
         return parentHashMap;
     }

@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -136,7 +138,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
     class Viewer extends AsyncTask<String, String, String> {
         private LinearLayout myLinearLayout;
-        private ImageView GambarIV;
         private TextView TitleEventTV;
         private TextView JudulEventTV;
         private TextView TitleTanggalTV;
@@ -239,7 +240,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     judul = jsonobj.getString("judul");
                     tanggal = jsonobj.getString("tanggal");
                     keterangan = jsonobj.getString("keterangan");
-                    linkGambar = jsonobj.getString("gambarevent");
+                    linkGambar = Controller.url + "res/event/";
+                    linkGambar += jsonobj.getString("gambarevent");
 
                     Log.d("Judulx", judul);
                     Log.d("Keterangan",keterangan);
@@ -248,15 +250,16 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                //add image View
-                GambarIV = new ImageView(getActivity());
-                GambarIV.setBackgroundColor(923423432);
+                Log.d("for i: ", Integer.toString(i));
 
-//                GambarIV.setPadding(0,10,10,0);
-                GambarIV.setMinimumWidth(image_width);
-                GambarIV.setMinimumHeight(image_height);
-                GambarIV.setMaxHeight(image_height);
-                GambarIV.setMaxWidth(image_width);
+                //add image View
+                ImageView GambarIV = new ImageView(getActivity());
+
+                //Loading image from below url into imageView
+                Picasso.with(getActivity())
+                        .load(linkGambar)
+                        .resize(image_height, image_width)
+                        .into(GambarIV);
                 GambarIV.setLayoutParams(params);
                 rowLayout.addView(GambarIV);
 

@@ -394,16 +394,21 @@ public class Controller {
                 e.printStackTrace();
             }
         if(operation.equals("login")){
-            String nama=null, id=null;
+            String nama=null, id=null ,email=null,alamat=null,telepon=null;
             try {
                 nama = result.getString("nama");
                 id = result.getString("id");
+                email = result.getString("email");
+                alamat = result.getString("alamat");
+                telepon= result.getString("telepon");
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             if (writeResponse.equals("ok")) {
                 SessionManager sm = new SessionManager(context);
-                sm.createLoginSession(nama, id);
+                sm.createLoginSession(nama, id,email,alamat,telepon);
                 Toast.makeText(context, "login success", Toast.LENGTH_LONG).show();
                 Log.d("log in ","success");
             } else {
