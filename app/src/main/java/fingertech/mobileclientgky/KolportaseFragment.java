@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -35,6 +39,10 @@ import java.io.InputStreamReader;
  * create an instance of this fragment.
  */
 public class KolportaseFragment extends Fragment {
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
+    private FragmentManager fragManager;
+
     private String judul;
     private String pengarang;
     private String keterangan;
@@ -231,7 +239,7 @@ public class KolportaseFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            String judul = null, pengarang = null, keterangan = null, linkGambar;
+            String judul = null, pengarang = null, keterangan = null, linkGambar = null;
 
             // Add LinearLayout
             View v = rootView.findViewById(R.id.container_kolportase);
@@ -273,20 +281,21 @@ public class KolportaseFragment extends Fragment {
                     judul = jsonobj.getString("judulbuku");
                     pengarang = jsonobj.getString("pengarang");
                     keterangan = jsonobj.getString("keterangan");
-                    linkGambar = jsonobj.getString("gambarbuku");
+                    linkGambar = Controller.url + "res/kolportase/";
+                    linkGambar += jsonobj.getString("gambarbuku");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                // Add imageView
-                GambarIV = new ImageView(getActivity());
-                GambarIV.setBackgroundColor(923423432);
 
-//                GambarIV.setPadding(0,10,10,0);
-                GambarIV.setMinimumWidth(image_width);
-                GambarIV.setMinimumHeight(image_height);
-                GambarIV.setMaxHeight(image_height);
-                GambarIV.setMaxWidth(image_width);
+                //add image View
+                ImageView GambarIV = new ImageView(getActivity());
+
+                //Loading image from below url into imageView
+                Picasso.with(getActivity())
+                        .load(linkGambar)
+                        .resize(image_height, image_width)
+                        .into(GambarIV);
                 GambarIV.setLayoutParams(params);
                 rowLayout.addView(GambarIV);
 
@@ -345,6 +354,27 @@ public class KolportaseFragment extends Fragment {
                 SelengkapnyaBtn.setBackgroundColor(0);
                 subRowLayout.addView(SelengkapnyaBtn);
                 colLayout.addView(subRowLayout);
+
+                final String finalJudul = judul;
+                final String finalPengarang = pengarang;
+                final String finalKeterangan = keterangan;
+                final String finalLinkGambar = linkGambar;
+                SelengkapnyaBtn.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // masuk ke konstruktor parameter LirikLaguRohaniLengkapFragment dgn parameternya: isi
+                                Log.d("Kolportase: ", "masuk onClickListener");
+                                frag = new KolportaseLengkapFragment(finalJudul, finalPengarang, finalKeterangan, finalLinkGambar);
+                                fragManager = getActivity().getSupportFragmentManager();
+                                fragTransaction = fragManager.beginTransaction();
+                                fragTransaction.replace(R.id.container, frag);
+                                fragTransaction.addToBackStack(null);
+                                fragTransaction.commit();
+                                Log.d("Kolportase: ", "selesai onClickListener");
+                            }
+                        }
+                );
 
                 if (i!=dataLength) {
                     rowLayout.addView(colLayout);
