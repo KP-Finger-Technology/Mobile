@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/textViewParent"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textColor="#ffffffff"
-    android:paddingLeft="20dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:textAppearance="?android:attr/textAppearanceMedium">
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-</TextView>
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/textViewParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#ffffffff"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium">
+    </TextView>
+
+    <ImageView
+        android:id="@+id/expandableIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:src="@android:drawable/arrow_down_float"
+        android:visibility="invisible"/>
+
+</LinearLayout>

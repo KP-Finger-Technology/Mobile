@@ -446,6 +446,7 @@ public class Home extends ActionBarActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.home, menu);
             restoreActionBar();
+            mDrawerList.setGroupIndicator(null);
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -509,6 +510,37 @@ public class Home extends ActionBarActivity
     }
 
     // Untuk button-button
+    // Untuk button-button
+    public void renunganClicked(View v) {
+        frag = new RenunganGemaFragment();
+        switchFragment();
+    }
+
+    public void maritalClicked(View v) {
+        frag = new PreMaritalClassFragment();
+        switchFragment();
+    }
+
+    public void katekisasiClicked(View v) {
+        frag = new KatekisasiFragment();
+        switchFragment();
+    }
+
+    public void permohonanClicked(View v) {
+        frag = new PermohonanDoaFragment();
+        switchFragment();
+    }
+
+    public void alkitabClicked(View v) {
+        frag = new AlkitabFragment();
+        switchFragment();
+    }
+
+    public void kelompokClicked(View v) {
+        frag = new KelompokKecilFragment();
+        switchFragment();
+    }
+
     public void KirimDoa(View v) {
         ambilDataDoa();
         frag = new Home.PlaceholderFragment();
