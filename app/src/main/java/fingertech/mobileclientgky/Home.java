@@ -446,7 +446,7 @@ public class Home extends ActionBarActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.home, menu);
             restoreActionBar();
-            mDrawerList.setGroupIndicator(null);
+            /*mDrawerList.setGroupIndicator(null);*/
             return true;
         }
         return super.onCreateOptionsMenu(menu);
