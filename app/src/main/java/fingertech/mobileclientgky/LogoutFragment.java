@@ -3,26 +3,22 @@ package fingertech.mobileclientgky;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+/*import android.app.Fragment;*/
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.app.Fragment;
-import android.widget.EditText;
-import android.widget.TextView;
-import java.util.Calendar;
 
 
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
+ * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PermohonanDoaFragment.OnFragmentInteractionListener} interface
+ * {@link LogoutFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PermohonanDoaFragment#newInstance} factory method to
+ * Use the {@link LogoutFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PermohonanDoaFragment extends Fragment {
+public class LogoutFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,19 +30,17 @@ public class PermohonanDoaFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    Controller cont = new Controller();
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PermohonanDoaFragment.
+     * @return A new instance of fragment LogoutFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PermohonanDoaFragment newInstance(String param1, String param2) {
-        PermohonanDoaFragment fragment = new PermohonanDoaFragment();
+    public static LogoutFragment newInstance(String param1, String param2) {
+        LogoutFragment fragment = new LogoutFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -54,7 +48,7 @@ public class PermohonanDoaFragment extends Fragment {
         return fragment;
     }
 
-    public PermohonanDoaFragment() {
+    public LogoutFragment() {
         // Required empty public constructor
     }
 
@@ -65,19 +59,13 @@ public class PermohonanDoaFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        /*EditText ET2 = (EditText) findViewById(R.id.);*/
     }
-
-    private View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_permohonan_doa, container, false);
-        tulisDataDoa();
-//        return inflater.inflate(R.layout.fragment_permohonan_doa, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_logout, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -85,22 +73,6 @@ public class PermohonanDoaFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-
-    }
-
-    private Fragment frag;
-    private FragmentTransaction fragTransaction;
-    private FragmentManager fragManager;
-
-    /*public void KirimDoa(View v) {
-        frag = new AlkitabFragment();
-        switchFragment();
-    }*/
-
-    public void switchFragment() {
-        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag);
-        fragTransaction.addToBackStack(null);
-        fragTransaction.commit();
     }
 
     /*@Override
@@ -133,24 +105,6 @@ public class PermohonanDoaFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
-    }
-
-    public void tulisDataDoa(){
-        EditText namaET = (EditText) rootView.findViewById(R.id.permohonanDoa_editNama);
-//        EditText umurET = (EditText) rootView.findViewById(R.id.permohonanDoa_editUmur);
-        EditText emailET = (EditText) rootView.findViewById(R.id.permohonanDoa_editEmail);
-        EditText teleponET = (EditText) rootView.findViewById(R.id.permohonanDoa_editTelepon);
-
-        try {
-            SessionManager sm = new SessionManager(getActivity().getApplicationContext());
-            namaET.setText(sm.pref.getAll().get("name").toString(), TextView.BufferType.EDITABLE);
-//            umurET.setText("1", TextView.BufferType.EDITABLE);
-            emailET.setText(sm.pref.getAll().get("email").toString(), TextView.BufferType.EDITABLE);
-            teleponET.setText(sm.pref.getAll().get("telepon").toString(), TextView.BufferType.EDITABLE);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }

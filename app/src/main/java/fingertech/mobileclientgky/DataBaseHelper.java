@@ -267,7 +267,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     private String resultQueryPasal;
 
-    public void getPasal(String kitab, int pasal) {
+    public ArrayList<String> getPasal(String kitab, int pasal) {
+        ArrayList<String> res = new ArrayList<String>();
         Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
         int colIsi = cursor.getColumnIndex("isi");
 
@@ -280,8 +281,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 resultQueryPasal = resultQueryPasal + Integer.toString(ayat) + ". " + cursor.getString(colIsi) + "\n";
                 ayat++;
+                res.add(cursor.getString(colIsi));
             }while(cursor.moveToNext());
         }
+        return res;
+    }
+
+    public int getJumlahAyat (String kitab, int pasal) {
+        int jumAyat = 0;
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
+
+        // Check if our result was valid
+        cursor.moveToFirst();
+        if (cursor != null) {
+            // Loop through all Results
+            do {
+                jumAyat++;
+            }while(cursor.moveToNext());
+        }
+        return jumAyat;
     }
 
     public String getResultQueryPasal() {

@@ -1,8 +1,10 @@
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -177,6 +180,28 @@ public class Home extends ActionBarActivity
                                     + " expanded", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
                 }
+                // Logout
+                else if (groupPosition == 11) {
+                    new AlertDialog.Builder(Home.this)
+                            .setTitle("Logout")
+                            .setMessage("Apakah Anda yakin ingin logout dari aplikasi?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                    SessionManager sm = new SessionManager(getApplicationContext());
+                                    sm.logoutUser();
+                                    Log.d("Logout preferen",sm.pref.getAll().toString());
+                                    Toast.makeText(Home.this, "anda berhasil logout", Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
             }
         });
 ;
@@ -303,9 +328,16 @@ public class Home extends ActionBarActivity
 
                 // Permohonan Doa
                 else if (groupPosition == 4 && childPosition == 4) {
-                    frag = new PermohonanDoaFragment();
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    SessionManager sm = new SessionManager(getApplicationContext());
+                    /*if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")){*/
+                        frag = new PermohonanDoaFragment();
+                        mDrawerLayout.closeDrawer(Gravity.START);
+                        switchFragment();
+                    /*}else {
+                        frag = new PermohonanDoaFragment();
+                        mDrawerLayout.closeDrawer(Gravity.START);
+                        switchFragment();
+                    }*/
                 }
 
                 // KPPK
@@ -659,6 +691,10 @@ public class Home extends ActionBarActivity
 
         cont.login(nama,pass);
         switchFragment();
+    }
+
+    public void logoutClicked(View v){
+
     }
 
     public void pickRenungan(View v){

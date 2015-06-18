@@ -1,8 +1,9 @@
 package fingertech.mobileclientgky;
 
-import android.content.Context;
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+//import android.app.Fragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,18 +15,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-//import android.app.Fragment;
-
 
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
+ * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PasalAlkitabFragment.OnFragmentInteractionListener} interface
+ * {@link KumpulanBtnAyatAlkitabFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PasalAlkitabFragment#newInstance} factory method to
+ * Use the {@link KumpulanBtnAyatAlkitabFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PasalAlkitabFragment extends Fragment {
+public class KumpulanBtnAyatAlkitabFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,18 +34,7 @@ public class PasalAlkitabFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private String kitab;
-    private int pasal;
-
-    private View rootView;
-    private LinearLayout myLinearLayout;
-
     private OnFragmentInteractionListener mListener;
-    private Fragment frag;
-    private FragmentTransaction fragTransaction;
-    private FragmentManager fragManager;
-
-    private Context context;
 
     /**
      * Use this factory method to create a new instance of
@@ -54,11 +42,11 @@ public class PasalAlkitabFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PasalAlkitabFragment.
+     * @return A new instance of fragment KumpulanBtnAyatAlkitabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PasalAlkitabFragment newInstance(String param1, String param2) {
-        PasalAlkitabFragment fragment = new PasalAlkitabFragment();
+    public static KumpulanBtnAyatAlkitabFragment newInstance(String param1, String param2) {
+        KumpulanBtnAyatAlkitabFragment fragment = new KumpulanBtnAyatAlkitabFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,11 +54,14 @@ public class PasalAlkitabFragment extends Fragment {
         return fragment;
     }
 
-    public PasalAlkitabFragment() {
+    public KumpulanBtnAyatAlkitabFragment() {
         // Required empty public constructor
     }
 
-    public PasalAlkitabFragment(String _kitab, int _pasal) {
+    private String kitab;
+    private int pasal;
+
+    public KumpulanBtnAyatAlkitabFragment(String _kitab, int _pasal) {
         this.kitab = _kitab;
         this.pasal = _pasal;
     }
@@ -82,19 +73,32 @@ public class PasalAlkitabFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-//        try {
-//            DB.createDataBase();
-//            DB.openDataBase();
-//        } catch (IOException e) {
-////            e.printStackTrace();
-//            Log.d("gagal create & open database!", "");
-//        }
     }
 
-    private void generateBtnPasal(){
+    private View rootView;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_kumpulan_btn_ayat_alkitab, container, false);
+        rootView = inflater.inflate(R.layout.fragment_kumpulan_btn_ayat_alkitab, container, false);
+        generateBtnAyat();
+        return rootView;
+    }
+
+    private LinearLayout myLinearLayout;
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
+    private FragmentManager fragManager;
+
+    private void generateBtnAyat() {
+        DataBaseHelper DB = new DataBaseHelper(getActivity().getApplicationContext());
+        DB.openDataBase();
+        int jumAyat = DB.getJumlahAyat(kitab, pasal);
+
         //add LinearLayout
-        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pasalAlkitab);
+        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_btnAyatAlkitab);
         //add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -104,19 +108,21 @@ public class PasalAlkitabFragment extends Fragment {
         LinearLayout rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
         TextView namaKitab = new TextView(getActivity());
-        namaKitab.setText(kitab);
+        namaKitab.setText("Silakan pilih ayat dari kitab "+kitab+" pasal "+Integer.toString(pasal)+", dengan jumlah ayat:"+Integer.toString(jumAyat));
         namaKitab.setLayoutParams(params);
         rowLayout.addView(namaKitab);
         myLinearLayout.addView(rowLayout);
 
-        // Button-button untuk kitab tersebut sebanyak jumlah pasal
+        // Button-button untuk pasal tersebut sebanyak jumlah ayat
         rowLayout = new LinearLayout(getActivity());
         LinearLayout colLayout = new LinearLayout(getActivity());
         colLayout.setOrientation(LinearLayout.VERTICAL);
         int cnt = 0;
         Button pasalBtn;
-//        Log.d("jumlah pasal "+kitab,Integer.toString(pasal));
-        for (int i=0; i<pasal; i++) {
+
+        Log.d("jumlah ayat yang dipilih",Integer.toString(jumAyat));
+
+        for (int i=0; i<jumAyat; i++) {
             cnt++;
             pasalBtn = new Button(getActivity());
             pasalBtn.setText(Integer.toString(i+1));
@@ -127,8 +133,8 @@ public class PasalAlkitabFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d("From PasalAlkitabFragment","kitab="+kitab+" & pasal="+Integer.toString(finalI));
-                        frag = new KumpulanBtnAyatAlkitabFragment(kitab, finalI);
+                        Log.d("From KumpulanBtnAlkitabFragment", "kitab=" + kitab + " & pasal=" + Integer.toString(pasal));
+                        frag = new AyatAlkitabFragment(kitab, pasal, finalI);
                         fragManager = getActivity().getSupportFragmentManager();
                         fragTransaction = fragManager.beginTransaction();
                         fragTransaction.replace(R.id.container, frag);
@@ -139,8 +145,11 @@ public class PasalAlkitabFragment extends Fragment {
             );
 
             // NGIDE
-            if (pasalBtn.getParent()!=null)
-                ((ViewGroup)pasalBtn.getParent()).removeView(pasalBtn);
+            if (pasalBtn.getParent()!=null) {
+                ((ViewGroup) pasalBtn.getParent()).removeView(pasalBtn);
+                Log.d("masuk removeView pasalBtn from KumpulanBtnAyat","..");
+            }
+
             rowLayout.addView(pasalBtn);
             if (cnt>=5) {
                 cnt = 0;
@@ -148,20 +157,10 @@ public class PasalAlkitabFragment extends Fragment {
                 rowLayout = new LinearLayout(getActivity());
             }
         }
-        if (pasal>5)
+        if (jumAyat>5)
             myLinearLayout.addView(colLayout);
         else
             myLinearLayout.addView(rowLayout);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_pasal_alkitab, container, false);
-        generateBtnPasal();
-        return rootView;
-//        return inflater.inflate(R.layout.fragment_pasal_alkitab, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

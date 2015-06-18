@@ -1,15 +1,21 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 //import android.app.Fragment;
 
@@ -39,7 +45,7 @@ public class AyatAlkitabFragment extends Fragment {
     private DataBaseHelper DB;
 
     private String kitab;
-    private int pasal;
+    private int pasal, ayat;
     private Context context;
 
     /**
@@ -64,9 +70,11 @@ public class AyatAlkitabFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public AyatAlkitabFragment (String _kitab, int _pasal) {
+    public AyatAlkitabFragment (String _kitab, int _pasal, int _ayat) {
         this.kitab = _kitab;
         this.pasal = _pasal;
+        this.ayat = _ayat;
+        Log.d("AyatAlkitab", Integer.toString(_ayat));
     }
 
     @Override
@@ -98,6 +106,8 @@ public class AyatAlkitabFragment extends Fragment {
 //        return inflater.inflate(R.layout.fragment_ayat_alkitab, container, false);
     }
 
+    int x_TV = 0, y_TV = 0;
+
     public void generateAyatAlkitab() {
         //add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_ayatAlkitab);
@@ -108,12 +118,69 @@ public class AyatAlkitabFragment extends Fragment {
 
         Log.d("from AyatAlkitabFragment","kitab="+kitab+" & pasal="+Integer.toString(pasal));
         if (kitab!=null) {
-            DB.getPasal(kitab, pasal);
-            String ayat = DB.getResultQueryPasal();
-            TextView ayatTV = new TextView(getActivity());
-            ayatTV.setText(ayat);
-            ayatTV.setLayoutParams(params);
-            myLinearLayout.addView(ayatTV);
+            ArrayList<String> daftarAyat = DB.getPasal(kitab, pasal);
+//            String ayat = DB.getResultQueryPasal();
+//            TextView ayatTV = new TextView(getActivity());
+//            ayatTV.setText(ayat);
+//            ayatTV.setLayoutParams(params);
+//            myLinearLayout.addView(ayatTV);
+            int len = daftarAyat.size();
+            Log.d("From ayatAlkitab-> ayat yang dipilih",Integer.toString(ayat));
+            Log.d("From ayatAlkitab-> jumlah ayat iterasi",Integer.toString(len));
+
+            int height_ayat = 0;
+            WindowManager wm = (WindowManager) getActivity().getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int sum_pading = 35;
+            int deviceWidth  = size.x - sum_pading;
+//            int height = size.y; -> ga kepake
+//            int deviceWidth = display.getWidth();
+
+            boolean Mark = false;
+            TextView ayatTV = null;
+            for (int i=0; i<len; i++) {
+                ayatTV = new TextView(getActivity());
+                ayatTV.setText(Integer.toString(i+1)+" "+daftarAyat.get(i));
+                ayatTV.setLayoutParams(params);
+                myLinearLayout.addView(ayatTV);
+
+                if (!Mark) {
+                    int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(deviceWidth, View.MeasureSpec.AT_MOST);
+                    int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                    ayatTV.measure(widthMeasureSpec, heightMeasureSpec);
+                    height_ayat = height_ayat + ayatTV.getMeasuredHeight();
+                }
+
+                if ((i+1)==this.ayat) {
+                    Log.d("AyatAlkitab dalam for", Integer.toString(this.ayat));
+                    final TextView finalAyatTV = ayatTV;
+                    ayatTV.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            x_TV = finalAyatTV.getLeft();
+                            y_TV = finalAyatTV.getTop();
+                        }
+                    });
+                    Log.d("nilai koordinat x="+Integer.toString(x_TV)+" dan y="+Integer.toString(y_TV),"..");
+                    Mark = true;
+                }
+            }
+
+            ScrollView SV = (ScrollView) rootView.findViewById(R.id.scroll_ayatAlkitab);
+            final int finalHeight_ayat = height_ayat;
+            SV.post(new Runnable() {
+                public void run(){
+                    ScrollView SV = (ScrollView) rootView.findViewById(R.id.scroll_ayatAlkitab);
+                    Log.d("nilai height ayat",Integer.toString(finalHeight_ayat));
+//                    SV.scrollTo(0, finalHeight_ayat);
+                    SV.scrollTo(0, y_TV);
+                }
+            });
+            int xx = ayatTV.getLeft();
+            int yy = ayatTV.getTop();
+            Log.d("posisi koordinat xx="+Integer.toString(xx)+", y="+Integer.toString(yy),"..");
         }
         DB.closeDataBase();
     }
