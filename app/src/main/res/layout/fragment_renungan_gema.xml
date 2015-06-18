@@ -47,8 +47,7 @@
                 android:layout_weight="0.5"
                 android:hint="dd/mm/yyyy"
                 android:layout_marginRight="10dp"
-                android:focusable="false"
-                android:onClick="setDate"/>
+                android:focusable="false"/>
 
             <Button
                 style="?android:attr/buttonStyle"

@@ -45,7 +45,7 @@ import java.util.Date;
  * Use the {@link RenunganGemaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RenunganGemaFragment extends Fragment {
+public class RenunganGemaFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -138,18 +138,34 @@ public class RenunganGemaFragment extends Fragment {
 
     }
 
+    private Button setDateBtn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_renungan_gema, container, false);
 
         dateET = (EditText) rootView.findViewById(R.id.datePickerEdit);
-//        dateET.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+        setDateBtn = (Button) rootView.findViewById(R.id.datePickerBtn);
+
+        setDateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                setDate(v);
-//            }
-//        });
+                Toast.makeText(getActivity(), "clicking submit datepicker..", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        dateET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                setDate(v);
+                DatePickerDialogFragment datePicker = new DatePickerDialogFragment();
+                datePicker.show(getFragmentManager(), "datePicker");
+//                Toast.makeText(getActivity(), "clicking datepicker..", Toast.LENGTH_LONG).show();
+                Log.d("tanggal yg dipilih, tahun:"+Integer.toString(datePicker.year_chosen)+" bulan:"+Integer.toString(datePicker.month_chosen)+" hari:"+Integer.toString(datePicker.day_chosen),"..");
+            }
+        });
 
 //        generateRenunganContent();
 
@@ -196,21 +212,25 @@ public class RenunganGemaFragment extends Fragment {
         }
     }
 
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        try {
+//            mListener = (OnFragmentInteractionListener) activity;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(activity.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
     }
 
     /**
