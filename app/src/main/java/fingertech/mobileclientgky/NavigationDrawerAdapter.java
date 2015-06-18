@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -65,6 +66,9 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        View view = convertView;
+        ImageView image = (ImageView) view.findViewById(R.id.expandableIcon);
+
         String groupTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -72,6 +76,16 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
         }
         TextView parentTextView = (TextView) convertView.findViewById(R.id.textViewParent);
         parentTextView.setText(groupTitle);
+
+        // Set group indicator icon
+        if(groupPosition == 2 || groupPosition == 3 || groupPosition == 4 || groupPosition == 5){
+            int imageResourceId = isExpanded ? android.R.drawable.arrow_up_float : android.R.drawable.arrow_down_float;
+            image.setImageResource(imageResourceId);
+
+            image.setVisibility(View.VISIBLE);
+        } else {
+            image.setVisibility(View.INVISIBLE);
+        }
         return convertView;
     }
 
