@@ -199,32 +199,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public String[] getPasalAlkitab () {
-        return pasalAlkitab;
-    }
-
-    public int[] getJumlahPasal() {
-        return jumlahPasal;
-    }
-
-    private String resultQueryPasal;
-
-    public void getPasal(String kitab, int pasal) {
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
-        int colIsi = cursor.getColumnIndex("isi");
-
-        // Check if our result was valid
-        cursor.moveToFirst();
-        int ayat = 1;
-        resultQueryPasal = "";
-        if (cursor != null) {
-            // Loop through all Results
-            do {
-                resultQueryPasal = resultQueryPasal + Integer.toString(ayat) + ". " + cursor.getString(colIsi) + "\n";
-                ayat++;
-            }while(cursor.moveToNext());
-        }
-    }
+//    public void getPasal(String kitab, int pasal) {
+//        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
+//        int colIsi = cursor.getColumnIndex("isi");
+//
+//        // Check if our result was valid
+//        cursor.moveToFirst();
+//        int ayat = 1;
+//        resultQueryPasal = "";
+//        if (cursor != null) {
+//            // Loop through all Results
+//            do {
+//                resultQueryPasal = resultQueryPasal + Integer.toString(ayat) + ". " + cursor.getString(colIsi) + "\n";
+//                ayat++;
+//            }while(cursor.moveToNext());
+//        }
+//    }
 
     public String getResultQueryPasal() {
         return resultQueryPasal;
@@ -315,6 +305,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public String[] getPasalAlkitab () {
+        return pasalAlkitab;
+    }
+
+    public int[] getJumlahPasal() {
+        return jumlahPasal;
+    }
+
+    private String resultQueryPasal;
+
     // Untuk Lirik Lagu Rohani
     public ArrayList<String> getLirikLaguRohani() {
         ArrayList<String> res = new ArrayList<String>();
@@ -332,6 +332,36 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         return res;
+    }
+
+    public ArrayList<String> getPasal(String kitab, int pasal) {
+        ArrayList<String> res = new ArrayList<String>();
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
+        int colIsi = cursor.getColumnIndex("isi");
+        int colJudul = cursor.getColumnIndex("judul");
+
+        cursor.moveToFirst();
+        if (cursor != null) {
+            do {
+                res.add(cursor.getString(colIsi));
+            }while(cursor.moveToNext());
+        }
+        return res;
+    }
+
+    public int getJumlahAyat (String kitab, int pasal) {
+        int jumAyat = 0;
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
+
+        // Check if our result was valid
+        cursor.moveToFirst();
+        if (cursor != null) {
+            // Loop through all Results
+            do {
+                jumAyat++;
+            }while(cursor.moveToNext());
+        }
+        return jumAyat;
     }
 
     public boolean createTableLirikLaguRohani () {
