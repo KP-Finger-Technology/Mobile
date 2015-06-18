@@ -304,8 +304,27 @@
     <string name="title_activity_maps">Map</string>
     <string name="Google_Maps">Google Maps</string>
 
-    <string name="hello_blank_fragment" />
-    <string name="cari">Cari</string>
+    <!-- Untuk halaman Profil-->
     <string name="keluar">Keluar</string>
+    <string name="profil_textDataPribadi">Data Pribadi</string>
+    <string name="profil_textNama">Nama</string>
+    <string name="profil_textPassword">Password</string>
+    <string name="profil_textKonfirmasiPassword">Konfirmasi Password</string>
+    <string name="profil_textEmail">Email</string>
+    <string name="profil_textTelepon">Telepon</string>
+    <string name="profil_textAlamat">Alamat</string>
+    <string name="profil_textTanggalLahir">Tanggal Lahir</string>
+    <string name="profil_textDataGereja">Data Gereja</string>
+    <string name="profil_textIdBaptis">IdBaptis</string>
+    <string name="profil_textKomisi">Komisi</string>
+    <string name="profil_textKomisiAnak">Anak</string>
+    <string name="profil_textKomisiKaleb">Kaleb</string>
+    <string name="profil_textKomisiPasutri">Pasutri</string>
+    <string name="profil_textKomisiPemudaDewasa">Pemuda Dewasa</string>
+    <string name="profil_textKomisiRemajaPemuda">Remaja dan Pemuda</string>
+    <string name="profil_textKomisiWanita">Wanita</string>
+    <string name="profil_textPelayanan">Pelayanan</string>
+    <string name="Ubah">Ubah</string>
 
+    <string name="hello_blank_fragment" />
 </resources>

@@ -338,6 +338,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
                 container = "LirikLaguRohani " + Integer.toString(i + 1) + " - " + judul;
                 Log.d("LirikLaguRohani: ", "akan masuk add button");
+
                 //add Button Judul Lirik Lagu Rohani
                 ListLirikLaguRohani = new Button(getActivity());
                 ListLirikLaguRohani.setText(container);
