@@ -1,12 +1,9 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -27,7 +24,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -36,15 +32,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
-
-// Untuk Parse
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
-import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.PushService;
-import com.parse.SaveCallback;
 
 public class Home extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -65,7 +52,9 @@ public class Home extends ActionBarActivity
     private ArrayList<String> parentHashMapKeys;
     private NavigationDrawerAdapter adapter;
     private DrawerLayout mDrawerLayout;
+    private boolean isLoggedIn = false;
 
+    // Untuk fragment
     private Fragment frag;
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
@@ -112,82 +101,57 @@ public class Home extends ActionBarActivity
 
         adapter = new NavigationDrawerAdapter(this, parentHashMap, parentHashMapKeys);
         mDrawerList.setAdapter(adapter);
+;
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
 
-        mDrawerList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        mDrawerList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
-            public void onGroupExpand(int groupPosition) {
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
                 // Beranda
                 if (groupPosition == 0) {
-                    /*Toast.makeText(Home.this,
-                        parentHashMapKeys.get(groupPosition)
-                                + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
                     frag = new Home.PlaceholderFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
+                    return true;
                 }
                 // Alkitab
-                else if (groupPosition == 1) {
+                else if(groupPosition == 1){
                     frag = new AlkitabFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
-                }
-                // Komisi
-                else if (groupPosition == 2) {
-                    /*Toast.makeText(Home.this,
-                            parentHashMapKeys.get(groupPosition)
-                                    + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
-                }
-                // Pelayanan
-                else if (groupPosition == 3) {
-                    /*frag = new JadwalPelayananFragment();
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();*/
-                }
-                // Pembinaan
-                else if (groupPosition == 4) {
-                    /*Toast.makeText(Home.this,
-                            parentHashMapKeys.get(groupPosition)
-                                    + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
-                }
-                // Events
-                else if (groupPosition == 5) {
-                    /*frag = new EventFragment();
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();*/
-                }
-                // Tentang Kami
+                    return true;
+                }// Tentang Kami
                 else if (groupPosition == 6) {
                     frag = new TentangKamiFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
+                    return true;
                 }
                 // Hubungi Kami
                 else if (groupPosition == 7) {
                     frag = new HubungiKamiFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
+                    return true;
                 }
                 // Login
                 else if (groupPosition == 8) {
                     frag = new LoginFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
+                    return true;
                 }
                 // Register
                 else if (groupPosition == 9) {
                     frag = new RegisterFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
-                }
-                // Pengaturan
-                else if (groupPosition == 10) {
-                    /*Toast.makeText(Home.this,
-                            parentHashMapKeys.get(groupPosition)
-                                    + " expanded", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, "groupPosition : " + groupPosition, Toast.LENGTH_LONG).show();*/
+                    return true;
                 }
                 // Logout
                 else if (groupPosition == 11) {
@@ -200,7 +164,8 @@ public class Home extends ActionBarActivity
                                     SessionManager sm = new SessionManager(getApplicationContext());
                                     sm.logoutUser();
                                     Log.d("Logout preferen",sm.pref.getAll().toString());
-                                    Toast.makeText(Home.this, "anda berhasil logout", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Home.this, "Anda berhasil logout", Toast.LENGTH_LONG).show();
+                                    isLoggedIn = false;
                                 }
                             })
                             .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -210,24 +175,13 @@ public class Home extends ActionBarActivity
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
+                    return true;
+                }
+                else {
+                    return false;
                 }
             }
         });
-;
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        /*mDrawerList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(Home.this,
-                        parentHashMapKeys.get(groupPosition)
-                                + " collapsed", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         mDrawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -338,15 +292,9 @@ public class Home extends ActionBarActivity
                 // Permohonan Doa
                 else if (groupPosition == 4 && childPosition == 4) {
                     SessionManager sm = new SessionManager(getApplicationContext());
-                    /*if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")){*/
-                        frag = new PermohonanDoaFragment();
-                        mDrawerLayout.closeDrawer(Gravity.START);
-                        switchFragment();
-                    /*}else {
-                        frag = new PermohonanDoaFragment();
-                        mDrawerLayout.closeDrawer(Gravity.START);
-                        switchFragment();
-                    }*/
+                    frag = new PermohonanDoaFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
                 }
 
                 // KPPK
@@ -428,33 +376,7 @@ public class Home extends ActionBarActivity
 
         mPager = (ViewPager) findViewById(R.id.vpPager);
         mPager.setAdapter(adapterViewPager);*/
-
-        // Untuk Parse
-        /*// Initialize the Parse SDK.
-        Parse.initialize(this, "BdqtV1LzsPow0SVhwN38wqUY0pwZEySkJCgdG9VZ", "s6elMhoO6vuBhStfXNq3d5yC94vV1QnFFjAfvjoD");
-        ParseInstallation.getCurrentInstallation().saveInBackground();
-
-        // Specify an Activity to handle all pushes by default.
-        PushService.setDefaultPushCallback(this, Home.class);
-
-        // Untuk subscribe, channel default adalah "", yaitu untuk "broadcast"
-        ParsePush.subscribeInBackground("", new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Log.d("com.parse.push", "successfully subscribed to the broadcast channel.");
-                } else {
-                    Log.e("com.parse.push", "failed to subscribe for push", e);
-                }
-            }
-        });*/
     }
-
-    /*private void addDrawerItems() {
-        String[] menuArray = { "Beranda", "Pelayanan", "Pembinaan", "Events", "Tentang Kami", "Hubungi Kami" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuArray);
-        mDrawerList.setAdapter(mAdapter);
-    }*/
 
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
@@ -494,29 +416,6 @@ public class Home extends ActionBarActivity
                 .commit();
     }
 
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.beranda);
-                break;
-            case 2:
-                mTitle = getString(R.string.pelayanan);
-                break;
-            case 3:
-                mTitle = getString(R.string.pembinaan);
-                break;
-            case 4:
-                mTitle = getString(R.string.events);
-                break;
-            case 5:
-                mTitle = getString(R.string.tentang_kami);
-                break;
-            case 6:
-                mTitle = getString(R.string.hubungi_kami);
-                break;
-        }
-    }
-
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -544,8 +443,6 @@ public class Home extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-
 /*        // Untuk toggle switch
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -553,10 +450,6 @@ public class Home extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-    /*public Context getActivity() {
-        return activity;
-    }*/
 
     /**
      * A placeholder fragment containing a simple view.
@@ -601,49 +494,11 @@ public class Home extends ActionBarActivity
     }
 
     // Untuk button-button
-    public void renunganClicked(View v) {
-        frag = new RenunganGemaFragment();
-        switchFragment();
-    }
-
-    public void maritalClicked(View v) {
-        frag = new PreMaritalClassFragment();
-        switchFragment();
-    }
-
-    public void katekisasiClicked(View v) {
-        frag = new KatekisasiFragment();
-        switchFragment();
-    }
-
-    public void permohonanClicked(View v) {
-        frag = new PermohonanDoaFragment();
-        switchFragment();
-    }
-
-    public void alkitabClicked(View v) {
-        frag = new AlkitabFragment();
-        switchFragment();
-    }
-
-    public void kelompokClicked(View v) {
-        frag = new KelompokKecilFragment();
-        switchFragment();
-    }
-
     public void KirimDoa(View v) {
-        frag = new AlkitabFragment();
-        switchFragment();
         ambilDataDoa();
+        frag = new Home.PlaceholderFragment();
+        switchFragment();
     }
-
-
-    /*public void openMapApps(View v) {
-        Intent intent = null;
-        intent = new Intent(android.content.Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("geo:" + latitude + "," + longitude));
-        startActivity(intent);
-    }*/
 
     public void ambilDataDoa(){
         EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
@@ -719,15 +574,11 @@ public class Home extends ActionBarActivity
         }
 
         cont.login(nama,pass);
+        isLoggedIn = true;
         switchFragment();
     }
 
-    public void logoutClicked(View v){
-
-    }
-
     public void pickRenungan(View v){
-        //Pilih tanggal
 
     }
 
