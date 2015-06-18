@@ -44,7 +44,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         pasalAlkitab = new String[jumlah_kitab];
         jumlahPasal = new int[jumlah_kitab];
         DB_PATH = context.getDatabasePath(DB_NAME).getAbsolutePath();
-        Log.d("path absolut database",DB_PATH);
+        Log.d("path absolut database", DB_PATH);
         try {
             Log.d("persiapan buat database dari konstruktor DB","...");
             createDataBase();
@@ -174,6 +174,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return count > 0;
     }
 
+    // Untuk Alkitab
     public void getDaftarKitab() {
         if (DB_PATH != null) {
             String tableName = "BOOKS";
@@ -198,6 +199,53 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+//    public void getPasal(String kitab, int pasal) {
+//        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
+//        int colIsi = cursor.getColumnIndex("isi");
+//
+//        // Check if our result was valid
+//        cursor.moveToFirst();
+//        int ayat = 1;
+//        resultQueryPasal = "";
+//        if (cursor != null) {
+//            // Loop through all Results
+//            do {
+//                resultQueryPasal = resultQueryPasal + Integer.toString(ayat) + ". " + cursor.getString(colIsi) + "\n";
+//                ayat++;
+//            }while(cursor.moveToNext());
+//        }
+//    }
+
+    public String getResultQueryPasal() {
+        return resultQueryPasal;
+    }
+
+    @Override
+    public synchronized void close() {
+        if(myDataBase != null)
+            myDataBase.close();
+        super.close();
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        /*try {
+            Log.d("akan create database","...");
+            createDataBase();
+        } catch (IOException e) {
+            Log.d("gagal create database","...");
+        }*/
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
+
+    // Add your public helper methods to access and get content from the database.
+    // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
+    // to you to create adapters for your views.
+
+    // Untuk KPPK
     public ArrayList<String> getKPPK() {
         ArrayList<String> res = new ArrayList<String>();
         Cursor cursor = myDataBase.rawQuery("SELECT * FROM KPPK", null);
@@ -267,20 +315,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     private String resultQueryPasal;
 
+    // Untuk Lirik Lagu Rohani
+    public ArrayList<String> getLirikLaguRohani() {
+        ArrayList<String> res = new ArrayList<String>();
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM LirikLaguRohani", null);
+        int colJudul = cursor.getColumnIndex("judul");
+        int colIsi = cursor.getColumnIndex("isi");
+
+        cursor.moveToFirst();
+        if (cursor != null) {
+            do {
+                String judul = cursor.getString(colJudul);
+                String isi = cursor.getString(colIsi);
+                res.add(judul);
+                res.add(isi);
+            }while(cursor.moveToNext());
+        }
+        return res;
+    }
+
     public ArrayList<String> getPasal(String kitab, int pasal) {
         ArrayList<String> res = new ArrayList<String>();
         Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
         int colIsi = cursor.getColumnIndex("isi");
+        int colJudul = cursor.getColumnIndex("judul");
 
-        // Check if our result was valid
         cursor.moveToFirst();
-        int ayat = 1;
-        resultQueryPasal = "";
         if (cursor != null) {
-            // Loop through all Results
             do {
-                resultQueryPasal = resultQueryPasal + Integer.toString(ayat) + ". " + cursor.getString(colIsi) + "\n";
-                ayat++;
                 res.add(cursor.getString(colIsi));
             }while(cursor.moveToNext());
         }
@@ -302,32 +364,44 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return jumAyat;
     }
 
-    public String getResultQueryPasal() {
-        return resultQueryPasal;
+    public boolean createTableLirikLaguRohani () {
+        boolean isSuccess = false;
+        if (isTableExists("LirikLaguRohani"))
+            return isSuccess;
+        else {
+            myDataBase=this.getWritableDatabase() ;
+            String query = "CREATE TABLE LirikLaguRohani ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, judul TEXT, isi TEXT)";
+            myDataBase.execSQL(query);
+
+            isSuccess = true;
+            return isSuccess;
+        }
     }
 
-    @Override
-    public synchronized void close() {
-        if(myDataBase != null)
-            myDataBase.close();
-        super.close();
+    public boolean deleteTableLirikLaguRohani () {
+        boolean isSuccess = false;
+        if (!isTableExists("LirikLaguRohani"))
+            return isSuccess;
+        else {
+            myDataBase=this.getWritableDatabase() ;
+            String query = "DROP TABLE LirikLaguRohani";
+            myDataBase.execSQL(query);
+
+            isSuccess = true;
+            return isSuccess;
+        }
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        /*try {
-            Log.d("akan create database","...");
-            createDataBase();
-        } catch (IOException e) {
-            Log.d("gagal create database","...");
-        }*/
+    public void insertDataLirikLaguRohani(ArrayList<String> container) {
+        ContentValues cv = new ContentValues(2);
+        int len = container.size();
+        myDataBase=this.getWritableDatabase() ;
+        for (int i=0; i<len; i=i+2) {
+            String judul = container.get(i);
+            String isi = container.get(i+1);
+            cv.put("judul", judul);
+            cv.put("isi", isi);
+            myDataBase.insert("LirikLaguRohani",null,cv);
+        }
     }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    }
-
-    // Add your public helper methods to access and get content from the database.
-    // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
-    // to you to create adapters for your views.
 }

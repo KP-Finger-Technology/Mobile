@@ -355,7 +355,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // masuk ke kosntruktor parameter kppkLiengkapFragment dgn parameternya: isi
+                            // masuk ke konstruktor parameter kppkLengkapFragment dgn parameternya: isi
                             Log.d("KPPK: ", "masuk onClickListener");
                             frag = new KPPKLengkapFragment(_isi);
                             fragManager = getActivity().getSupportFragmentManager();
