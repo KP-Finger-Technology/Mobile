@@ -15,5 +15,5 @@ public class NavigationDrawerData {
     public static String[] loginArray = {};
     public static String[] logoutArray = {};
     public static String[] registerArray = {};
-    public static String[] pengaturanArray = {};
+    public static String[] profilArray = {};
 }

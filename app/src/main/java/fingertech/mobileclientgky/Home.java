@@ -153,6 +153,13 @@ public class Home extends ActionBarActivity
                     switchFragment();
                     return true;
                 }
+                // Profil
+                else if (groupPosition == 10) {
+                    frag = new ProfilFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment();
+                    return true;
+                }
                 // Logout
                 else if (groupPosition == 11) {
                     new AlertDialog.Builder(Home.this)
@@ -193,30 +200,35 @@ public class Home extends ActionBarActivity
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
                 // Komisi Kaleb
                 else if (groupPosition == 2 && childPosition == 1) {
                     frag = new KomisiKalebFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
                 // Komisi Pasutri
                 else if (groupPosition == 2 && childPosition == 2) {
                     frag = new KomisiPasutriFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
                 // Komisi Pemuda Dewasa
                 else if (groupPosition == 2 && childPosition == 3) {
                     frag = new KomisiPemudaDewasaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
                 // Komisi Remaja & Pemuda
                 else if (groupPosition == 2 && childPosition == 4) {
                     frag = new KomisiRemajaDanPemudaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
                 // Komisi Wanita
                 else if (groupPosition == 2 && childPosition == 5) {
                     frag = new KomisiWanitaFragment();
@@ -339,18 +351,21 @@ public class Home extends ActionBarActivity
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
                 // Liturgi Mingguan
                 else if (groupPosition == 5 && childPosition == 1) {
                     frag = new LiturgiMingguanFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
                 // Past and Upcoming Events
                 else if (groupPosition == 5 && childPosition == 2) {
                     frag = new PastAndUpcomingEventsFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
                 // Jadwal Ibadah
                 else if (groupPosition == 5 && childPosition == 3) {
                     frag = new JadwalIbadahFragment();

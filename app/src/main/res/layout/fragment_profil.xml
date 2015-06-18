@@ -1,0 +1,291 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fingertech.mobileclientgky.ProfilFragment"
+    android:orientation="vertical"
+    android:gravity="start|start">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffb01815">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Profil"
+            android:id="@+id/profil_textJudul"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#ffffffff"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffddbb"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textDataPribadi"
+                        android:id="@+id/profil_textDataPribadi"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textNama"
+                        android:id="@+id/profil_textNama"
+                        android:layout_marginTop="5dp"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:hint="contoh: Rita Sarah"
+                        android:ems="15"
+                        android:id="@+id/profil_editNama"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textPassword"
+                        android:id="@+id/profil_textPassword"
+                        android:layout_marginTop="5dp"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:hint="contoh: ritasarah"
+                        android:ems="15"
+                        android:id="@+id/profil_editPassword"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textKonfirmasiPassword"
+                        android:id="@+id/profil_textKonfirmasiPassword"
+                        android:layout_marginTop="5dp"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:hint="contoh: ritasarah"
+                        android:ems="15"
+                        android:id="@+id/profil_editKonfirmasiPassword"
+                        android:textColor="#ffffffff"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textEmail"
+                        android:id="@+id/profil_textEmail"
+                        android:layout_marginTop="5dp"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:hint="contoh: ritasarah@ritasarah.com"
+                        android:ems="15"
+                        android:id="@+id/profil_editEmail"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textTelepon"
+                        android:id="@+id/profil_textTelepon"
+                        android:layout_marginTop="5dp"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPhonetic"
+                        android:hint="contoh: 081234567890"
+                        android:ems="15"
+                        android:id="@+id/profil_editTelepon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textAlamat"
+                        android:id="@+id/profil_textAlamat"
+                        android:layout_marginTop="5dp"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:hint="contoh: Jalan Oswegia 100, Jakarta Barat"
+                        android:ems="15"
+                        android:id="@+id/profil_editAlamat"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textTanggalLahir"
+                        android:id="@+id/profil_textTanggalLahir"
+                        android:layout_marginTop="5dp"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="dd/mm/yyyy"
+                        android:ems="15"
+                        android:id="@+id/profil_editTanggalLahir"
+                        android:onClick="setDate"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textDataGereja"
+                        android:id="@+id/profil_textDataGereja"
+                        android:textColor="#ffffffff"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textIdBaptis"
+                        android:id="@+id/profil_textIdBaptis"
+                        android:layout_marginTop="5dp"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:hint="contoh: 100"
+                        android:ems="15"
+                        android:id="@+id/profil_editIdBaptis"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textKomisi"
+                        android:id="@+id/profil_textKomisi"
+                        android:layout_marginTop="5dp"/>
+
+                    <CheckBox
+                        android:id="@+id/profil_checkboxKomisiAnak"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiAnak"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxKomisiKaleb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiKaleb"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxKomisiPasutri"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiPasutri"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxKomisiPemudaDewasa"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiPemudaDewasa"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxKomisiRemajaPemuda"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiRemajaPemuda"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxKomisiWanita"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiWanita"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/profil_textPelayanan"
+                        android:id="@+id/profil_textPelayanan"
+                        android:layout_marginTop="5dp"/>
+
+                    <CheckBox
+                        android:id="@+id/profil_checkboxPelayananAnak"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiAnak"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxPelayananKaleb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiKaleb"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxKomisiPasutri"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiPasutri"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxPelayananPemudaDewasa"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiPemudaDewasa"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxPelayananRemajaPemuda"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiRemajaPemuda"/>
+                    <CheckBox
+                        android:id="@+id/profil_checkboxPelayananWanita"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/profil_textKomisiWanita"/>
+
+                    <Button
+                        style="?android:attr/buttonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Ubah"
+                        android:id="@+id/profil_ubah"
+                        android:layout_marginTop="15dp"
+                        android:background="#ffb01815"
+                        android:textColor="#ffffffff"
+                        android:onClick="profilClicked"/>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
