@@ -84,7 +84,7 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
         parentTextView.setText(groupTitle);
 
         // Set group indicator icon
-        /*View view = convertView;
+        View view = convertView;
         View ind = view.findViewById( R.id.explist_indicator);
         if( ind != null ) {
             ImageView indicator = (ImageView)ind;
@@ -96,7 +96,7 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
                 Drawable drawable = indicator.getDrawable();
                 drawable.setState(GROUP_STATE_SETS[stateSetIndex]);
             }
-        }*/
+        }
 
         return convertView;
     }
