@@ -8,12 +8,16 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.Fragment;
+import android.os.Message;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -36,7 +40,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -45,7 +48,8 @@ import java.util.Date;
  * Use the {@link RenunganGemaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RenunganGemaFragment extends Fragment implements View.OnClickListener{
+//public class RenunganGemaFragment extends Fragment implements View.OnClickListener{
+public class RenunganGemaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,6 +67,10 @@ public class RenunganGemaFragment extends Fragment implements View.OnClickListen
     private Calendar calendar;
     private TextView dateView;
     private int year, month, day;
+    private int pYear;
+    private int pDay;
+    private int pMonth;
+    private String now = null;
     private EditText dateET;
 
     /**
@@ -153,6 +161,8 @@ public class RenunganGemaFragment extends Fragment implements View.OnClickListen
             public void onClick(View v) {
 //                setDate(v);
                 Toast.makeText(getActivity(), "clicking submit datepicker..", Toast.LENGTH_LONG).show();
+                Viewer newViewer = new Viewer();
+                newViewer.execute();
             }
         });
 
@@ -163,9 +173,20 @@ public class RenunganGemaFragment extends Fragment implements View.OnClickListen
                 DatePickerDialogFragment datePicker = new DatePickerDialogFragment();
                 datePicker.show(getFragmentManager(), "datePicker");
 //                Toast.makeText(getActivity(), "clicking datepicker..", Toast.LENGTH_LONG).show();
-                Log.d("tanggal yg dipilih, tahun:"+Integer.toString(datePicker.year_chosen)+" bulan:"+Integer.toString(datePicker.month_chosen)+" hari:"+Integer.toString(datePicker.day_chosen),"..");
+                /*Log.d("tanggal yg dipilih, tahun:"+ Integer.toString(datePicker.getpYear()) +" bulan:"+Integer.toString(datePicker.getpMonth())+" hari:"+Integer.toString(datePicker.getpDay()),"..");*/
             }
         });
+
+        /*dateET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    Log.d("tanggal yg dipilih, tahun:"+ Integer.toString(thn) +" bulan:"+Integer.toString(bln)+" hari:"+Integer.toString(tggl),"..");
+                    return true;
+                }
+                return false;
+            }
+        });*/
 
 //        generateRenunganContent();
 
@@ -192,6 +213,7 @@ public class RenunganGemaFragment extends Fragment implements View.OnClickListen
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            Log.d("masuk onDateSet pertama dialogFragment","..");
             // TODO Auto-generated method stub
             // arg1 = year
             // arg2 = month
@@ -230,7 +252,12 @@ public class RenunganGemaFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Log.d("masuk onDateSet dialogFragment","..");
+//        year_chosen = year;
+//        month_chosen = month + 1;
+//        day_chosen = day;
+        Toast.makeText(getActivity(), "masuk dateSetListener..", Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -248,6 +275,9 @@ public class RenunganGemaFragment extends Fragment implements View.OnClickListen
         public void onFragmentInteraction(Uri uri);
     }
 
+    public void setET(String _s) {
+        this.dateET.setText(_s);
+    }
 
     class Viewer extends AsyncTask<String, String, String> {
         private LinearLayout myLinearLayout;
@@ -268,12 +298,9 @@ public class RenunganGemaFragment extends Fragment implements View.OnClickListen
             String result = "";
             String statu ="";
 
-            String now = null;
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-//            now = df.format(calendar.getTime());
-            now = "2015-06-15";
-            Log.d("now", now.toString());
+//            now = df.format(calendar.getTime());Ho
             HttpClient client = new DefaultHttpClient();
 
             HttpGet request = new HttpGet(Controller.url+"view_gema.php?Tanggal="+now); // ngikutin ip disini loh
@@ -357,5 +384,52 @@ public class RenunganGemaFragment extends Fragment implements View.OnClickListen
 //        } catch(JSONException e){e.printStackTrace();}
 
             }
+    }
+
+    public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+        public DatePickerDialogFragment() {
+            // nothing to see here, move along
+        }
+
+        public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {
+            mDateSetListener = (DatePickerDialog.OnDateSetListener) callback;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            Log.d("DatePicker", "masuk create");
+            Calendar cal = Calendar.getInstance();
+
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            Log.d("DatePicker", "keluar create");
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            Log.d("DatePicker", "masuk set");
+            pYear = year;
+            pDay = day;
+            pMonth = month;
+
+            Log.d("DatePicker", "keluar set");
+            Log.d("DatePicker pyear", Integer.toString(pYear));
+            Log.d("DatePicker pday", Integer.toString(pDay));
+            Log.d("DatePicker pmonth", Integer.toString(pMonth));
+
+            Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
+
+            now = Integer.toString(pYear) + "-" + Integer.toString(pMonth + 1) + "-" + Integer.toString(pDay);
+            dateET.setText(Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear));
+        }
     }
 }
