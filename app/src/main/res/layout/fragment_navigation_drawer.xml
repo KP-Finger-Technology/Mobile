@@ -6,6 +6,4 @@
     android:divider="#ffb01815"
     android:dividerHeight="1dp"
     android:background="#55555555"
-    android:indicatorLeft="20dp"
-    android:childIndicatorLeft="30dp"/>
-    <!--android:groupIndicator="@android:color/white"-->
+    android:groupIndicator="@android:color/white"/>
