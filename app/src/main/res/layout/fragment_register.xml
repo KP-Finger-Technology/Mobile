@@ -212,6 +212,11 @@
                         android:layout_height="match_parent"
                         android:text="@string/register_textKomisiKaleb"/>
                     <CheckBox
+                        android:id="@+id/register_checkboxKomisiPasutri"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/register_textKomisiPasutri"/>
+                    <CheckBox
                         android:id="@+id/register_checkboxKomisiPemudaDewasa"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

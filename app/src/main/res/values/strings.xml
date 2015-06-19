@@ -307,5 +307,6 @@
     <string name="hello_blank_fragment" />
     <string name="cari">Cari</string>
     <string name="keluar">Keluar</string>
+    <string name="register_textKomisiPasutri">Pasutri</string>
 
 </resources>
