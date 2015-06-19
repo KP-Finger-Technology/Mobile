@@ -1,6 +1,7 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,14 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
     private Context context;
     private LinkedHashMap<String, ArrayList<String>> parentHashMap;
     private ArrayList<String> parentList;
+
+    private static final int[] EMPTY_STATE_SET = {};
+    private static final int[] GROUP_EXPANDED_STATE_SET =
+            {android.R.attr.state_expanded};
+    private static final int[][] GROUP_STATE_SETS = {
+            EMPTY_STATE_SET, // 0
+            GROUP_EXPANDED_STATE_SET // 1
+    };
 
     public NavigationDrawerAdapter (Context _context, LinkedHashMap<String, ArrayList<String>> _parentHashMap, ArrayList<String> _parentList) {
         parentHashMap = _parentHashMap;
@@ -66,9 +75,6 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        View view = convertView;
-        ImageView image = (ImageView) view.findViewById(R.id.expandableIcon);
-
         String groupTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -78,14 +84,20 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
         parentTextView.setText(groupTitle);
 
         // Set group indicator icon
-        if(groupPosition == 2 || groupPosition == 3 || groupPosition == 4 || groupPosition == 5){
-            int imageResourceId = isExpanded ? android.R.drawable.arrow_up_float : android.R.drawable.arrow_down_float;
-            image.setImageResource(imageResourceId);
+        /*View view = convertView;
+        View ind = view.findViewById( R.id.explist_indicator);
+        if( ind != null ) {
+            ImageView indicator = (ImageView)ind;
+            if( getChildrenCount( groupPosition ) == 0 ) {
+                indicator.setVisibility( View.INVISIBLE );
+            } else {
+                indicator.setVisibility( View.VISIBLE );
+                int stateSetIndex = ( isExpanded ? 1 : 0) ;
+                Drawable drawable = indicator.getDrawable();
+                drawable.setState(GROUP_STATE_SETS[stateSetIndex]);
+            }
+        }*/
 
-            image.setVisibility(View.VISIBLE);
-        } else {
-            image.setVisibility(View.INVISIBLE);
-        }
         return convertView;
     }
 
