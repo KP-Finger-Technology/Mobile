@@ -1,13 +1,14 @@
-/*
 package fingertech.mobileclientgky;
 
-import com.parse.Parse;
-import com.parse.PushService;
+import android.util.Log;
 
-*/
-/**
- * Created by ASUS on 6/15/2015.
- *//*
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.PushService;
+import com.parse.SaveCallback;
 
 public class Application extends android.app.Application {
 
@@ -17,11 +18,22 @@ public class Application extends android.app.Application {
 
     @Override
     public void onCreate() {
-        super.onCreate();
-
         Parse.initialize(this, "BdqtV1LzsPow0SVhwN38wqUY0pwZEySkJCgdG9VZ", "s6elMhoO6vuBhStfXNq3d5yC94vV1QnFFjAfvjoD");
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
+        // Specify an Activity to handle all pushes by default.
         PushService.setDefaultPushCallback(this, Home.class);
+
+        // Untuk subscribe, channel default adalah "", yaitu untuk "broadcast"
+        ParsePush.subscribeInBackground("", new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d("com.parse.push", "successfully subscribed to the broadcast channel.");
+                } else {
+                    Log.e("com.parse.push", "failed to subscribe for push", e);
+                }
+            }
+        });
     }
 }
-*/

@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 /*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -52,6 +54,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private View rootView;
+
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
+    private FragmentManager fragManager;
 
     /**
      * Use this factory method to create a new instance of
@@ -333,6 +339,27 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 SelengkapnyaBtn.setBackgroundColor(0);
                 subRowLayout.addView(SelengkapnyaBtn);
                 colLayout.addView(subRowLayout);
+
+                final String finalJudul = judul;
+                final String finalTanggal = tanggal;
+                final String finalKeterangan = keterangan;
+                final String finalLinkGambar = linkGambar;
+                SelengkapnyaBtn.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // masuk ke konstruktor parameter LirikLaguRohaniLengkapFragment dgn parameternya: isi
+                                Log.d("PastAndUpcomingEvents: ", "masuk onClickListener");
+                                frag = new EventLengkapFragment(finalJudul, finalTanggal, finalKeterangan, finalLinkGambar);
+                                fragManager = getActivity().getSupportFragmentManager();
+                                fragTransaction = fragManager.beginTransaction();
+                                fragTransaction.replace(R.id.container, frag);
+                                fragTransaction.addToBackStack(null);
+                                fragTransaction.commit();
+                                Log.d("PastAndUpcomingEvents: ", "selesai onClickListener");
+                            }
+                        }
+                );
 
                 if (i!=dataLength) {
                     rowLayout.addView(colLayout);

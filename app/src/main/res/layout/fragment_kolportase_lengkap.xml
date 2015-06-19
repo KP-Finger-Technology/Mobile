@@ -1,8 +1,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="fingertech.mobileclientgky.LirikLaguRohaniFragment">
+    android:layout_height="match_parent"
+    tools:context="fingertech.mobileclientgky.KolportaseLengkapFragment"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Lirik Lagu Rohani"
+            android:text="Kolportase"
             android:id="@+id/textView"
             android:textColor="#ffffffff"
             android:layout_marginLeft="20dp"
@@ -33,38 +34,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="15dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <SearchView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lirikLaguRohani_searchview"
-                    android:hint="Cari Judul Lirik Lagu Rohani"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="right">
-
-                    <Button
-                        style="?android:attr/buttonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Download Lirik"
-                        android:id="@+id/lirikLaguRohani_download"
-                        android:background="#ffb01815"
-                        android:textColor="#ffffffff"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+            android:layout_marginRight="15dp">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -74,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:id="@+id/container_lirikLaguRohani">
+                    android:id="@+id/container_kolportaseLengkap">
 
                 </LinearLayout>
             </ScrollView>

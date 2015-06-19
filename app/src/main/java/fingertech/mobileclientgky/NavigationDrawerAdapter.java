@@ -1,10 +1,12 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +22,14 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
     private Context context;
     private LinkedHashMap<String, ArrayList<String>> parentHashMap;
     private ArrayList<String> parentList;
+
+    private static final int[] EMPTY_STATE_SET = {};
+    private static final int[] GROUP_EXPANDED_STATE_SET =
+            {android.R.attr.state_expanded};
+    private static final int[][] GROUP_STATE_SETS = {
+            EMPTY_STATE_SET, // 0
+            GROUP_EXPANDED_STATE_SET // 1
+    };
 
     public NavigationDrawerAdapter (Context _context, LinkedHashMap<String, ArrayList<String>> _parentHashMap, ArrayList<String> _parentList) {
         parentHashMap = _parentHashMap;
@@ -72,6 +82,22 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
         }
         TextView parentTextView = (TextView) convertView.findViewById(R.id.textViewParent);
         parentTextView.setText(groupTitle);
+
+        // Set group indicator icon
+        View view = convertView;
+        View ind = view.findViewById( R.id.explist_indicator);
+        if( ind != null ) {
+            ImageView indicator = (ImageView)ind;
+            if( getChildrenCount( groupPosition ) == 0 ) {
+                indicator.setVisibility( View.INVISIBLE );
+            } else {
+                indicator.setVisibility( View.VISIBLE );
+                int stateSetIndex = ( isExpanded ? 1 : 0) ;
+                Drawable drawable = indicator.getDrawable();
+                drawable.setState(GROUP_STATE_SETS[stateSetIndex]);
+            }
+        }
+
         return convertView;
     }
 

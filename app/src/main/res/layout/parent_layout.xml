@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/textViewParent"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textColor="#ffffffff"
-    android:paddingLeft="20dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:textAppearance="?android:attr/textAppearanceMedium">
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
 
-</TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView android:src="@drawable/expander_group"
+            android:id="@+id/explist_indicator"
+            android:layout_width="250dp"
+            android:layout_height="15dp"
+            android:layout_gravity="start|top"
+            />
+
+    </LinearLayout>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/textViewParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#ffffffff"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium">
+    </TextView>
+
+</LinearLayout>
