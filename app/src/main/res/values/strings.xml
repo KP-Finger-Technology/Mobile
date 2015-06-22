@@ -58,6 +58,7 @@
     <string name="register_textPelayanan">Pelayanan</string>
     <string name="register_textKomisiAnak">Anak</string>
     <string name="register_textKomisiKaleb">Kaleb</string>
+    <string name="register_textKomisiPasutri">Pasutri</string>
     <string name="register_textKomisiPemudaDewasa">Pemuda Dewasa</string>
     <string name="register_textKomisiRemajaPemuda">Remaja dan Pemuda</string>
     <string name="register_textKomisiWanita">Wanita</string>
@@ -327,18 +328,5 @@
     <string name="Ubah">Ubah</string>
 
     <string name="hello_blank_fragment" />
-
-    <string name="komisiAnak">Komisi Anak</string>
-
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
 
 </resources>

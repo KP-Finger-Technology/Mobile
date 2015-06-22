@@ -20,10 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -580,18 +583,35 @@ public class Home extends ActionBarActivity
     }
 
     public void KirimDoa(View v) {
-        ambilDataDoa();
+        ambilDataDoa(v);
         frag = new Home.PlaceholderFragment();
         switchFragment();
     }
 
-    public void ambilDataDoa(){
+    /*public void openMapApps(View v) {
+        Intent intent = null;
+        intent = new Intent(android.content.Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("geo:" + latitude + "," + longitude));
+        startActivity(intent);
+    }*/
+
+    public void ambilDataDoa(View view){
         EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
         EditText umurET = (EditText) findViewById(R.id.permohonanDoa_editUmur);
         EditText emailET = (EditText) findViewById(R.id.permohonanDoa_editEmail);
         EditText teleponET = (EditText) findViewById(R.id.permohonanDoa_editTelepon);
         EditText doaET = (EditText) findViewById(R.id.permohonanDoa_editDoa);
-//        RadioButton jenisKelamin = (RadioButton) findViewById((R.id.permohonanDoa_editJenisKelamin));
+        String jenisKelamin = null;
+
+        // Is the button now checked?
+//        boolean checked = ((RadioButton) v).isChecked();
+//        boolean checked = ((RadioButton) view).isChecked();
+        boolean checked = ((RadioButton)findViewById(R.id.jenisKelaminPria)).isChecked();
+        Log.d("hasil checked from Home",Boolean.toString(checked));
+        if (checked)
+            jenisKelamin="p";
+        else
+            jenisKelamin="w";
 
         String nama = null,email = null,telepon = null,doa = null;
         int umur = 0;
@@ -606,12 +626,10 @@ public class Home extends ActionBarActivity
             e.printStackTrace();
         }
 
-        cont.addDoa(nama, umur, email, telepon, "p", doa);
-        frag = new AlkitabFragment();
-        switchFragment();
+        cont.addDoa(nama,umur,email,telepon,jenisKelamin, doa);
     }
 
-    public void registerClicked(View v){
+    /*public void registerClicked(View v){
         EditText namaET = (EditText) findViewById(R.id.register_editNama);
         EditText passET = (EditText) findViewById(R.id.register_editPassword);
         EditText passconET = (EditText) findViewById(R.id.register_editKonfirmasiPassword);
@@ -634,16 +652,124 @@ public class Home extends ActionBarActivity
                 e.printStackTrace();
             }
 
-            Date x = new Date();
+//            boolean checked = ((CheckBox) v).isChecked();
+            boolean checked_komisiAnak = ((CheckBox) findViewById(R.id.register_checkboxKomisiAnak)).isChecked();
+            boolean checked_komisiKaleb = ((CheckBox) findViewById(R.id.register_checkboxKomisiKaleb)).isChecked();
+            boolean checked_komisiPasutri = ((CheckBox) findViewById(R.id.register_checkboxKomisiPasutri)).isChecked();
+            boolean checked_komisiPemuda = ((CheckBox) findViewById(R.id.register_checkboxKomisiPemudaDewasa)).isChecked();
+            boolean checked_komisiRemaja = ((CheckBox) findViewById(R.id.register_checkboxKomisiRemajaPemuda)).isChecked();
+            boolean checked_komisiWanita = ((CheckBox) findViewById(R.id.register_checkboxKomisiWanita)).isChecked();
 
-            cont.register(nama,pass,email,telepon,alamat,x,idbaptis);
+            boolean checked_pelayananAnak = ((CheckBox) findViewById(R.id.register_checkboxPelayananAnak)).isChecked();
+            boolean checked_pelayananKaleb = ((CheckBox) findViewById(R.id.register_checkboxPelayananKaleb)).isChecked();
+            boolean checked_pelayananPasutri = ((CheckBox) findViewById(R.id.register_checkboxKomisiPasutri)).isChecked();
+            boolean checked_pelayananPemuda = ((CheckBox) findViewById(R.id.register_checkboxPelayananPemudaDewasa)).isChecked();
+            boolean checked_pelayananRemaja = ((CheckBox) findViewById(R.id.register_checkboxPelayananRemajaPemuda)).isChecked();
+            boolean checked_pelayananWanita = ((CheckBox) findViewById(R.id.register_checkboxPelayananWanita)).isChecked();
+
+            String komisi = "";
+            Log.d("komisi",komisi);
+
+            String pelayanan = "";
+
+            // Check which radio button was clicked
+//            switch(v.getId()) {
+//                case R.id.register_checkboxKomisiAnak:
+                    if (checked_komisiAnak){
+                        if(komisi!="")
+                            komisi+=",";
+                        komisi+="1";
+//                        break;
+                    }
+//                case R.id.register_checkboxKomisiKaleb:
+                    if (checked_komisiKaleb){
+                        if(komisi!="")
+                            komisi+=",";
+                        komisi+="2";
+//                        break;
+                    }
+                    if (checked_komisiPasutri){
+                        if(komisi!="")
+                            komisi+=",";
+                        komisi+="3";
+        //                        break;
+                    }
+//                case R.id.register_checkboxKomisiPemudaDewasa:
+                    if (checked_komisiPemuda){
+                        if(komisi!="")
+                            komisi+=",";
+                        komisi+="4";
+//                        break;
+                    }
+                if (checked_komisiPemuda){
+                    if(komisi!="")
+                        komisi+=",";
+                    komisi+="4";
+    //                        break;
+                }
+                if (checked_komisiRemaja){
+                    if(komisi!="")
+                        komisi+=",";
+                    komisi+="5";
+                }
+                if (checked_komisiRemaja){
+                    if(komisi!="")
+                        komisi+=",";
+                    komisi+="6";
+                }
+
+
+            if (checked_pelayananAnak){
+                if(pelayanan!="")
+                    pelayanan+=",";
+                pelayanan+="1";
+            }
+
+            if (checked_pelayananKaleb){
+                if(pelayanan!="")
+                    pelayanan+=",";
+                pelayanan+="2";
+            }
+            if (checked_pelayananPasutri){
+                if(pelayanan!="")
+                    pelayanan+=",";
+                pelayanan+="3";
+            }
+            if (checked_pelayananPemuda){
+                if(pelayanan!="")
+                    pelayanan+=",";
+                pelayanan+="4";
+            }
+            if (checked_pelayananPemuda){
+                if(pelayanan!="")
+                    pelayanan+=",";
+                pelayanan+="4";
+            }
+            if (checked_pelayananRemaja){
+                if(pelayanan!="")
+                    pelayanan+=",";
+                pelayanan+="5";
+            }
+            if (checked_pelayananRemaja){
+                if(pelayanan!="")
+                    pelayanan+=",";
+                pelayanan+="6";
+            }
+
+//            }
+            Log.d("komisi selected",komisi);
+            Log.d("pelayanan selected",pelayanan);
+
+            String x = null;
+
+            cont.register(nama,pass,email,telepon,alamat,x,idbaptis,komisi,pelayanan);
             switchFragment();
         }else{
             //password dan konfirmasi tidak sama, keluarin toast.
             Toast.makeText(Home.this, "Re-enter Password", Toast.LENGTH_LONG).show();
 
         }
-    }
+    }*/
 
     public void loginClicked(View v){
 //        Toast.makeText(Home.this, "login clicked", Toast.LENGTH_LONG).show();

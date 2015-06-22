@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.TimerTask;
 
@@ -213,15 +214,15 @@ public class Controller {
         });
     }
 
-    public void register(final String nama, final String password ,final String email , final String tlp , final String alamat , final Date tgllahir, final String idbaptis){
+    public void register(final String nama, final String password ,final String email , final String tlp , final String alamat , final String tgllahir, final String idbaptis, final String komisi ,final String pelayanan ){
         //post
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url + "register.php?nama="+nama+"&password="+password+"&email="+email+"&nomortelepon="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis);
-                Log.d("Url",url + "register.php?nama="+nama+"&password="+password+"&email="+email+"&nomortelepon="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis);
-            }
+                new Writer().execute(url + "register.php?nama="+nama+"&pass="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir);
+                Log.d("Url","register.php?nama="+nama+"&password="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir);
+             }
         });
     }
 
@@ -401,8 +402,6 @@ public class Controller {
                 email = result.getString("email");
                 alamat = result.getString("alamat");
                 telepon= result.getString("telepon");
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -412,16 +411,16 @@ public class Controller {
                 Toast.makeText(context, "login success", Toast.LENGTH_LONG).show();
                 Log.d("log in ","success");
             } else {
-                Toast.makeText(context, "login failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "login "+ writeResponse, Toast.LENGTH_LONG).show();
                 Log.d("log in ", "fail");
             }
         }
             else if (operation.equals("register")){
             if (writeResponse.equals("ok")) {
-                Toast.makeText(context, "register success", Toast.LENGTH_LONG).show();
+//                Toast.makeText(context, "register success", Toast.LENGTH_LONG).show();
                 Log.d("Register ","success");
             } else {
-                Toast.makeText(context, "register failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "register" + writeResponse, Toast.LENGTH_LONG).show();
                 Log.d("Register ", "fail");
             }
         }
@@ -430,7 +429,7 @@ public class Controller {
                 Toast.makeText(context, "Permohonan Doa success", Toast.LENGTH_LONG).show();
                 Log.d("Permohonan Doa ","success");
             } else {
-                Toast.makeText(context, "Permohonan Doa failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Permohonan Doa "+ writeResponse, Toast.LENGTH_LONG).show();
                 Log.d("permohonan doa ", "fail");
             }
         }
