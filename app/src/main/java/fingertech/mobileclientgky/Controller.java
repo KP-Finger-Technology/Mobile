@@ -222,7 +222,7 @@ public class Controller {
             public void run() {
                 new Writer().execute(url + "register.php?nama="+nama+"&pass="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir);
                 Log.d("Url","register.php?nama="+nama+"&password="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir);
-            }
+             }
         });
     }
 
@@ -402,8 +402,6 @@ public class Controller {
                 email = result.getString("email");
                 alamat = result.getString("alamat");
                 telepon= result.getString("telepon");
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -419,7 +417,7 @@ public class Controller {
         }
             else if (operation.equals("register")){
             if (writeResponse.equals("ok")) {
-                Toast.makeText(context, "register success", Toast.LENGTH_LONG).show();
+//                Toast.makeText(context, "register success", Toast.LENGTH_LONG).show();
                 Log.d("Register ","success");
             } else {
                 Toast.makeText(context, "register" + writeResponse, Toast.LENGTH_LONG).show();
