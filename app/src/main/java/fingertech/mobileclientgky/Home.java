@@ -1,11 +1,8 @@
 package fingertech.mobileclientgky;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -20,20 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
 public class Home extends ActionBarActivity
@@ -63,19 +54,9 @@ public class Home extends ActionBarActivity
 
     Controller cont = new Controller(this);
 
-    // Untuk ViewPager
-    /*private SmartFragmentStatePagerAdapter adapterViewPager;
-    static final int NUMBER_OF_KOLPORTASE = 4;
-    ViewPager mPager;*/
-
     // Untuk Map
     private double latitude = -6.113887;
     private double longitude = 106.791796;
-
-/*    // Untuk toggle switch
-    private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerLayout mDrawerLayout;
-    private String mActivityTitle;*/
 
     private Bundle bundleState;
 
@@ -87,22 +68,6 @@ public class Home extends ActionBarActivity
 
         bundleState = savedInstanceState;
         generateMenu();
-
-/*        // Untuk toggle switch
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        mActivityTitle = getTitle().toString();*/
-
-        // Untuk ViewPager
-        /*setContentView(R.layout.fragment_kolportase);
-
-        Log.d("Home", "onCreate");
-        adapterViewPager = new SmartFragmentStatePagerAdapter(getSupportFragmentManager());
-
-        mPager = (ViewPager) findViewById(R.id.vpPager);
-        mPager.setAdapter(adapterViewPager);*/
     }
 
     public void generateMenu() {
@@ -118,8 +83,6 @@ public class Home extends ActionBarActivity
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         NavigationDrawerDataProvider navProvider = new NavigationDrawerDataProvider(this);
-//        parentHashMap = NavigationDrawerDataProvider.getDataHashMap();
-
 
         SessionManager sm = new SessionManager(this);
         boolean isLogin ;
@@ -186,39 +149,6 @@ public class Home extends ActionBarActivity
                     switchFragment();
                     return true;
                 }
-                /*
-                // Profil
-                else if (groupPosition == 10) {
-                    frag = new ProfilFragment();
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
-                    return true;
-                }
-                // Logout
-                else if (groupPosition == 11) {
-                    new AlertDialog.Builder(Home.this)
-                            .setTitle("Logout")
-                            .setMessage("Apakah Anda yakin ingin logout dari aplikasi?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
-                                    SessionManager sm = new SessionManager(getApplicationContext());
-                                    sm.logoutUser();
-                                    Log.d("Logout preferen",sm.pref.getAll().toString());
-                                    Toast.makeText(Home.this, "Anda berhasil logout", Toast.LENGTH_LONG).show();
-                                    isLoggedIn = false;
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // do nothing
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                    return true;
-                }
-                */
                 else {
                     return false;
                 }
@@ -472,8 +402,6 @@ public class Home extends ActionBarActivity
 
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
-//        this.onCreate(bundleState);
-
         generateMenu();
         return true;
     }
@@ -499,11 +427,6 @@ public class Home extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-/*        // Untuk toggle switch
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -541,17 +464,9 @@ public class Home extends ActionBarActivity
             View rootView = inflater.inflate(R.layout.fragment_home, container, false);
             return rootView;
         }
-
-        /*@Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((Home) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }*/
     }
 
-    // Untuk button-button
-    // Untuk button-button
+    // Untuk button-button di halaman utama
     public void renunganClicked(View v) {
         frag = new RenunganGemaFragment();
         switchFragment();
@@ -588,13 +503,6 @@ public class Home extends ActionBarActivity
         switchFragment();
     }
 
-    /*public void openMapApps(View v) {
-        Intent intent = null;
-        intent = new Intent(android.content.Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("geo:" + latitude + "," + longitude));
-        startActivity(intent);
-    }*/
-
     public void ambilDataDoa(View view){
         EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
         EditText umurET = (EditText) findViewById(R.id.permohonanDoa_editUmur);
@@ -603,9 +511,6 @@ public class Home extends ActionBarActivity
         EditText doaET = (EditText) findViewById(R.id.permohonanDoa_editDoa);
         String jenisKelamin = null;
 
-        // Is the button now checked?
-//        boolean checked = ((RadioButton) v).isChecked();
-//        boolean checked = ((RadioButton) view).isChecked();
         boolean checked = ((RadioButton)findViewById(R.id.jenisKelaminPria)).isChecked();
         Log.d("hasil checked from Home",Boolean.toString(checked));
         if (checked)
@@ -629,150 +534,7 @@ public class Home extends ActionBarActivity
         cont.addDoa(nama,umur,email,telepon,jenisKelamin, doa);
     }
 
-    /*public void registerClicked(View v){
-        EditText namaET = (EditText) findViewById(R.id.register_editNama);
-        EditText passET = (EditText) findViewById(R.id.register_editPassword);
-        EditText passconET = (EditText) findViewById(R.id.register_editKonfirmasiPassword);
-        EditText alamatET = (EditText) findViewById(R.id.register_editAlamat);
-        EditText emailET = (EditText) findViewById(R.id.register_editEmail);
-        EditText teleponET = (EditText) findViewById(R.id.register_editTelepon);
-        EditText idbaptisET = (EditText) findViewById(R.id.register_editIdBaptis);
-
-        String pass = passET.getText().toString();
-        String passcon = passconET.getText().toString();
-        if (pass.equals(passcon)) {
-        String nama = null,email = null,telepon = null,alamat = null,idbaptis = null;
-            try {
-                nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
-                email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
-                telepon = URLEncoder.encode(teleponET.getText().toString(),"utf-8");
-                alamat = URLEncoder.encode(alamatET.getText().toString(), "utf-8");
-                idbaptis = URLEncoder.encode(idbaptisET.getText().toString(), "utf-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-//            boolean checked = ((CheckBox) v).isChecked();
-            boolean checked_komisiAnak = ((CheckBox) findViewById(R.id.register_checkboxKomisiAnak)).isChecked();
-            boolean checked_komisiKaleb = ((CheckBox) findViewById(R.id.register_checkboxKomisiKaleb)).isChecked();
-            boolean checked_komisiPasutri = ((CheckBox) findViewById(R.id.register_checkboxKomisiPasutri)).isChecked();
-            boolean checked_komisiPemuda = ((CheckBox) findViewById(R.id.register_checkboxKomisiPemudaDewasa)).isChecked();
-            boolean checked_komisiRemaja = ((CheckBox) findViewById(R.id.register_checkboxKomisiRemajaPemuda)).isChecked();
-            boolean checked_komisiWanita = ((CheckBox) findViewById(R.id.register_checkboxKomisiWanita)).isChecked();
-
-            boolean checked_pelayananAnak = ((CheckBox) findViewById(R.id.register_checkboxPelayananAnak)).isChecked();
-            boolean checked_pelayananKaleb = ((CheckBox) findViewById(R.id.register_checkboxPelayananKaleb)).isChecked();
-            boolean checked_pelayananPasutri = ((CheckBox) findViewById(R.id.register_checkboxKomisiPasutri)).isChecked();
-            boolean checked_pelayananPemuda = ((CheckBox) findViewById(R.id.register_checkboxPelayananPemudaDewasa)).isChecked();
-            boolean checked_pelayananRemaja = ((CheckBox) findViewById(R.id.register_checkboxPelayananRemajaPemuda)).isChecked();
-            boolean checked_pelayananWanita = ((CheckBox) findViewById(R.id.register_checkboxPelayananWanita)).isChecked();
-
-            String komisi = "";
-            Log.d("komisi",komisi);
-
-            String pelayanan = "";
-
-            // Check which radio button was clicked
-//            switch(v.getId()) {
-//                case R.id.register_checkboxKomisiAnak:
-                    if (checked_komisiAnak){
-                        if(komisi!="")
-                            komisi+=",";
-                        komisi+="1";
-//                        break;
-                    }
-//                case R.id.register_checkboxKomisiKaleb:
-                    if (checked_komisiKaleb){
-                        if(komisi!="")
-                            komisi+=",";
-                        komisi+="2";
-//                        break;
-                    }
-                    if (checked_komisiPasutri){
-                        if(komisi!="")
-                            komisi+=",";
-                        komisi+="3";
-        //                        break;
-                    }
-//                case R.id.register_checkboxKomisiPemudaDewasa:
-                    if (checked_komisiPemuda){
-                        if(komisi!="")
-                            komisi+=",";
-                        komisi+="4";
-//                        break;
-                    }
-                if (checked_komisiPemuda){
-                    if(komisi!="")
-                        komisi+=",";
-                    komisi+="4";
-    //                        break;
-                }
-                if (checked_komisiRemaja){
-                    if(komisi!="")
-                        komisi+=",";
-                    komisi+="5";
-                }
-                if (checked_komisiRemaja){
-                    if(komisi!="")
-                        komisi+=",";
-                    komisi+="6";
-                }
-
-
-            if (checked_pelayananAnak){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="1";
-            }
-
-            if (checked_pelayananKaleb){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="2";
-            }
-            if (checked_pelayananPasutri){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="3";
-            }
-            if (checked_pelayananPemuda){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="4";
-            }
-            if (checked_pelayananPemuda){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="4";
-            }
-            if (checked_pelayananRemaja){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="5";
-            }
-            if (checked_pelayananRemaja){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="6";
-            }
-
-//            }
-            Log.d("komisi selected",komisi);
-            Log.d("pelayanan selected",pelayanan);
-
-            String x = null;
-
-            cont.register(nama,pass,email,telepon,alamat,x,idbaptis,komisi,pelayanan);
-            switchFragment();
-        }else{
-            //password dan konfirmasi tidak sama, keluarin toast.
-            Toast.makeText(Home.this, "Re-enter Password", Toast.LENGTH_LONG).show();
-
-        }
-    }*/
-
     public void loginClicked(View v){
-//        Toast.makeText(Home.this, "login clicked", Toast.LENGTH_LONG).show();
         EditText namaET = (EditText) findViewById(R.id.login_editNama);
         EditText passET = (EditText) findViewById(R.id.login_editPassword);
 
@@ -794,54 +556,13 @@ public class Home extends ActionBarActivity
             frag = new Home.PlaceholderFragment();
             switchFragment();
         }
-//        else {  // kalau tidak berhasil login
-//            Toast.makeText(Home.this, "Username/Password tidak terdaftar", Toast.LENGTH_LONG).show();
-//        }
-    }
-
-    public void pickRenungan(View v){
-
-    }
-
-    public void fetchDataJadwalPelayanan(View v){
-
     }
 
     public void switchFragment() {
         fragManager = getSupportFragmentManager();
         fragTransaction = fragManager.beginTransaction();
         fragTransaction.replace(R.id.container, frag);
-//                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag);
         fragTransaction.addToBackStack(null);
         fragTransaction.commit();
     }
-
-/*    // Untuk toggle switch
-    private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-
-            *//** Called when a drawer has settled in a completely open state. *//*
-            public void onDrawerOpened(View drawerView) {
-            }
-
-            *//** Called when a drawer has settled in a completely closed state. *//*
-            public void onDrawerClosed(View view) {
-            }
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }*/
 }
