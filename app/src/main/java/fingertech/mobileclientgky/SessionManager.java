@@ -42,6 +42,13 @@ public class SessionManager {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
+
+        boolean login = pref.getBoolean(IS_LOGIN, false);
+
+        if(login != true) {
+            editor.putBoolean(IS_LOGIN, false);
+            editor.commit();
+        }
     }
 
     public void createLoginSession(String name ,String id,String email , String alamat, String telepon){
@@ -78,13 +85,10 @@ public class SessionManager {
     }
 
     public void logoutUser(){
-
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.putBoolean(IS_LOGIN, false);
 
         editor.commit();
-
-
     }
 }

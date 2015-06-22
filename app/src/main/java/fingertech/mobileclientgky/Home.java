@@ -90,7 +90,12 @@ public class Home extends ActionBarActivity
         if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")){
             Log.d("login","true");
             isLogin = true;
-        }else{
+        }
+        else if(sm.pref.getAll() == null){
+            Log.d("login","false");
+            isLogin = false;
+        }
+        else{
             Log.d("login","false");
             isLogin = false;
         }
