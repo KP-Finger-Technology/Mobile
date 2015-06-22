@@ -1,5 +1,10 @@
 package fingertech.mobileclientgky;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -11,7 +16,14 @@ import java.util.List;
  * Created by USER on 28/05/2015.
  */
 public class NavigationDrawerDataProvider {
-    public static LinkedHashMap<String, ArrayList<String>> getDataHashMap() {
+
+    private static Context context;
+
+    public NavigationDrawerDataProvider(Context _context) {
+        this.context = _context;
+    }
+
+    public static LinkedHashMap<String, ArrayList<String>> getDataHashMap(boolean isLogin) {
         LinkedHashMap<String, ArrayList<String>> parentHashMap = new LinkedHashMap<String, ArrayList<String>>();
 
         ArrayList<String> berandaList = new ArrayList<String>();
@@ -55,37 +67,48 @@ public class NavigationDrawerDataProvider {
         }
 
         ArrayList<String> loginList = new ArrayList<String>();
-        for (int i = 0; i < NavigationDrawerData.loginArray.length; i++) {
-            loginList.add(NavigationDrawerData.loginArray[i]);
-        }
-
         ArrayList<String> registerList = new ArrayList<String>();
-        for (int i = 0; i < NavigationDrawerData.registerArray.length; i++) {
-            registerList.add(NavigationDrawerData.registerArray[i]);
+        ArrayList<String> sesudahLoginList = new ArrayList<String>();
+        if (!isLogin) {
+            for (int i = 0; i < NavigationDrawerData.loginArray.length; i++) {
+                loginList.add(NavigationDrawerData.loginArray[i]);
+            }
+            for (int i = 0; i < NavigationDrawerData.registerArray.length; i++) {
+                registerList.add(NavigationDrawerData.registerArray[i]);
+            }
+        }
+        else {
+//            ArrayList<String> profilList = new ArrayList<String>();
+//            for (int i = 0; i < NavigationDrawerData.profilArray.length; i++) {
+//                profilList.add(NavigationDrawerData.profilArray[i]);
+//            }
+//
+//            ArrayList<String> logoutList = new ArrayList<String>();
+//            for (int i = 0; i < NavigationDrawerData.logoutArray.length; i++) {
+//                logoutList.add(NavigationDrawerData.logoutArray[i]);
+//            }
+            for (int i = 0; i < NavigationDrawerData.kontenLoginArray.length; i++) {
+                sesudahLoginList.add(NavigationDrawerData.kontenLoginArray[i]);
+            }
         }
 
-        ArrayList<String> profilList = new ArrayList<String>();
-        for (int i = 0; i < NavigationDrawerData.profilArray.length; i++) {
-            profilList.add(NavigationDrawerData.profilArray[i]);
+        parentHashMap.put(" Beranda", berandaList);             // position 0
+        parentHashMap.put(" Alkitab", alkitabList);             // position 1
+        parentHashMap.put(" Komisi", komisiList);               // position 2
+        parentHashMap.put(" Pelayanan", pelayananList);         // position 3
+        parentHashMap.put(" Pembinaan", pembinaanList);         // position 4
+        parentHashMap.put(" Events", eventsList);               // position 5
+        parentHashMap.put(" Tentang Kami", tentangKamiList);    // position 6
+        parentHashMap.put(" Hubungi Kami", hubungiKamiList);    // position 7
+        if (!isLogin) {
+            parentHashMap.put(" Login", loginList);             // position 8
+            parentHashMap.put(" Register", registerList);       // position 9
         }
-
-        ArrayList<String> logoutList = new ArrayList<String>();
-        for (int i = 0; i < NavigationDrawerData.logoutArray.length; i++) {
-            logoutList.add(NavigationDrawerData.logoutArray[i]);
+        else {
+//            parentHashMap.put(" Profil", profilList);
+//            parentHashMap.put(" Logout", logoutList);
+            parentHashMap.put(" Manajemen Konten", sesudahLoginList);   // position 8
         }
-
-        parentHashMap.put(" Beranda", berandaList);
-        parentHashMap.put(" Alkitab", alkitabList);
-        parentHashMap.put(" Komisi", komisiList);
-        parentHashMap.put(" Pelayanan", pelayananList);
-        parentHashMap.put(" Pembinaan", pembinaanList);
-        parentHashMap.put(" Events", eventsList);
-        parentHashMap.put(" Tentang Kami", tentangKamiList);
-        parentHashMap.put(" Hubungi Kami", hubungiKamiList);
-        parentHashMap.put(" Login", loginList);
-        parentHashMap.put(" Register", registerList);
-        parentHashMap.put(" Profil", profilList);
-        parentHashMap.put(" Logout", logoutList);
 
         return parentHashMap;
     }

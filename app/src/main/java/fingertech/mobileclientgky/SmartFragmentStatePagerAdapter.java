@@ -1,3 +1,4 @@
+/*
 package fingertech.mobileclientgky;
 
 import android.support.v4.app.Fragment;
@@ -7,11 +8,13 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
+*/
 /*
    Extension of FragmentStatePagerAdapter which intelligently caches 
    all active fragments and manages the fragment lifecycles. 
    Usage involves extending from SmartFragmentStatePagerAdapter as you would any other PagerAdapter.
-*/
+*//*
+
 public class SmartFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     // Sparse array to keep track of registered fragments in memory
     private SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
@@ -57,13 +60,16 @@ public class SmartFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
         return ArrayListFragment.createNewFragmentToDisplay(position);
     }
 
-    /*gets the title describing specified page
+    */
+/*gets the title describing specified page
     and passes it to the PagerTitleStrip in
     fragment_pager.xml - displays either top or
-    bottom of screen*/
+    bottom of screen*//*
+
     @Override
     public CharSequence getPageTitle(int position) {
         Log.d("Adapter", "getPageTitle");
         return "Halaman " + (position + 1);
     }
 }
+*/

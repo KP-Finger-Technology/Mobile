@@ -52,7 +52,6 @@ public class Home extends ActionBarActivity
     private ArrayList<String> parentHashMapKeys;
     private NavigationDrawerAdapter adapter;
     private DrawerLayout mDrawerLayout;
-    private boolean isLoggedIn = false;
 
     // Untuk fragment
     private Fragment frag;
@@ -61,15 +60,10 @@ public class Home extends ActionBarActivity
 
     Controller cont = new Controller(this);
 
-    private DatePicker datePicker;
-    private Calendar calendar;
-    private int year, month, day;
-    private int year_chosen, month_chosen, day_chosen;
-
     // Untuk ViewPager
-    private SmartFragmentStatePagerAdapter adapterViewPager;
+    /*private SmartFragmentStatePagerAdapter adapterViewPager;
     static final int NUMBER_OF_KOLPORTASE = 4;
-    ViewPager mPager;
+    ViewPager mPager;*/
 
     // Untuk Map
     private double latitude = -6.113887;
@@ -80,12 +74,35 @@ public class Home extends ActionBarActivity
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;*/
 
+    private Bundle bundleState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Untuk Navigation Drawer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        bundleState = savedInstanceState;
+        generateMenu();
+
+/*        // Untuk toggle switch
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mActivityTitle = getTitle().toString();*/
+
+        // Untuk ViewPager
+        /*setContentView(R.layout.fragment_kolportase);
+
+        Log.d("Home", "onCreate");
+        adapterViewPager = new SmartFragmentStatePagerAdapter(getSupportFragmentManager());
+
+        mPager = (ViewPager) findViewById(R.id.vpPager);
+        mPager.setAdapter(adapterViewPager);*/
+    }
+
+    public void generateMenu() {
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -96,18 +113,31 @@ public class Home extends ActionBarActivity
 
         mDrawerList = (ExpandableListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        parentHashMap = NavigationDrawerDataProvider.getDataHashMap();
+
+        NavigationDrawerDataProvider navProvider = new NavigationDrawerDataProvider(this);
+//        parentHashMap = NavigationDrawerDataProvider.getDataHashMap();
+
+
+        SessionManager sm = new SessionManager(this);
+        boolean isLogin ;
+
+        if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")){
+            Log.d("login","true");
+            isLogin = true;
+        }else{
+            Log.d("login","false");
+            isLogin = false;
+        }
+
+        Log.d("from Home, bool isLogin", Boolean.toString(isLogin));
+
+        parentHashMap = navProvider.getDataHashMap(isLogin);
         parentHashMapKeys = new ArrayList<String>(parentHashMap.keySet());
 
         adapter = new NavigationDrawerAdapter(this, parentHashMap, parentHashMapKeys);
         mDrawerList.setAdapter(adapter);
 
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-
+        final boolean isLoginFinal = isLogin;
         mDrawerList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
@@ -140,19 +170,20 @@ public class Home extends ActionBarActivity
                     return true;
                 }
                 // Login
-                else if (groupPosition == 8) {
+                else if (groupPosition == 8 && !isLoginFinal) {
                     frag = new LoginFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                     return true;
                 }
                 // Register
-                else if (groupPosition == 9) {
+                else if (groupPosition == 9 && !isLoginFinal) {
                     frag = new RegisterFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                     return true;
                 }
+                /*
                 // Profil
                 else if (groupPosition == 10) {
                     frag = new ProfilFragment();
@@ -184,6 +215,7 @@ public class Home extends ActionBarActivity
                             .show();
                     return true;
                 }
+                */
                 else {
                     return false;
                 }
@@ -199,6 +231,9 @@ public class Home extends ActionBarActivity
                     frag = new KomisiAnakFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
+
+                    String a = getString(R.string.daftar);
+                    Log.d("coba bego", a);
                 }
 
                 // Komisi Kaleb
@@ -372,55 +407,49 @@ public class Home extends ActionBarActivity
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
+                // Konten Sesudah Login
+                if (isLoginFinal) {
+                    // Jadwal Pelayanan
+                    if (groupPosition == 8 && childPosition == 0) {
+                        frag = new JadwalPelayananFragment();
+                        mDrawerLayout.closeDrawer(Gravity.START);
+                        switchFragment();
+                    }
+                    // Pengaturan Profil
+                    else if (groupPosition == 8 && childPosition == 1) {
+                        frag = new ProfilFragment();
+                        mDrawerLayout.closeDrawer(Gravity.START);
+                        switchFragment();
+                    }
+                    // Logout
+                    else if (groupPosition == 8 && childPosition == 2) {
+                        new AlertDialog.Builder(Home.this)
+                                .setTitle("Logout")
+                                .setMessage("Apakah Anda yakin ingin logout dari aplikasi?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue with delete
+                                        SessionManager sm = new SessionManager(getApplicationContext());
+                                        sm.logoutUser();
+                                        invalidateOptionsMenu();
+                                        Log.d("Logout preferen", sm.pref.getAll().toString());
+                                        Toast.makeText(Home.this, "Anda berhasil logout", Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                }
                 return false;
             }
         });
-
-/*        // Untuk toggle switch
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        mActivityTitle = getTitle().toString();*/
-
-        // Untuk ViewPager
-        /*setContentView(R.layout.fragment_kolportase);
-
-        Log.d("Home", "onCreate");
-        adapterViewPager = new SmartFragmentStatePagerAdapter(getSupportFragmentManager());
-
-        mPager = (ViewPager) findViewById(R.id.vpPager);
-        mPager.setAdapter(adapterViewPager);*/
     }
-
-    @SuppressWarnings("deprecation")
-    public void setDate(View view) {
-        showDialog(999);
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        // TODO Auto-generated method stub
-        if (id == 999) {
-            return new DatePickerDialog(this, myDateListener, year, month, day);
-        }
-        return null;
-    }
-
-    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            // TODO Auto-generated method stub
-            year_chosen = arg1;
-            month_chosen = arg2+1;
-            day_chosen = arg3;
-            EditText ET = (EditText) findViewById(R.id.datePickerEdit);
-            EditText ET2 = (EditText) findViewById(R.id.register_editTanggalLahir);
-            String temp = Integer.toString(day_chosen) + "/" +Integer.toString(month_chosen) + "/" + Integer.toString(year_chosen);
-            ET.setText(temp);
-            ET2.setText(temp);
-        }
-    };
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -439,6 +468,14 @@ public class Home extends ActionBarActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+//        this.onCreate(bundleState);
+
+        generateMenu();
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
@@ -446,6 +483,7 @@ public class Home extends ActionBarActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.home, menu);
             restoreActionBar();
+            invalidateOptionsMenu();
             mDrawerList.setGroupIndicator(null);
             return true;
         }
@@ -477,7 +515,7 @@ public class Home extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
         private ArrayAdapter<String> mAdapter;
-        private ListView mDrawerList;
+//        private ListView mDrawerList;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -568,7 +606,7 @@ public class Home extends ActionBarActivity
             e.printStackTrace();
         }
 
-        cont.addDoa(nama,umur,email,telepon,"p", doa);
+        cont.addDoa(nama, umur, email, telepon, "p", doa);
         frag = new AlkitabFragment();
         switchFragment();
     }
@@ -620,9 +658,19 @@ public class Home extends ActionBarActivity
             e.printStackTrace();
         }
 
-        cont.login(nama,pass);
-        isLoggedIn = true;
-        switchFragment();
+        cont.login(nama, pass);
+        Log.d("Home invalidate", "masuk");
+        invalidateOptionsMenu();
+        Log.d("Home invalidate", "selesai");
+        SessionManager sm = new SessionManager(this);
+
+        if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")) {
+            frag = new Home.PlaceholderFragment();
+            switchFragment();
+        }
+//        else {  // kalau tidak berhasil login
+//            Toast.makeText(Home.this, "Username/Password tidak terdaftar", Toast.LENGTH_LONG).show();
+//        }
     }
 
     public void pickRenungan(View v){

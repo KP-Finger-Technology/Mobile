@@ -1,9 +1,15 @@
 package fingertech.mobileclientgky;
 
+import fingertech.mobileclientgky.R;
+import android.content.res.Resources;
+
 /**
  * Created by USER on 28/05/2015.
  */
-public class NavigationDrawerData {
+public class NavigationDrawerData extends Application {
+//    static String komisiAnak = Resources.getSystem().getString(R.string.komisiAnak);
+    /*String a = getString(R.string.hubungi_kami);*/
+
     public static String[] berandaArray = {};
     public static String[] alkitabArray = {};
     public static String[] komisiArray = {"Komisi Anak", "Komisi Kaleb", "Komisi Pasutri", "Komisi Pemuda Dewasa", "Komisi Remaja dan Pemuda", "Komisi Wanita"};
@@ -16,4 +22,5 @@ public class NavigationDrawerData {
     public static String[] logoutArray = {};
     public static String[] registerArray = {};
     public static String[] profilArray = {};
+    public static String[] kontenLoginArray = {"Jadwal Pelayanan", "Pengaturan Profil", "Logout"};
 }

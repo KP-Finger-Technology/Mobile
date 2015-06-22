@@ -1,3 +1,4 @@
+/*
 package fingertech.mobileclientgky;
 
 import android.os.Bundle;
@@ -8,10 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+*/
 /**
  * Created by clive on 25-May-14.
  * www.101apps.co.za
- */
+ *//*
+
 public class ArrayListFragment extends ListFragment {
     private int mNum;
 
@@ -27,10 +30,12 @@ public class ArrayListFragment extends ListFragment {
         }
     }
 
-    /**
+    */
+/**
      * Create a new instance of our fragment, providing "num"
      * as an argument - it determines which page to display
-     */
+     *//*
+
     static ArrayListFragment createNewFragmentToDisplay(int num) {
         Log.d("ArrayListFragment", "createNewFragment");
         ArrayListFragment displayFragment = new ArrayListFragment();
@@ -41,8 +46,10 @@ public class ArrayListFragment extends ListFragment {
         return displayFragment;
     }
 
-    /*called each time the fragment's activity is created - which is
-    each time a new page is displayed*/
+    */
+/*called each time the fragment's activity is created - which is
+    each time a new page is displayed*//*
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         Log.d("ArrayListFragment", "onActivityCreated");
@@ -77,4 +84,4 @@ public class ArrayListFragment extends ListFragment {
         Log.d("ArrayListFragment", "onListItemClick");
         Toast.makeText(getActivity(), "List " + (mNum + 1) + " selected item: " + (position + 1),Toast.LENGTH_SHORT).show();
     }
-}
+}*/
