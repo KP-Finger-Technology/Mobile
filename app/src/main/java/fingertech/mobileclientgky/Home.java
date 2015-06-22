@@ -722,7 +722,7 @@ public class Home extends ActionBarActivity
             Log.d("komisi selected",komisi);
             Log.d("pelayanan selected",pelayanan);
 
-            Date x = new Date();
+            String x = null;
 
             cont.register(nama,pass,email,telepon,alamat,x,idbaptis,komisi,pelayanan);
             switchFragment();

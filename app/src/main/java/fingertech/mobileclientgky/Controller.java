@@ -30,7 +30,7 @@ import java.util.TimerTask;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-    public static final String url = "http://192.168.0.108/gky_web_service/";
+    public static final String url = "http://192.168.0.107/gky_web_service/";
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;
@@ -214,14 +214,14 @@ public class Controller {
         });
     }
 
-    public void register(final String nama, final String password ,final String email , final String tlp , final String alamat , final Date tgllahir, final String idbaptis, final String komisi ,final String pelayanan ){
+    public void register(final String nama, final String password ,final String email , final String tlp , final String alamat , final String tgllahir, final String idbaptis, final String komisi ,final String pelayanan ){
         //post
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url + "register.php?nama="+nama+"&password="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pelayanan="+pelayanan);
-                Log.d("Url",url + "register.php?nama="+nama+"&password="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pelayanan="+pelayanan);
+                new Writer().execute(url + "register.php?nama="+nama+"&pass="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir);
+                Log.d("Url","register.php?nama="+nama+"&password="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir);
             }
         });
     }

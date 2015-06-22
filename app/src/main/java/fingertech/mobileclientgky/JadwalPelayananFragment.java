@@ -194,7 +194,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
             String statu = "";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_jadwalpelayanan.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_jadwalpelayanan.php?id="+sm.pref.getAll().get("id").toString()); // ngikutin ip disini loh
             HttpResponse response;
 
             try {
