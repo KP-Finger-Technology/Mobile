@@ -591,7 +591,7 @@ public class Home extends ActionBarActivity
         cont.addDoa(nama,umur,email,telepon,jenisKelamin, doa);
     }
 
-    public void registerClicked(View v){
+    /*public void registerClicked(View v){
         EditText namaET = (EditText) findViewById(R.id.register_editNama);
         EditText passET = (EditText) findViewById(R.id.register_editPassword);
         EditText passconET = (EditText) findViewById(R.id.register_editKonfirmasiPassword);
@@ -731,7 +731,7 @@ public class Home extends ActionBarActivity
             Toast.makeText(Home.this, "Re-enter Password", Toast.LENGTH_LONG).show();
 
         }
-    }
+    }*/
 
     public void loginClicked(View v){
 //        Toast.makeText(Home.this, "login clicked", Toast.LENGTH_LONG).show();
