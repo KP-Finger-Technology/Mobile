@@ -12,6 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 //import android.app.Fragment;
 
@@ -69,14 +74,6 @@ public class AlkitabFragment extends Fragment {
     }
 
     public AlkitabFragment(Context _context) {
-//        DB = new DataBaseHelper(_context);
-//        Log.d("Fro AlkitabFragment","Persiapan buka database..");
-//        DB.openDataBase();
-//        generateBtnKitab();
-//        if (rootView != null)
-//            Log.d("rootView tidak null, from AlkitabFragment","..");
-//        else
-//            Log.d("rootView null, from AlkitabFragment","..");
     }
 
     @Override
@@ -86,13 +83,13 @@ public class AlkitabFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-//        context = getActivity().getApplicationContext();
-        DB = new DataBaseHelper(getActivity().getApplicationContext());
-        Log.d("Fro AlkitabFragment","Persiapan buka database..");
-        DB.openDataBase();
     }
 
-    public void generateBtnKitab() {
+    public void generateBtnKitab(int mode, String req) {
+        // mode == 0 utk default, ambil dari database lokal
+        // mode == 1 utk mode pencarian
+        // mode == 2 utk mode tidak ada result dari pencarian
+
         //add LinearLayout
         myLinearLayout=(LinearLayout) rootView.findViewById(R.id.container_alkitab);
         //add LayoutParams
@@ -100,42 +97,87 @@ public class AlkitabFragment extends Fragment {
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 //        params.setMargins(0, 10, 20, 0);
 
-        DB.getDaftarKitab();
-        int length = DB.getJumlahPasal().length;
-        int jumPasal = 0;
+        if ((mode <2) && (mode>-1)) {
+            if (mode == 0) {
+                DB.getDaftarKitab();
+            }
+            else if (mode == 1) {
+                DB.searchKitab(req);
+            }
+            int length = DB.getJumlahPasal().size();
 
-        for (int i=0; i<length; i++) {
-            kitabBtn = new Button(getActivity());
-            kitabBtn.setText(DB.getPasalAlkitab()[i]);
-            kitabBtn.setLayoutParams(params);
+            for (int i = 0; i < length; i++) {
+                kitabBtn = new Button(getActivity());
+                kitabBtn.setText(DB.getPasalAlkitab().get(i));
+                kitabBtn.setLayoutParams(params);
 //            kitabBtn.setBackgroundColor(0);
-            final int finalI = i;
-            kitabBtn.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        frag = new PasalAlkitabFragment(DB.getPasalAlkitab()[finalI], DB.getJumlahPasal()[finalI]);
-                        fragManager = getActivity().getSupportFragmentManager();
-                        fragTransaction = fragManager.beginTransaction();
-                        fragTransaction.replace(R.id.container, frag);
-                        fragTransaction.addToBackStack(null);
-                        fragTransaction.commit();
+                final int finalI = i;
+                kitabBtn.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            frag = new PasalAlkitabFragment(DB.getPasalAlkitab().get(finalI), DB.getJumlahPasal().get(finalI));
+                            switchFragment();
+                        }
                     }
-                }
-            );
-            myLinearLayout.addView(kitabBtn);
+                );
+                myLinearLayout.addView(kitabBtn);
+            }
+//            DB.closeDataBase();
         }
-        DB.closeDataBase();
+        else {
+            TextView TV = new TextView(getActivity());
+            TV.setText("Pencarian terhadap kata "+req+" tidak ditemukan");
+            TV.setLayoutParams(params);
+            myLinearLayout.addView(TV);
+        }
+    }
+
+    private void switchFragment() {
+        fragManager = getActivity().getSupportFragmentManager();
+        fragTransaction = fragManager.beginTransaction();
+        fragTransaction.replace(R.id.container, frag);
+        fragTransaction.addToBackStack(null);
+        fragTransaction.commit();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_alkitab, container, false);
-        generateBtnKitab();
+
+        DB = new DataBaseHelper(getActivity().getApplicationContext());
+        Log.d("Fro AlkitabFragment","Persiapan buka database..");
+        DB.openDataBase();
+        generateBtnKitab(0,"");
+
+        SearchView SV = (SearchView) rootView.findViewById(R.id.alkitab_searchView);
+        SV.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit (String s) {
+            // Penanganan setelah user input string dan mem-submit
+                DB.searchKitab(s);
+                // Reset view
+                myLinearLayout=(LinearLayout) rootView.findViewById(R.id.container_alkitab);
+                myLinearLayout.removeAllViews();
+                if (DB.getJumlahPasal().size()>0) {
+                    // Terdapat hasil pencarian generate UI
+                    generateBtnKitab(1,s);
+                }
+                else {
+                    // Tidak terdapat hasil pencarian
+                    generateBtnKitab(2,s);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return rootView;
-//        return inflater.inflate(R.layout.fragment_alkitab, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

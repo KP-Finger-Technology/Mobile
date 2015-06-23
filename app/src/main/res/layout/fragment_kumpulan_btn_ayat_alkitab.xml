@@ -29,13 +29,6 @@
         android:id="@+id/shell_btnAyatAlkitab"
         android:orientation="vertical">
 
-        <SearchView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnAyatAlkitab_searchView"
-            android:hint="cari ayat alkitab"
-            android:layout_marginLeft="20dp"/>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
