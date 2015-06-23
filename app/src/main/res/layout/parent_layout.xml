@@ -5,28 +5,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!--<ImageView android:src="@drawable/expander_group"
+            android:id="@+id/explist_indicator"
+            android:layout_width="450dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="13dp"/>-->
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/textViewParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffffff"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textAppearance="?android:attr/textAppearanceLarge">
+        </TextView>
 
         <ImageView android:src="@drawable/expander_group"
             android:id="@+id/explist_indicator"
             android:layout_width="450dp"
             android:layout_height="15dp"
-            android:layout_marginTop="20dp"
-            />
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="15dp"/>
 
-    </LinearLayout>
-
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/textViewParent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="#ffffffff"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium">
-    </TextView>
+    </RelativeLayout>
 
 </LinearLayout>

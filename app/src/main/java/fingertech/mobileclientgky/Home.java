@@ -1,40 +1,41 @@
 package fingertech.mobileclientgky;
 
+// Untuk dialog-dialog dan memberi notify
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
+import android.widget.Toast;
+
+// Untuk fragment manager
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
-import android.util.Log;
+
+// Untuk View
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+// Untuk Navigation Drawer
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
+// Untuk form
+import android.widget.EditText;
+import android.widget.RadioButton;
+
+import android.os.Bundle;
+import android.util.Log;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedHashMap;
+
 
 public class Home extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -55,33 +56,20 @@ public class Home extends ActionBarActivity
     private ArrayList<String> parentHashMapKeys;
     private NavigationDrawerAdapter adapter;
     private DrawerLayout mDrawerLayout;
-    private boolean isLoggedIn = false;
 
     // Untuk fragment
     private Fragment frag;
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
 
+    // Untuk controller server
     Controller cont = new Controller(this);
-
-    private DatePicker datePicker;
-    private Calendar calendar;
-    private int year, month, day;
-    private int year_chosen, month_chosen, day_chosen;
-
-    // Untuk ViewPager
-    private SmartFragmentStatePagerAdapter adapterViewPager;
-    static final int NUMBER_OF_KOLPORTASE = 4;
-    ViewPager mPager;
 
     // Untuk Map
     private double latitude = -6.113887;
     private double longitude = 106.791796;
 
-/*    // Untuk toggle switch
-    private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerLayout mDrawerLayout;
-    private String mActivityTitle;*/
+    private Bundle bundleState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +77,11 @@ public class Home extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        bundleState = savedInstanceState;
+        generateMenu();
+    }
+
+    public void generateMenu() {
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -97,20 +90,35 @@ public class Home extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        mDrawerList = (ExpandableListView)findViewById(R.id.navList);
+        mDrawerList = (ExpandableListView)findViewById(R.id.navList); // Membuat expandable list
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        parentHashMap = NavigationDrawerDataProvider.getDataHashMap();
+
+        NavigationDrawerDataProvider navProvider = new NavigationDrawerDataProvider(this);
+
+        SessionManager sm = new SessionManager(this);
+        boolean isLogin ;
+
+        // Cek apakah pada saat menu dibuat, user sudah login atau belum
+        if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")){
+            isLogin = true;
+        }
+        else if(sm.pref.getAll() == null){
+            isLogin = false;
+        }
+        else{
+            isLogin = false;
+        }
+
+        // Pilih menu yang akan digunakan (menu saat sudah login atau belum)
+        parentHashMap = navProvider.getDataHashMap(isLogin);
         parentHashMapKeys = new ArrayList<String>(parentHashMap.keySet());
 
         adapter = new NavigationDrawerAdapter(this, parentHashMap, parentHashMapKeys);
         mDrawerList.setAdapter(adapter);
 
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
+        final boolean isLoginFinal = isLogin;
 
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-
+        // Pasang listener pada parent
         mDrawerList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
@@ -143,48 +151,17 @@ public class Home extends ActionBarActivity
                     return true;
                 }
                 // Login
-                else if (groupPosition == 8) {
+                else if (groupPosition == 8 && !isLoginFinal) {
                     frag = new LoginFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                     return true;
                 }
                 // Register
-                else if (groupPosition == 9) {
+                else if (groupPosition == 9 && !isLoginFinal) {
                     frag = new RegisterFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
-                    return true;
-                }
-                // Profil
-                else if (groupPosition == 10) {
-                    frag = new ProfilFragment();
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
-                    return true;
-                }
-                // Logout
-                else if (groupPosition == 11) {
-                    new AlertDialog.Builder(Home.this)
-                            .setTitle("Logout")
-                            .setMessage("Apakah Anda yakin ingin logout dari aplikasi?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
-                                    SessionManager sm = new SessionManager(getApplicationContext());
-                                    sm.logoutUser();
-                                    Log.d("Logout preferen",sm.pref.getAll().toString());
-                                    Toast.makeText(Home.this, "Anda berhasil logout", Toast.LENGTH_LONG).show();
-                                    isLoggedIn = false;
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // do nothing
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
                     return true;
                 }
                 else {
@@ -193,6 +170,7 @@ public class Home extends ActionBarActivity
             }
         });
 
+        // Pasang listener pada child
         mDrawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View clickedView, int groupPosition, int childPosition, long id) {
@@ -375,55 +353,49 @@ public class Home extends ActionBarActivity
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
                 }
+
+                // Konten Sesudah Login
+                if (isLoginFinal) {
+                    // Jadwal Pelayanan
+                    if (groupPosition == 8 && childPosition == 0) {
+                        frag = new JadwalPelayananFragment();
+                        mDrawerLayout.closeDrawer(Gravity.START);
+                        switchFragment();
+                    }
+                    // Pengaturan Profil
+                    else if (groupPosition == 8 && childPosition == 1) {
+                        frag = new ProfilFragment();
+                        mDrawerLayout.closeDrawer(Gravity.START);
+                        switchFragment();
+                    }
+                    // Logout
+                    else if (groupPosition == 8 && childPosition == 2) {
+                        new AlertDialog.Builder(Home.this)
+                                .setTitle("Logout")
+                                .setMessage("Apakah Anda yakin ingin logout dari aplikasi?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue with delete
+                                        SessionManager sm = new SessionManager(getApplicationContext());
+                                        sm.logoutUser();
+                                        invalidateOptionsMenu();
+                                        Log.d("Logout preferen", sm.pref.getAll().toString());
+                                        Toast.makeText(Home.this, "Anda berhasil logout", Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                }
                 return false;
             }
         });
-
-/*        // Untuk toggle switch
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        mActivityTitle = getTitle().toString();*/
-
-        // Untuk ViewPager
-        /*setContentView(R.layout.fragment_kolportase);
-
-        Log.d("Home", "onCreate");
-        adapterViewPager = new SmartFragmentStatePagerAdapter(getSupportFragmentManager());
-
-        mPager = (ViewPager) findViewById(R.id.vpPager);
-        mPager.setAdapter(adapterViewPager);*/
     }
-
-    @SuppressWarnings("deprecation")
-    public void setDate(View view) {
-        showDialog(999);
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        // TODO Auto-generated method stub
-        if (id == 999) {
-            return new DatePickerDialog(this, myDateListener, year, month, day);
-        }
-        return null;
-    }
-
-    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            // TODO Auto-generated method stub
-            year_chosen = arg1;
-            month_chosen = arg2+1;
-            day_chosen = arg3;
-            EditText ET = (EditText) findViewById(R.id.datePickerEdit);
-            EditText ET2 = (EditText) findViewById(R.id.register_editTanggalLahir);
-            String temp = Integer.toString(day_chosen) + "/" +Integer.toString(month_chosen) + "/" + Integer.toString(year_chosen);
-            ET.setText(temp);
-            ET2.setText(temp);
-        }
-    };
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -441,6 +413,13 @@ public class Home extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
+    // Untuk menyiapkan menu sebelum digambar
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+        generateMenu();
+        return true;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -449,7 +428,7 @@ public class Home extends ActionBarActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.home, menu);
             restoreActionBar();
-            mDrawerList.setGroupIndicator(null);
+            mDrawerList.setGroupIndicator(null); // Menghilangkan anak panah default yang diberikan pada semua parent
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -462,58 +441,10 @@ public class Home extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-/*        // Untuk toggle switch
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }*/
-
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-        private ArrayAdapter<String> mAdapter;
-        private ListView mDrawerList;
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-            return rootView;
-        }
-
-        /*@Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((Home) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }*/
-    }
-
-    // Untuk button-button
-    // Untuk button-button
+    // Untuk button-button di halaman utama
     public void renunganClicked(View v) {
         frag = new RenunganGemaFragment();
         switchFragment();
@@ -544,19 +475,14 @@ public class Home extends ActionBarActivity
         switchFragment();
     }
 
+    // Mengirimkan doa ke server
     public void KirimDoa(View v) {
         ambilDataDoa(v);
         frag = new Home.PlaceholderFragment();
         switchFragment();
     }
 
-    /*public void openMapApps(View v) {
-        Intent intent = null;
-        intent = new Intent(android.content.Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("geo:" + latitude + "," + longitude));
-        startActivity(intent);
-    }*/
-
+    // Mengambil data yang berada di formulir permohonan doa
     public void ambilDataDoa(View view){
         EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
         EditText umurET = (EditText) findViewById(R.id.permohonanDoa_editUmur);
@@ -565,17 +491,13 @@ public class Home extends ActionBarActivity
         EditText doaET = (EditText) findViewById(R.id.permohonanDoa_editDoa);
         String jenisKelamin = null;
 
-        // Is the button now checked?
-//        boolean checked = ((RadioButton) v).isChecked();
-//        boolean checked = ((RadioButton) view).isChecked();
         boolean checked = ((RadioButton)findViewById(R.id.jenisKelaminPria)).isChecked();
-        Log.d("hasil checked from Home",Boolean.toString(checked));
         if (checked)
-            jenisKelamin="p";
+            jenisKelamin = "p";
         else
-            jenisKelamin="w";
+            jenisKelamin = "w";
 
-        String nama = null,email = null,telepon = null,doa = null;
+        String nama = null, email = null, telepon = null, doa = null;
         int umur = 0;
         try {
             nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
@@ -591,150 +513,8 @@ public class Home extends ActionBarActivity
         cont.addDoa(nama,umur,email,telepon,jenisKelamin, doa);
     }
 
-    /*public void registerClicked(View v){
-        EditText namaET = (EditText) findViewById(R.id.register_editNama);
-        EditText passET = (EditText) findViewById(R.id.register_editPassword);
-        EditText passconET = (EditText) findViewById(R.id.register_editKonfirmasiPassword);
-        EditText alamatET = (EditText) findViewById(R.id.register_editAlamat);
-        EditText emailET = (EditText) findViewById(R.id.register_editEmail);
-        EditText teleponET = (EditText) findViewById(R.id.register_editTelepon);
-        EditText idbaptisET = (EditText) findViewById(R.id.register_editIdBaptis);
-
-        String pass = passET.getText().toString();
-        String passcon = passconET.getText().toString();
-        if (pass.equals(passcon)) {
-        String nama = null,email = null,telepon = null,alamat = null,idbaptis = null;
-            try {
-                nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
-                email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
-                telepon = URLEncoder.encode(teleponET.getText().toString(),"utf-8");
-                alamat = URLEncoder.encode(alamatET.getText().toString(), "utf-8");
-                idbaptis = URLEncoder.encode(idbaptisET.getText().toString(), "utf-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-//            boolean checked = ((CheckBox) v).isChecked();
-            boolean checked_komisiAnak = ((CheckBox) findViewById(R.id.register_checkboxKomisiAnak)).isChecked();
-            boolean checked_komisiKaleb = ((CheckBox) findViewById(R.id.register_checkboxKomisiKaleb)).isChecked();
-            boolean checked_komisiPasutri = ((CheckBox) findViewById(R.id.register_checkboxKomisiPasutri)).isChecked();
-            boolean checked_komisiPemuda = ((CheckBox) findViewById(R.id.register_checkboxKomisiPemudaDewasa)).isChecked();
-            boolean checked_komisiRemaja = ((CheckBox) findViewById(R.id.register_checkboxKomisiRemajaPemuda)).isChecked();
-            boolean checked_komisiWanita = ((CheckBox) findViewById(R.id.register_checkboxKomisiWanita)).isChecked();
-
-            boolean checked_pelayananAnak = ((CheckBox) findViewById(R.id.register_checkboxPelayananAnak)).isChecked();
-            boolean checked_pelayananKaleb = ((CheckBox) findViewById(R.id.register_checkboxPelayananKaleb)).isChecked();
-            boolean checked_pelayananPasutri = ((CheckBox) findViewById(R.id.register_checkboxKomisiPasutri)).isChecked();
-            boolean checked_pelayananPemuda = ((CheckBox) findViewById(R.id.register_checkboxPelayananPemudaDewasa)).isChecked();
-            boolean checked_pelayananRemaja = ((CheckBox) findViewById(R.id.register_checkboxPelayananRemajaPemuda)).isChecked();
-            boolean checked_pelayananWanita = ((CheckBox) findViewById(R.id.register_checkboxPelayananWanita)).isChecked();
-
-            String komisi = "";
-            Log.d("komisi",komisi);
-
-            String pelayanan = "";
-
-            // Check which radio button was clicked
-//            switch(v.getId()) {
-//                case R.id.register_checkboxKomisiAnak:
-                    if (checked_komisiAnak){
-                        if(komisi!="")
-                            komisi+=",";
-                        komisi+="1";
-//                        break;
-                    }
-//                case R.id.register_checkboxKomisiKaleb:
-                    if (checked_komisiKaleb){
-                        if(komisi!="")
-                            komisi+=",";
-                        komisi+="2";
-//                        break;
-                    }
-                    if (checked_komisiPasutri){
-                        if(komisi!="")
-                            komisi+=",";
-                        komisi+="3";
-        //                        break;
-                    }
-//                case R.id.register_checkboxKomisiPemudaDewasa:
-                    if (checked_komisiPemuda){
-                        if(komisi!="")
-                            komisi+=",";
-                        komisi+="4";
-//                        break;
-                    }
-                if (checked_komisiPemuda){
-                    if(komisi!="")
-                        komisi+=",";
-                    komisi+="4";
-    //                        break;
-                }
-                if (checked_komisiRemaja){
-                    if(komisi!="")
-                        komisi+=",";
-                    komisi+="5";
-                }
-                if (checked_komisiRemaja){
-                    if(komisi!="")
-                        komisi+=",";
-                    komisi+="6";
-                }
-
-
-            if (checked_pelayananAnak){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="1";
-            }
-
-            if (checked_pelayananKaleb){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="2";
-            }
-            if (checked_pelayananPasutri){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="3";
-            }
-            if (checked_pelayananPemuda){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="4";
-            }
-            if (checked_pelayananPemuda){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="4";
-            }
-            if (checked_pelayananRemaja){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="5";
-            }
-            if (checked_pelayananRemaja){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="6";
-            }
-
-//            }
-            Log.d("komisi selected",komisi);
-            Log.d("pelayanan selected",pelayanan);
-
-            String x = null;
-
-            cont.register(nama,pass,email,telepon,alamat,x,idbaptis,komisi,pelayanan);
-            switchFragment();
-        }else{
-            //password dan konfirmasi tidak sama, keluarin toast.
-            Toast.makeText(Home.this, "Re-enter Password", Toast.LENGTH_LONG).show();
-
-        }
-    }*/
-
+    // Login
     public void loginClicked(View v){
-//        Toast.makeText(Home.this, "login clicked", Toast.LENGTH_LONG).show();
         EditText namaET = (EditText) findViewById(R.id.login_editNama);
         EditText passET = (EditText) findViewById(R.id.login_editPassword);
 
@@ -746,54 +526,57 @@ public class Home extends ActionBarActivity
             e.printStackTrace();
         }
 
-        cont.login(nama,pass);
-        isLoggedIn = true;
-        switchFragment();
+        cont.login(nama, pass);
+        invalidateOptionsMenu();
+        SessionManager sm = new SessionManager(this);
+
+        if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")) {
+            frag = new Home.PlaceholderFragment();
+            switchFragment();
+        }
     }
 
-    public void pickRenungan(View v){
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+        private ArrayAdapter<String> mAdapter;
+//        private ListView mDrawerList;
 
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+            return rootView;
+        }
     }
 
-    public void fetchDataJadwalPelayanan(View v){
-
-    }
-
+    // Untuk mengganti tampilan fragment
     public void switchFragment() {
         fragManager = getSupportFragmentManager();
         fragTransaction = fragManager.beginTransaction();
         fragTransaction.replace(R.id.container, frag);
-//                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag);
         fragTransaction.addToBackStack(null);
         fragTransaction.commit();
     }
-
-/*    // Untuk toggle switch
-    private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-
-            *//** Called when a drawer has settled in a completely open state. *//*
-            public void onDrawerOpened(View drawerView) {
-            }
-
-            *//** Called when a drawer has settled in a completely closed state. *//*
-            public void onDrawerClosed(View view) {
-            }
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }*/
 }

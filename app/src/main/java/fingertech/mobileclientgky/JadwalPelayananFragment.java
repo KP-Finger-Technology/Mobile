@@ -187,7 +187,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
             SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
-            Log.d("Preferen Jadwal Pelayanan",sm.pref.getAll().toString());
+            Log.d("jadwalpel",sm.pref.getAll().toString());
             Log.d("Nm",sm.pref.getAll().get("name").toString());
             Log.d("ID", sm.pref.getAll().get("id").toString());
             String result = "";
