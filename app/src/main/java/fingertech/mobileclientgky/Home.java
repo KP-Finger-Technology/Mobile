@@ -1,31 +1,41 @@
 package fingertech.mobileclientgky;
 
+// Untuk dialog-dialog dan memberi notify
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.Toast;
+
+// Untuk fragment manager
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
-import android.util.Log;
+
+// Untuk View
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+// Untuk Navigation Drawer
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.RadioButton;
-import android.widget.Toast;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
+// Untuk form
+import android.widget.EditText;
+import android.widget.RadioButton;
+
+import android.os.Bundle;
+import android.util.Log;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 
 public class Home extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -52,6 +62,7 @@ public class Home extends ActionBarActivity
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
 
+    // Untuk controller server
     Controller cont = new Controller(this);
 
     // Untuk Map
@@ -79,7 +90,7 @@ public class Home extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        mDrawerList = (ExpandableListView)findViewById(R.id.navList);
+        mDrawerList = (ExpandableListView)findViewById(R.id.navList); // Membuat expandable list
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         NavigationDrawerDataProvider navProvider = new NavigationDrawerDataProvider(this);
@@ -87,22 +98,18 @@ public class Home extends ActionBarActivity
         SessionManager sm = new SessionManager(this);
         boolean isLogin ;
 
-        Log.d("preferen",sm.pref.getAll().toString());
-
-        if((sm.pref.getAll().get("IsLoggedIn").toString().equals("true")) ){
-            Log.d("login","true");
+        // Cek apakah pada saat menu dibuat, user sudah login atau belum
+        if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")){
             isLogin = true;
-        }else if(sm.pref.getAll()==null){
-            Log.d("blm login","masih null");
+        }
+        else if(sm.pref.getAll() == null){
             isLogin = false;
         }
         else{
-            Log.d("login","false");
             isLogin = false;
         }
 
-        Log.d("from Home, bool isLogin", Boolean.toString(isLogin));
-
+        // Pilih menu yang akan digunakan (menu saat sudah login atau belum)
         parentHashMap = navProvider.getDataHashMap(isLogin);
         parentHashMapKeys = new ArrayList<String>(parentHashMap.keySet());
 
@@ -110,6 +117,8 @@ public class Home extends ActionBarActivity
         mDrawerList.setAdapter(adapter);
 
         final boolean isLoginFinal = isLogin;
+
+        // Pasang listener pada parent
         mDrawerList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
@@ -161,6 +170,7 @@ public class Home extends ActionBarActivity
             }
         });
 
+        // Pasang listener pada child
         mDrawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View clickedView, int groupPosition, int childPosition, long id) {
@@ -170,9 +180,6 @@ public class Home extends ActionBarActivity
                     frag = new KomisiAnakFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment();
-
-                    String a = getString(R.string.daftar);
-                    Log.d("coba bego", a);
                 }
 
                 // Komisi Kaleb
@@ -406,6 +413,7 @@ public class Home extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
+    // Untuk menyiapkan menu sebelum digambar
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
         generateMenu();
@@ -420,8 +428,7 @@ public class Home extends ActionBarActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.home, menu);
             restoreActionBar();
-            invalidateOptionsMenu();
-            mDrawerList.setGroupIndicator(null);
+            mDrawerList.setGroupIndicator(null); // Menghilangkan anak panah default yang diberikan pada semua parent
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -435,6 +442,98 @@ public class Home extends ActionBarActivity
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Untuk button-button di halaman utama
+    public void renunganClicked(View v) {
+        frag = new RenunganGemaFragment();
+        switchFragment();
+    }
+
+    public void maritalClicked(View v) {
+        frag = new PreMaritalClassFragment();
+        switchFragment();
+    }
+
+    public void katekisasiClicked(View v) {
+        frag = new KatekisasiFragment();
+        switchFragment();
+    }
+
+    public void permohonanClicked(View v) {
+        frag = new PermohonanDoaFragment();
+        switchFragment();
+    }
+
+    public void alkitabClicked(View v) {
+        frag = new AlkitabFragment();
+        switchFragment();
+    }
+
+    public void kelompokClicked(View v) {
+        frag = new KelompokKecilFragment();
+        switchFragment();
+    }
+
+    // Mengirimkan doa ke server
+    public void KirimDoa(View v) {
+        ambilDataDoa(v);
+        frag = new Home.PlaceholderFragment();
+        switchFragment();
+    }
+
+    // Mengambil data yang berada di formulir permohonan doa
+    public void ambilDataDoa(View view){
+        EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
+        EditText umurET = (EditText) findViewById(R.id.permohonanDoa_editUmur);
+        EditText emailET = (EditText) findViewById(R.id.permohonanDoa_editEmail);
+        EditText teleponET = (EditText) findViewById(R.id.permohonanDoa_editTelepon);
+        EditText doaET = (EditText) findViewById(R.id.permohonanDoa_editDoa);
+        String jenisKelamin = null;
+
+        boolean checked = ((RadioButton)findViewById(R.id.jenisKelaminPria)).isChecked();
+        if (checked)
+            jenisKelamin = "p";
+        else
+            jenisKelamin = "w";
+
+        String nama = null, email = null, telepon = null, doa = null;
+        int umur = 0;
+        try {
+            nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
+            umur = Integer.parseInt(umurET.getText().toString());
+            email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
+            telepon = URLEncoder.encode(teleponET.getText().toString(), "utf-8");
+            doa = URLEncoder.encode(doaET.getText().toString(), "utf-8");
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        cont.addDoa(nama,umur,email,telepon,jenisKelamin, doa);
+    }
+
+    // Login
+    public void loginClicked(View v){
+        EditText namaET = (EditText) findViewById(R.id.login_editNama);
+        EditText passET = (EditText) findViewById(R.id.login_editPassword);
+
+        String nama = null, pass = null;
+        try {
+            nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
+            pass = URLEncoder.encode(passET.getText().toString(),"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        cont.login(nama, pass);
+        invalidateOptionsMenu();
+        SessionManager sm = new SessionManager(this);
+
+        if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")) {
+            frag = new Home.PlaceholderFragment();
+            switchFragment();
+        }
     }
 
     /**
@@ -472,98 +571,7 @@ public class Home extends ActionBarActivity
         }
     }
 
-    // Untuk button-button di halaman utama
-    public void renunganClicked(View v) {
-        frag = new RenunganGemaFragment();
-        switchFragment();
-    }
-
-    public void maritalClicked(View v) {
-        frag = new PreMaritalClassFragment();
-        switchFragment();
-    }
-
-    public void katekisasiClicked(View v) {
-        frag = new KatekisasiFragment();
-        switchFragment();
-    }
-
-    public void permohonanClicked(View v) {
-        frag = new PermohonanDoaFragment();
-        switchFragment();
-    }
-
-    public void alkitabClicked(View v) {
-        frag = new AlkitabFragment();
-        switchFragment();
-    }
-
-    public void kelompokClicked(View v) {
-        frag = new KelompokKecilFragment();
-        switchFragment();
-    }
-
-    public void KirimDoa(View v) {
-        ambilDataDoa(v);
-        frag = new Home.PlaceholderFragment();
-        switchFragment();
-    }
-
-    public void ambilDataDoa(View view){
-        EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
-        EditText umurET = (EditText) findViewById(R.id.permohonanDoa_editUmur);
-        EditText emailET = (EditText) findViewById(R.id.permohonanDoa_editEmail);
-        EditText teleponET = (EditText) findViewById(R.id.permohonanDoa_editTelepon);
-        EditText doaET = (EditText) findViewById(R.id.permohonanDoa_editDoa);
-        String jenisKelamin = null;
-
-        boolean checked = ((RadioButton)findViewById(R.id.jenisKelaminPria)).isChecked();
-        Log.d("hasil checked from Home",Boolean.toString(checked));
-        if (checked)
-            jenisKelamin="p";
-        else
-            jenisKelamin="w";
-
-        String nama = null,email = null,telepon = null,doa = null;
-        int umur = 0;
-        try {
-            nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
-            umur = Integer.parseInt(umurET.getText().toString());
-            email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
-            telepon = URLEncoder.encode(teleponET.getText().toString(), "utf-8");
-            doa = URLEncoder.encode(doaET.getText().toString(), "utf-8");
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        cont.addDoa(nama,umur,email,telepon,jenisKelamin, doa);
-    }
-
-    public void loginClicked(View v){
-        EditText namaET = (EditText) findViewById(R.id.login_editNama);
-        EditText passET = (EditText) findViewById(R.id.login_editPassword);
-
-        String nama = null, pass = null;
-        try {
-            nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
-            pass = URLEncoder.encode(passET.getText().toString(),"utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        cont.login(nama, pass);
-        Log.d("Home invalidate", "masuk");
-        invalidateOptionsMenu();
-        Log.d("Home invalidate", "selesai");
-        SessionManager sm = new SessionManager(this);
-
-        if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")) {
-            frag = new Home.PlaceholderFragment();
-            switchFragment();
-        }
-    }
-
+    // Untuk mengganti tampilan fragment
     public void switchFragment() {
         fragManager = getSupportFragmentManager();
         fragTransaction = fragManager.beginTransaction();
