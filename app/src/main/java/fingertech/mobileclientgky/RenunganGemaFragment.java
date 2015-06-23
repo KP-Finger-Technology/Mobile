@@ -147,6 +147,8 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "clicking submit datepicker..", Toast.LENGTH_LONG).show();
+                myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_renunganGema);
+                myLinearLayout.removeAllViews();
                 Viewer newViewer = new Viewer();
                 newViewer.execute();
             }

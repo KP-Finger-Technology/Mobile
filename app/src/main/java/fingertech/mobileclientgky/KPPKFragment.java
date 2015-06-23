@@ -85,11 +85,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
 
-//    @Override
-//    public void onResume () {
-//        v.execute();
-//    }
-
     private DataBaseHelper DB;
     private Button kppk_download;
 
@@ -101,6 +96,32 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putSerializable("list", (Serializable) myData);
+
+    }
+
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//        if (savedInstanceState != null) {
+//            // probably orientation change
+//            myData = (List<String>) savedInstanceState.getSerializable("list");
+//        }
+//        else {
+//            if (myData != null) {
+//                //returning from backstack, data is fine, do nothing
+//            }
+//            else {
+//                //newly created, compute data
+//                myData = computeData();
+//            }
+//        }
+//    }
 
     private LinearLayout myLinearLayout;
 
