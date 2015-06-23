@@ -402,7 +402,7 @@ public class Controller {
         }
             else if (operation.equals("register")){
             if (writeResponse.equals("ok")) {
-//                Toast.makeText(context, "register success", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "register success", Toast.LENGTH_LONG).show();
                 Log.d("Register ","success");
             } else {
                 Toast.makeText(context, "register" + writeResponse, Toast.LENGTH_LONG).show();

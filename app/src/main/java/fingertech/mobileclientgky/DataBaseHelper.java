@@ -29,8 +29,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private SQLiteDatabase myDataBase;
     private final Context myContext;
 
-    private String[] pasalAlkitab;
-    private int[] jumlahPasal;
+    private ArrayList<String> pasalAlkitab;
+    private ArrayList<Integer> jumlahPasal;
     private int jumlah_kitab = 66;
 
     /**
@@ -41,8 +41,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public DataBaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
         this.myContext = context;
-        pasalAlkitab = new String[jumlah_kitab];
-        jumlahPasal = new int[jumlah_kitab];
+//        pasalAlkitab = new String[jumlah_kitab];
+//        jumlahPasal = new int[jumlah_kitab];
+        pasalAlkitab = new ArrayList<String>();
+        jumlahPasal = new ArrayList<Integer>();
+
         DB_PATH = context.getDatabasePath(DB_NAME).getAbsolutePath();
         Log.d("path absolut database", DB_PATH);
         try {
@@ -190,8 +193,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 if (cursor != null) {
                     // Loop through all Results
                     do {
-                        pasalAlkitab[i] = cursor.getString(colKitab);
-                        jumlahPasal[i] = cursor.getInt(colPasal);
+//                        pasalAlkitab[i] = cursor.getString(colKitab);
+//                        jumlahPasal[i] = cursor.getInt(colPasal);
+                        pasalAlkitab.add(cursor.getString(colKitab));
+                        jumlahPasal.add(cursor.getInt(colPasal));
                         i++;
                     } while (cursor.moveToNext());
                 }
@@ -305,11 +310,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public String[] getPasalAlkitab () {
+    public ArrayList<String> getPasalAlkitab () {
         return pasalAlkitab;
     }
 
-    public int[] getJumlahPasal() {
+    public ArrayList<Integer> getJumlahPasal() {
         return jumlahPasal;
     }
 
@@ -362,6 +367,27 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         return jumAyat;
+    }
+
+    public void searchKitab(String _kitab) {
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS_1 WHERE isi_books LIKE \"%"+_kitab+"%\"", null);
+        int colKitab = cursor.getColumnIndex("isi_books");
+        int colPasal = cursor.getColumnIndex("pasal");
+
+        pasalAlkitab = new ArrayList<String>();
+        jumlahPasal = new ArrayList<Integer>();
+
+        // Check if our result was valid
+        cursor.moveToFirst();
+        if (cursor != null) {
+            // Loop through all Results
+            do {
+                String judul = cursor.getString(colKitab);
+                int pasal = cursor.getInt(colPasal);
+                pasalAlkitab.add(judul);
+                jumlahPasal.add(pasal);
+            }while(cursor.moveToNext());
+        }
     }
 
     public boolean createTableLirikLaguRohani () {

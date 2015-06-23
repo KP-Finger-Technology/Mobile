@@ -88,7 +88,7 @@ public class SessionManager {
     public void logoutUser(){
         // Clearing all data from Shared Preferences
         editor.clear();
-        editor.putBoolean(IS_LOGIN, false);
+//        editor.putBoolean(IS_LOGIN, false);
 
         editor.commit();
     }
