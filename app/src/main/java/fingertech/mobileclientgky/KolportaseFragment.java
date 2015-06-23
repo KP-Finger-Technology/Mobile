@@ -505,7 +505,6 @@ public class KolportaseFragment extends Fragment {
                     keterangan = jsonobj.getString("keterangan");
                     linkGambar = Controller.url + "res/kolportase/";
                     linkGambar += jsonobj.getString("gambarbuku");
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

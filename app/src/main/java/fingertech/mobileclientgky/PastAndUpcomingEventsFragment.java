@@ -492,15 +492,9 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     keterangan = jsonobj.getString("keterangan");
                     linkGambar = Controller.url + "res/event/";
                     linkGambar += jsonobj.getString("gambarevent");
-
-                    Log.d("Judulx", judul);
-                    Log.d("Keterangan",keterangan);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                Log.d("for i: ", Integer.toString(i));
 
                 // Add image View
                 ImageView GambarIV = new ImageView(getActivity());

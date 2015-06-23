@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -14,9 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -285,43 +289,59 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
         @Override
         protected void onPostExecute(String result) {
-            String judul= null,IsiAyat=null,kitab,pasal,ayat,IsiRenungan=null,linkGambar;
-                // Add LinearLayout
-                myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
+            String judul = null, IsiAyat = null, kitab, pasal, ayat, IsiRenungan = null, linkGambar = null;
 
-                // Add LayoutParams
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0,0,0,30);
-                myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            // Add LinearLayout
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
 
-                JSONObject jsonobj = null;
-                try {
-                    jsonobj = arr.getJSONObject(0);
-                    Log.d("JSONObject", arr.getJSONObject(0).toString());
-                    judul = jsonobj.getString("judul");
-                    IsiAyat = jsonobj.getString("firman");
-                    IsiRenungan = jsonobj.getString("deskripsi");
-                    linkGambar = jsonobj.getString("gambar");
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            int image_width = display.getWidth()/3;
+            int image_height = (int) (display.getHeight()/4.3);
 
-                    Log.d("Isi renungan",IsiRenungan);
+            // Add LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0,0,0,30);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            JSONObject jsonobj = null;
+            try {
+                jsonobj = arr.getJSONObject(0);
+                Log.d("JSONObject", arr.getJSONObject(0).toString());
+                judul = jsonobj.getString("judul");
+                IsiAyat = jsonobj.getString("firman");
+                IsiRenungan = jsonobj.getString("deskripsi");
+                linkGambar = Controller.url + "res/gema/";
+                linkGambar += jsonobj.getString("gambar");
 
-                TextView ayatRenungan = new TextView(getActivity());
-                ayatRenungan.setText(IsiAyat);
-                ayatRenungan.setLayoutParams(params);
-                ayatRenungan.setGravity(1);
-                myLinearLayout.addView(ayatRenungan);
-
-                // Isi Renungan
-                TextView isiRenungan = new TextView(getActivity());
-                isiRenungan.setText(IsiRenungan);
-                isiRenungan.setLayoutParams(params);
-                isiRenungan.setGravity(0);
-                myLinearLayout.addView(isiRenungan);
+                Log.d("Isi renungan",IsiRenungan);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+            // Add image View
+            ImageView GambarIV = new ImageView(getActivity());
+
+            // Loading image from below url into imageView
+        Picasso.with(getActivity())
+                    .load(linkGambar)
+                    .resize(image_height, image_width)
+                    .into(GambarIV);
+            GambarIV.setLayoutParams(params);
+            myLinearLayout.addView(GambarIV);
+
+            TextView ayatRenungan = new TextView(getActivity());
+            ayatRenungan.setText(IsiAyat);
+            ayatRenungan.setLayoutParams(params);
+            ayatRenungan.setGravity(1);
+            myLinearLayout.addView(ayatRenungan);
+
+            // Isi Renungan
+            TextView isiRenungan = new TextView(getActivity());
+            isiRenungan.setText(IsiRenungan);
+            isiRenungan.setLayoutParams(params);
+            isiRenungan.setGravity(0);
+            myLinearLayout.addView(isiRenungan);
+        }
     }
 
     public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
