@@ -184,7 +184,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
         @Override
         protected String doInBackground(String... params) {
-
             SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
             Log.d("jadwalpel",sm.pref.getAll().toString());

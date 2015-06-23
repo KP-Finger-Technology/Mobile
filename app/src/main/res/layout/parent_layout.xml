@@ -9,12 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <!--<ImageView android:src="@drawable/expander_group"
-            android:id="@+id/explist_indicator"
-            android:layout_width="450dp"
-            android:layout_height="15dp"
-            android:layout_marginTop="13dp"/>-->
-
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/textViewParent"
             android:layout_width="wrap_content"
