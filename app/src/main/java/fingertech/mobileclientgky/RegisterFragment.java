@@ -67,7 +67,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private int pDay;
     private int pMonth;
     private String now = null;
-    public Controller cont = new Controller();
+    public Controller cont;
 
     /**
      * Use this factory method to create a new instance of
@@ -98,6 +98,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        cont  = new Controller(getActivity().getApplicationContext());
     }
 
     @Override
@@ -316,7 +317,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 dateInString = now;
                 /*date = formatter.parse(dateInString);
                 Log.d("now", now);*/
-                Log.d("registerdate", dateInString);
+                Log.d("registerdateee", dateInString);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -370,8 +371,58 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
             Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
 
-            now = Integer.toString(pYear) + "-" + Integer.toString(pMonth + 1) + "-" + Integer.toString(pDay);
-            dateET.setText(Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear));
+            String bulan = null;
+            // Januari
+            if (pMonth == 0) {
+                bulan = "01";
+            }
+            // Februari
+            else if (pMonth == 1) {
+                bulan = "02";
+            }
+            // Maret
+            else if (pMonth == 2) {
+                bulan = "03";
+            }
+            // April
+            else if (pMonth == 3) {
+                bulan = "04";
+            }
+            // Mei
+            else if (pMonth == 4) {
+                bulan = "05";
+            }
+            // Juni
+            else if (pMonth == 5) {
+                bulan = "06";
+            }
+            // Juli
+            else if (pMonth == 6) {
+                bulan = "07";
+            }
+            // Agustus
+            else if (pMonth == 7) {
+                bulan = "08";
+            }
+            // September
+            else if (pMonth == 8) {
+                bulan = "09";
+            }
+            // Oktober
+            else if (pMonth == 9) {
+                bulan = "10";
+            }
+            // November
+            else if (pMonth == 10) {
+                bulan = "11";
+            }
+            // Desember
+            else if (pMonth == 11) {
+                bulan = "12";
+            }
+
+            now = Integer.toString(pYear) + "-" + bulan + "-" + Integer.toString(pDay);
+            dateET.setText(Integer.toString(pDay) + "/" + bulan + "/" + Integer.toString(pYear));
         }
     }
 }

@@ -87,10 +87,16 @@ public class Home extends ActionBarActivity
         SessionManager sm = new SessionManager(this);
         boolean isLogin ;
 
-        if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")){
+        Log.d("preferen",sm.pref.getAll().toString());
+
+        if((sm.pref.getAll().get("IsLoggedIn").toString().equals("true")) ){
             Log.d("login","true");
             isLogin = true;
-        }else{
+        }else if(sm.pref.getAll()==null){
+            Log.d("blm login","masih null");
+            isLogin = false;
+        }
+        else{
             Log.d("login","false");
             isLogin = false;
         }
