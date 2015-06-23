@@ -260,7 +260,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     komisi+=",";
                 komisi+="5";
             }
-            if (checked_komisiRemaja){
+            if (checked_komisiWanita){
                 if(komisi!="")
                     komisi+=",";
                 komisi+="6";
@@ -298,7 +298,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     pelayanan+=",";
                 pelayanan+="5";
             }
-            if (checked_pelayananRemaja){
+            if (checked_pelayananWanita){
                 if(pelayanan!="")
                     pelayanan+=",";
                 pelayanan+="6";

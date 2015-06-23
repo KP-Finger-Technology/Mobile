@@ -33,6 +33,9 @@ public class SessionManager {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_ALAMAT = "alamat";
     public static final String KEY_TELEPON = "telepon";
+    public static final String KEY_IDBAPTIS = "idbaptis";
+    public static final String KEY_TGL = "tgllahir";
+
 
     // Email address (make variable public to access from outside)
     public static final String KEY_ID = "id";
@@ -44,7 +47,7 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name ,String id,String email , String alamat, String telepon){
+    public void createLoginSession(String name ,String id,String email , String alamat, String telepon,String idbaptis,String tgllahir){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -53,6 +56,8 @@ public class SessionManager {
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_ALAMAT, alamat);
         editor.putString(KEY_TELEPON, telepon);
+        editor.putString(KEY_IDBAPTIS, idbaptis);
+        editor.putString(KEY_TGL, tgllahir);
 
         // Storing email in pref
         editor.putString(KEY_ID, id);
