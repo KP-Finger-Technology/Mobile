@@ -206,7 +206,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
             String pelayanan = "";
 
-            // Check which radio button was clicked
+            // Check which checkbox was checked
             // Komisi
             // Komisi Anak
             if (checked_komisiAnak) {
@@ -299,93 +299,87 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 });
             }
 
+            // Komisi Wanita
             if (checked_komisiWanita) {
                 if (komisi != "")
                     komisi += ",";
                 komisi += "6";
 
-                // Komisi Wanita
-                if (checked_komisiWanita) {
-                    if (komisi != "")
-                        komisi += ",";
-                    komisi += "6";
-
-                    // Berlangganan untuk push notification komisiWanita
-                    ParsePush.subscribeInBackground("komisiWanita", new SaveCallback() {
-                        @Override
-                        public void done(com.parse.ParseException e) {
-                            if (e == null) {
-                                Log.d("com.parse.push", "successfully subscribed to the komisiWanita channel.");
-                            } else {
-                                Log.e("com.parse.push", "failed to subscribe for push to the komisiWanita", e);
-                            }
+                // Berlangganan untuk push notification komisiWanita
+                ParsePush.subscribeInBackground("komisiWanita", new SaveCallback() {
+                    @Override
+                    public void done(com.parse.ParseException e) {
+                        if (e == null) {
+                            Log.d("com.parse.push", "successfully subscribed to the komisiWanita channel.");
+                        } else {
+                            Log.e("com.parse.push", "failed to subscribe for push to the komisiWanita", e);
                         }
-                    });
-                }
-
-                // Pelayanan
-                if (checked_pelayananAnak) {
-                    if (pelayanan != "")
-                        pelayanan += ",";
-                    pelayanan += "1";
-                }
-
-                if (checked_pelayananKaleb) {
-                    if (pelayanan != "")
-                        pelayanan += ",";
-                    pelayanan += "2";
-                }
-
-                if (checked_pelayananPasutri) {
-                    if (pelayanan != "")
-                        pelayanan += ",";
-                    pelayanan += "3";
-                }
-
-                if (checked_pelayananPemuda) {
-                    if (pelayanan != "")
-                        pelayanan += ",";
-                    pelayanan += "4";
-                }
-
-                if (checked_pelayananPemuda) {
-                    if (pelayanan != "")
-                        pelayanan += ",";
-                    pelayanan += "4";
-                }
-
-                if (checked_pelayananRemaja) {
-                    if (pelayanan != "")
-                        pelayanan += ",";
-                    pelayanan += "5";
-                }
-                if (checked_pelayananWanita) {
-                    if (pelayanan != "")
-                        pelayanan += ",";
-                    pelayanan += "6";
-
-
-                    Log.d("komisi selected", komisi);
-                    Log.d("pelayanan selected", pelayanan);
-
-            /*Date date = new Date();*/
-                    String dateInString = null;
-
-                    try {
-                /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");*/
-                        dateInString = now;
-                /*date = formatter.parse(dateInString);
-                Log.d("now", now);*/
-                        Log.d("registerdateee", dateInString);
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+                });
+            }
 
-                    cont.register(nama, pass, email, telepon, alamat, dateInString, idbaptis, komisi, pelayanan);
-                } else {
-                    //password dan konfirmasi tidak sama, keluarin toast.
-                    Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
+            // Pelayanan
+            if (checked_pelayananAnak) {
+                if (pelayanan != "")
+                    pelayanan += ",";
+                pelayanan += "1";
+            }
+
+            if (checked_pelayananKaleb) {
+                if (pelayanan != "")
+                    pelayanan += ",";
+                pelayanan += "2";
+            }
+
+            if (checked_pelayananPasutri) {
+                if (pelayanan != "")
+                    pelayanan += ",";
+                pelayanan += "3";
+            }
+
+            if (checked_pelayananPemuda) {
+                if (pelayanan != "")
+                    pelayanan += ",";
+                pelayanan += "4";
+            }
+
+            if (checked_pelayananPemuda) {
+                if (pelayanan != "")
+                    pelayanan += ",";
+                pelayanan += "4";
+            }
+
+            if (checked_pelayananRemaja) {
+                if (pelayanan != "")
+                    pelayanan += ",";
+                pelayanan += "5";
+            }
+            if (checked_pelayananWanita) {
+                if (pelayanan != "")
+                    pelayanan += ",";
+                pelayanan += "6";
+
+
+                Log.d("komisi selected", komisi);
+                Log.d("pelayanan selected", pelayanan);
+
+        /*Date date = new Date();*/
+                String dateInString = null;
+
+                try {
+            /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");*/
+                    dateInString = now;
+            /*date = formatter.parse(dateInString);
+            Log.d("now", now);*/
+                    Log.d("registerdateee", dateInString);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
+                cont.register(nama, pass, email, telepon, alamat, dateInString, idbaptis, komisi, pelayanan);
+            } else {
+                //password dan konfirmasi tidak sama, keluarin toast.
+                Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
             }
         }
     }
