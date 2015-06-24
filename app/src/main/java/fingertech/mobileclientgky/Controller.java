@@ -80,71 +80,6 @@ public class Controller {
         return true;
     }
 
-    public boolean viewKolportase(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            Viewer v = new Viewer();
-            @Override
-            public void run() {
-                v.execute(url + "view_kolportase.php");
-                Log.d("Now running", "execute viewer");
-                Log.d("arrData",arrData.toString());
-            }
-        });
-        return true;
-    }
-
-    public boolean viewPelayanan(final int id){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            Viewer v = new Viewer();
-            @Override
-            public void run() {
-                v.execute(url + "view_pelayanan.php?id=" + id);
-                Log.d("arrData Pelayanan",arrData.toString());
-            }
-        });
-        return true;
-    }
-
-    public boolean viewWarta(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            Viewer v = new Viewer();
-            @Override
-            public void run() {
-                v.execute(url + "view_warta.php");
-                Log.d("arrData",arrData.toString());
-            }
-        });
-        return true;
-    }
-
-    public boolean viewGema(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            Viewer v = new Viewer();
-            @Override
-            public void run() {
-                v.execute(url + "view_gema.php");
-                Log.d("arrData",arrData.toString());
-            }
-        });
-        return true;
-    }
-
-    public boolean viewJadwalKotbah(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            Viewer v = new Viewer();
-            @Override
-            public void run() {
-                v.execute(url + "view_jadwalkotbah.php");
-                Log.d("arrData",arrData.toString());
-            }
-        });
-        return true;
-    }
     public boolean viewJadwalPelayanan(){
         final Handler handler = new Handler();
         handler.post(new Runnable() {
@@ -153,43 +88,6 @@ public class Controller {
             public void run() {
                 v.execute(url + "view_jadwalpelayanan.php");
                 while(isArrEmpty()){}
-                Log.d("arrData",arrData.toString());
-            }
-        });
-        return true;
-    }
-    public boolean viewJadwalTeduhPagi(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            Viewer v = new Viewer();
-            @Override
-            public void run() {
-                v.execute(url + "view_jadwalteduhpagi.php");
-                Log.d("arrData",arrData.toString());
-            }
-        });
-        return true;
-    }
-    public boolean viewJadwalKomisiPembicara(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            Viewer v = new Viewer();
-            @Override
-            public void run() {
-                v.execute(url + "view_jadwalkomisipembicara.php");
-                Log.d("arrData",arrData.toString());
-            }
-        });
-        return true;
-    }
-
-    public boolean viewJadwalKomisiPenerjemah(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            Viewer v = new Viewer();
-            @Override
-            public void run() {
-                v.execute(url + "view_jadwalkomisipenerjemah.php");
                 Log.d("arrData",arrData.toString());
             }
         });
@@ -219,21 +117,26 @@ public class Controller {
         });
     }
 
+    public void editprofil(final String nama, final String email , final String tlp , final String alamat ,final String idbaptis, final String komisi ,final String pelayanan ){
+        //post
+        SessionManager sm = new SessionManager(context);
+        final String id = sm.pref.getAll().get("id").toString();
+        Log.d("id now", id);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                new Writer().execute(url + "edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&id="+id);
+                Log.d("Url","edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&id="+id);
+            }
+        });
+    }
+
     public void login (final String nama,final String password ){
         Writer w = new Writer();
         w.execute(url + "login.php?nama=" + nama + "&password=" + password);
         Log.d("Url",url + "login.php?nama=" + nama + "&password=" + password);
 
-//        final Handler handler = new Handler();
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                Writer w = new Writer();
-//                w.execute(url + "login.php?nama="+nama+"&password="+password);
-//                Log.d("Url",url + "login.php?nama="+nama+"&password="+password);
-//            }
-//        });
-//        return w.result;
     }
 
     class Viewer extends AsyncTask<String, String, String> {
@@ -380,19 +283,24 @@ public class Controller {
                 e.printStackTrace();
             }
         if(operation.equals("login")){
-            String nama=null, id=null ,email=null,alamat=null,telepon=null;
+            String nama=null, id=null ,email=null,alamat=null,telepon=null,idbaptis=null,tgllahir=null,komisi=null,pelayanan=null;
             try {
                 nama = result.getString("nama");
                 id = result.getString("id");
                 email = result.getString("email");
                 alamat = result.getString("alamat");
                 telepon= result.getString("telepon");
+                idbaptis = result.getString("idbaptis");
+                tgllahir = result.getString("tgllahir");
+                komisi = result.getString("komisi");
+                pelayanan = result.getString("pelayanan");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             if (writeResponse.equals("ok")) {
-                SessionManager sm = new SessionManager(context);
-                sm.createLoginSession(nama, id, email, alamat, telepon);
+                SessionManager smn = new SessionManager(context);
+                smn.createLoginSession(nama, id,email,alamat,telepon,idbaptis,tgllahir,komisi,pelayanan);
                 Toast.makeText(context, "login success", Toast.LENGTH_LONG).show();
                 Log.d("log in ","success");
             } else {
@@ -407,6 +315,16 @@ public class Controller {
             } else {
                 Toast.makeText(context, "register" + writeResponse, Toast.LENGTH_LONG).show();
                 Log.d("Register ", "fail");
+            }
+        }
+        else if (operation.equals("editprofil")){
+            if (writeResponse.equals("ok")) {
+                Toast.makeText(context, "edit profil success", Toast.LENGTH_LONG).show();
+                Log.d("Edit profil ","success");
+
+            } else {
+                Toast.makeText(context, "edit profil" + writeResponse, Toast.LENGTH_LONG).show();
+                Log.d("edit profil ", "fail");
             }
         }
             else { //operation.eq("add doa")

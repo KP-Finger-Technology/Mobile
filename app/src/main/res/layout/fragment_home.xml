@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/permohonan"
+            android:text="@string/permohonanDoa"
             android:id="@+id/permohonan"
             android:textColor="#ffffffff"
             android:background="#50000000"
@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/renungan"
+            android:text="@string/renunganGema"
             android:id="@+id/renungan"
             android:textColor="#ffffffff"
             android:background="#40000000"
@@ -105,6 +105,7 @@
             android:onClick="alkitabClicked"
             android:layout_row="1"
             android:layout_column="1" />
+
     </LinearLayout>
 
     <LinearLayout android:layout_width="fill_parent"
@@ -116,7 +117,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/marital"
+            android:text="@string/premarital"
             android:id="@+id/marital"
             android:textColor="#ffffffff"
             android:background="@android:color/transparent"
@@ -134,7 +135,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/kelompok"
+            android:text="@string/kelompokKecil"
             android:id="@+id/kelompok"
             android:textColor="#ffffffff"
             android:background="@android:color/transparent"

@@ -457,6 +457,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             tanggalSaved = new ArrayList<String>();
             keteranganSaved = new ArrayList<String>();
             linkSaved = new ArrayList<String>();
+            int colorBlack = Color.BLACK;
 
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
@@ -573,6 +574,12 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             int colorWhite = Color.WHITE;
+
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            int image_width = display.getWidth()/3;
+            int image_height = (int) (display.getHeight()/4.3);
+
+            int colorBlack = Color.BLACK;
 
             String judul = null, tanggal = null, keterangan = null, linkGambar = null;
 

@@ -74,39 +74,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/profil_textPassword"
-                        android:id="@+id/profil_textPassword"
-                        android:layout_marginTop="5dp"/>
-
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:hint="contoh: ritasarah"
-                        android:ems="15"
-                        android:id="@+id/profil_editPassword"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/profil_textKonfirmasiPassword"
-                        android:id="@+id/profil_textKonfirmasiPassword"
-                        android:layout_marginTop="5dp"/>
-
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:hint="contoh: ritasarah"
-                        android:ems="15"
-                        android:id="@+id/profil_editKonfirmasiPassword"
-                        android:textColor="#ffffffff"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/profil_textEmail"
                         android:id="@+id/profil_textEmail"
                         android:layout_marginTop="5dp"/>
@@ -151,22 +118,22 @@
                         android:ems="15"
                         android:id="@+id/profil_editAlamat"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/profil_textTanggalLahir"
-                        android:id="@+id/profil_textTanggalLahir"
-                        android:layout_marginTop="5dp"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                        <!--android:text="@string/profil_textTanggalLahir"-->
+                        <!--android:id="@+id/profil_textTanggalLahir"-->
+                        <!--android:layout_marginTop="5dp"/>-->
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:hint="dd/mm/yyyy"
-                        android:ems="15"
-                        android:id="@+id/profil_editTanggalLahir"
-                        android:onClick="setDate"/>
+                    <!--<EditText-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:focusable="false"-->
+                        <!--android:hint="dd/mm/yyyy"-->
+                        <!--android:ems="15"-->
+                        <!--android:id="@+id/profil_editTanggalLahir"-->
+                        <!--android:onClick="setDate"/>-->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -174,7 +141,6 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/profil_textDataGereja"
                         android:id="@+id/profil_textDataGereja"
-                        android:textColor="#ffffffff"
                         android:layout_marginTop="15dp"/>
 
                     <TextView
@@ -251,7 +217,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/profil_textKomisiKaleb"/>
                     <CheckBox
-                        android:id="@+id/profil_checkboxKomisiPasutri"
+                        android:id="@+id/profil_checkboxPelayananPasutri"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/profil_textKomisiPasutri"/>

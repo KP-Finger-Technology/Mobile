@@ -1,16 +1,9 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.util.DisplayMetrics;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * Created by USER on 28/05/2015.
@@ -78,15 +71,6 @@ public class NavigationDrawerDataProvider {
             }
         }
         else {
-//            ArrayList<String> profilList = new ArrayList<String>();
-//            for (int i = 0; i < NavigationDrawerData.profilArray.length; i++) {
-//                profilList.add(NavigationDrawerData.profilArray[i]);
-//            }
-//
-//            ArrayList<String> logoutList = new ArrayList<String>();
-//            for (int i = 0; i < NavigationDrawerData.logoutArray.length; i++) {
-//                logoutList.add(NavigationDrawerData.logoutArray[i]);
-//            }
             for (int i = 0; i < NavigationDrawerData.kontenLoginArray.length; i++) {
                 sesudahLoginList.add(NavigationDrawerData.kontenLoginArray[i]);
             }
@@ -105,8 +89,6 @@ public class NavigationDrawerDataProvider {
             parentHashMap.put(" Register", registerList);       // position 9
         }
         else {
-//            parentHashMap.put(" Profil", profilList);
-//            parentHashMap.put(" Logout", logoutList);
             parentHashMap.put(" Manajemen Konten", sesudahLoginList);   // position 8
         }
 
