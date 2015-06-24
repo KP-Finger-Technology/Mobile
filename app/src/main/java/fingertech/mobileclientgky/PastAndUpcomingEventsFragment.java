@@ -553,6 +553,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
+            myLinearLayout.removeAllViews();
             //add LayoutParams
             params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);

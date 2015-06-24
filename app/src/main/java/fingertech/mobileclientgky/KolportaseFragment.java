@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,6 +107,15 @@ public class KolportaseFragment extends Fragment {
     private LinearLayout cll;
     private String keyword = null;
 
+    private LinearLayout myLinearLayout;
+    private LinearLayout.LayoutParams params;
+    private LinearLayout rowLayout;
+    private LinearLayout colLayout;
+    private LinearLayout subRowLayout;
+    private TextView TitleKeteranganTV;
+    private TextView IsiKeteranganTV;
+    private Button SelengkapnyaBtn;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -128,6 +138,176 @@ public class KolportaseFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private ArrayList<String> judulSaved;
+    private ArrayList<String> pengarangSaved;
+    private ArrayList<String> keteranganSaved;
+    private ArrayList<String> linkSaved;
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList("judulSaved",judulSaved);
+        outState.putStringArrayList("pengarangSaved",pengarangSaved);
+        outState.putStringArrayList("keteranganSaved",keteranganSaved);
+        outState.putStringArrayList("linkSaved",linkSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // probably orientation change
+            Log.d("from lagu: mencoba ambil arrayList yg disave..","..");
+            judulSaved = savedInstanceState.getStringArrayList("judulSaved");
+            pengarangSaved = savedInstanceState.getStringArrayList("pengarangSaved");
+            keteranganSaved = savedInstanceState.getStringArrayList("keteranganSaved");
+            linkSaved = savedInstanceState.getStringArrayList("linkSaved");
+            generateKontenKolportase();
+            Log.d("from lagu: berhasil ambil arrayList yang telah di-save","..");
+        }
+        else {
+            if ((judulSaved!=null) && (pengarangSaved!=null) && (keteranganSaved!=null) && (linkSaved!=null)) {
+                //returning from backstack, data is fine, do nothing
+                Log.d("from KPPK, si arrayList!=null","..");
+                generateKontenKolportase();
+            }
+            else {
+                //newly created, compute data
+                Log.d("tabel lirik lagu tidak exist","..");
+                Viewer v = new Viewer();
+                v.execute();
+            }
+        }
+    }
+
+    private void generateKontenKolportase() {
+        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kolportase);
+
+        // Add LayoutParams
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        params.setMargins(0, 10, 20, 0);
+
+        rowLayout = new LinearLayout(getActivity());
+        rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        // Membuat linear layout vertical untuk menampung kata-kata
+        colLayout = new LinearLayout(getActivity());
+        colLayout.setOrientation(LinearLayout.VERTICAL);
+        colLayout.setPadding(0,10,10,0);
+
+        subRowLayout = new LinearLayout(getActivity());
+        subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        int dataLength = judulSaved.size();
+        for (int i=0; i<dataLength; i++) {
+            generateUI(judulSaved.get(i), pengarangSaved.get(i), keteranganSaved.get(i), linkSaved.get(i));
+            Log.d("iterasi-"+Integer.toString(i)+"-judul:"+judulSaved.get(i)+"-tanggal:"+pengarangSaved.get(i)+"-keterangan:"+keteranganSaved.get(i),"-linkGambar:"+linkSaved.get(i));
+            if (i!=dataLength) {
+                rowLayout.addView(colLayout);
+                myLinearLayout.addView(rowLayout);
+                rowLayout = new LinearLayout(getActivity());
+                colLayout = new LinearLayout(getActivity());
+                colLayout.setOrientation(LinearLayout.VERTICAL);
+                subRowLayout = new LinearLayout(getActivity());
+            }
+        }
+    }
+
+    private void generateUI(String judul, String pengarang, String keterangan, String linkGambar) {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        int image_width = display.getWidth()/3;
+        int image_height = (int) (display.getHeight()/4.3);
+        int colorBlack = Color.BLACK;
+
+        // Add image View
+        ImageView GambarIV = new ImageView(getActivity());
+
+        // Loading image from below url into imageView
+        Picasso.with(getActivity())
+                .load(linkGambar)
+                .resize(image_height, image_width)
+                .into(GambarIV);
+        GambarIV.setLayoutParams(params);
+        rowLayout.addView(GambarIV);
+
+        // Add textView TitleBukuTV
+        TitleBukuTV = new TextView(getActivity());
+        TitleBukuTV.setText("Judul: ");
+        TitleBukuTV.setLayoutParams(params);
+        TitleBukuTV.setTextColor(colorBlack);
+        subRowLayout.addView(TitleBukuTV);
+
+        // Add textView JudulBukuTV
+        JudulBukuTV = new TextView(getActivity());
+        JudulBukuTV.setText(judul);
+        JudulBukuTV.setLayoutParams(params);
+        subRowLayout.addView(JudulBukuTV);
+        colLayout.addView(subRowLayout);
+        subRowLayout = new LinearLayout(getActivity());
+
+        // Add textView TitlePengarangTV
+        TitlePengarangTV = new TextView(getActivity());
+        TitlePengarangTV.setText("Pengarang: ");
+        TitlePengarangTV.setLayoutParams(params);
+        TitlePengarangTV.setTextColor(colorBlack);
+        subRowLayout.addView(TitlePengarangTV);
+
+        // Add textView JudulPengarangTV
+        JudulPengarangTV = new TextView(getActivity());
+        JudulPengarangTV.setText(pengarang);
+        JudulPengarangTV.setLayoutParams(params);
+        subRowLayout.addView(JudulPengarangTV);
+        colLayout.addView(subRowLayout);
+        subRowLayout = new LinearLayout(getActivity());
+
+        // Add textView TitleKeteranganTV
+        TitleKeteranganTV = new TextView(getActivity());
+        TitleKeteranganTV.setText("Keterangan: ");
+        TitleKeteranganTV.setTextColor(colorBlack);
+        TitleKeteranganTV.setLayoutParams(params);
+        subRowLayout.addView(TitleKeteranganTV);
+
+        // Add text View IsiKeteranganTV
+        IsiKeteranganTV = new TextView(getActivity());
+        if (keterangan.length()>80) {
+            keterangan = keterangan.substring(0, 80);
+            keterangan = keterangan + "...";
+        }
+        IsiKeteranganTV.setText(keterangan);
+        IsiKeteranganTV.setLayoutParams(params);
+        colLayout.addView(subRowLayout);
+        subRowLayout = new LinearLayout(getActivity());
+
+        // Add selengkapnya button
+        SelengkapnyaBtn = new Button(getActivity());
+        SelengkapnyaBtn.setText("Selengkapnya");
+        SelengkapnyaBtn.setLayoutParams(params);
+        SelengkapnyaBtn.setBackgroundColor(0);
+        subRowLayout.addView(SelengkapnyaBtn);
+        colLayout.addView(subRowLayout);
+
+        final String finalJudul = judul;
+        final String finalPengarang = pengarang;
+        final String finalKeterangan = keterangan;
+        final String finalLinkGambar = linkGambar;
+        SelengkapnyaBtn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Masuk ke konstruktor parameter KolportaseLengkapFragment dengan parameter isi
+                        frag = new KolportaseLengkapFragment(finalJudul, finalPengarang, finalKeterangan, finalLinkGambar);
+                        fragManager = getActivity().getSupportFragmentManager();
+                        fragTransaction = fragManager.beginTransaction();
+                        fragTransaction.replace(R.id.container, frag);
+                        fragTransaction.addToBackStack(null);
+                        fragTransaction.commit();
+                    }
+                }
+        );
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,8 +315,8 @@ public class KolportaseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Viewer v = new Viewer();
-        v.execute();
+//        Viewer v = new Viewer();
+//        v.execute();
     }
 
     @Override
@@ -181,10 +361,6 @@ public class KolportaseFragment extends Fragment {
     }
 
     class Viewer extends AsyncTask<String, String, String> {
-        private LinearLayout myLinearLayout;
-        private TextView TitleKeteranganTV;
-        private TextView IsiKeteranganTV;
-        private Button SelengkapnyaBtn;
 
         JSONArray arr = new JSONArray();
 
@@ -247,28 +423,22 @@ public class KolportaseFragment extends Fragment {
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kolportase);
 
             // Add LayoutParams
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
 
-            LinearLayout rowLayout = new LinearLayout(getActivity());
+            rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
             // Membuat linear layout vertical untuk menampung kata-kata
-            LinearLayout colLayout = new LinearLayout(getActivity());
+            colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0,10,10,0);
 
-            LinearLayout subRowLayout = new LinearLayout(getActivity());
+            subRowLayout = new LinearLayout(getActivity());
             subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
             LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int image_width = display.getWidth()/3;
-            int image_height = (int) (display.getHeight()/4.3);
-
-            int colorBlack = Color.BLACK;
 
             int dataLength = arr.length();
 
@@ -288,91 +458,7 @@ public class KolportaseFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                // Add image View
-                ImageView GambarIV = new ImageView(getActivity());
-
-                // Loading image from below url into imageView
-                Picasso.with(getActivity())
-                        .load(linkGambar)
-                        .resize(image_height, image_width)
-                        .into(GambarIV);
-                GambarIV.setLayoutParams(params);
-                rowLayout.addView(GambarIV);
-
-                // Add textView TitleBukuTV
-                TitleBukuTV = new TextView(getActivity());
-                TitleBukuTV.setText("Judul: ");
-                TitleBukuTV.setLayoutParams(params);
-                TitleBukuTV.setTextColor(colorBlack);
-                subRowLayout.addView(TitleBukuTV);
-
-                // Add textView JudulBukuTV
-                JudulBukuTV = new TextView(getActivity());
-                JudulBukuTV.setText(judul);
-                JudulBukuTV.setLayoutParams(params);
-                subRowLayout.addView(JudulBukuTV);
-                colLayout.addView(subRowLayout);
-                subRowLayout = new LinearLayout(getActivity());
-
-                // Add textView TitlePengarangTV
-                TitlePengarangTV = new TextView(getActivity());
-                TitlePengarangTV.setText("Pengarang: ");
-                TitlePengarangTV.setLayoutParams(params);
-                TitlePengarangTV.setTextColor(colorBlack);
-                subRowLayout.addView(TitlePengarangTV);
-
-                // Add textView JudulPengarangTV
-                JudulPengarangTV = new TextView(getActivity());
-                JudulPengarangTV.setText(pengarang);
-                JudulPengarangTV.setLayoutParams(params);
-                subRowLayout.addView(JudulPengarangTV);
-                colLayout.addView(subRowLayout);
-                subRowLayout = new LinearLayout(getActivity());
-
-                // Add textView TitleKeteranganTV
-                TitleKeteranganTV = new TextView(getActivity());
-                TitleKeteranganTV.setText("Keterangan: ");
-                TitleKeteranganTV.setTextColor(colorBlack);
-                TitleKeteranganTV.setLayoutParams(params);
-                subRowLayout.addView(TitleKeteranganTV);
-
-                // Add text View IsiKeteranganTV
-                IsiKeteranganTV = new TextView(getActivity());
-                if (keterangan.length()>80) {
-                    keterangan = keterangan.substring(0, 80);
-                    keterangan = keterangan + "...";
-                }
-                IsiKeteranganTV.setText(keterangan);
-                IsiKeteranganTV.setLayoutParams(params);
-                colLayout.addView(subRowLayout);
-                subRowLayout = new LinearLayout(getActivity());
-
-                // Add selengkapnya button
-                SelengkapnyaBtn = new Button(getActivity());
-                SelengkapnyaBtn.setText("Selengkapnya");
-                SelengkapnyaBtn.setLayoutParams(params);
-                SelengkapnyaBtn.setBackgroundColor(0);
-                subRowLayout.addView(SelengkapnyaBtn);
-                colLayout.addView(subRowLayout);
-
-                final String finalJudul = judul;
-                final String finalPengarang = pengarang;
-                final String finalKeterangan = keterangan;
-                final String finalLinkGambar = linkGambar;
-                SelengkapnyaBtn.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Masuk ke konstruktor parameter KolportaseLengkapFragment dengan parameter isi
-                                frag = new KolportaseLengkapFragment(finalJudul, finalPengarang, finalKeterangan, finalLinkGambar);
-                                fragManager = getActivity().getSupportFragmentManager();
-                                fragTransaction = fragManager.beginTransaction();
-                                fragTransaction.replace(R.id.container, frag);
-                                fragTransaction.addToBackStack(null);
-                                fragTransaction.commit();
-                            }
-                        }
-                );
+                generateUI(judul, pengarang, keterangan, linkGambar);
 
                 if (i!=dataLength) {
                     rowLayout.addView(colLayout);
@@ -382,7 +468,6 @@ public class KolportaseFragment extends Fragment {
                     colLayout.setOrientation(LinearLayout.VERTICAL);
                     subRowLayout = new LinearLayout(getActivity());
                 }
-
             }
         }
     }
@@ -403,11 +488,6 @@ public class KolportaseFragment extends Fragment {
     }
 
     class ViewerSearch extends AsyncTask<String, String, String> {
-        private LinearLayout myLinearLayout;
-        private TextView TitleKeteranganTV;
-        private TextView IsiKeteranganTV;
-        private Button SelengkapnyaBtn;
-
         JSONArray arr = new JSONArray();
 
         public JSONArray getArr() {
@@ -469,28 +549,22 @@ public class KolportaseFragment extends Fragment {
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kolportase);
 
             // Add LayoutParams
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
 
-            LinearLayout rowLayout = new LinearLayout(getActivity());
+            rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
             // Membuat linear layout vertical untuk menampung kata-kata
-            LinearLayout colLayout = new LinearLayout(getActivity());
+            colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0,10,10,0);
 
-            LinearLayout subRowLayout = new LinearLayout(getActivity());
+            subRowLayout = new LinearLayout(getActivity());
             subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
             LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int image_width = display.getWidth()/3;
-            int image_height = (int) (display.getHeight()/4.3);
-
-            int colorBlack = Color.BLACK;
 
             int dataLength = arr.length();
 
@@ -509,91 +583,7 @@ public class KolportaseFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                // Add image View
-                ImageView GambarIV = new ImageView(getActivity());
-
-                // Loading image from below url into imageView
-                Picasso.with(getActivity())
-                        .load(linkGambar)
-                        .resize(image_height, image_width)
-                        .into(GambarIV);
-                GambarIV.setLayoutParams(params);
-                rowLayout.addView(GambarIV);
-
-                // Add textView TitleBukuTV
-                TitleBukuTV = new TextView(getActivity());
-                TitleBukuTV.setText("Judul: ");
-                TitleBukuTV.setLayoutParams(params);
-                TitleBukuTV.setTextColor(colorBlack);
-                subRowLayout.addView(TitleBukuTV);
-
-                // Add textView JudulBukuTV
-                JudulBukuTV = new TextView(getActivity());
-                JudulBukuTV.setText(judul);
-                JudulBukuTV.setLayoutParams(params);
-                subRowLayout.addView(JudulBukuTV);
-                colLayout.addView(subRowLayout);
-                subRowLayout = new LinearLayout(getActivity());
-
-                // Add textView TitlePengarangTV
-                TitlePengarangTV = new TextView(getActivity());
-                TitlePengarangTV.setText("Pengarang: ");
-                TitlePengarangTV.setLayoutParams(params);
-                TitlePengarangTV.setTextColor(colorBlack);
-                subRowLayout.addView(TitlePengarangTV);
-
-                // Add textView JudulPengarangTV
-                JudulPengarangTV = new TextView(getActivity());
-                JudulPengarangTV.setText(pengarang);
-                JudulPengarangTV.setLayoutParams(params);
-                subRowLayout.addView(JudulPengarangTV);
-                colLayout.addView(subRowLayout);
-                subRowLayout = new LinearLayout(getActivity());
-
-                // Add textView TitleKeteranganTV
-                TitleKeteranganTV = new TextView(getActivity());
-                TitleKeteranganTV.setText("Keterangan: ");
-                TitleKeteranganTV.setTextColor(colorBlack);
-                TitleKeteranganTV.setLayoutParams(params);
-                subRowLayout.addView(TitleKeteranganTV);
-
-                // Add text View IsiKeteranganTV
-                IsiKeteranganTV = new TextView(getActivity());
-                if (keterangan.length()>80) {
-                    keterangan = keterangan.substring(0, 80);
-                    keterangan = keterangan + "...";
-                }
-                IsiKeteranganTV.setText(keterangan);
-                IsiKeteranganTV.setLayoutParams(params);
-                colLayout.addView(subRowLayout);
-                subRowLayout = new LinearLayout(getActivity());
-
-                // Add selengkapnya button
-                SelengkapnyaBtn = new Button(getActivity());
-                SelengkapnyaBtn.setText("Selengkapnya");
-                SelengkapnyaBtn.setLayoutParams(params);
-                SelengkapnyaBtn.setBackgroundColor(0);
-                subRowLayout.addView(SelengkapnyaBtn);
-                colLayout.addView(subRowLayout);
-
-                final String finalJudul = judul;
-                final String finalPengarang = pengarang;
-                final String finalKeterangan = keterangan;
-                final String finalLinkGambar = linkGambar;
-                SelengkapnyaBtn.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Masuk ke konstruktor parameter KolportaseLengkapFragment dengan parameter isi
-                                frag = new KolportaseLengkapFragment(finalJudul, finalPengarang, finalKeterangan, finalLinkGambar);
-                                fragManager = getActivity().getSupportFragmentManager();
-                                fragTransaction = fragManager.beginTransaction();
-                                fragTransaction.replace(R.id.container, frag);
-                                fragTransaction.addToBackStack(null);
-                                fragTransaction.commit();
-                            }
-                        }
-                );
+                generateUI(judul, pengarang, keterangan, linkGambar);
 
                 if (i!=dataLength) {
                     rowLayout.addView(colLayout);

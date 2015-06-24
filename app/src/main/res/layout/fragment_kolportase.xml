@@ -34,14 +34,14 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="15dp">
+            android:layout_marginRight="15dp"
+            android:orientation="vertical">
 
             <SearchView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/kolportase_searchView"
-                android:hint="cari apapun mengenai buku"
-                />
+                android:hint="cari apapun mengenai buku"/>
 
             <ScrollView
                 android:layout_width="match_parent"
