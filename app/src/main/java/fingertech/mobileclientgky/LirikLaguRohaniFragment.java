@@ -115,7 +115,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             // probably orientation change
             Log.d("from lagu: mencoba ambil arrayList yg disave..","..");
             laguSaved = savedInstanceState.getStringArrayList("laguSaved");
-            generateKontenLirikLaguRohani(false);
+            if (!DBH.isTableExists("LirikLaguRohani"))
+                generateKontenLirikLaguRohani(false);
             Log.d("from lagu: berhasil ambil arrayList yang telah di-save","..");
         }
         else {
