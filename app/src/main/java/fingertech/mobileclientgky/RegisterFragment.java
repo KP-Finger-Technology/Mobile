@@ -298,22 +298,21 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     }
                 });
             }
+                // Komisi Wanita
+                if (checked_komisiWanita) {
+                    if (komisi != "")
+                        komisi += ",";
+                    komisi += "6";
 
-            // Komisi Wanita
-            if (checked_komisiWanita) {
-                if (komisi != "")
-                    komisi += ",";
-                komisi += "6";
-
-                // Berlangganan untuk push notification komisiWanita
-                ParsePush.subscribeInBackground("komisiWanita", new SaveCallback() {
-                    @Override
-                    public void done(com.parse.ParseException e) {
-                        if (e == null) {
-                            Log.d("com.parse.push", "successfully subscribed to the komisiWanita channel.");
-                        } else {
-                            Log.e("com.parse.push", "failed to subscribe for push to the komisiWanita", e);
-                        }
+                    // Berlangganan untuk push notification komisiWanita
+                    ParsePush.subscribeInBackground("komisiWanita", new SaveCallback() {
+                        @Override
+                        public void done(com.parse.ParseException e) {
+                            if (e == null) {
+                                Log.d("com.parse.push", "successfully subscribed to the komisiWanita channel.");
+                            } else {
+                                Log.e("com.parse.push", "failed to subscribe for push to the komisiWanita", e);
+                            }
                     }
                 });
             }
@@ -343,12 +342,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 pelayanan += "4";
             }
 
-            if (checked_pelayananPemuda) {
-                if (pelayanan != "")
-                    pelayanan += ",";
-                pelayanan += "4";
-            }
-
             if (checked_pelayananRemaja) {
                 if (pelayanan != "")
                     pelayanan += ",";
@@ -358,6 +351,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 if (pelayanan != "")
                     pelayanan += ",";
                 pelayanan += "6";
+            }
 
 
                 Log.d("komisi selected", komisi);
@@ -382,7 +376,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
             }
         }
-    }
 
     public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
