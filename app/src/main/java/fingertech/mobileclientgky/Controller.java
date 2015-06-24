@@ -30,7 +30,7 @@ import java.util.TimerTask;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-    public static final String url = "http://192.168.0.104/gky_web_service/";
+    public static final String url = "http://192.168.0.108/gky_web_service/";
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;
@@ -201,8 +201,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url + "add_doa.php?nama="+nama+"&umur="+umur+"&email="+email+"&nomortelepon="+tlp+"&jeniskelamin="+jk+"&doa="+isiDoa);
-                Log.d("URL",url+ "add_doa.php?nama="+nama+"&umur="+umur+"&email="+email+"&nomortelepon="+tlp+"&jeniskelamin="+jk+"&doa="+isiDoa);
+                new Writer().execute(url + "add_doa.php?nama=" + nama + "&umur=" + umur + "&email=" + email + "&nomortelepon=" + tlp + "&jeniskelamin=" + jk + "&doa=" + isiDoa);
+                Log.d("URL", url + "add_doa.php?nama=" + nama + "&umur=" + umur + "&email=" + email + "&nomortelepon=" + tlp + "&jeniskelamin=" + jk + "&doa=" + isiDoa);
             }
         });
     }
@@ -221,8 +221,8 @@ public class Controller {
 
     public void login (final String nama,final String password ){
         Writer w = new Writer();
-        w.execute(url + "login.php?nama="+nama+"&password="+password);
-        Log.d("Url",url + "login.php?nama="+nama+"&password="+password);
+        w.execute(url + "login.php?nama=" + nama + "&password=" + password);
+        Log.d("Url",url + "login.php?nama=" + nama + "&password=" + password);
 
 //        final Handler handler = new Handler();
 //        handler.post(new Runnable() {
@@ -396,7 +396,7 @@ public class Controller {
                 Toast.makeText(context, "login success", Toast.LENGTH_LONG).show();
                 Log.d("log in ","success");
             } else {
-                Toast.makeText(context, "login "+ writeResponse, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "login " + writeResponse, Toast.LENGTH_LONG).show();
                 Log.d("log in ", "fail");
             }
         }

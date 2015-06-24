@@ -163,7 +163,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         myDataBase.close();
     }
 
-//    private boolean isTableExists(SQLiteDatabase db, String tableName) {
     public boolean isTableExists(String tableName) {
         if (tableName == null || myDataBase == null || !myDataBase.isOpen()) {
             return false;
@@ -199,6 +198,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                         jumlahPasal.add(cursor.getInt(colPasal));
                         i++;
                     } while (cursor.moveToNext());
+                    cursor.close();
                 }
             }
         }
@@ -243,8 +243,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
     // Add your public helper methods to access and get content from the database.
     // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
@@ -265,6 +264,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 res.add(judul);
                 res.add(isi);
             }while(cursor.moveToNext());
+            cursor.close();
         }
         return res;
     }
@@ -335,6 +335,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 res.add(judul);
                 res.add(isi);
             }while(cursor.moveToNext());
+            cursor.close();
         }
         return res;
     }
@@ -350,13 +351,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 res.add(cursor.getString(colIsi));
             }while(cursor.moveToNext());
+            cursor.close();
         }
         return res;
     }
 
     public int getJumlahAyat (String kitab, int pasal) {
         int jumAyat = 0;
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\"" + kitab + "\" AND BIBLE.pasal=" + pasal + " AND BOOKS_1.keyid=BIBLE.kitab", null);
 
         // Check if our result was valid
         cursor.moveToFirst();
@@ -365,6 +367,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 jumAyat++;
             }while(cursor.moveToNext());
+            cursor.close();
         }
         return jumAyat;
     }
@@ -386,8 +389,27 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 int pasal = cursor.getInt(colPasal);
                 pasalAlkitab.add(judul);
                 jumlahPasal.add(pasal);
-            }while(cursor.moveToNext());
+            } while(cursor.moveToNext());
+            cursor.close();
         }
+    }
+
+    public ArrayList<String> searchLirik(String _lirik) {
+        ArrayList<String> res = new ArrayList<String>();
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM LirikLaguRohani WHERE judul LIKE \"%" + _lirik + "%\" OR isi LIKE \"%" + _lirik + "%\"", null);
+        int colJudul = cursor.getColumnIndex("judul");
+        int colIsi = cursor.getColumnIndex("isi");
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String judul = cursor.getString(colJudul);
+                String isi = cursor.getString(colIsi);
+                res.add(judul);
+                res.add(isi);
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+        return res;
     }
 
     public boolean createTableLirikLaguRohani () {

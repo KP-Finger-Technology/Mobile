@@ -360,8 +360,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Log.d("DatePicker", "masuk create");
-
             // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
@@ -369,21 +367,14 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            Log.d("DatePicker", "keluar create");
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            Log.d("DatePicker", "masuk set");
             pYear = year;
             pDay = day;
             pMonth = month;
-
-            Log.d("DatePicker", "keluar set");
-            Log.d("DatePicker pyear", Integer.toString(pYear));
-            Log.d("DatePicker pday", Integer.toString(pDay));
-            Log.d("DatePicker pmonth", Integer.toString(pMonth));
 
             Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
 
