@@ -185,7 +185,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             String statu = "";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_event.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_event.php");
             HttpResponse response;
 
             try {
@@ -492,15 +492,9 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     keterangan = jsonobj.getString("keterangan");
                     linkGambar = Controller.url + "res/event/";
                     linkGambar += jsonobj.getString("gambarevent");
-
-                    Log.d("Judulx", judul);
-                    Log.d("Keterangan",keterangan);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                Log.d("for i: ", Integer.toString(i));
 
                 // Add image View
                 ImageView GambarIV = new ImageView(getActivity());

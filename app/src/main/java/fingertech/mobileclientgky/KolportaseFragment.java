@@ -203,7 +203,7 @@ public class KolportaseFragment extends Fragment {
             String statu = "";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_kolportase.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_kolportase.php");
             HttpResponse response;
 
             try {
@@ -505,7 +505,6 @@ public class KolportaseFragment extends Fragment {
                     keterangan = jsonobj.getString("keterangan");
                     linkGambar = Controller.url + "res/kolportase/";
                     linkGambar += jsonobj.getString("gambarbuku");
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
