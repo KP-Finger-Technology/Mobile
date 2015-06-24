@@ -98,11 +98,59 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         }
     }
 
+    private ArrayList<String> laguSaved;
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList("laguSaved",laguSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        DataBaseHelper DBH = new DataBaseHelper(getActivity().getApplicationContext());
+        DBH.openDataBase();
+        if (savedInstanceState != null) {
+            // probably orientation change
+            Log.d("from lagu: mencoba ambil arrayList yg disave..","..");
+            laguSaved = savedInstanceState.getStringArrayList("laguSaved");
+            generateKontenLirikLaguRohani(false);
+            Log.d("from lagu: berhasil ambil arrayList yang telah di-save","..");
+        }
+        else {
+            if (laguSaved!=null) {
+                //returning from backstack, data is fine, do nothing
+                Log.d("from KPPK, si arrayList!=null","..");
+                if (!DBH.isTableExists("LirikLaguRohani")) {
+                    Log.d("tabel lirik lagu tidak exist","..");
+                    generateKontenLirikLaguRohani(false);
+                }
+            }
+            else {
+                //newly created, compute data
+                Log.d("from KPPK, new Viewer & execute","..");
+                if (!DBH.isTableExists("LirikLaguRohani")) {
+                    Log.d("tabel lirik lagu tidak exist","..");
+                    v = new Viewer();
+                    v.execute();
+                }
+            }
+        }
+    }
+
     private LinearLayout myLinearLayout;
 
-    private void generateKontenLirikLaguRohani() {
+    private void generateKontenLirikLaguRohani(boolean mode) {
+        // mode == true utk load dr database
+        // mode == false utk load dr konten yg telah di save dr server
+
         ArrayList<String> containerString = new ArrayList<String>();
-        containerString = DB.getLirikLaguRohani();
+
+        if (mode)
+            containerString = DB.getLirikLaguRohani();
+        else
+            containerString = laguSaved;
 
         myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
 
@@ -161,11 +209,14 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             // Jika tabel LirikLaguRohani exist, berarti sudah pernah di-download. Tampilkan daftar LirikLaguRohani dari database
             lirikLaguRohani_download.setVisibility(View.INVISIBLE);
             Log.d("tabel LirikLaguRohani sudah exist","..");
-            generateKontenLirikLaguRohani();
+            generateKontenLirikLaguRohani(true);
         }
         else {
             // Belum pernah download LirikLaguRohani, maka tampilkan dari ambil JSON ke server
-            v.execute();
+
+//            isLirikLaguRohaniExist = false;
+//            v.execute();
+
         }
 
         sv = (SearchView) rootView.findViewById(R.id.lirikLaguRohani_searchview);
@@ -435,7 +486,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             ArrayList<String> tmp = new ArrayList<String>();
 
             String judul = null, isi = null;
-
+            laguSaved = new ArrayList<String>();
             // Generate konten Event dalam loop for
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
@@ -446,6 +497,9 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     isi = jsonobj.getString("isi");
                     tmp.add(judul);
                     tmp.add(isi);
+
+                    laguSaved.add(judul);
+                    laguSaved.add(isi);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
