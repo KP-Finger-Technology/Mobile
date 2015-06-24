@@ -24,6 +24,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpResponse;
@@ -142,77 +144,231 @@ public class ProfilFragment extends Fragment {
         EditText teleponET = (EditText) rootView.findViewById(R.id.profil_editTelepon);
         EditText idbaptisET = (EditText) rootView.findViewById(R.id.profil_editIdBaptis);
         String nama = null,email = null,telepon = null,alamat = null,idbaptis = null;
-            try {
-                nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
-                email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
-                telepon = URLEncoder.encode(teleponET.getText().toString(),"utf-8");
-                alamat = URLEncoder.encode(alamatET.getText().toString(), "utf-8");
-                idbaptis = URLEncoder.encode(idbaptisET.getText().toString(), "utf-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+        try {
+            nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
+            email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
+            telepon = URLEncoder.encode(teleponET.getText().toString(),"utf-8");
+            alamat = URLEncoder.encode(alamatET.getText().toString(), "utf-8");
+            idbaptis = URLEncoder.encode(idbaptisET.getText().toString(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
 //            boolean checked = ((CheckBox) v).isChecked();
-            boolean checked_komisiAnak = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiAnak)).isChecked();
-            boolean checked_komisiKaleb = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiKaleb)).isChecked();
-            boolean checked_komisiPasutri = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiPasutri)).isChecked();
-            boolean checked_komisiPemuda = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiPemudaDewasa)).isChecked();
-            boolean checked_komisiRemaja = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiRemajaPemuda)).isChecked();
-            boolean checked_komisiWanita = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiWanita)).isChecked();
+        boolean checked_komisiAnak = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiAnak)).isChecked();
+        boolean checked_komisiKaleb = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiKaleb)).isChecked();
+        boolean checked_komisiPasutri = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiPasutri)).isChecked();
+        boolean checked_komisiPemuda = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiPemudaDewasa)).isChecked();
+        boolean checked_komisiRemaja = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiRemajaPemuda)).isChecked();
+        boolean checked_komisiWanita = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiWanita)).isChecked();
 
-            boolean checked_pelayananAnak = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananAnak)).isChecked();
-            boolean checked_pelayananKaleb = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananKaleb)).isChecked();
-            boolean checked_pelayananPasutri = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiPasutri)).isChecked();
-            boolean checked_pelayananPemuda = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananPemudaDewasa)).isChecked();
-            boolean checked_pelayananRemaja = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananRemajaPemuda)).isChecked();
-            boolean checked_pelayananWanita = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananWanita)).isChecked();
+        boolean checked_pelayananAnak = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananAnak)).isChecked();
+        boolean checked_pelayananKaleb = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananKaleb)).isChecked();
+        boolean checked_pelayananPasutri = ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiPasutri)).isChecked();
+        boolean checked_pelayananPemuda = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananPemudaDewasa)).isChecked();
+        boolean checked_pelayananRemaja = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananRemajaPemuda)).isChecked();
+        boolean checked_pelayananWanita = ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananWanita)).isChecked();
 
-            String komisi = "";
-            Log.d("komisi", komisi);
+        String komisi = "";
+        Log.d("komisi", komisi);
 
-            String pelayanan = "";
-            JSONArray komisiArr = new JSONArray();
-            JSONArray pelayananArr = new JSONArray();
-            // Check which radio button was clicked
-//            switch(v.getId()) {
-//                case R.id.register_checkboxKomisiAnak:
-            if (checked_komisiAnak){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="1";
-                komisiArr.put(1);
-            }
-            if (checked_komisiKaleb){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="2";
-                komisiArr.put(2);
-            }
-            if (checked_komisiPasutri){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="3";
-                komisiArr.put(3);
-            }
-//                case R.id.register_checkboxKomisiPemudaDewasa:
-            if (checked_komisiPemuda){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="4";
-                komisiArr.put(4);
-            }
-            if (checked_komisiRemaja){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="5";
-                komisiArr.put(5);
-            }
-            if (checked_komisiWanita){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="6";
-                komisiArr.put(6);
-            }
+        String pelayanan = "";
+        JSONArray komisiArr = new JSONArray();
+        JSONArray pelayananArr = new JSONArray();
+
+        // Check which checkbox was checked
+        // Komisi
+        // Komisi Anak
+        if (checked_komisiAnak) {
+            if (komisi != "")
+                komisi += ",";
+            komisi += "1";
+
+            // Berlangganan untuk push notification komisiAnak
+            ParsePush.subscribeInBackground("komisiAnak", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiAnak channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiAnak", e);
+                    }
+                }
+            });
+        }
+        if (!checked_komisiAnak) {
+            // Menghentikan langganan untuk push notification komisiAnak
+            ParsePush.unsubscribeInBackground("komisiAnak", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiAnak channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiAnak", e);
+                    }
+                }
+            });
+        }
+
+        // Komisi Kaleb
+        if (checked_komisiKaleb) {
+            if (komisi != "")
+                komisi += ",";
+            komisi += "2";
+
+            // Berlangganan untuk push notification komisiKaleb
+            ParsePush.subscribeInBackground("komisiKaleb", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiKaleb channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiKaleb", e);
+                    }
+                }
+            });
+        }
+        if (!checked_komisiKaleb) {
+            // Menghentikan langganan untuk push notification komisiKaleb
+            ParsePush.unsubscribeInBackground("komisiKaleb", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiKaleb channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiKaleb", e);
+                    }
+                }
+            });
+        }
+
+        // Komisi Pasutri
+        if (checked_komisiPasutri) {
+            if (komisi != "")
+                komisi += ",";
+            komisi += "3";
+
+            // Berlangganan untuk push notification komisiPasutri
+            ParsePush.subscribeInBackground("komisiPasutri", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiPasutri channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiPasutri", e);
+                    }
+                }
+            });
+        }
+        if (!checked_komisiPasutri) {
+            // Menghentikan langganan untuk push notification komisiPasutri
+            ParsePush.unsubscribeInBackground("komisiPasutri", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiPasutri channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiPasutri", e);
+                    }
+                }
+            });
+        }
+
+        // Komisi Pemuda Dewasa
+        if (checked_komisiPemuda) {
+            if (komisi != "")
+                komisi += ",";
+            komisi += "4";
+
+            // Berlangganan untuk push notification komisiPemuda
+            ParsePush.subscribeInBackground("komisiPemuda", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiPemuda channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiPemuda", e);
+                    }
+                }
+            });
+        }
+        if (!checked_komisiPemuda) {
+            // Menghentikan langganan untuk push notification komisiPemuda
+            ParsePush.unsubscribeInBackground("komisiPemuda", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiPemuda channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiPemuda", e);
+                    }
+                }
+            });
+        }
+
+        // Komisi Remaja dan Pemuda
+        if (checked_komisiRemaja) {
+            if (komisi != "")
+                komisi += ",";
+            komisi += "5";
+
+            // Berlangganan untuk push notification komisiRemaja
+            ParsePush.subscribeInBackground("komisiRemaja", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiRemaja channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiRemaja", e);
+                    }
+                }
+            });
+        }
+        if (!checked_komisiRemaja) {
+            // Menghentikan langganan untuk push notification komisiRemaja
+            ParsePush.unsubscribeInBackground("komisiRemaja", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiRemaja channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiRemaja", e);
+                    }
+                }
+            });
+        }
+
+        // Komisi Wanita
+        if (checked_komisiWanita) {
+            if (komisi != "")
+                komisi += ",";
+            komisi += "6";
+
+            // Berlangganan untuk push notification komisiWanita
+            ParsePush.subscribeInBackground("komisiWanita", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiWanita channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiWanita", e);
+                    }
+                }
+            });
+        }
+        if (!checked_komisiAnak) {
+            // Menghentikan langganan untuk push notification komisiWanita
+            ParsePush.unsubscribeInBackground("komisiWanita", new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        Log.d("com.parse.push", "successfully subscribed to the komisiWanita channel.");
+                    } else {
+                        Log.e("com.parse.push", "failed to subscribe for push to the komisiWanita", e);
+                    }
+                }
+            });
+        }
 
 
             if (checked_pelayananAnak){

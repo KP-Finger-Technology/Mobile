@@ -79,7 +79,7 @@ public class SessionManager {
        Log.d("Preferen",pref.getAll().toString());
     }
 
-    public void editLoginSession(String name ,String email , String alamat, String telepon,String idbaptis,String komisi ,String pelayanan){
+    public void editLoginSession(String name, String email, String alamat, String telepon, String idbaptis, String komisi, String pelayanan){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
