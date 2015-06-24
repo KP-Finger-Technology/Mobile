@@ -1,13 +1,10 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-//import android.app.Fragment;
+
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,26 +15,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 /**
@@ -177,7 +162,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         public void onFragmentInteraction(Uri uri);
     }
 
-    public void registerClicked(View v){
+    public void registerClicked(View v) {
         EditText namaET = (EditText) rootView.findViewById(R.id.register_editNama);
         EditText passET = (EditText) rootView.findViewById(R.id.register_editPassword);
         EditText passconET = (EditText) rootView.findViewById(R.id.register_editKonfirmasiPassword);
@@ -190,11 +175,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         String pass = passET.getText().toString();
         String passcon = passconET.getText().toString();
         if (pass.equals(passcon)) {
-            String nama = null,email = null,telepon = null,alamat = null,idbaptis = null;
+            String nama = null, email = null, telepon = null, alamat = null, idbaptis = null;
             try {
                 nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
                 email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
-                telepon = URLEncoder.encode(teleponET.getText().toString(),"utf-8");
+                telepon = URLEncoder.encode(teleponET.getText().toString(), "utf-8");
                 alamat = URLEncoder.encode(alamatET.getText().toString(), "utf-8");
                 idbaptis = URLEncoder.encode(idbaptisET.getText().toString(), "utf-8");
             } catch (UnsupportedEncodingException e) {
@@ -222,201 +207,277 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             String pelayanan = "";
 
             // Check which radio button was clicked
-//            switch(v.getId()) {
-//                case R.id.register_checkboxKomisiAnak:
-            if (checked_komisiAnak){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="1";
-//                        break;
+            // Komisi
+            // Komisi Anak
+            if (checked_komisiAnak) {
+                if (komisi != "")
+                    komisi += ",";
+                komisi += "1";
+
+                // Berlangganan untuk push notification komisiAnak
+                ParsePush.subscribeInBackground("komisiAnak", new SaveCallback() {
+                    @Override
+                    public void done(com.parse.ParseException e) {
+                        if (e == null) {
+                            Log.d("com.parse.push", "successfully subscribed to the komisiAnak channel.");
+                        } else {
+                            Log.e("com.parse.push", "failed to subscribe for push to the komisiAnak", e);
+                        }
+                    }
+                });
             }
-//                case R.id.register_checkboxKomisiKaleb:
-            if (checked_komisiKaleb){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="2";
-//                        break;
+            // Komisi Kaleb
+            if (checked_komisiKaleb) {
+                if (komisi != "")
+                    komisi += ",";
+                komisi += "2";
+
+                // Berlangganan untuk push notification komisiKaleb
+                ParsePush.subscribeInBackground("komisiKaleb", new SaveCallback() {
+                    @Override
+                    public void done(com.parse.ParseException e) {
+                        if (e == null) {
+                            Log.d("com.parse.push", "successfully subscribed to the komisiKaleb channel.");
+                        } else {
+                            Log.e("com.parse.push", "failed to subscribe for push to the komisiKaleb", e);
+                        }
+                    }
+                });
             }
-            if (checked_komisiPasutri){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="3";
-                //                        break;
+            // Komisi Pasutri
+            if (checked_komisiPasutri) {
+                if (komisi != "")
+                    komisi += ",";
+                komisi += "3";
+
+                // Berlangganan untuk push notification komisiPasutri
+                ParsePush.subscribeInBackground("komisiPasutri", new SaveCallback() {
+                    @Override
+                    public void done(com.parse.ParseException e) {
+                        if (e == null) {
+                            Log.d("com.parse.push", "successfully subscribed to the komisiPasutri channel.");
+                        } else {
+                            Log.e("com.parse.push", "failed to subscribe for push to the komisiPasutri", e);
+                        }
+                    }
+                });
             }
-//                case R.id.register_checkboxKomisiPemudaDewasa:
-            if (checked_komisiPemuda){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="4";
-//                        break;
+            // Komisi Pemuda Dewasa
+            if (checked_komisiPemuda) {
+                if (komisi != "")
+                    komisi += ",";
+                komisi += "4";
+
+                // Berlangganan untuk push notification komisiPemuda
+                ParsePush.subscribeInBackground("komisiPemuda", new SaveCallback() {
+                    @Override
+                    public void done(com.parse.ParseException e) {
+                        if (e == null) {
+                            Log.d("com.parse.push", "successfully subscribed to the komisiPemuda channel.");
+                        } else {
+                            Log.e("com.parse.push", "failed to subscribe for push to the komisiPemuda", e);
+                        }
+                    }
+                });
             }
-            if (checked_komisiPemuda){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="4";
-                //                        break;
-            }
-            if (checked_komisiRemaja){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="5";
-            }
-            if (checked_komisiWanita){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="6";
+            // Komisi Remaja dan Pemuda
+            if (checked_komisiRemaja) {
+                if (komisi != "")
+                    komisi += ",";
+                komisi += "5";
+
+                // Berlangganan untuk push notification komisiRemaja
+                ParsePush.subscribeInBackground("komisiRemaja", new SaveCallback() {
+                    @Override
+                    public void done(com.parse.ParseException e) {
+                        if (e == null) {
+                            Log.d("com.parse.push", "successfully subscribed to the komisiRemaja channel.");
+                        } else {
+                            Log.e("com.parse.push", "failed to subscribe for push to the komisiRemaja", e);
+                        }
+                    }
+                });
             }
 
+            if (checked_komisiWanita) {
+                if (komisi != "")
+                    komisi += ",";
+                komisi += "6";
 
-            if (checked_pelayananAnak){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="1";
-            }
+                // Komisi Wanita
+                if (checked_komisiWanita) {
+                    if (komisi != "")
+                        komisi += ",";
+                    komisi += "6";
 
-            if (checked_pelayananKaleb){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="2";
-            }
-            if (checked_pelayananPasutri){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="3";
-            }
-            if (checked_pelayananPemuda){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="4";
-            }
-            if (checked_pelayananPemuda){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="4";
-            }
-            if (checked_pelayananRemaja){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="5";
-            }
-            if (checked_pelayananWanita){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="6";
-            }
+                    // Berlangganan untuk push notification komisiWanita
+                    ParsePush.subscribeInBackground("komisiWanita", new SaveCallback() {
+                        @Override
+                        public void done(com.parse.ParseException e) {
+                            if (e == null) {
+                                Log.d("com.parse.push", "successfully subscribed to the komisiWanita channel.");
+                            } else {
+                                Log.e("com.parse.push", "failed to subscribe for push to the komisiWanita", e);
+                            }
+                        }
+                    });
+                }
 
-//            }
-            Log.d("komisi selected",komisi);
-            Log.d("pelayanan selected",pelayanan);
+                // Pelayanan
+                if (checked_pelayananAnak) {
+                    if (pelayanan != "")
+                        pelayanan += ",";
+                    pelayanan += "1";
+                }
+
+                if (checked_pelayananKaleb) {
+                    if (pelayanan != "")
+                        pelayanan += ",";
+                    pelayanan += "2";
+                }
+
+                if (checked_pelayananPasutri) {
+                    if (pelayanan != "")
+                        pelayanan += ",";
+                    pelayanan += "3";
+                }
+
+                if (checked_pelayananPemuda) {
+                    if (pelayanan != "")
+                        pelayanan += ",";
+                    pelayanan += "4";
+                }
+
+                if (checked_pelayananPemuda) {
+                    if (pelayanan != "")
+                        pelayanan += ",";
+                    pelayanan += "4";
+                }
+
+                if (checked_pelayananRemaja) {
+                    if (pelayanan != "")
+                        pelayanan += ",";
+                    pelayanan += "5";
+                }
+                if (checked_pelayananWanita) {
+                    if (pelayanan != "")
+                        pelayanan += ",";
+                    pelayanan += "6";
+
+
+                    Log.d("komisi selected", komisi);
+                    Log.d("pelayanan selected", pelayanan);
 
             /*Date date = new Date();*/
-            String dateInString = null;
+                    String dateInString = null;
 
-            try {
+                    try {
                 /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");*/
-                dateInString = now;
+                        dateInString = now;
                 /*date = formatter.parse(dateInString);
                 Log.d("now", now);*/
-                Log.d("registerdateee", dateInString);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                        Log.d("registerdateee", dateInString);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-            cont.register(nama,pass,email,telepon,alamat,dateInString,idbaptis,komisi,pelayanan);
-        }else{
-            //password dan konfirmasi tidak sama, keluarin toast.
-            Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
+                    cont.register(nama, pass, email, telepon, alamat, dateInString, idbaptis, komisi, pelayanan);
+                } else {
+                    //password dan konfirmasi tidak sama, keluarin toast.
+                    Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 
     public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-        private DatePickerDialog.OnDateSetListener mDateSetListener;
+            private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-        public DatePickerDialogFragment() {
-            // nothing to see here, move along
-        }
-
-        public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {
-            mDateSetListener = (DatePickerDialog.OnDateSetListener) callback;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Log.d("DatePicker", "masuk create");
-            Calendar cal = Calendar.getInstance();
-
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            Log.d("DatePicker", "keluar create");
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            Log.d("DatePicker", "masuk set");
-            pYear = year;
-            pDay = day;
-            pMonth = month;
-            Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
-
-            String bulan = null;
-            // Januari
-            if (pMonth == 0) {
-                bulan = "01";
-            }
-            // Februari
-            else if (pMonth == 1) {
-                bulan = "02";
-            }
-            // Maret
-            else if (pMonth == 2) {
-                bulan = "03";
-            }
-            // April
-            else if (pMonth == 3) {
-                bulan = "04";
-            }
-            // Mei
-            else if (pMonth == 4) {
-                bulan = "05";
-            }
-            // Juni
-            else if (pMonth == 5) {
-                bulan = "06";
-            }
-            // Juli
-            else if (pMonth == 6) {
-                bulan = "07";
-            }
-            // Agustus
-            else if (pMonth == 7) {
-                bulan = "08";
-            }
-            // September
-            else if (pMonth == 8) {
-                bulan = "09";
-            }
-            // Oktober
-            else if (pMonth == 9) {
-                bulan = "10";
-            }
-            // November
-            else if (pMonth == 10) {
-                bulan = "11";
-            }
-            // Desember
-            else if (pMonth == 11) {
-                bulan = "12";
+            public DatePickerDialogFragment() {
+                // nothing to see here, move along
             }
 
-            now = Integer.toString(pYear) + "-" + bulan + "-" + Integer.toString(pDay);
-            dateET.setText(Integer.toString(pDay) + "/" + bulan + "/" + Integer.toString(pYear));
-        }
+            public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {
+                mDateSetListener = (DatePickerDialog.OnDateSetListener) callback;
+            }
+
+            @Override
+            public Dialog onCreateDialog(Bundle savedInstanceState) {
+                Log.d("DatePicker", "masuk create");
+                Calendar cal = Calendar.getInstance();
+
+                // Use the current date as the default date in the picker
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                // Create a new instance of DatePickerDialog and return it
+                Log.d("DatePicker", "keluar create");
+                return new DatePickerDialog(getActivity(), this, year, month, day);
+            }
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                Log.d("DatePicker", "masuk set");
+                pYear = year;
+                pDay = day;
+                pMonth = month;
+                Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
+
+                String bulan = null;
+                // Januari
+                if (pMonth == 0) {
+                    bulan = "01";
+                }
+                // Februari
+                else if (pMonth == 1) {
+                    bulan = "02";
+                }
+                // Maret
+                else if (pMonth == 2) {
+                    bulan = "03";
+                }
+                // April
+                else if (pMonth == 3) {
+                    bulan = "04";
+                }
+                // Mei
+                else if (pMonth == 4) {
+                    bulan = "05";
+                }
+                // Juni
+                else if (pMonth == 5) {
+                    bulan = "06";
+                }
+                // Juli
+                else if (pMonth == 6) {
+                    bulan = "07";
+                }
+                // Agustus
+                else if (pMonth == 7) {
+                    bulan = "08";
+                }
+                // September
+                else if (pMonth == 8) {
+                    bulan = "09";
+                }
+                // Oktober
+                else if (pMonth == 9) {
+                    bulan = "10";
+                }
+                // November
+                else if (pMonth == 10) {
+                    bulan = "11";
+                }
+                // Desember
+                else if (pMonth == 11) {
+                    bulan = "12";
+                }
+
+                now = Integer.toString(pYear) + "-" + bulan + "-" + Integer.toString(pDay);
+                dateET.setText(Integer.toString(pDay) + "/" + bulan + "/" + Integer.toString(pYear));
+            }
     }
 }

@@ -97,6 +97,7 @@ public class SessionManager {
 
         Log.d("Preferen",pref.getAll().toString());
     }
+
     /**
      * Get stored session data
      * */

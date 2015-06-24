@@ -1,23 +1,17 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-//import android.app.Fragment;
-import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -25,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -38,7 +34,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,7 +43,6 @@ import java.util.Date;
  * Use the {@link RenunganGemaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-//public class RenunganGemaFragment extends Fragment implements View.OnClickListener{
 public class RenunganGemaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -114,22 +108,19 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
     }
 
     public void generateRenunganContent() {
-
-        //add LinearLayout
+        // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
-        //add LayoutParams
+
+        // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0,0,0,30);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        int colorWhite = Color.WHITE;
 
         // Isi Ayat
         String IsiAyat = "Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal. - Yohanes 3:16";
         TextView ayatRenungan = new TextView(getActivity());
         ayatRenungan.setText(IsiAyat);
         ayatRenungan.setLayoutParams(params);
-//        ayatRenungan.setTextColor(colorWhite);
         ayatRenungan.setGravity(1);
         myLinearLayout.addView(ayatRenungan);
 
@@ -139,11 +130,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         isiRenungan.setText(IsiRenungan);
         isiRenungan.setLayoutParams(params);
         isiRenungan.setGravity(0);
-//        isiRenungan.setTextColor(colorWhite);
         myLinearLayout.addView(isiRenungan);
-
-//        } catch(JSONException e){e.printStackTrace();}
-
     }
 
     private Button setDateBtn;
@@ -159,8 +146,9 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         setDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setDate(v);
                 Toast.makeText(getActivity(), "clicking submit datepicker..", Toast.LENGTH_LONG).show();
+                myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_renunganGema);
+                myLinearLayout.removeAllViews();
                 Viewer newViewer = new Viewer();
                 newViewer.execute();
             }
@@ -169,29 +157,10 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         dateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setDate(v);
                 DatePickerDialogFragment datePicker = new DatePickerDialogFragment();
                 datePicker.show(getFragmentManager(), "datePicker");
-//                Toast.makeText(getActivity(), "clicking datepicker..", Toast.LENGTH_LONG).show();
-                /*Log.d("tanggal yg dipilih, tahun:"+ Integer.toString(datePicker.getpYear()) +" bulan:"+Integer.toString(datePicker.getpMonth())+" hari:"+Integer.toString(datePicker.getpDay()),"..");*/
             }
         });
-
-        /*dateET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    Log.d("tanggal yg dipilih, tahun:"+ Integer.toString(thn) +" bulan:"+Integer.toString(bln)+" hari:"+Integer.toString(tggl),"..");
-                    return true;
-                }
-                return false;
-            }
-        });*/
-
-//        generateRenunganContent();
-
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_renungan_gema, container, false);
         return rootView;
     }
 
@@ -213,7 +182,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            Log.d("masuk onDateSet pertama dialogFragment","..");
             // TODO Auto-generated method stub
             // arg1 = year
             // arg2 = month
@@ -234,17 +202,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         }
     }
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -253,11 +210,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Log.d("masuk onDateSet dialogFragment","..");
-//        year_chosen = year;
-//        month_chosen = month + 1;
-//        day_chosen = day;
-        Toast.makeText(getActivity(), "masuk dateSetListener..", Toast.LENGTH_LONG).show();
+
     }
 
     /**
@@ -300,7 +253,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-//            now = df.format(calendar.getTime());Ho
             HttpClient client = new DefaultHttpClient();
 
             HttpGet request = new HttpGet(Controller.url+"view_gema.php?Tanggal="+now); // ngikutin ip disini loh
@@ -317,7 +269,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
                 while ((line = rd.readLine()) != null) {
                     result += line;
                 }
-//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
                 Log.d("Result", result);
 
                 try {
@@ -340,50 +291,59 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
         @Override
         protected void onPostExecute(String result) {
-            String judul= null,IsiAyat=null,kitab,pasal,ayat,IsiRenungan=null,linkGambar;
-            //add LinearLayout
-                myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
-                //add LayoutParams
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0,0,0,30);
-                myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            String judul = null, IsiAyat = null, kitab, pasal, ayat, IsiRenungan = null, linkGambar = null;
 
-                int colorWhite = Color.WHITE;
+            // Add LinearLayout
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
 
-                JSONObject jsonobj = null;
-                try {
-                    jsonobj = arr.getJSONObject(0);
-                    Log.d("JSONObject", arr.getJSONObject(0).toString());
-                    judul = jsonobj.getString("judul");
-                    IsiAyat = jsonobj.getString("firman");
-                    IsiRenungan = jsonobj.getString("deskripsi");
-                    linkGambar = jsonobj.getString("gambar");
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            int image_width = display.getWidth()/3;
+            int image_height = (int) (display.getHeight()/4.3);
 
-                    Log.d("Isi renungan",IsiRenungan);
+            // Add LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0,0,0,30);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            JSONObject jsonobj = null;
+            try {
+                jsonobj = arr.getJSONObject(0);
+                Log.d("JSONObject", arr.getJSONObject(0).toString());
+                judul = jsonobj.getString("judul");
+                IsiAyat = jsonobj.getString("firman");
+                IsiRenungan = jsonobj.getString("deskripsi");
+                linkGambar = Controller.url + "res/gema/";
+                linkGambar += jsonobj.getString("gambar");
 
-                // Isi Ayat
-                TextView ayatRenungan = new TextView(getActivity());
-                ayatRenungan.setText(IsiAyat);
-                ayatRenungan.setLayoutParams(params);
-//        ayatRenungan.setTextColor(colorWhite);
-                ayatRenungan.setGravity(1);
-                myLinearLayout.addView(ayatRenungan);
-
-                // Isi Renungan
-                TextView isiRenungan = new TextView(getActivity());
-                isiRenungan.setText(IsiRenungan);
-                isiRenungan.setLayoutParams(params);
-                isiRenungan.setGravity(0);
-//        isiRenungan.setTextColor(colorWhite);
-                myLinearLayout.addView(isiRenungan);
-
-//        } catch(JSONException e){e.printStackTrace();}
-
+                Log.d("Isi renungan",IsiRenungan);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+            // Add image View
+            ImageView GambarIV = new ImageView(getActivity());
+
+            // Loading image from below url into imageView
+        Picasso.with(getActivity())
+                    .load(linkGambar)
+                    .resize(image_height, image_width)
+                    .into(GambarIV);
+            GambarIV.setLayoutParams(params);
+            myLinearLayout.addView(GambarIV);
+
+            TextView ayatRenungan = new TextView(getActivity());
+            ayatRenungan.setText(IsiAyat);
+            ayatRenungan.setLayoutParams(params);
+            ayatRenungan.setGravity(1);
+            myLinearLayout.addView(ayatRenungan);
+
+            // Isi Renungan
+            TextView isiRenungan = new TextView(getActivity());
+            isiRenungan.setText(IsiRenungan);
+            isiRenungan.setLayoutParams(params);
+            isiRenungan.setGravity(0);
+            myLinearLayout.addView(isiRenungan);
+        }
     }
 
     public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
@@ -400,9 +360,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Log.d("DatePicker", "masuk create");
-            Calendar cal = Calendar.getInstance();
-
             // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
@@ -410,13 +367,11 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            Log.d("DatePicker", "keluar create");
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            Log.d("DatePicker", "masuk set");
             pYear = year;
             pDay = day;
             pMonth = month;

@@ -1,24 +1,20 @@
+
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-/*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -31,6 +27,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -60,7 +57,13 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
 
-    private boolean isKPPKExist = false;
+    private SearchView sv;
+    private LinearLayout cllr;
+    private String keyword = null;
+
+    private ArrayList<String> arrKPPK;
+    private Boolean adaKPPK = false;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -85,11 +88,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
 
-//    @Override
-//    public void onResume () {
-//        v.execute();
-//    }
-
     private DataBaseHelper DB;
     private Button kppk_download;
 
@@ -102,14 +100,59 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    private ArrayList<String> kppkSaved;
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList("kppkSaved",kppkSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        DataBaseHelper DBH = new DataBaseHelper(getActivity().getApplicationContext());
+        DBH.openDataBase();
+        if (savedInstanceState != null) {
+            // probably orientation change
+            Log.d("mencoba ambil arrayList yg disave..","..");
+            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
+            if (!DBH.isTableExists("kppk"))
+                generateKontenKPPK(false);
+            Log.d("berhasil ambil arrayList yang telah di-save","..");
+        }
+        else {
+            if (kppkSaved!=null) {
+                //returning from backstack, data is fine, do nothing
+                Log.d("from KPPK, si arrayList!=null","..");
+                if (!DBH.isTableExists("kppk"))
+                    generateKontenKPPK(false);
+            }
+            else {
+                //newly created, compute data
+                Log.d("from KPPK, new Viewer & execute","..");
+                if (!DBH.isTableExists("kppk")) {
+                    v = new Viewer();
+                    v.execute();
+                }
+            }
+        }
+    }
+
     private LinearLayout myLinearLayout;
 
-    private void generateKontenKPPK() {
+    private void generateKontenKPPK(boolean mode) {
+        // mode == true utk load dr database
+        // mode == false utk load dr konten yg telah disave dari server
         ArrayList<String> containerString = new ArrayList<String>();
-        containerString = DB.getKPPK();
+        if (mode)
+            containerString = DB.getKPPK();
+        else
+            containerString = kppkSaved;
 
         myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
-        //add LayoutParams
+
+        // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         params.setMargins(0, 10, 20, 0);
@@ -121,21 +164,21 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         for (int i=0; i<dataLength; i=i+2) {
             String container = "KPPK " + Integer.toString(cnt) + " - " + containerString.get(i);
             cnt++;
-            //add Button Judul KPPk
+
+            // Add Button Judul KPPk
             ListKPPK = new Button(getActivity());
             ListKPPK.setText(container);
             ListKPPK.setLayoutParams(params);
-//            ListKPPK.setTextColor(colorWhite);
             ListKPPK.setBackgroundColor(0);
 
             final String _isi = containerString.get(i+1);
 
-            //add button listener here
+            // Add button listener here
             ListKPPK.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // masuk ke kosntruktor parameter kppkLiengkapFragment dgn parameternya: isi
+                        // masuk ke kosntruktor parameter kppkLengkapFragment dengan parameter isi
                         frag = new KPPKLengkapFragment(_isi);
                         fragManager = getActivity().getSupportFragmentManager();
                         fragTransaction = fragManager.beginTransaction();
@@ -154,7 +197,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_kppk, container, false);
         rootView = inflater.inflate(R.layout.fragment_kppk, container, false);
         kppk_download = (Button) rootView.findViewById(R.id.kppk_download);
         kppk_download.setOnClickListener(this);
@@ -163,16 +205,45 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         DB.openDataBase();
         if (DB.isTableExists("KPPK")) {
             // Jika tabel KPPK exist, berarti sudah pernah di-download. Tampilkan daftar KPPK dari database
-//            isKPPKExist = true;
             kppk_download.setVisibility(View.INVISIBLE);
             Log.d("tabel KPPK sudah exist","..");
-            generateKontenKPPK();
+            generateKontenKPPK(true);
         }
         else {
             // Belum pernah download KPPK, maka tampilkan dari ambil JSON ke server
-//            isKPPKExist = false;
-            v.execute();
+            /*v.execute();*/
         }
+
+        sv = (SearchView) rootView.findViewById(R.id.kppk_searchview);
+        cllr = (LinearLayout) rootView.findViewById(R.id.container_kppk);
+
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                keyword = s;
+                Toast.makeText(getActivity(), "KPPK yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
+
+                if (DB.isTableExists("KPPK")) {
+                    arrKPPK = DB.searchKPPK(keyword);
+
+                    if (arrKPPK.size() != 0) {
+                        adaKPPK = true;
+                    }
+                }
+
+                cllr.removeAllViews();
+                ViewerSearch vs = new ViewerSearch();
+                vs.execute();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return rootView;
     }
 
@@ -233,9 +304,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
@@ -243,7 +312,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             String status ="";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_kppk.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_kppk.php");
             HttpResponse response;
 
             try {
@@ -256,7 +325,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 while ((line = rd.readLine()) != null) {
                     result += line;
                 }
-//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
+
                 Log.d("Result", result);
 
                 try {
@@ -282,8 +351,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             int dataLength = arr.length();
             ArrayList<String> tmp = new ArrayList<String>();
 
-            String judul=null, isi=null;
-            // Generate konten Event dalam loop for
+            String judul = null, isi = null;
+            // Generate konten KPPK dalam loop for
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
                 try {
@@ -317,11 +386,11 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
             int dataLength = arr.length();
 
-            //            Display display = getActivity().getWindowManager().getDefaultDisplay();
-
-            int colorWhite = Color.WHITE;
-
+            int colorBlack = Color.BLACK;
             String container, judul, isi = null;
+
+            kppkSaved = new ArrayList<String>();
+
             // Generate konten KPPK dalam loop for
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
@@ -332,43 +401,233 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
 
+                    kppkSaved.add(judul);
+                    kppkSaved.add(isi);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 container = "KPPK " + Integer.toString(i + 1) + " - " + judul;
-                Log.d("KPPK: ", "akan masuk add button");
-                //add Button Judul KPPk
+
+                // Add Button Judul KPPk
                 ListKPPK = new Button(getActivity());
                 ListKPPK.setText(container);
                 ListKPPK.setLayoutParams(params);
-                ListKPPK.setTextColor(colorWhite);
+                ListKPPK.setTextColor(colorBlack);
                 ListKPPK.setBackgroundColor(0);
-
-                Log.d("KPPK: ", "selesai add button");
 
                 final String _isi = isi;
 
-                //add button listener here
-                Log.d("KPPK: ", "akan masuk onClickListener");
+                // Add button listener here
                 ListKPPK.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // masuk ke konstruktor parameter kppkLengkapFragment dgn parameternya: isi
-                            Log.d("KPPK: ", "masuk onClickListener");
+                            // Masuk ke konstruktor parameter kppkLengkapFragment dengan parameter isi
                             frag = new KPPKLengkapFragment(_isi);
                             fragManager = getActivity().getSupportFragmentManager();
                             fragTransaction = fragManager.beginTransaction();
                             fragTransaction.replace(R.id.container, frag);
                             fragTransaction.addToBackStack(null);
                             fragTransaction.commit();
-                            Log.d("KPPK: ", "selesai onClickListener");
                         }
                     }
                 );
 
                 myLinearLayout.addView(ListKPPK);
+            }
+        }
+    }
+
+    class ViewerSearch extends AsyncTask<String, String, String> {
+        private Button ListKPPK;
+
+        JSONArray arr = new JSONArray();
+
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+            String status ="";
+//            for (String urlp : params) {
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(Controller.url+"view_kppksearch.php?kw=" + keyword);
+            HttpResponse response;
+
+            try {
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
+
+                Log.d("Result", result);
+
+                try {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+                    status = "ok";
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+//            }
+            return "";
+        }
+
+        public void downloadKPPK() {
+            int dataLength = arr.length();
+            ArrayList<String> tmp = new ArrayList<String>();
+
+            String judul = null, isi = null;
+            // Generate konten KPPK dalam loop for
+            for (int i = 0; i < dataLength; i++) {
+                JSONObject jsonobj = null;
+                try {
+                    jsonobj = arr.getJSONObject(i);
+                    Log.d("JSONObject", arr.getJSONObject(i).toString());
+                    judul = jsonobj.getString("judul");
+                    isi = jsonobj.getString("isi");
+                    tmp.add(judul);
+                    tmp.add(isi);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (DB.isTableExists("KPPK")) {
+                Log.d("tabel KPPK exist! persiapan delete tabel kppk..","..");
+                DB.deleteTableKPPK();
+            }
+            Log.d("persiapan membuat tabel kppk baru..","..");
+            DB.createTableKPPK();
+            Log.d("persiapan insert data pada tabel kppk..","..");
+            DB.insertDataKPPK(tmp);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
+            //add LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            params.setMargins(0, 10, 20, 0);
+
+            int dataLength = arr.length();
+
+            int colorBlack = Color.BLACK;
+
+            String container, judul = null, isi = null;
+
+            kppkSaved = new ArrayList<String>();
+
+            // Cari dari server
+            if (!adaKPPK) {
+                for (int i = 0; i < dataLength; i++) {
+                    JSONObject jsonobj = null;
+                    judul = "";
+                    try {
+                        jsonobj = arr.getJSONObject(i);
+                        Log.d("JSONObject", arr.getJSONObject(i).toString());
+                        judul = jsonobj.getString("judul");
+                        isi = jsonobj.getString("isi");
+
+                        kppkSaved.add(judul);
+                        kppkSaved.add(isi);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    container = "KPPK " + Integer.toString(i + 1) + " - " + judul;
+
+                    // Add Button Judul KPPk
+                    ListKPPK = new Button(getActivity());
+                    ListKPPK.setText(container);
+                    ListKPPK.setLayoutParams(params);
+                    ListKPPK.setTextColor(colorBlack);
+                    ListKPPK.setBackgroundColor(0);
+
+                    final String _isi = isi;
+
+                    // Add button listener here
+                    ListKPPK.setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    // Masuk ke konstruktor parameter kppkLengkapFragment dengan parameter isi
+                                    frag = new KPPKLengkapFragment(_isi);
+                                    fragManager = getActivity().getSupportFragmentManager();
+                                    fragTransaction = fragManager.beginTransaction();
+                                    fragTransaction.replace(R.id.container, frag);
+                                    fragTransaction.addToBackStack(null);
+                                    fragTransaction.commit();
+                                }
+                            }
+                    );
+
+                    myLinearLayout.addView(ListKPPK);
+                }
+            }
+
+            // Cari dari basis data KPPK
+            else {
+                Log.d("adaKPPK", "generate dari DB");
+                Toast.makeText(getActivity(), "KPPK yang Anda cari: " + keyword + " digenerate dari DB", Toast.LENGTH_LONG).show();
+                // Generate konten KPPK dalam loop for
+                for (int i = 0; i < arrKPPK.size(); i = i + 2) {
+                    try {
+                        judul = arrKPPK.get(i);
+                        isi = arrKPPK.get(i + 1);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    container = "KPPK " + Integer.toString(i + 1) + " - " + judul;
+
+                    // Add Button Judul KPPK
+                    ListKPPK = new Button(getActivity());
+                    ListKPPK.setText(container);
+                    ListKPPK.setLayoutParams(params);
+                    ListKPPK.setTextColor(colorBlack);
+                    ListKPPK.setBackgroundColor(0);
+
+                    final String _isi = isi;
+
+                    // Add button listener here
+                    ListKPPK.setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    // Masuk ke konstruktor parameter KPPKLengkapFragment dengan parameter isi
+                                    frag = new KPPKLengkapFragment(_isi);
+                                    fragManager = getActivity().getSupportFragmentManager();
+                                    fragTransaction = fragManager.beginTransaction();
+                                    fragTransaction.replace(R.id.container, frag);
+                                    fragTransaction.addToBackStack(null);
+                                    fragTransaction.commit();
+                                }
+                            }
+                    );
+
+                    myLinearLayout.addView(ListKPPK);
+                }
             }
         }
     }

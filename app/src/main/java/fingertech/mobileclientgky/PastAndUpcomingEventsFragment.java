@@ -17,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -59,6 +61,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
 
+    private SearchView sv;
+    private LinearLayout cll;
+    private String keyword = null;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -98,8 +104,27 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_past_and_upcoming_events, container, false);
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_event, container, false);
+
+        sv = (SearchView) rootView.findViewById(R.id.pastupcoming_searchView);
+        cll = (LinearLayout) rootView.findViewById(R.id.container_pastupcoming);
+
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit (String s) {
+                keyword = s;
+                Toast.makeText(getActivity(), "Event yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
+                cll.removeAllViews();
+                ViewerSearch vs = new ViewerSearch();
+                vs.execute();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return rootView;
     }
 
@@ -109,17 +134,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -171,7 +185,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             String statu = "";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_event.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_event.php");
             HttpResponse response;
 
             try {
@@ -258,10 +272,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
                 Log.d("for i: ", Integer.toString(i));
 
-                //add image View
+                // Add image View
                 ImageView GambarIV = new ImageView(getActivity());
 
-                //Loading image from below url into imageView
+                // Loading image from below url into imageView
                 Picasso.with(getActivity())
                         .load(linkGambar)
                         .resize(image_height, image_width)
@@ -269,14 +283,14 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 GambarIV.setLayoutParams(params);
                 rowLayout.addView(GambarIV);
 
-                //add text View TitleEventTV
+                // Add text View TitleEventTV
                 TitleEventTV = new TextView(getActivity());
                 TitleEventTV.setText("Event: ");
                 TitleEventTV.setLayoutParams(params);
                 TitleEventTV.setTextColor(colorWhite);
                 subRowLayout.addView(TitleEventTV);
 
-                //add text View JudulEventTV
+                // Add text View JudulEventTV
                 JudulEventTV = new TextView(getActivity());
                 JudulEventTV.setText(judul);
                 JudulEventTV.setLayoutParams(params);
@@ -284,14 +298,14 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                //add text View TitleTanggalTV
+                // Add text View TitleTanggalTV
                 TitleTanggalTV = new TextView(getActivity());
                 TitleTanggalTV.setText("Tanggal: ");
                 TitleTanggalTV.setTextColor(colorWhite);
                 TitleTanggalTV.setLayoutParams(params);
                 subRowLayout.addView(TitleTanggalTV);
 
-                //add text View JudulTanggalTV
+                // Add text View JudulTanggalTV
                 JudulTanggalTV= new TextView(getActivity());
                 JudulTanggalTV.setText(tanggal);
                 JudulTanggalTV.setLayoutParams(params);
@@ -299,14 +313,14 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                //add text View TitleWaktuTV
+                // Add text View TitleWaktuTV
                 TitleWaktuTV = new TextView(getActivity());
                 TitleWaktuTV.setText("Waktu: ");
                 TitleWaktuTV.setTextColor(colorWhite);
                 TitleWaktuTV.setLayoutParams(params);
                 subRowLayout.addView(TitleWaktuTV);
 
-                //add text View JudulWaktuTV
+                // Add text View JudulWaktuTV
                 JudulWaktuTV = new TextView(getActivity());
                 JudulWaktuTV.setText(tanggal);
                 JudulWaktuTV.setLayoutParams(params);
@@ -314,13 +328,14 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                //add text View TitleKeteranganTV
+                // Add text View TitleKeteranganTV
                 TitleKeteranganTV = new TextView(getActivity());
                 TitleKeteranganTV.setText("Keterangan: ");
                 TitleKeteranganTV.setTextColor(colorWhite);
                 TitleKeteranganTV.setLayoutParams(params);
                 subRowLayout.addView(TitleKeteranganTV);
-                //add text View IsiKeteranganTV
+
+                // Add text View IsiKeteranganTV
                 IsiKeteranganTV = new TextView(getActivity());
                 if (keterangan.length()>80) {
                     keterangan = keterangan.substring(0, 80);
@@ -332,7 +347,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                //add selengkapnya button
+                // Add selengkapnya button
                 SelengkapnyaBtn = new Button(getActivity());
                 SelengkapnyaBtn.setText("Selengkapnya");
                 SelengkapnyaBtn.setLayoutParams(params);
@@ -348,15 +363,237 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                // masuk ke konstruktor parameter LirikLaguRohaniLengkapFragment dgn parameternya: isi
-                                Log.d("PastAndUpcomingEvents: ", "masuk onClickListener");
+                                // Masuk ke konstruktor parameter EventLengkapFragment dengan parameter isi
                                 frag = new EventLengkapFragment(finalJudul, finalTanggal, finalKeterangan, finalLinkGambar);
                                 fragManager = getActivity().getSupportFragmentManager();
                                 fragTransaction = fragManager.beginTransaction();
                                 fragTransaction.replace(R.id.container, frag);
                                 fragTransaction.addToBackStack(null);
                                 fragTransaction.commit();
-                                Log.d("PastAndUpcomingEvents: ", "selesai onClickListener");
+                            }
+                        }
+                );
+
+                if (i!=dataLength) {
+                    rowLayout.addView(colLayout);
+                    myLinearLayout.addView(rowLayout);
+                    rowLayout = new LinearLayout(getActivity());
+                    colLayout = new LinearLayout(getActivity());
+                    colLayout.setOrientation(LinearLayout.VERTICAL);
+                    subRowLayout = new LinearLayout(getActivity());
+                }
+            }
+        }
+    }
+
+    class ViewerSearch extends AsyncTask<String, String, String> {
+        private LinearLayout myLinearLayout;
+        private TextView TitleEventTV;
+        private TextView JudulEventTV;
+        private TextView TitleTanggalTV;
+        private TextView JudulTanggalTV;
+        private TextView TitleWaktuTV;
+        private TextView JudulWaktuTV;
+        private TextView TitleKeteranganTV;
+        private TextView IsiKeteranganTV;
+        private Button SelengkapnyaBtn;
+
+        JSONArray arr = new JSONArray();
+
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+        };
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+            String statu = "";
+//            for (String urlp : params) {
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(Controller.url+"view_eventsearch.php?kw=" + keyword);
+            HttpResponse response;
+
+            try {
+
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
+//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
+                Log.d("Result", result);
+
+                try {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+                    statu = "ok";
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+//            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
+            //add LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            params.setMargins(0, 10, 20, 0);
+
+            LinearLayout rowLayout = new LinearLayout(getActivity());
+            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            //buat linear layout vertical utk menampung kata2
+            LinearLayout colLayout = new LinearLayout(getActivity());
+            colLayout.setOrientation(LinearLayout.VERTICAL);
+            colLayout.setPadding(0,10,10,0);
+
+            LinearLayout subRowLayout = new LinearLayout(getActivity());
+            subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            int dataLength = arr.length();
+
+            LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            int image_width = display.getWidth()/3;
+            int image_height = (int) (display.getHeight()/4.3);
+
+            int colorWhite = Color.WHITE;
+
+            String judul = null,tanggal = null ,keterangan = null,linkGambar = null;
+            // Generate konten Event dalam loop for
+            for (int i=0; i<dataLength; i++){
+                JSONObject jsonobj = null;
+                try {
+                    jsonobj = arr.getJSONObject(i);
+                    Log.d("JSONObject",arr.getJSONObject(i).toString());
+                    judul = jsonobj.getString("judul");
+                    tanggal = jsonobj.getString("tanggal");
+                    keterangan = jsonobj.getString("keterangan");
+                    linkGambar = Controller.url + "res/event/";
+                    linkGambar += jsonobj.getString("gambarevent");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // Add image View
+                ImageView GambarIV = new ImageView(getActivity());
+
+                // Loading image from below url into imageView
+                Picasso.with(getActivity())
+                        .load(linkGambar)
+                        .resize(image_height, image_width)
+                        .into(GambarIV);
+                GambarIV.setLayoutParams(params);
+                rowLayout.addView(GambarIV);
+
+                // Add text View TitleEventTV
+                TitleEventTV = new TextView(getActivity());
+                TitleEventTV.setText("Event: ");
+                TitleEventTV.setLayoutParams(params);
+                TitleEventTV.setTextColor(colorWhite);
+                subRowLayout.addView(TitleEventTV);
+
+                // Add text View JudulEventTV
+                JudulEventTV = new TextView(getActivity());
+                JudulEventTV.setText(judul);
+                JudulEventTV.setLayoutParams(params);
+                subRowLayout.addView(JudulEventTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                // Add text View TitleTanggalTV
+                TitleTanggalTV = new TextView(getActivity());
+                TitleTanggalTV.setText("Tanggal: ");
+                TitleTanggalTV.setTextColor(colorWhite);
+                TitleTanggalTV.setLayoutParams(params);
+                subRowLayout.addView(TitleTanggalTV);
+
+                // Add text View JudulTanggalTV
+                JudulTanggalTV= new TextView(getActivity());
+                JudulTanggalTV.setText(tanggal);
+                JudulTanggalTV.setLayoutParams(params);
+                subRowLayout.addView(JudulTanggalTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                // Add text View TitleWaktuTV
+                TitleWaktuTV = new TextView(getActivity());
+                TitleWaktuTV.setText("Waktu: ");
+                TitleWaktuTV.setTextColor(colorWhite);
+                TitleWaktuTV.setLayoutParams(params);
+                subRowLayout.addView(TitleWaktuTV);
+
+                // Add text View JudulWaktuTV
+                JudulWaktuTV = new TextView(getActivity());
+                JudulWaktuTV.setText(tanggal);
+                JudulWaktuTV.setLayoutParams(params);
+                subRowLayout.addView(JudulWaktuTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                // Add text View TitleKeteranganTV
+                TitleKeteranganTV = new TextView(getActivity());
+                TitleKeteranganTV.setText("Keterangan: ");
+                TitleKeteranganTV.setTextColor(colorWhite);
+                TitleKeteranganTV.setLayoutParams(params);
+                subRowLayout.addView(TitleKeteranganTV);
+
+                // Add text View IsiKeteranganTV
+                IsiKeteranganTV = new TextView(getActivity());
+                if (keterangan.length()>80) {
+                    keterangan = keterangan.substring(0, 80);
+                    keterangan = keterangan + "...";
+                }
+                IsiKeteranganTV.setText(keterangan);
+                IsiKeteranganTV.setLayoutParams(params);
+                subRowLayout.addView(IsiKeteranganTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                // Add selengkapnya button
+                SelengkapnyaBtn = new Button(getActivity());
+                SelengkapnyaBtn.setText("Selengkapnya");
+                SelengkapnyaBtn.setLayoutParams(params);
+                SelengkapnyaBtn.setBackgroundColor(0);
+                subRowLayout.addView(SelengkapnyaBtn);
+                colLayout.addView(subRowLayout);
+
+                final String finalJudul = judul;
+                final String finalTanggal = tanggal;
+                final String finalKeterangan = keterangan;
+                final String finalLinkGambar = linkGambar;
+                SelengkapnyaBtn.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // Masuk ke konstruktor parameter EventLengkapFragment dengan parameter isi
+                                frag = new EventLengkapFragment(finalJudul, finalTanggal, finalKeterangan, finalLinkGambar);
+                                fragManager = getActivity().getSupportFragmentManager();
+                                fragTransaction = fragManager.beginTransaction();
+                                fragTransaction.replace(R.id.container, frag);
+                                fragTransaction.addToBackStack(null);
+                                fragTransaction.commit();
                             }
                         }
                 );

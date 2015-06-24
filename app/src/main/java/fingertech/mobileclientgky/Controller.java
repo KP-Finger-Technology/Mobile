@@ -36,9 +36,7 @@ public class Controller {
     private String writeResponse = null;
     private Context context;
 
-    public Controller (){
-
-    }
+    public Controller() {}
 
     public Controller(Context _context){
         this.context = _context;
@@ -75,10 +73,7 @@ public class Controller {
             @Override
             public void run() {
                 v.execute(url + "view_event.php");
-//                        Log.d("Now running", "execute viewer");
-                while(isArrEmpty()){
-//                            Log.d("Processing","...");
-                }
+                while(isArrEmpty()){}
                 Log.d("arrData",arrData.toString());
             }
         });
@@ -92,9 +87,7 @@ public class Controller {
             @Override
             public void run() {
                 v.execute(url + "view_jadwalpelayanan.php");
-                while(isArrEmpty()){
-//                    Log.d("Processing","...");
-                }
+                while(isArrEmpty()){}
                 Log.d("arrData",arrData.toString());
             }
         });
@@ -106,8 +99,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url + "add_doa.php?nama="+nama+"&umur="+umur+"&email="+email+"&nomortelepon="+tlp+"&jeniskelamin="+jk+"&doa="+isiDoa);
-                Log.d("URL",url+ "add_doa.php?nama="+nama+"&umur="+umur+"&email="+email+"&nomortelepon="+tlp+"&jeniskelamin="+jk+"&doa="+isiDoa);
+                new Writer().execute(url + "add_doa.php?nama=" + nama + "&umur=" + umur + "&email=" + email + "&nomortelepon=" + tlp + "&jeniskelamin=" + jk + "&doa=" + isiDoa);
+                Log.d("URL", url + "add_doa.php?nama=" + nama + "&umur=" + umur + "&email=" + email + "&nomortelepon=" + tlp + "&jeniskelamin=" + jk + "&doa=" + isiDoa);
             }
         });
     }
@@ -140,10 +133,9 @@ public class Controller {
     }
 
     public void login (final String nama,final String password ){
-        //get
         Writer w = new Writer();
-        w.execute(url + "login.php?nama="+nama+"&password="+password);
-        Log.d("Url",url + "login.php?nama="+nama+"&password="+password);
+        w.execute(url + "login.php?nama=" + nama + "&password=" + password);
+        Log.d("Url",url + "login.php?nama=" + nama + "&password=" + password);
 
     }
 
@@ -184,7 +176,7 @@ public class Controller {
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu ="";
+            String statu = "";
             for (String urlp : params) {
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet(urlp); // ngikutin ip disini loh
@@ -192,9 +184,7 @@ public class Controller {
 
                 Log.d("Now running,","do in background.");
 
-
                 try {
-
                     response = client.execute(request);
 
                     // Get the response
@@ -212,7 +202,6 @@ public class Controller {
                         arrData = res.getJSONArray("data");
                         Log.d("Array", arrData.toString());
                         statu = "ok";
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -221,8 +210,6 @@ public class Controller {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
-
             }
             return "";
         }
@@ -241,7 +228,6 @@ public class Controller {
             }
 
             try {
-//                for (String urlp : params) {
                 DefaultHttpClient httpclient = new DefaultHttpClient();
                 HttpPost httpPostRequest = new HttpPost(urlpost);
 
@@ -278,7 +264,6 @@ public class Controller {
 
 //                    Raw DEBUG output of our received JSON object:
                     Log.i(TAG, "<JSONObject>\n" + resultString + "\n</JSONObject>");
-
 
                     return result;
 //                }
@@ -319,7 +304,7 @@ public class Controller {
                 Toast.makeText(context, "login success", Toast.LENGTH_LONG).show();
                 Log.d("log in ","success");
             } else {
-                Toast.makeText(context, "login "+ writeResponse, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "login " + writeResponse, Toast.LENGTH_LONG).show();
                 Log.d("log in ", "fail");
             }
         }
