@@ -1,3 +1,4 @@
+
 package fingertech.mobileclientgky;
 
 import android.app.Activity;
@@ -31,6 +32,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -97,37 +99,54 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    private ArrayList<String> kppkSaved;
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putSerializable("list", (Serializable) myData);
-
+        outState.putStringArrayList("kppkSaved",kppkSaved);
     }
 
-//    @Override
-//    public void onActivityCreated(Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        if (savedInstanceState != null) {
-//            // probably orientation change
-//            myData = (List<String>) savedInstanceState.getSerializable("list");
-//        }
-//        else {
-//            if (myData != null) {
-//                //returning from backstack, data is fine, do nothing
-//            }
-//            else {
-//                //newly created, compute data
-//                myData = computeData();
-//            }
-//        }
-//    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        DataBaseHelper DBH = new DataBaseHelper(getActivity().getApplicationContext());
+        if (savedInstanceState != null) {
+            // probably orientation change
+            Log.d("mencoba ambil arrayList yg disave..","..");
+            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
+            Log.d("berhasil ambil arrayList yang telah di-save","..");
+        }
+        else {
+            if (kppkSaved!=null) {
+                //returning from backstack, data is fine, do nothing
+                Log.d("from KPPK, si arrayList!=null","..");
+                if (!DBH.isTableExists("kppk"))
+                    generateKontenKPPK(false);
+            }
+            else {
+                //newly created, compute data
+                Log.d("from KPPK, new Viewer & execute","..");
+                if (!DBH.isTableExists("kppk")) {
+                    v = new Viewer();
+                    v.execute();
+                }
+            }
+        }
+    }
 
     private LinearLayout myLinearLayout;
 
-    private void generateKontenKPPK() {
+    private void generateKontenKPPK(boolean mode) {
+        // mode==true utk load dari database
+        // mode==false utk load dr konten yg telah di save dari server
+
         ArrayList<String> containerString = new ArrayList<String>();
-        containerString = DB.getKPPK();
+
+        if (mode)
+            containerString = DB.getKPPK();
+        else
+            containerString = kppkSaved;
 
         myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
         //add LayoutParams
@@ -187,12 +206,12 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 //            isKPPKExist = true;
             kppk_download.setVisibility(View.INVISIBLE);
             Log.d("tabel KPPK sudah exist","..");
-            generateKontenKPPK();
+            generateKontenKPPK(true);
         }
         else {
             // Belum pernah download KPPK, maka tampilkan dari ambil JSON ke server
 //            isKPPKExist = false;
-            v.execute();
+//            v.execute();
         }
         return rootView;
     }
@@ -341,8 +360,10 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             //            Display display = getActivity().getWindowManager().getDefaultDisplay();
 
             int colorWhite = Color.WHITE;
-
             String container, judul, isi = null;
+
+            kppkSaved = new ArrayList<String>();
+
             // Generate konten KPPK dalam loop for
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
@@ -353,6 +374,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
 
+                    kppkSaved.add(judul);
+                    kppkSaved.add(isi);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
