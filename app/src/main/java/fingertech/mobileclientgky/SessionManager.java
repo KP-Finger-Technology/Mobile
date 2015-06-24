@@ -35,6 +35,8 @@ public class SessionManager {
     public static final String KEY_TELEPON = "telepon";
     public static final String KEY_IDBAPTIS = "idbaptis";
     public static final String KEY_TGL = "tgllahir";
+    public static final String KEY_KOMISI = "komisi";
+    public static final String KEY_PELAYANAN = "pelayanan";
 
 
     // Email address (make variable public to access from outside)
@@ -54,7 +56,7 @@ public class SessionManager {
         }
     }
 
-    public void createLoginSession(String name ,String id,String email , String alamat, String telepon,String idbaptis,String tgllahir){
+    public void createLoginSession(String name ,String id,String email , String alamat, String telepon,String idbaptis,String tgllahir,String komisi ,String pelayanan){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -65,6 +67,8 @@ public class SessionManager {
         editor.putString(KEY_TELEPON, telepon);
         editor.putString(KEY_IDBAPTIS, idbaptis);
         editor.putString(KEY_TGL, tgllahir);
+        editor.putString(KEY_KOMISI, komisi);
+        editor.putString(KEY_PELAYANAN, pelayanan);
 
         // Storing email in pref
         editor.putString(KEY_ID, id);
@@ -73,6 +77,25 @@ public class SessionManager {
         editor.commit();
 
        Log.d("Preferen",pref.getAll().toString());
+    }
+
+    public void editLoginSession(String name ,String email , String alamat, String telepon,String idbaptis,String komisi ,String pelayanan){
+        // Storing login value as TRUE
+        editor.putBoolean(IS_LOGIN, true);
+
+        // Storing name in pref
+        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_ALAMAT, alamat);
+        editor.putString(KEY_TELEPON, telepon);
+        editor.putString(KEY_IDBAPTIS, idbaptis);
+        editor.putString(KEY_KOMISI, komisi);
+        editor.putString(KEY_PELAYANAN, pelayanan);
+
+        // commit changes
+        editor.commit();
+
+        Log.d("Preferen",pref.getAll().toString());
     }
     /**
      * Get stored session data

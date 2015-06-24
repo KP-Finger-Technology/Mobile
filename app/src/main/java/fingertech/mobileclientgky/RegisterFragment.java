@@ -363,12 +363,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             pYear = year;
             pDay = day;
             pMonth = month;
-
-            Log.d("DatePicker", "keluar set");
-            Log.d("DatePicker pyear", Integer.toString(pYear));
-            Log.d("DatePicker pday", Integer.toString(pDay));
-            Log.d("DatePicker pmonth", Integer.toString(pMonth));
-
             Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
 
             String bulan = null;

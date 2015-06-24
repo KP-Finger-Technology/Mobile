@@ -30,7 +30,7 @@ import java.util.TimerTask;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-    public static final String url = "http://192.168.0.104/gky_web_service/";
+    public static final String url = "http://192.168.0.108/gky_web_service/";
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;
@@ -124,7 +124,7 @@ public class Controller {
         });
     }
 
-    public void editprofil(final String nama, final String email , final String tlp , final String alamat , final String tgllahir, final String idbaptis, final String komisi ,final String pelayanan ){
+    public void editprofil(final String nama, final String email , final String tlp , final String alamat ,final String idbaptis, final String komisi ,final String pelayanan ){
         //post
         SessionManager sm = new SessionManager(context);
         final String id = sm.pref.getAll().get("id").toString();
@@ -133,8 +133,8 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url + "edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir+"&iduser="+id);
-                Log.d("Url","edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir+"&iduser="+id);
+                new Writer().execute(url + "edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&id="+id);
+                Log.d("Url","edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&id="+id);
             }
         });
     }
@@ -298,7 +298,7 @@ public class Controller {
                 e.printStackTrace();
             }
         if(operation.equals("login")){
-            String nama=null, id=null ,email=null,alamat=null,telepon=null,idbaptis=null,tgllahir=null;
+            String nama=null, id=null ,email=null,alamat=null,telepon=null,idbaptis=null,tgllahir=null,komisi=null,pelayanan=null;
             try {
                 nama = result.getString("nama");
                 id = result.getString("id");
@@ -307,12 +307,15 @@ public class Controller {
                 telepon= result.getString("telepon");
                 idbaptis = result.getString("idbaptis");
                 tgllahir = result.getString("tgllahir");
+                komisi = result.getString("komisi");
+                pelayanan = result.getString("pelayanan");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             if (writeResponse.equals("ok")) {
                 SessionManager smn = new SessionManager(context);
-                smn.createLoginSession(nama, id,email,alamat,telepon,idbaptis,tgllahir);
+                smn.createLoginSession(nama, id,email,alamat,telepon,idbaptis,tgllahir,komisi,pelayanan);
                 Toast.makeText(context, "login success", Toast.LENGTH_LONG).show();
                 Log.d("log in ","success");
             } else {
@@ -333,6 +336,7 @@ public class Controller {
             if (writeResponse.equals("ok")) {
                 Toast.makeText(context, "edit profil success", Toast.LENGTH_LONG).show();
                 Log.d("Edit profil ","success");
+
             } else {
                 Toast.makeText(context, "edit profil" + writeResponse, Toast.LENGTH_LONG).show();
                 Log.d("edit profil ", "fail");

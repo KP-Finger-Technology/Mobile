@@ -118,22 +118,22 @@
                         android:ems="15"
                         android:id="@+id/profil_editAlamat"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/profil_textTanggalLahir"
-                        android:id="@+id/profil_textTanggalLahir"
-                        android:layout_marginTop="5dp"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                        <!--android:text="@string/profil_textTanggalLahir"-->
+                        <!--android:id="@+id/profil_textTanggalLahir"-->
+                        <!--android:layout_marginTop="5dp"/>-->
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:hint="dd/mm/yyyy"
-                        android:ems="15"
-                        android:id="@+id/profil_editTanggalLahir"
-                        android:onClick="setDate"/>
+                    <!--<EditText-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:focusable="false"-->
+                        <!--android:hint="dd/mm/yyyy"-->
+                        <!--android:ems="15"-->
+                        <!--android:id="@+id/profil_editTanggalLahir"-->
+                        <!--android:onClick="setDate"/>-->
 
                     <TextView
                         android:layout_width="wrap_content"

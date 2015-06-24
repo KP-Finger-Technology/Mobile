@@ -62,12 +62,13 @@ public class ProfilFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private View rootView;
-    private EditText dateET;
+    /*private EditText dateET;*/
     private Button ubahButton;
     private int pYear;
     private int pMonth;
     private int pDay;
-    private String now = null;
+    /*private String now = null;
+    private String tglLahir = null;*/
 
     /**
      * Use this factory method to create a new instance of
@@ -105,7 +106,7 @@ public class ProfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_profil, container, false);
 
-        dateET = (EditText) rootView.findViewById(R.id.profil_editTanggalLahir);
+        /*dateET = (EditText) rootView.findViewById(R.id.profil_editTanggalLahir);*/
         ubahButton = (Button) rootView.findViewById(R.id.profil_ubah);
 
         ubahButton.setOnClickListener(new View.OnClickListener() {
@@ -116,16 +117,16 @@ public class ProfilFragment extends Fragment {
             }
         });
 
-        dateET.setOnClickListener(new View.OnClickListener() {
+/*        dateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                setDate(v);
                 DatePickerDialogFragment datePicker = new DatePickerDialogFragment();
                 datePicker.show(getFragmentManager(), "datePicker");
 //                Toast.makeText(getActivity(), "clicking datepicker..", Toast.LENGTH_LONG).show();
-                /*Log.d("tanggal yg dipilih, tahun:"+ Integer.toString(datePicker.getpYear()) +" bulan:"+Integer.toString(datePicker.getpMonth())+" hari:"+Integer.toString(datePicker.getpDay()),"..");*/
+                *//*Log.d("tanggal yg dipilih, tahun:"+ Integer.toString(datePicker.getpYear()) +" bulan:"+Integer.toString(datePicker.getpMonth())+" hari:"+Integer.toString(datePicker.getpDay()),"..");*//*
             }
-        });
+        });*/
 
         // Inflate the layout for this fragment
         /*return inflater.inflate(R.layout.fragment_profil,, container, false);*/
@@ -170,7 +171,8 @@ public class ProfilFragment extends Fragment {
             Log.d("komisi", komisi);
 
             String pelayanan = "";
-
+            JSONArray komisiArr = new JSONArray();
+            JSONArray pelayananArr = new JSONArray();
             // Check which radio button was clicked
 //            switch(v.getId()) {
 //                case R.id.register_checkboxKomisiAnak:
@@ -178,43 +180,38 @@ public class ProfilFragment extends Fragment {
                 if(komisi!="")
                     komisi+=",";
                 komisi+="1";
-//                        break;
+                komisiArr.put(1);
             }
-//                case R.id.register_checkboxKomisiKaleb:
             if (checked_komisiKaleb){
                 if(komisi!="")
                     komisi+=",";
                 komisi+="2";
-//                        break;
+                komisiArr.put(2);
             }
             if (checked_komisiPasutri){
                 if(komisi!="")
                     komisi+=",";
                 komisi+="3";
-                //                        break;
+                komisiArr.put(3);
             }
 //                case R.id.register_checkboxKomisiPemudaDewasa:
             if (checked_komisiPemuda){
                 if(komisi!="")
                     komisi+=",";
                 komisi+="4";
-//                        break;
-            }
-            if (checked_komisiPemuda){
-                if(komisi!="")
-                    komisi+=",";
-                komisi+="4";
-                //                        break;
+                komisiArr.put(4);
             }
             if (checked_komisiRemaja){
                 if(komisi!="")
                     komisi+=",";
                 komisi+="5";
+                komisiArr.put(5);
             }
             if (checked_komisiWanita){
                 if(komisi!="")
                     komisi+=",";
                 komisi+="6";
+                komisiArr.put(6);
             }
 
 
@@ -222,37 +219,38 @@ public class ProfilFragment extends Fragment {
                 if(pelayanan!="")
                     pelayanan+=",";
                 pelayanan+="1";
+                pelayananArr.put(1);
             }
 
             if (checked_pelayananKaleb){
                 if(pelayanan!="")
                     pelayanan+=",";
                 pelayanan+="2";
+                pelayananArr.put(2);
             }
             if (checked_pelayananPasutri){
                 if(pelayanan!="")
                     pelayanan+=",";
                 pelayanan+="3";
+                pelayananArr.put(3);
             }
             if (checked_pelayananPemuda){
                 if(pelayanan!="")
                     pelayanan+=",";
                 pelayanan+="4";
-            }
-            if (checked_pelayananPemuda){
-                if(pelayanan!="")
-                    pelayanan+=",";
-                pelayanan+="4";
+                pelayananArr.put(4);
             }
             if (checked_pelayananRemaja){
                 if(pelayanan!="")
                     pelayanan+=",";
                 pelayanan+="5";
+                pelayananArr.put(5);
             }
             if (checked_pelayananWanita){
                 if(pelayanan!="")
                     pelayanan+=",";
                 pelayanan+="6";
+                pelayananArr.put(6);
             }
 
 //            }
@@ -262,18 +260,21 @@ public class ProfilFragment extends Fragment {
             /*Date date = new Date();*/
             String dateInString = null;
 
-            try {
-                /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");*/
-                dateInString = now;
-                /*date = formatter.parse(dateInString);
-                Log.d("now", now);*/
+            /*try {
+                *//*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");*//*
+                dateInString = tglLahir;
+                *//*date = formatter.parse(dateInString);
+                Log.d("now", now);*//*
                 Log.d("registerdate", dateInString);
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+            }*/
 
-            cont.editprofil(nama, email, telepon, alamat, dateInString, idbaptis, komisi, pelayanan);
-
+            cont.editprofil(nama, email, telepon, alamat,idbaptis, komisi, pelayanan);
+        Log.d("edit profilkomisi ",komisi);
+        Log.d("edit profil pel",pelayanan);
+            SessionManager smn = new SessionManager(getActivity().getApplicationContext());
+           smn.editLoginSession(nama,email,alamat,telepon,idbaptis,komisiArr.toString(),pelayananArr.toString());
     }
 
     public void generateProfilContent(){
@@ -282,17 +283,83 @@ public class ProfilFragment extends Fragment {
         EditText emailET = (EditText) rootView.findViewById(R.id.profil_editEmail);
         EditText teleponET = (EditText) rootView.findViewById(R.id.profil_editTelepon);
         EditText idbaptisET = (EditText) rootView.findViewById(R.id.profil_editIdBaptis);
-        EditText tglLahirET = (EditText) rootView.findViewById(R.id.profil_editTanggalLahir);
-
+//        EditText tglLahirET = (EditText) rootView.findViewById(R.id.profil_editTanggalLahir);
 
         SessionManager sm = new SessionManager(getActivity().getApplicationContext());
+
         namaET.setText(sm.pref.getAll().get("name").toString(), TextView.BufferType.EDITABLE);
         alamatET.setText(sm.pref.getAll().get("alamat").toString(), TextView.BufferType.EDITABLE);
         emailET.setText(sm.pref.getAll().get("email").toString(), TextView.BufferType.EDITABLE);
         teleponET.setText(sm.pref.getAll().get("telepon").toString(), TextView.BufferType.EDITABLE);
-        tglLahirET.setText(sm.pref.getAll().get("tgllahir").toString(),TextView.BufferType.EDITABLE);
+
+        /*tglLahir = sm.pref.getAll().get("telepon").toString();
+        int year = Integer.parseInt(tglLahir.substring(0, 3));
+        int month = Integer.parseInt(tglLahir.substring(5, 6));
+        int day = Integer.parseInt(tglLahir.substring(8, 9));*/
+
+        /*tglLahirET.setText(sm.pref.getAll().get("tgllahir").toString(),TextView.BufferType.EDITABLE);*/
+
         idbaptisET.setText(sm.pref.getAll().get("idbaptis").toString(),TextView.BufferType.EDITABLE);
 
+        String komisi = sm.pref.getAll().get("komisi").toString();
+        Log.d("isi string komisi",komisi);
+        String pelayanan = sm.pref.getAll().get("pelayanan").toString();
+        Log.d("isi string pelayanan",pelayanan);
+        try {
+            JSONArray arrKomisi = new JSONArray(komisi);
+            JSONArray arrPelayanan = new JSONArray(pelayanan);
+            Log.d("arrKomisi",arrKomisi.toString());
+            int length2 = arrKomisi.length();
+            for (int j=0; j<length2; j++) {
+                Log.d("isi array komisi",Integer.toString(arrKomisi.getInt(j)));
+
+                if (arrKomisi.getInt(j) == 1){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiAnak)).setChecked(true);
+                }
+                if (arrKomisi.getInt(j) == 2){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiKaleb)).setChecked(true);
+                }
+                if (arrKomisi.getInt(j) == 3){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiPasutri)).setChecked(true);
+                }
+                if (arrKomisi.getInt(j) == 4){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiPemudaDewasa)).setChecked(true);
+                }
+                if (arrKomisi.getInt(j) == 5){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiRemajaPemuda)).setChecked(true);
+                }
+                if (arrKomisi.getInt(j) == 6){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxKomisiWanita)).setChecked(true);
+                }
+
+            }
+            int length3 = arrPelayanan.length();
+            for (int j=0; j<length3; j++) {
+                Log.d("isi array pelayanan",Integer.toString(arrPelayanan.getInt(j)));
+                if (arrPelayanan.getInt(j) == 1){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananAnak)).setChecked(true);
+                }
+                if (arrPelayanan.getInt(j) == 2){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananKaleb)).setChecked(true);
+                }
+                if (arrPelayanan.getInt(j) == 3){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananPasutri)).setChecked(true);
+                }
+                if (arrPelayanan.getInt(j) == 4){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananPemudaDewasa)).setChecked(true);
+                }
+                if (arrPelayanan.getInt(j) == 5){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananRemajaPemuda)).setChecked(true);
+                }
+                if (arrPelayanan.getInt(j) == 6){
+                    ((CheckBox) rootView.findViewById(R.id.profil_checkboxPelayananWanita)).setChecked(true);
+                }
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -333,7 +400,7 @@ public class ProfilFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    /*public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -368,15 +435,60 @@ public class ProfilFragment extends Fragment {
             pDay = day;
             pMonth = month;
 
-            Log.d("DatePicker", "keluar set");
-            Log.d("DatePicker pyear", Integer.toString(pYear));
-            Log.d("DatePicker pday", Integer.toString(pDay));
-            Log.d("DatePicker pmonth", Integer.toString(pMonth));
-
             Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
 
-            now = Integer.toString(pYear) + "-" + Integer.toString(pMonth + 1) + "-" + Integer.toString(pDay);
-            dateET.setText(Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear));
+            String bulan = null;
+            // Januari
+            if (pMonth == 0) {
+                bulan = "01";
+            }
+            // Februari
+            else if (pMonth == 1) {
+                bulan = "02";
+            }
+            // Maret
+            else if (pMonth == 2) {
+                bulan = "03";
+            }
+            // April
+            else if (pMonth == 3) {
+                bulan = "04";
+            }
+            // Mei
+            else if (pMonth == 4) {
+                bulan = "05";
+            }
+            // Juni
+            else if (pMonth == 5) {
+                bulan = "06";
+            }
+            // Juli
+            else if (pMonth == 6) {
+                bulan = "07";
+            }
+            // Agustus
+            else if (pMonth == 7) {
+                bulan = "08";
+            }
+            // September
+            else if (pMonth == 8) {
+                bulan = "09";
+            }
+            // Oktober
+            else if (pMonth == 9) {
+                bulan = "10";
+            }
+            // November
+            else if (pMonth == 10) {
+                bulan = "11";
+            }
+            // Desember
+            else if (pMonth == 11) {
+                bulan = "12";
+            }
+
+            now = Integer.toString(pYear) + "-" + bulan + "-" + Integer.toString(pDay);
+            dateET.setText(Integer.toString(pDay) + "/" + bulan + "/" + Integer.toString(pYear));
         }
-    }
+    }*/
 }
