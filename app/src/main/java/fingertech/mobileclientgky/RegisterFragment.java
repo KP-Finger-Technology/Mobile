@@ -299,11 +299,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 });
             }
 
-            if (checked_komisiWanita) {
-                if (komisi != "")
-                    komisi += ",";
-                komisi += "6";
-
                 // Komisi Wanita
                 if (checked_komisiWanita) {
                     if (komisi != "")
@@ -363,6 +358,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     if (pelayanan != "")
                         pelayanan += ",";
                     pelayanan += "6";
+                }
 
 
                     Log.d("komisi selected", komisi);
@@ -387,8 +383,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
                 }
             }
-        }
-    }
 
     public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
