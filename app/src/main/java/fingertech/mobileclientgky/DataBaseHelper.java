@@ -22,8 +22,7 @@ import java.util.ArrayList;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     private static String my_package = "fingertech.mobileclientgky";
-    //The Android's default system path of your application database.
-//    private static String DB_PATH = "/data/data/"+my_package+"/databases/";
+    // The Android's default system path of your application database.
     private static String DB_PATH;
     private static String DB_NAME = "gky_pluit.db";
     private SQLiteDatabase myDataBase;
@@ -67,8 +66,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             Log.d("database already exist, not create","");
         }
         else{
-            //By calling this method and empty database will be created into the default system path
-            //of your application so we are gonna be able to overwrite that database with our database.
+            // By calling this method and empty database will be created into the default system path
+            // of your application so we are gonna be able to overwrite that database with our database.
             this.getReadableDatabase();
             try {
                 Log.d("persiapan copy database","...");
@@ -105,7 +104,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             checkDB.close();
             res = true;
         }
-//        boolean res = checkDB != null ? true : false;
         Log.d("nilai boolean res",Boolean.toString(res));
         return res;
     }
@@ -127,10 +125,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             Log.d("get Asset gagal","...");
 
         // Path to the just created empty db
-//        String outFileName = DB_PATH + DB_NAME;
+        // String outFileName = DB_PATH + DB_NAME;
         String outFileName = DB_PATH;
 
-        //Open the empty db as the output stream
+        // Open the empty db as the output stream
         OutputStream myOutput = new FileOutputStream(outFileName);
 
         if (myOutput != null)
@@ -138,14 +136,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         else
             Log.d("output Stream gagal!","link filename: "+outFileName);
 
-        //transfer bytes from the inputfile to the outputfile
+        // Transfer bytes from the inputfile to the outputfile
         byte[] buffer = new byte[1024];
         int length;
         while ((length = myInput.read(buffer))>0){
             myOutput.write(buffer, 0, length);
         }
 
-        //Close the streams
+        // Close the streams
         myInput.close();
         myOutput.flush();
         myOutput.close();
@@ -153,8 +151,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void openDataBase() throws SQLException {
-        //Open the database
-//        String myPath = DB_PATH + DB_NAME;
+        // Open the database
         String myPath = DB_PATH;
         myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
     }
@@ -176,6 +173,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return count > 0;
     }
 
+    @Override
+    public synchronized void close() {
+        if(myDataBase != null)
+            myDataBase.close();
+        super.close();
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {}
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+
+    // Add your public helper methods to access and get content from the database.
+    // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
+    // to you to create adapters for your views.
+
     // Untuk Alkitab
     public void getDaftarKitab() {
         if (DB_PATH != null) {
@@ -187,13 +201,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 int colPasal = cursor.getColumnIndex("pasal");
 
                 // Check if our result was valid
-                cursor.moveToFirst();
                 int i = 0;
-                if (cursor != null) {
+                if (cursor != null && cursor.moveToFirst()) {
                     // Loop through all Results
                     do {
-//                        pasalAlkitab[i] = cursor.getString(colKitab);
-//                        jumlahPasal[i] = cursor.getInt(colPasal);
                         pasalAlkitab.add(cursor.getString(colKitab));
                         jumlahPasal.add(cursor.getInt(colPasal));
                         i++;
@@ -204,50 +215,65 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-//    public void getPasal(String kitab, int pasal) {
-//        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
-//        int colIsi = cursor.getColumnIndex("isi");
-//
-//        // Check if our result was valid
-//        cursor.moveToFirst();
-//        int ayat = 1;
-//        resultQueryPasal = "";
-//        if (cursor != null) {
-//            // Loop through all Results
-//            do {
-//                resultQueryPasal = resultQueryPasal + Integer.toString(ayat) + ". " + cursor.getString(colIsi) + "\n";
-//                ayat++;
-//            }while(cursor.moveToNext());
-//        }
-//    }
+    public void searchKitab(String _kitab) {
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS_1 WHERE isi_books LIKE \"%"+_kitab+"%\"", null);
+        int colKitab = cursor.getColumnIndex("isi_books");
+        int colPasal = cursor.getColumnIndex("pasal");
 
-    public String getResultQueryPasal() {
-        return resultQueryPasal;
+        pasalAlkitab = new ArrayList<String>();
+        jumlahPasal = new ArrayList<Integer>();
+
+        // Check if our result was valid
+        if (cursor != null && cursor.moveToFirst()) {
+            // Loop through all results
+            do {
+                String judul = cursor.getString(colKitab);
+                int pasal = cursor.getInt(colPasal);
+                pasalAlkitab.add(judul);
+                jumlahPasal.add(pasal);
+            } while(cursor.moveToNext());
+            cursor.close();
+        }
     }
 
-    @Override
-    public synchronized void close() {
-        if(myDataBase != null)
-            myDataBase.close();
-        super.close();
+    public ArrayList<String> getPasal(String kitab, int pasal) {
+        ArrayList<String> res = new ArrayList<String>();
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
+        int colIsi = cursor.getColumnIndex("isi");
+        int colJudul = cursor.getColumnIndex("judul");
+
+        // Check if our result was valid
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                res.add(cursor.getString(colIsi));
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+        return res;
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        /*try {
-            Log.d("akan create database","...");
-            createDataBase();
-        } catch (IOException e) {
-            Log.d("gagal create database","...");
-        }*/
+    public int getJumlahAyat (String kitab, int pasal) {
+        int jumAyat = 0;
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\"" + kitab + "\" AND BIBLE.pasal=" + pasal + " AND BOOKS_1.keyid=BIBLE.kitab", null);
+
+        // Check if our result was valid
+        if (cursor != null && cursor.moveToFirst()) {
+            // Loop through all results
+            do {
+                jumAyat++;
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+        return jumAyat;
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+    public ArrayList<String> getPasalAlkitab () {
+        return pasalAlkitab;
+    }
 
-    // Add your public helper methods to access and get content from the database.
-    // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
-    // to you to create adapters for your views.
+    public ArrayList<Integer> getJumlahPasal() {
+        return jumlahPasal;
+    }
 
     // Untuk KPPK
     public ArrayList<String> getKPPK() {
@@ -256,8 +282,27 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         int colJudul = cursor.getColumnIndex("judul");
         int colIsi = cursor.getColumnIndex("isi");
 
-        cursor.moveToFirst();
-        if (cursor != null) {
+        // Check if our result was valid
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String judul = cursor.getString(colJudul);
+                String isi = cursor.getString(colIsi);
+                res.add(judul);
+                res.add(isi);
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+        return res;
+    }
+
+    public ArrayList<String> searchKPPK(String _KPPK) {
+        ArrayList<String> res = new ArrayList<String>();
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM KPPK WHERE judul LIKE \"%" + _KPPK + "%\" OR isi LIKE \"%" + _KPPK + "%\"", null);
+        int colJudul = cursor.getColumnIndex("judul");
+        int colIsi = cursor.getColumnIndex("isi");
+
+        // Check if our result was valid
+        if (cursor != null && cursor.moveToFirst()) {
             do {
                 String judul = cursor.getString(colJudul);
                 String isi = cursor.getString(colIsi);
@@ -310,16 +355,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<String> getPasalAlkitab () {
-        return pasalAlkitab;
-    }
-
-    public ArrayList<Integer> getJumlahPasal() {
-        return jumlahPasal;
-    }
-
-    private String resultQueryPasal;
-
     // Untuk Lirik Lagu Rohani
     public ArrayList<String> getLirikLaguRohani() {
         ArrayList<String> res = new ArrayList<String>();
@@ -327,8 +362,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         int colJudul = cursor.getColumnIndex("judul");
         int colIsi = cursor.getColumnIndex("isi");
 
-        cursor.moveToFirst();
-        if (cursor != null) {
+        // Check if our result was valid
+        if (cursor != null && cursor.moveToFirst()) {
             do {
                 String judul = cursor.getString(colJudul);
                 String isi = cursor.getString(colIsi);
@@ -340,66 +375,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public ArrayList<String> getPasal(String kitab, int pasal) {
-        ArrayList<String> res = new ArrayList<String>();
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
-        int colIsi = cursor.getColumnIndex("isi");
-        int colJudul = cursor.getColumnIndex("judul");
-
-        cursor.moveToFirst();
-        if (cursor != null) {
-            do {
-                res.add(cursor.getString(colIsi));
-            }while(cursor.moveToNext());
-            cursor.close();
-        }
-        return res;
-    }
-
-    public int getJumlahAyat (String kitab, int pasal) {
-        int jumAyat = 0;
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\"" + kitab + "\" AND BIBLE.pasal=" + pasal + " AND BOOKS_1.keyid=BIBLE.kitab", null);
-
-        // Check if our result was valid
-        cursor.moveToFirst();
-        if (cursor != null) {
-            // Loop through all Results
-            do {
-                jumAyat++;
-            }while(cursor.moveToNext());
-            cursor.close();
-        }
-        return jumAyat;
-    }
-
-    public void searchKitab(String _kitab) {
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS_1 WHERE isi_books LIKE \"%"+_kitab+"%\"", null);
-        int colKitab = cursor.getColumnIndex("isi_books");
-        int colPasal = cursor.getColumnIndex("pasal");
-
-        pasalAlkitab = new ArrayList<String>();
-        jumlahPasal = new ArrayList<Integer>();
-
-        // Check if our result was valid
-        cursor.moveToFirst();
-        if (cursor != null) {
-            // Loop through all Results
-            do {
-                String judul = cursor.getString(colKitab);
-                int pasal = cursor.getInt(colPasal);
-                pasalAlkitab.add(judul);
-                jumlahPasal.add(pasal);
-            } while(cursor.moveToNext());
-            cursor.close();
-        }
-    }
-
     public ArrayList<String> searchLirik(String _lirik) {
         ArrayList<String> res = new ArrayList<String>();
         Cursor cursor = myDataBase.rawQuery("SELECT * FROM LirikLaguRohani WHERE judul LIKE \"%" + _lirik + "%\" OR isi LIKE \"%" + _lirik + "%\"", null);
         int colJudul = cursor.getColumnIndex("judul");
         int colIsi = cursor.getColumnIndex("isi");
 
+        // Check if our result was valid
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 String judul = cursor.getString(colJudul);

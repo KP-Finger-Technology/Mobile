@@ -105,7 +105,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         containerString = DB.getLirikLaguRohani();
 
         myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
-        //add LayoutParams
+
+        // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         params.setMargins(0, 10, 20, 0);
@@ -117,21 +118,21 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         for (int i=0; i<dataLength; i=i+2) {
             String container = "LirikLaguRohani " + Integer.toString(cnt) + " - " + containerString.get(i);
             cnt++;
-            //add Button Judul Lirik Lagu Rohani
+
+            // Add Button Judul Lirik Lagu Rohani
             ListLirikLaguRohani = new Button(getActivity());
             ListLirikLaguRohani.setText(container);
             ListLirikLaguRohani.setLayoutParams(params);
-//            ListLirikLaguRohani.setTextColor(colorWhite);
             ListLirikLaguRohani.setBackgroundColor(0);
 
             final String _isi = containerString.get(i+1);
 
-            //add button listener here
+            // Add button listener here
             ListLirikLaguRohani.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // masuk ke konstruktor parameter LirikLaguRohaniLiengkapFragment dgn parameternya: isi
+                            // Masuk ke konstruktor parameter LirikLaguRohaniLiengkapFragment dengan parameter isi
                             frag = new LirikLaguRohaniLengkapFragment(_isi);
                             fragManager = getActivity().getSupportFragmentManager();
                             fragTransaction = fragManager.beginTransaction();
@@ -150,7 +151,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        /*return inflater.inflate(R.layout.fragment_lirik_lagu_rohani, container, false);*/
         rootView = inflater.inflate(R.layout.fragment_lirik_lagu_rohani, container, false);
         lirikLaguRohani_download = (Button) rootView.findViewById(R.id.lirikLaguRohani_download);
         lirikLaguRohani_download.setOnClickListener(this);
@@ -159,14 +159,12 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         DB.openDataBase();
         if (DB.isTableExists("LirikLaguRohani")) {
             // Jika tabel LirikLaguRohani exist, berarti sudah pernah di-download. Tampilkan daftar LirikLaguRohani dari database
-//            isLirikLaguRohaniExist = true;
             lirikLaguRohani_download.setVisibility(View.INVISIBLE);
             Log.d("tabel LirikLaguRohani sudah exist","..");
             generateKontenLirikLaguRohani();
         }
         else {
             // Belum pernah download LirikLaguRohani, maka tampilkan dari ambil JSON ke server
-//            isLirikLaguRohaniExist = false;
             v.execute();
         }
 
@@ -218,7 +216,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-//        v.execute();
         Toast.makeText(getActivity(), "Downloading..", Toast.LENGTH_LONG).show();
         v.downloadLirikLaguRohani();
         Toast.makeText(getActivity(), "Download Success!", Toast.LENGTH_LONG).show();
