@@ -250,7 +250,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
             Display display = getActivity().getWindowManager().getDefaultDisplay();
 
-            int colorWhite = Color.WHITE;
+            int colorBlack = Color.BLACK;
             TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
             TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
             HorizontalScrollView HSV;

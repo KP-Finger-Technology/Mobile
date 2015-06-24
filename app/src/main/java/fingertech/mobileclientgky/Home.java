@@ -318,13 +318,6 @@ public class Home extends ActionBarActivity
                     switchFragment();
                 }
 
-                // Jadwal Pelayanan
-                else if (groupPosition == 4 && childPosition == 9) {
-                    frag = new JadwalPelayananFragment();
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
-                }
-
                 // Sub menu dari menu Events
                 // Warta Mingguan
                 else if (groupPosition == 5 && childPosition == 0) {
@@ -368,8 +361,14 @@ public class Home extends ActionBarActivity
                         mDrawerLayout.closeDrawer(Gravity.START);
                         switchFragment();
                     }
-                    // Logout
+                    // Ubah Password
                     else if (groupPosition == 8 && childPosition == 2) {
+                        frag = new UbahPasswordFragment();
+                        mDrawerLayout.closeDrawer(Gravity.START);
+                        switchFragment();
+                    }
+                    // Logout
+                    else if (groupPosition == 8 && childPosition == 3) {
                         new AlertDialog.Builder(Home.this)
                                 .setTitle("Logout")
                                 .setMessage("Apakah Anda yakin ingin logout dari aplikasi?")
@@ -514,7 +513,7 @@ public class Home extends ActionBarActivity
     }
 
     // Login
-    public void loginClicked(View v){
+    public void loginClicked(View v) {
         EditText namaET = (EditText) findViewById(R.id.login_editNama);
         EditText passET = (EditText) findViewById(R.id.login_editPassword);
 
@@ -560,8 +559,7 @@ public class Home extends ActionBarActivity
             return fragment;
         }
 
-        public PlaceholderFragment() {
-        }
+        public PlaceholderFragment() {}
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,

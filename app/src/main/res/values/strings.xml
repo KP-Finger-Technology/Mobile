@@ -1,29 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Nama menu dan submenu -->
     <string name="app_name">Mobile GKY</string>
     <string name="beranda">Beranda</string>
-    <string name="pelayanan">Pelayanan</string>
-    <string name="pembinaan">Pembinaan</string>
-    <string name="events">Events </string>
-    <string name="tentang_kami">Tentang Kami</string>
-    <string name="hubungi_kami">Hubungi Kami</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
+    <string name="alkitab">Alkitab</string>
 
-    <!-- Untuk Navigation Drawer -->
-    <string name="action_settings">Settings</string>
-    <string name="renungan">RENUNGAN GEMA</string>
-    <string name="marital">PRE-MARITAL CLASS</string>
-    <string name="katekisasi">KATEKISASI</string>
-    <string name="permohonan">PERMOHONAN DOA</string>
-    <string name="alkitab">ALKITAB</string>
-    <string name="kelompok">KELOMPOK KECIL</string>
+    <string name="komisi">Komisi</string>
+    <string name="komisiAnak">Komisi Anak</string>
+    <string name="komisiKaleb">Komisi Kaleb</string>
+    <string name="komisiPasutri">Komisi Pasutri</string>
+    <string name="komisiPemudaDewasa">Komisi Pemuda Dewasa</string>
+    <string name="komisiRemajaDanPemuda">Komisi Remaja dan Pemuda</string>
+    <string name="komisiWanita">Komisi Wanita</string>
+
+    <string name="pelayanan">Pelayanan</string>
+    <string name="diakoniaDanOikumene">Diakonia dan Oikumene</string>
+    <string name="kebaktianDoa">Kebaktian Doa</string>
+    <string name="kebaktianUmum">Kebaktian Umum</string>
+    <string name="kelompokKecil">Kelompok Kecil</string>
+    <string name="misiPengabaranInjil">Misi/Pengabaran Injil</string>
+
+    <string name="pembinaan">Pembinaan</string>
+    <string name="katekisasi">Katekisasi</string>
+    <string name="premarital">Pre-marital</string>
+    <string name="renunganGema">Renungan Gema</string>
+    <string name="rekamanKhotbah">Rekaman Khotbah</string>
+    <string name="permohonanDoa">Permohonan Doa</string>
+    <string name="KPPK">KPPK</string>
+    <string name="lirikLaguRohani">Lirik Lagu Rohani</string>
+    <string name="pengakuanIman">Pengakuan Iman</string>
+    <string name="kolportase">Kolportase</string>
+
+    <string name="events">Events</string>
+    <string name="wartaMingguan">Warta Mingguan</string>
+    <string name="liturgiMingguan">Liturgi Mingguan</string>
+    <string name="pastAndUpcomingEvents">Past and Upcoming Events</string>
+    <string name="jadwalIbadah">Jadwal Ibadah</string>
+
+    <string name="tentangKami">Tentang Kami</string>
+    <string name="hubungiKami">Hubungi Kami</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <string name="manajemenKonten">Manajemen Konten</string>
+    <string name="jadwalPelayanan">Jadwal Pelayanan</string>
+    <string name="pengaturanProfil">Pengaturan Profil</string>
+    <string name="ubahPassword">Ubah Password</string>
+    <string name="logout">Logout</string>
 
     <!-- Untuk toggle switch -->
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Untuk hint -->
     <string name="hintRenungan">Membuka renungan gema yang tersedia</string>
@@ -68,10 +96,11 @@
     <string name="login_textPassword">Password</string>
 
     <!-- Untuk button -->
-    <string name="kirim">Kirim</string>
     <string name="daftar">Daftar</string>
-    <string name="masuk">Masuk</string>
     <string name="fetchData">Fetch Data</string>
+    <string name="kirim">Kirim</string>
+    <string name="masuk">Masuk</string>
+    <string name="Ubah">Ubah</string>
 
     <!-- Untuk halaman Tentang Kami -->
     <string name="tentangKami_textPenjelasanKomisi">Selain mengikuti kegiatan yang diadakan untuk umum, jemaat juga bisa mengikuti kegiatan komisi-komisi yang ada. Mulai dari anak kecil sampai manula, tidak ada yang terlewatkan.</string>
@@ -325,8 +354,9 @@
     <string name="profil_textKomisiRemajaPemuda">Remaja dan Pemuda</string>
     <string name="profil_textKomisiWanita">Wanita</string>
     <string name="profil_textPelayanan">Pelayanan</string>
-    <string name="Ubah">Ubah</string>
 
-    <string name="hello_blank_fragment" />
-
+    <!-- Untuk halaman Ubah Password-->
+    <string name="ubahPassword_textPasswordBaru">Password Baru</string>
+    <string name="ubahPassword_textKonfirmasiPasswordBaru">Konfirmasi Password Baru</string>
+    <string name="ubahPassword_textPasswordLama">Masukkan password lama untuk melanjutkan</string>
 </resources>

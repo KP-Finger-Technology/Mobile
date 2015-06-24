@@ -210,7 +210,7 @@ public class KatekisasiFragment extends Fragment {
             params.setMargins(0,0,0,30);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
-            int colorWhite = Color.WHITE;
+            int colorBlack = Color.BLACK;
 
             JSONObject jsonobj = null;
             try {

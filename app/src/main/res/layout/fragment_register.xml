@@ -100,8 +100,7 @@
                         android:inputType="textPassword"
                         android:hint="contoh: ritasarah"
                         android:ems="15"
-                        android:id="@+id/register_editKonfirmasiPassword"
-                        android:textColor="#ffffffff"/>
+                        android:id="@+id/register_editKonfirmasiPassword"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -174,7 +173,6 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/register_textDataGereja"
                         android:id="@+id/register_textDataGereja"
-                        android:textColor="#ffffffff"
                         android:layout_marginTop="15dp"/>
 
                     <TextView

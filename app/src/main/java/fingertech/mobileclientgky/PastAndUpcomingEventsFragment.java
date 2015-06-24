@@ -248,7 +248,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             int image_width = display.getWidth()/3;
             int image_height = (int) (display.getHeight()/4.3);
 
-            int colorWhite = Color.WHITE;
+            int colorBlack = Color.BLACK;
 
             String judul = null,tanggal = null ,keterangan = null,linkGambar = null;
             // Generate konten Event dalam loop for
@@ -287,7 +287,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 TitleEventTV = new TextView(getActivity());
                 TitleEventTV.setText("Event: ");
                 TitleEventTV.setLayoutParams(params);
-                TitleEventTV.setTextColor(colorWhite);
+                TitleEventTV.setTextColor(colorBlack);
                 subRowLayout.addView(TitleEventTV);
 
                 // Add text View JudulEventTV
@@ -301,7 +301,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 // Add text View TitleTanggalTV
                 TitleTanggalTV = new TextView(getActivity());
                 TitleTanggalTV.setText("Tanggal: ");
-                TitleTanggalTV.setTextColor(colorWhite);
+                TitleTanggalTV.setTextColor(colorBlack);
                 TitleTanggalTV.setLayoutParams(params);
                 subRowLayout.addView(TitleTanggalTV);
 
@@ -316,7 +316,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 // Add text View TitleWaktuTV
                 TitleWaktuTV = new TextView(getActivity());
                 TitleWaktuTV.setText("Waktu: ");
-                TitleWaktuTV.setTextColor(colorWhite);
+                TitleWaktuTV.setTextColor(colorBlack);
                 TitleWaktuTV.setLayoutParams(params);
                 subRowLayout.addView(TitleWaktuTV);
 
@@ -331,7 +331,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 // Add text View TitleKeteranganTV
                 TitleKeteranganTV = new TextView(getActivity());
                 TitleKeteranganTV.setText("Keterangan: ");
-                TitleKeteranganTV.setTextColor(colorWhite);
+                TitleKeteranganTV.setTextColor(colorBlack);
                 TitleKeteranganTV.setLayoutParams(params);
                 subRowLayout.addView(TitleKeteranganTV);
 
@@ -478,7 +478,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             int image_width = display.getWidth()/3;
             int image_height = (int) (display.getHeight()/4.3);
 
-            int colorWhite = Color.WHITE;
+            int colorBlack = Color.BLACK;
 
             String judul = null,tanggal = null ,keterangan = null,linkGambar = null;
             // Generate konten Event dalam loop for
@@ -511,7 +511,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 TitleEventTV = new TextView(getActivity());
                 TitleEventTV.setText("Event: ");
                 TitleEventTV.setLayoutParams(params);
-                TitleEventTV.setTextColor(colorWhite);
+                TitleEventTV.setTextColor(colorBlack);
                 subRowLayout.addView(TitleEventTV);
 
                 // Add text View JudulEventTV
@@ -525,7 +525,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 // Add text View TitleTanggalTV
                 TitleTanggalTV = new TextView(getActivity());
                 TitleTanggalTV.setText("Tanggal: ");
-                TitleTanggalTV.setTextColor(colorWhite);
+                TitleTanggalTV.setTextColor(colorBlack);
                 TitleTanggalTV.setLayoutParams(params);
                 subRowLayout.addView(TitleTanggalTV);
 
@@ -540,7 +540,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 // Add text View TitleWaktuTV
                 TitleWaktuTV = new TextView(getActivity());
                 TitleWaktuTV.setText("Waktu: ");
-                TitleWaktuTV.setTextColor(colorWhite);
+                TitleWaktuTV.setTextColor(colorBlack);
                 TitleWaktuTV.setLayoutParams(params);
                 subRowLayout.addView(TitleWaktuTV);
 
@@ -555,7 +555,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 // Add text View TitleKeteranganTV
                 TitleKeteranganTV = new TextView(getActivity());
                 TitleKeteranganTV.setText("Keterangan: ");
-                TitleKeteranganTV.setTextColor(colorWhite);
+                TitleKeteranganTV.setTextColor(colorBlack);
                 TitleKeteranganTV.setLayoutParams(params);
                 subRowLayout.addView(TitleKeteranganTV);
 
