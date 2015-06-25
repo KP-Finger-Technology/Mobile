@@ -2,12 +2,15 @@ package fingertech.mobileclientgky;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +18,26 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParsePush;
 import com.parse.SaveCallback;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Calendar;
@@ -379,92 +397,255 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-            private DatePickerDialog.OnDateSetListener mDateSetListener;
+        private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-            public DatePickerDialogFragment() {
-                // nothing to see here, move along
+        public DatePickerDialogFragment() {
+            // nothing to see here, move along
+        }
+
+        public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {
+            mDateSetListener = (DatePickerDialog.OnDateSetListener) callback;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            Log.d("DatePicker", "masuk create");
+            Calendar cal = Calendar.getInstance();
+
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            Log.d("DatePicker", "keluar create");
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            Log.d("DatePicker", "masuk set");
+            pYear = year;
+            pDay = day;
+            pMonth = month;
+            Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
+
+            String bulan = null;
+            // Januari
+            if (pMonth == 0) {
+                bulan = "01";
+            }
+            // Februari
+            else if (pMonth == 1) {
+                bulan = "02";
+            }
+            // Maret
+            else if (pMonth == 2) {
+                bulan = "03";
+            }
+            // April
+            else if (pMonth == 3) {
+                bulan = "04";
+            }
+            // Mei
+            else if (pMonth == 4) {
+                bulan = "05";
+            }
+            // Juni
+            else if (pMonth == 5) {
+                bulan = "06";
+            }
+            // Juli
+            else if (pMonth == 6) {
+                bulan = "07";
+            }
+            // Agustus
+            else if (pMonth == 7) {
+                bulan = "08";
+            }
+            // September
+            else if (pMonth == 8) {
+                bulan = "09";
+            }
+            // Oktober
+            else if (pMonth == 9) {
+                bulan = "10";
+            }
+            // November
+            else if (pMonth == 10) {
+                bulan = "11";
+            }
+            // Desember
+            else if (pMonth == 11) {
+                bulan = "12";
             }
 
-            public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {
-                mDateSetListener = (DatePickerDialog.OnDateSetListener) callback;
+            now = Integer.toString(pYear) + "-" + bulan + "-" + Integer.toString(pDay);
+            dateET.setText(Integer.toString(pDay) + "/" + bulan + "/" + Integer.toString(pYear));
+        }
+    }
+
+    class Viewer extends AsyncTask<String, String, String> {
+        private LinearLayout myLinearLayout;
+        private TableLayout myTableLayout;
+        private TableRow TR;
+        private TextView JudulTabel;
+        private TextView IsiTabel;
+        private LinearLayout.LayoutParams params;
+
+        JSONArray arr = new JSONArray();
+
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+        };
+
+        @Override
+        protected String doInBackground(String... params) {
+            SessionManager sm = new SessionManager(getActivity().getApplicationContext());
+
+            Log.d("jadwalpel",sm.pref.getAll().toString());
+            Log.d("Nm",sm.pref.getAll().get("name").toString());
+            Log.d("ID", sm.pref.getAll().get("id").toString());
+            String result = "";
+            String statu = "";
+//            for (String urlp : params) {
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(Controller.url+"view_jadwalpelayanan.php?id="+sm.pref.getAll().get("id").toString()); // ngikutin ip disini loh
+            HttpResponse response;
+
+            try {
+
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
+//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
+                Log.d("Result", result);
+
+                try {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+                    statu = "ok";
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
 
-            @Override
-            public Dialog onCreateDialog(Bundle savedInstanceState) {
-                Log.d("DatePicker", "masuk create");
-                Calendar cal = Calendar.getInstance();
+//            }
+            return "";
+        }
 
-                // Use the current date as the default date in the picker
-                final Calendar c = Calendar.getInstance();
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
+        private void IsiTabel (String text) {
+            IsiTabel = new TextView(getActivity());
+            IsiTabel.setText(text);
+            IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            IsiTabel.setBackground(getResources().getDrawable(R.drawable.cell_shape));
+            TR.addView(IsiTabel);
+        }
 
-                // Create a new instance of DatePickerDialog and return it
-                Log.d("DatePicker", "keluar create");
-                return new DatePickerDialog(getActivity(), this, year, month, day);
+        @Override
+        protected void onPostExecute(String result) {
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
+
+            //add LayoutParams
+            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            params.setMargins(0, 10, 20, 0);
+
+            int dataLength = arr.length();
+
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+
+            int colorBlack = Color.BLACK;
+            TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+            TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+            HorizontalScrollView HSV;
+
+            String jenisPelayanan=null, tanggal=null, gedung=null, kebaktian=null, waktuMulai=null, waktuSelesai=null, judulLagu =null;
+            // Generate konten Event dalam loop for
+            for (int i=0; i<dataLength; i++){
+                JSONObject jsonobj = null;
+
+                myTableLayout = new TableLayout(getActivity());
+                myTableLayout.setLayoutParams(tableParams);
+                HSV = new HorizontalScrollView(getActivity());
+
+                TR = new TableRow(getActivity());
+                TR.setLayoutParams(tableParams);
+                // Tanggal
+                IsiTabel("Tanggal");
+                // Gedung
+                IsiTabel("Gedung");
+                // Kebaktian
+                IsiTabel("Kebaktian");
+                // Waktu
+                IsiTabel("Waktu");
+                // Judul Lagu
+                IsiTabel("Judul Lagu");
+                // Add row to table
+                myTableLayout.addView(TR);
+
+                try {
+                    jsonobj = arr.getJSONObject(i);
+                    Log.d("JSONObject",arr.getJSONObject(i).toString());
+                    jenisPelayanan = jsonobj.getString("jenispelayanan");
+                    JSONArray jsonArr = jsonobj.getJSONArray("atribut");
+
+                    JudulTabel = new TextView(getActivity());
+                    JudulTabel.setText(jenisPelayanan);
+                    JudulTabel.setLayoutParams(params);
+                    myLinearLayout.addView(JudulTabel);
+
+                    int length2 = jsonArr.length();
+                    for (int j=0; j<length2; j++) {
+                        tanggal = jsonArr.getJSONObject(j).getString("tanggal");
+                        gedung = jsonArr.getJSONObject(j).getString("gedung");
+                        kebaktian = jsonArr.getJSONObject(j).getString("kebaktian");
+                        waktuMulai = jsonArr.getJSONObject(j).getString("waktumulai");
+                        waktuSelesai = jsonArr.getJSONObject(j).getString("waktuselesai");
+                        judulLagu = jsonArr.getJSONObject(j).getString("judul");
+
+                        TR = new TableRow(getActivity());
+                        TR.setLayoutParams(rowTableParams);
+                        // Tanggal
+                        IsiTabel(tanggal);
+                        // Gedung
+                        IsiTabel(gedung);
+                        // Kebaktian
+                        IsiTabel(kebaktian);
+                        // Waktu
+                        String waktu = waktuMulai + " - " + waktuSelesai;
+                        IsiTabel(waktu);
+                        // Judul Lagu
+                        IsiTabel(judulLagu);
+                        // Add row to table
+                        myTableLayout.addView(TR, tableParams);
+                    }
+                    HSV.addView(myTableLayout);
+                    myLinearLayout.addView(HSV);
+
+                } catch (JSONException e) {
+//                    e.printStackTrace();
+                    Log.d("error di Try JSON object from JadwalPelayananFragment","..");
+                }
             }
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                Log.d("DatePicker", "masuk set");
-                pYear = year;
-                pDay = day;
-                pMonth = month;
-                Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
-
-                String bulan = null;
-                // Januari
-                if (pMonth == 0) {
-                    bulan = "01";
-                }
-                // Februari
-                else if (pMonth == 1) {
-                    bulan = "02";
-                }
-                // Maret
-                else if (pMonth == 2) {
-                    bulan = "03";
-                }
-                // April
-                else if (pMonth == 3) {
-                    bulan = "04";
-                }
-                // Mei
-                else if (pMonth == 4) {
-                    bulan = "05";
-                }
-                // Juni
-                else if (pMonth == 5) {
-                    bulan = "06";
-                }
-                // Juli
-                else if (pMonth == 6) {
-                    bulan = "07";
-                }
-                // Agustus
-                else if (pMonth == 7) {
-                    bulan = "08";
-                }
-                // September
-                else if (pMonth == 8) {
-                    bulan = "09";
-                }
-                // Oktober
-                else if (pMonth == 9) {
-                    bulan = "10";
-                }
-                // November
-                else if (pMonth == 10) {
-                    bulan = "11";
-                }
-                // Desember
-                else if (pMonth == 11) {
-                    bulan = "12";
-                }
-
-                now = Integer.toString(pYear) + "-" + bulan + "-" + Integer.toString(pDay);
-                dateET.setText(Integer.toString(pDay) + "/" + bulan + "/" + Integer.toString(pYear));
-            }
+        }
     }
 }
