@@ -46,9 +46,7 @@ public class PengakuanImanFragment extends Fragment {
         return fragment;
     }
 
-    public PengakuanImanFragment() {
-        // Required empty public constructor
-    }
+    public PengakuanImanFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,17 +71,6 @@ public class PengakuanImanFragment extends Fragment {
         }
     }
 
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -104,5 +91,4 @@ public class PengakuanImanFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
 }

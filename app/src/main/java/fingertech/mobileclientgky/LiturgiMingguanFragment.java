@@ -4,18 +4,14 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-/*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -23,7 +19,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -75,9 +70,7 @@ public class LiturgiMingguanFragment extends Fragment {
         return fragment;
     }
 
-    public LiturgiMingguanFragment() {
-        // Required empty public constructor
-    }
+    public LiturgiMingguanFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,10 +87,8 @@ public class LiturgiMingguanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_liturgi_mingguan, container, false);
-
         // Inflate the layout for this fragment
-        /*return inflater.inflate(R.layout.fragment_liturgi_mingguan, container, false);*/
+        rootView = inflater.inflate(R.layout.fragment_liturgi_mingguan, container, false);
         return rootView;
     }
 
@@ -107,17 +98,6 @@ public class LiturgiMingguanFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -200,7 +180,6 @@ public class LiturgiMingguanFragment extends Fragment {
 
             // Add LinearLayout
             View v = rootView.findViewById(R.id.container_liturgi_mingguan);
-
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_liturgi_mingguan);
 
             // Add LayoutParams

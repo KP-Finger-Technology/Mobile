@@ -1,11 +1,9 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-/*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,9 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -30,7 +26,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -99,9 +94,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         return fragment;
     }
 
-    public PastAndUpcomingEventsFragment() {
-        // Required empty public constructor
-    }
+    public PastAndUpcomingEventsFragment() {}
 
     private ArrayList<String> judulSaved;
     private ArrayList<String> tanggalSaved;
@@ -122,7 +115,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
-            // probably orientation change
+            //  Probably orientation change
             Log.d("from lagu: mencoba ambil arrayList yg disave..","..");
             judulSaved = savedInstanceState.getStringArrayList("judulSaved");
             tanggalSaved = savedInstanceState.getStringArrayList("tanggalSaved");
@@ -133,12 +126,12 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         }
         else {
             if ((judulSaved!=null) && (tanggalSaved!=null) && (keteranganSaved!=null) && (linkSaved!=null)) {
-                //returning from backstack, data is fine, do nothing
+                // Returning from backstack, data is fine, do nothing
                 Log.d("from KPPK, si arrayList!=null","..");
                 generateKontenEvent();
             }
             else {
-                //newly created, compute data
+                // Newly created, compute data
                 Log.d("tabel lirik lagu tidak exist","..");
                 Viewer v = new Viewer();
                 v.execute();
@@ -149,7 +142,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private void generateKontenEvent() {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
         myLinearLayout.removeAllViews();
-        //add LayoutParams
+
+        // Add LayoutParams
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         params.setMargins(0, 10, 20, 0);
@@ -157,7 +151,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        //buat linear layout vertical utk menampung kata2
+        // Buat linear layout vertical utk menampung kata-kata
         colLayout = new LinearLayout(getActivity());
         colLayout.setOrientation(LinearLayout.VERTICAL);
         colLayout.setPadding(0,10,10,0);
@@ -187,9 +181,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-//        Viewer v = new Viewer();
-//        v.execute();
     }
 
     @Override
@@ -387,7 +378,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         protected String doInBackground(String... params) {
             String result = "";
             String statu = "";
-//            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url+"view_event.php");
             HttpResponse response;
@@ -421,14 +411,13 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 e.printStackTrace();
             }
 
-//            }
             return "";
         }
 
         @Override
         protected void onPostExecute(String result) {
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
-            //add LayoutParams
+            // Add LayoutParams
             params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
@@ -436,7 +425,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            //buat linear layout vertical utk menampung kata2
+            // Buat linear layout vertical utk menampung kata2
             colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0,10,10,0);
@@ -504,15 +493,12 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
             String result = "";
             String statu = "";
-//            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url+"view_eventsearch.php?kw=" + keyword);
             HttpResponse response;
@@ -546,7 +532,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 e.printStackTrace();
             }
 
-//            }
             return "";
         }
 
@@ -554,7 +539,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         protected void onPostExecute(String result) {
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
             myLinearLayout.removeAllViews();
-            //add LayoutParams
+            // Add LayoutParams
             params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
@@ -562,7 +547,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            //buat linear layout vertical utk menampung kata2
+            // Buat linear layout vertical utk menampung kata-kata
             colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0,10,10,0);
@@ -573,8 +558,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             int dataLength = arr.length();
 
             LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            int colorWhite = Color.WHITE;
 
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             int image_width = display.getWidth()/3;

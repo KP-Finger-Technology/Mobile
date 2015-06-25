@@ -3,7 +3,6 @@ package fingertech.mobileclientgky;
 import android.util.Log;
 
 import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;

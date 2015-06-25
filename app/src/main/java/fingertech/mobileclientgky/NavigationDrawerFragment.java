@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -123,7 +122,6 @@ public class NavigationDrawerFragment extends Fragment {
                     // Pelayanan
                     frag = new JadwalPelayananFragment();
                     switchFragment();
-//                    setUp(R.id.jadwal_pelayanan, mDrawerLayout);
                     Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
                     cont.viewJadwalPelayanan();
                 }
@@ -137,9 +135,7 @@ public class NavigationDrawerFragment extends Fragment {
                     frag = new EventFragment();
                     switchFragment();
                     Toast.makeText(getActivity(), "3", Toast.LENGTH_SHORT).show();
-//                    while (!cont.viewEvent() ) {
-                        Log.d("isi aray", cont.getArrData().toString());
-//                    }
+                    Log.d("isi aray", cont.getArrData().toString());
                 }
                 else if (position == 4) {
                     // Tentang Kami
@@ -173,9 +169,9 @@ public class NavigationDrawerFragment extends Fragment {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 
-        // set a custom shadow that overlays the main content when the drawer opens
+        // Set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
+        // Set up the drawer's list view with items and click listener
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -197,7 +193,7 @@ public class NavigationDrawerFragment extends Fragment {
                     return;
                 }
 
-                getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                getActivity().supportInvalidateOptionsMenu(); // Calls onPrepareOptionsMenu()
             }
 
             @Override

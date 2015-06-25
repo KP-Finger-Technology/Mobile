@@ -1,6 +1,5 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 
 
@@ -91,9 +89,8 @@ public class KolportaseLengkapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_kolportase_lengkap, container, false);
         // Inflate the layout for this fragment
-        /*return inflater.inflate(R.layout.fragment_kolportase_lengkap, container, false);*/
+        rootView = inflater.inflate(R.layout.fragment_kolportase_lengkap, container, false);
         generateKolportaseLengkap();
         return rootView;
     }
@@ -104,17 +101,6 @@ public class KolportaseLengkapFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -138,10 +124,11 @@ public class KolportaseLengkapFragment extends Fragment {
     }
 
     public void generateKolportaseLengkap() {
-        // Add LinearLayout
         View v = rootView.findViewById(R.id.container_kolportaseLengkap);
 
+        // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kolportaseLengkap);
+
         // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -157,7 +144,6 @@ public class KolportaseLengkapFragment extends Fragment {
 
         LinearLayout subRowLayout = new LinearLayout(getActivity());
         subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
 
         LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -228,5 +214,4 @@ public class KolportaseLengkapFragment extends Fragment {
         rowLayout.addView(colLayout);
         myLinearLayout.addView(rowLayout);
     }
-
 }

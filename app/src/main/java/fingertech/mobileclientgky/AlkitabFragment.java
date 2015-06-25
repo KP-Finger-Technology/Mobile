@@ -15,10 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
-//import android.app.Fragment;
 
 
 /**
@@ -69,9 +66,7 @@ public class AlkitabFragment extends Fragment {
         return fragment;
     }
 
-    public AlkitabFragment() {
-        // Required empty public constructor
-    }
+    public AlkitabFragment() {}
 
     public AlkitabFragment(Context _context) {
     }
@@ -186,17 +181,6 @@ public class AlkitabFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
 
     @Override
     public void onDetach() {

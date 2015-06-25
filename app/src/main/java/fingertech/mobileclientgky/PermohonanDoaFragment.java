@@ -1,6 +1,5 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.EditText;
 import android.widget.TextView;
-import java.util.Calendar;
 
 
 /**
@@ -76,7 +74,6 @@ public class PermohonanDoaFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_permohonan_doa, container, false);
         tulisDataDoa();
-//        return inflater.inflate(R.layout.fragment_permohonan_doa, container, false);
         return rootView;
     }
 
@@ -92,27 +89,11 @@ public class PermohonanDoaFragment extends Fragment {
     private FragmentTransaction fragTransaction;
     private FragmentManager fragManager;
 
-    /*public void KirimDoa(View v) {
-        frag = new AlkitabFragment();
-        switchFragment();
-    }*/
-
     public void switchFragment() {
         fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag);
         fragTransaction.addToBackStack(null);
         fragTransaction.commit();
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {

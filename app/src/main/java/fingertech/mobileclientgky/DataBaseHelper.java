@@ -62,7 +62,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         boolean dbExist = checkDataBase();
 
         if(dbExist){
-            //do nothing - database already exist
+            // Do nothing - database already exist
             Log.d("database already exist, not create","");
         }
         else{
@@ -95,7 +95,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
         }
         catch(SQLiteException e){
-            //database does't exist yet.
+            // Database does't exist yet.
             Log.d("database tidak exist!","...");
         }
 
@@ -116,7 +116,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private void copyDataBase() throws IOException{
         Log.d("masuk copyDatabase!","...");
         SQLiteDatabase.openOrCreateDatabase(DB_PATH,null);
-        //Open your local db as the input stream
+        // Open your local db as the input stream
         InputStream myInput = myContext.getAssets().open(DB_NAME);
 
         if (myInput != null)
