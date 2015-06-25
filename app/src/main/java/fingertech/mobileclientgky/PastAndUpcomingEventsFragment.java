@@ -425,7 +425,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            // Buat linear layout vertical utk menampung kata2
+            // Buat linear layout vertical utk menampung kata-kata
             colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0,10,10,0);
@@ -547,7 +547,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            // Buat linear layout vertical utk menampung kata-kata
+            // Buat linear layout vertical untuk menampung kata-kata
             colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0,10,10,0);
@@ -593,7 +593,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
                 generateUI(judul, tanggal, keterangan, linkGambar);
 
-                if (i!=dataLength) {
+                if (i != dataLength) {
                     rowLayout.addView(colLayout);
                     myLinearLayout.addView(rowLayout);
                     rowLayout = new LinearLayout(getActivity());
