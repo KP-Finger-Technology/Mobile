@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 /**
@@ -16,7 +19,7 @@ import android.view.ViewGroup;
  * Use the {@link UbahPasswordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UbahPasswordFragment extends Fragment {
+public class UbahPasswordFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -25,6 +28,8 @@ public class UbahPasswordFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private View rootView;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -58,15 +63,23 @@ public class UbahPasswordFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    Button daftarButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ubah_password, container, false);
+        rootView = inflater.inflate(R.layout.fragment_ubah_password, container, false);
+        daftarButton = (Button) rootView.findViewById(R.id.ubahPassword_ubah);
+        daftarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ubahPassClicked(rootView);
+            }
+        });
+        return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -77,6 +90,11 @@ public class UbahPasswordFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     /**
@@ -94,4 +112,30 @@ public class UbahPasswordFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    public void ubahPassClicked(View v){
+        EditText lamaET = (EditText) rootView.findViewById(R.id.ubahPassword_editPasswordLama);
+        EditText baruET = (EditText) rootView.findViewById(R.id.ubahPassword_editPasswordBaru);
+        EditText baruconET = (EditText) rootView.findViewById(R.id.ubahPassword_editKonfirmasiPasswordBaru);
+
+        SessionManager sm = new SessionManager(getActivity().getApplicationContext());
+
+        String lama = lamaET.getText().toString();
+        if(lama.equals(sm.pref.getAll().get("pass").toString())){
+
+        String pass = baruET.getText().toString();
+        String passcon = baruconET.getText().toString();
+        if (pass.equals(passcon)) {
+            Controller cont = new Controller(getActivity().getApplicationContext());
+            cont.editPass(pass);
+        }else{
+            Toast.makeText(getActivity(), "Re-enter New Password", Toast.LENGTH_LONG).show();
+        }
+
+        }else {
+            Toast.makeText(getActivity(), "Re-enter Old Password", Toast.LENGTH_LONG).show();
+        }
+
+
+
+        }
 }

@@ -121,13 +121,26 @@ public class Controller {
         //post
         SessionManager sm = new SessionManager(context);
         final String id = sm.pref.getAll().get("id").toString();
-        Log.d("id now", id);
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
                 new Writer().execute(url + "edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&id="+id);
                 Log.d("Url","edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&id="+id);
+            }
+        });
+    }
+
+    public void editPass(final String pass){
+        //post
+        SessionManager sm = new SessionManager(context);
+        final String id = sm.pref.getAll().get("id").toString();
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                new Writer().execute(url + "edit_pass.php?pass="+pass+"&id="+id);
+                Log.d("Url",url + "edit_pass.php?pass="+pass+"&id="+id);
             }
         });
     }
@@ -283,9 +296,10 @@ public class Controller {
                 e.printStackTrace();
             }
         if(operation.equals("login")){
-            String nama=null, id=null ,email=null,alamat=null,telepon=null,idbaptis=null,tgllahir=null,komisi=null,pelayanan=null;
+            String nama=null, id=null ,email=null,alamat=null,telepon=null,idbaptis=null,tgllahir=null,komisi=null,pelayanan=null,pass=null;
             try {
                 nama = result.getString("nama");
+                pass = result.getString("pass");
                 id = result.getString("id");
                 email = result.getString("email");
                 alamat = result.getString("alamat");
@@ -300,7 +314,7 @@ public class Controller {
             }
             if (writeResponse.equals("ok")) {
                 SessionManager smn = new SessionManager(context);
-                smn.createLoginSession(nama, id,email,alamat,telepon,idbaptis,tgllahir,komisi,pelayanan);
+                smn.createLoginSession(nama,pass,id,email,alamat,telepon,idbaptis,tgllahir,komisi,pelayanan);
                 Toast.makeText(context, "login success", Toast.LENGTH_LONG).show();
                 Log.d("log in ","success");
             } else {
@@ -308,32 +322,13 @@ public class Controller {
                 Log.d("log in ", "fail");
             }
         }
-            else if (operation.equals("register")){
+            else { //operation.eq("add doa") , edit profil , register
             if (writeResponse.equals("ok")) {
-                Toast.makeText(context, "register success", Toast.LENGTH_LONG).show();
-                Log.d("Register ","success");
+                Toast.makeText(context, operation +" Success", Toast.LENGTH_LONG).show();
+                Log.d (operation,"success");
             } else {
-                Toast.makeText(context, "register" + writeResponse, Toast.LENGTH_LONG).show();
-                Log.d("Register ", "fail");
-            }
-        }
-        else if (operation.equals("editprofil")){
-            if (writeResponse.equals("ok")) {
-                Toast.makeText(context, "edit profil success", Toast.LENGTH_LONG).show();
-                Log.d("Edit profil ","success");
-
-            } else {
-                Toast.makeText(context, "edit profil" + writeResponse, Toast.LENGTH_LONG).show();
-                Log.d("edit profil ", "fail");
-            }
-        }
-            else { //operation.eq("add doa")
-            if (writeResponse.equals("ok")) {
-                Toast.makeText(context, "Permohonan Doa success", Toast.LENGTH_LONG).show();
-                Log.d("Permohonan Doa ","success");
-            } else {
-                Toast.makeText(context, "Permohonan Doa "+ writeResponse, Toast.LENGTH_LONG).show();
-                Log.d("permohonan doa ", "fail");
+                Toast.makeText(context, operation+""+ writeResponse, Toast.LENGTH_LONG).show();
+                Log.d(operation, "fail");
             }
         }
     }
