@@ -64,12 +64,10 @@ public class WartaMingguanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_warta_mingguan, container, false);
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -92,6 +90,7 @@ public class WartaMingguanFragment extends Fragment {
         private TableLayout myTableLayout;
         private TableRow TR;
         private TextView JudulTabel;
+        private TextView IsiTabelHeader;
         private TextView IsiTabel;
         private TextView judulTV;
         private TextView deskripsiTV;
@@ -105,20 +104,16 @@ public class WartaMingguanFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu = "";
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url + "view_wartamingguan.php");
             HttpResponse response;
 
             try {
-
                 response = client.execute(request);
 
                 // Get the response
@@ -135,22 +130,30 @@ public class WartaMingguanFragment extends Fragment {
                     obj = res.getJSONObject("data");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d("excep frm try2 Bckgrnd", "..");
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
             return "";
         }
 
+        private void IsiTabelHeader (String text) {
+            IsiTabelHeader = new TextView(getActivity());
+            IsiTabelHeader.setText(text);
+            IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
+            IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
+            TR.addView(IsiTabelHeader);
+        }
+
         private void IsiTabel (String text) {
             IsiTabel = new TextView(getActivity());
             IsiTabel.setText(text);
+            IsiTabelHeader.setTextColor(getResources().getColor(R.color.fontTabel));
             IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabel.setBackground(getResources().getDrawable(R.drawable.header_tabel));
+            IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
             TR.addView(IsiTabel);
         }
 
@@ -211,8 +214,8 @@ public class WartaMingguanFragment extends Fragment {
                     TR.setLayoutParams(rowTableParams);
 
                     // Judul kolom
-                    IsiTabel("Kebaktian");  // Kebaktian
-                    IsiTabel("Pengkotbah"); // Pengkotbah
+                    IsiTabelHeader("Kebaktian");  // Kebaktian
+                    IsiTabelHeader("Pengkotbah"); // Pengkotbah
                     myTableLayout.addView(TR, tableParams);  // Add row to table
 
                     JudulTabel = new TextView(getActivity());
@@ -221,7 +224,7 @@ public class WartaMingguanFragment extends Fragment {
                     myLinearLayout.addView(JudulTabel);
 
                     int length2 = jsonAtribut.length();
-                    for (int j=0; j<length2; j++) {
+                    for (int j = 0; j < length2; j++) {
                         pengkotbah = jsonAtribut.getJSONObject(j).getString("pengkotbah");
                         kebaktian = jsonAtribut.getJSONObject(j).getString("kebaktianumum");
 
@@ -253,6 +256,7 @@ public class WartaMingguanFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
                 // Judul warta
                 TextView wartaTV = new TextView(getActivity());
                 wartaTV.setText("Judul: " + judul);

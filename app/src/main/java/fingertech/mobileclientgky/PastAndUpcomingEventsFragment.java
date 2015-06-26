@@ -1,5 +1,6 @@
 package fingertech.mobileclientgky;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +68,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private LinearLayout rowLayout;
     private LinearLayout colLayout;
     private LinearLayout subRowLayout;
+    ProgressBar pb;
 
     public static PastAndUpcomingEventsFragment newInstance(String param1, String param2) {
         PastAndUpcomingEventsFragment fragment = new PastAndUpcomingEventsFragment();
@@ -111,7 +114,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             }
             else {
                 // Newly created, compute data
-                Viewer v = new Viewer();
+                Log.d("tabel lirik lagu tidak exist","..");
+                Viewer v = new Viewer(pb);
                 v.execute();
             }
         }
@@ -168,6 +172,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         sv = (SearchView) rootView.findViewById(R.id.pastupcoming_searchView);
         cll = (LinearLayout) rootView.findViewById(R.id.container_pastupcoming);
+        pb = (ProgressBar) rootView.findViewById(R.id.pbDefault);
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
@@ -324,12 +329,31 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         JSONArray arr = new JSONArray();
 
+//        ProgressDialog progressDialog;
+        ProgressBar progressBar;
+
         public JSONArray getArr() {
             return arr;
         }
 
+        public Viewer(ProgressBar pb){
+            progressBar = pb;
+        }
+
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+//            progressDialog = ProgressDialog.show(getActivity(),"Wait","Downloading..");
+        };
+
+        @Override
+        protected void onProgressUpdate(String... progress) {
+
+            super.onProgressUpdate(String.valueOf(progress[0]));
+            progressBar.setProgress(Integer.parseInt(String.valueOf(progress[0])));
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -365,6 +389,9 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+//            progressDialog.dismiss();
+            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setProgress(0);
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
 
             // Add LayoutParams

@@ -92,17 +92,17 @@ public class UbahPasswordFragment extends Fragment implements View.OnClickListen
         String lama = lamaET.getText().toString();
         if(lama.equals(sm.pref.getAll().get("pass").toString())){
 
-        String pass = baruET.getText().toString();
-        String passcon = baruconET.getText().toString();
-        if (pass.equals(passcon)) {
-            Controller cont = new Controller(getActivity().getApplicationContext());
-            cont.editPass(pass);
-        }else{
-            Toast.makeText(getActivity(), "Re-enter New Password", Toast.LENGTH_LONG).show();
-        }
-
-        }else {
-            Toast.makeText(getActivity(), "Re-enter Old Password", Toast.LENGTH_LONG).show();
-        }
+            String pass = baruET.getText().toString();
+            String passcon = baruconET.getText().toString();
+                if (pass.equals(passcon)) {
+                    Controller cont = new Controller(getActivity().getApplicationContext());
+                    cont.editPass(pass);
+                }else{
+                    Toast.makeText(getActivity(), "Re-enter New Password", Toast.LENGTH_LONG).show();
+                }
+    
+            }else {
+                Toast.makeText(getActivity(), "Re-enter Old Password", Toast.LENGTH_LONG).show();
+            }
     }
 }

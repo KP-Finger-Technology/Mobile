@@ -532,6 +532,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                             checkedArray.add(komisi.isChecked());
                         }
                     });
+
                     myLinearLayout.addView(komisi);
 
                     child = new LinearLayout(getActivity());

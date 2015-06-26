@@ -69,8 +69,8 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
         rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
 
-        buttonFetchData = (Button)rootView.findViewById(R.id.jadwalPelayanan_fetchData);
-        buttonFetchData.setOnClickListener(this);
+//        buttonFetchData = (Button)rootView.findViewById(R.id.jadwalPelayanan_fetchData);
+//        buttonFetchData.setOnClickListener(this);
 
         return rootView;
     }
