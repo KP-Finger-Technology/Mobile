@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#47637E">
+        android:background="@color/header">
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:text="Download Lirik"
                         android:id="@+id/lirikLaguRohani_download"
-                        android:background="#47637E"
+                        android:background="@color/header"
                         android:textColor="#ffffffff"/>
 
                 </LinearLayout>
