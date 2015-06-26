@@ -87,8 +87,8 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
         rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
 
-        buttonFetchData = (Button)rootView.findViewById(R.id.jadwalPelayanan_fetchData);
-        buttonFetchData.setOnClickListener(this);
+//        buttonFetchData = (Button)rootView.findViewById(R.id.jadwalPelayanan_fetchData);
+//        buttonFetchData.setOnClickListener(this);
 
         return rootView;
     }
@@ -131,6 +131,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         private TableLayout myTableLayout;
         private TableRow TR;
         private TextView JudulTabel;
+        private TextView IsiTabelHeader;
         private TextView IsiTabel;
         private LinearLayout.LayoutParams params;
 
@@ -192,11 +193,21 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
             return "";
         }
 
+        private void IsiTabelHeader (String text) {
+            IsiTabelHeader = new TextView(getActivity());
+            IsiTabelHeader.setText(text);
+            IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
+            IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
+            TR.addView(IsiTabelHeader);
+        }
+
         private void IsiTabel (String text) {
             IsiTabel = new TextView(getActivity());
             IsiTabel.setText(text);
             IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabel.setBackground(getResources().getDrawable(R.drawable.cell_shape));
+            IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
+            IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
             TR.addView(IsiTabel);
         }
 
@@ -213,15 +224,14 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
             Display display = getActivity().getWindowManager().getDefaultDisplay();
 
-            int colorBlack = Color.BLACK;
             TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
             TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
             HorizontalScrollView HSV;
 
-            String jenisPelayanan=null, tanggal=null, gedung=null, kebaktian=null, waktuMulai=null, waktuSelesai=null, judulLagu =null;
+            String jenisPelayanan = null, tanggal = null, gedung = null, kebaktian = null, waktuMulai = null, waktuSelesai = null, judulLagu = null;
 
             // Generate konten Event dalam loop for
-            for (int i=0; i<dataLength; i++){
+            for (int i = 0; i < dataLength; i++){
                 JSONObject jsonobj = null;
 
                 myTableLayout = new TableLayout(getActivity());
@@ -232,19 +242,19 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                 TR.setLayoutParams(tableParams);
 
                 // Tanggal
-                IsiTabel("Tanggal");
+                IsiTabelHeader("Tanggal");
 
                 // Gedung
-                IsiTabel("Gedung");
+                IsiTabelHeader("Gedung");
 
                 // Kebaktian
-                IsiTabel("Kebaktian");
+                IsiTabelHeader("Kebaktian");
 
                 // Waktu
-                IsiTabel("Waktu");
+                IsiTabelHeader("Waktu");
 
                 // Judul Lagu
-                IsiTabel("Judul Lagu");
+                IsiTabelHeader("Judul Lagu");
 
                 // Add row to table
                 myTableLayout.addView(TR);

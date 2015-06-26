@@ -146,7 +146,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         setDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "clicking submit datepicker..", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "clicking submit datepicker..", Toast.LENGTH_LONG).show();
                 myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_renunganGema);
                 myLinearLayout.removeAllViews();
                 Viewer newViewer = new Viewer();
@@ -376,7 +376,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             pDay = day;
             pMonth = month;
 
-            Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
 
             String bulan = null;
             // Januari
