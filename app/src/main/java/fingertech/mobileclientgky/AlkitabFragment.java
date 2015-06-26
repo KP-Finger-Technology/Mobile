@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.util.ArrayList;
 
 
 /**
@@ -105,7 +103,10 @@ public class AlkitabFragment extends Fragment {
                 kitabBtn = new Button(getActivity());
                 kitabBtn.setText(DB.getPasalAlkitab().get(i));
                 kitabBtn.setLayoutParams(params);
-                kitabBtn.setBackground(getResources().getDrawable(R.layout.alkitabbuttonstyle));
+                if (i<39) // Perjanjian Lama
+                    kitabBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonplstyle));
+                else      // Perjanjian Baru
+                    kitabBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonpbstyle));
 //            kitabBtn.setBackgroundColor(0);
                 final int finalI = i;
                 kitabBtn.setOnClickListener(

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,16 +87,23 @@ public class PasalAlkitabFragment extends Fragment {
         // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pasalAlkitab);
         // Add LayoutParams
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        params.setMargins(0, 0, 10, 15);
+        myLinearLayout.setHorizontalGravity(LinearLayout.TEXT_ALIGNMENT_CENTER);
+
+        int btnWidth = 150;
+        int btnHeight = 100;
+        int rightMargin = 5;
+        int sumMargin = rightMargin;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(btnWidth, btnHeight);
+        params.setMargins(0, 0, rightMargin, 5);
 
         // Judul Kitab yang dipilih
         LinearLayout rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
         TextView namaKitab = new TextView(getActivity());
         namaKitab.setText(kitab);
-        namaKitab.setLayoutParams(params);
+        namaKitab.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+//        namaKitab.setBackground(getResources().getDrawable(R.style.judulPasal));
         rowLayout.addView(namaKitab);
         myLinearLayout.addView(rowLayout);
 
@@ -105,12 +113,21 @@ public class PasalAlkitabFragment extends Fragment {
         colLayout.setOrientation(LinearLayout.VERTICAL);
         int cnt = 0;
         Button pasalBtn;
-//        Log.d("jumlah pasal "+kitab,Integer.toString(pasal));
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        int displayWidth = display.getWidth();
+        int displayHeight = (display.getHeight());
+        int sumPadding = 35;
+        int jumlahDraw = ((displayWidth-sumPadding-sumMargin)/btnWidth);
+        Log.d("from pasal alkitab, jumlahDraw="+Integer.toString(jumlahDraw),"..");
+
         for (int i=0; i<pasal; i++) {
             cnt++;
             pasalBtn = new Button(getActivity());
             pasalBtn.setText(Integer.toString(i+1));
+            pasalBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonstyle));
             pasalBtn.setLayoutParams(params);
+//            pasalBtn.setWidth(btnWidth);
+//            pasalBtn.setHeight(btnHeight);
 
             final int finalI = i+1;
             pasalBtn.setOnClickListener(
@@ -132,13 +149,13 @@ public class PasalAlkitabFragment extends Fragment {
             if (pasalBtn.getParent()!=null)
                 ((ViewGroup)pasalBtn.getParent()).removeView(pasalBtn);
             rowLayout.addView(pasalBtn);
-            if (cnt>=5) {
+            if (cnt >= jumlahDraw) {
                 cnt = 0;
                 colLayout.addView(rowLayout);
                 rowLayout = new LinearLayout(getActivity());
             }
         }
-        if (pasal>5)
+        if (pasal > jumlahDraw)
             myLinearLayout.addView(colLayout);
         else
             myLinearLayout.addView(rowLayout);
