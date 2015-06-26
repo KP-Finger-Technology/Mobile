@@ -2,7 +2,6 @@ package fingertech.mobileclientgky;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParsePush;
@@ -46,20 +40,12 @@ import java.util.Calendar;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RegisterFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by William Stefan Hartono
  */
 public class RegisterFragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -79,15 +65,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private ArrayList<Integer> idxPelayanan;
     private ArrayList<Boolean> checkedArray;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegisterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static RegisterFragment newInstance(String param1, String param2) {
         RegisterFragment fragment = new RegisterFragment();
         Bundle args = new Bundle();
@@ -97,9 +74,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         return fragment;
     }
 
-    public RegisterFragment() {
-        // Required empty public constructor
-    }
+    public RegisterFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,22 +98,19 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         daftarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                registerClicked(rootView);
-                String tmp="";
-                for (int i=0; i<checkedArray.size();i++){
-                    tmp=tmp+Boolean.toString(checkedArray.get(i))+", ";
-                }
-                Toast.makeText(getActivity(), tmp, Toast.LENGTH_LONG).show();
+            String tmp = "";
+            for (int i=0; i<checkedArray.size();i++){
+                tmp = tmp + Boolean.toString(checkedArray.get(i)) + ", ";
+            }
+            Toast.makeText(getActivity(), tmp, Toast.LENGTH_LONG).show();
             }
         });
 
         dateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialogFragment datePicker = new DatePickerDialogFragment();
-                datePicker.show(getFragmentManager(), "datePicker");
-//                Toast.makeText(getActivity(), "clicking datepicker..", Toast.LENGTH_LONG).show();
+            DatePickerDialogFragment datePicker = new DatePickerDialogFragment();
+            datePicker.show(getFragmentManager(), "datePicker");
             }
         });
 
@@ -148,7 +120,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -166,18 +137,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
@@ -205,7 +165,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
 
-//            boolean checked = ((CheckBox) v).isChecked();
             boolean checked_komisiAnak = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiAnak)).isChecked();
             boolean checked_komisiKaleb = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiKaleb)).isChecked();
             boolean checked_komisiPasutri = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiPasutri)).isChecked();
@@ -372,20 +331,17 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 pelayanan += "6";
             }
 
+            String dateInString = null;
 
-                Log.d("komisi selected", komisi);
-                Log.d("pelayanan selected", pelayanan);
+            try {
+                dateInString = now;
+                Log.d("registerdateee", dateInString);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-                String dateInString = null;
+            cont.register(nama, pass, email, telepon, alamat, dateInString, idbaptis, komisi, pelayanan);
 
-                try {
-                    dateInString = now;
-                    Log.d("registerdateee", dateInString);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                cont.register(nama, pass, email, telepon, alamat, dateInString, idbaptis, komisi, pelayanan);
             } else {
                 // Password dan konfirmasi tidak sama, tampilkan toast.
                 Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
@@ -396,9 +352,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-        public DatePickerDialogFragment() {
-            // nothing to see here, move along
-        }
+        public DatePickerDialogFragment() {}
 
         public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {
             mDateSetListener = (DatePickerDialog.OnDateSetListener) callback;
@@ -503,8 +457,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
             String result = "";
-            String statu = "";
-//            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url+"view_komisipelayanan.php");
             HttpResponse response;
@@ -520,25 +472,19 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 while ((line = rd.readLine()) != null) {
                     result += line;
                 }
-//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
-                Log.d("Result", result);
 
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
-                    statu = "ok";
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
-//            }
             return "";
         }
 
@@ -546,7 +492,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         protected void onPostExecute(String result) {
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.checkbox_register);
 
-            //add LayoutParams
+            // Add LayoutParams
             params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
@@ -554,20 +500,18 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             childParams.setMargins(0,-10,0,0);
 
             int dataLength = arr.length();
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int colorBlack = Color.BLACK;
 
-            String namaKomisi=null, namaPelayanan=null;
-            int idKomisi=0, idPelayanan=0;
+            String namaKomisi = null, namaPelayanan = null;
+            int idKomisi = 0, idPelayanan = 0;
             jumPelayanan = 0; idxPelayanan = new ArrayList<Integer>();
             jumKomisi = dataLength;
-            Log.d("from Viewer Register, isi dari jumKomisi:"+Integer.toString(jumKomisi),"..");
+
             LinearLayout child;
-            int idViewPelayanan=999;
+            int idViewPelayanan = 999;
             checkedArray = new ArrayList<Boolean>();
 
             // Generate konten Event dalam loop for
-            for (int i=0; i<dataLength; i++){
+            for (int i = 0; i < dataLength; i++){
                 JSONObject jsonobj = null;
 
                 try {
@@ -585,7 +529,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     komisi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-//                            Toast.makeText(getActivity(), "greeting from"+ finalNamaKomisi, Toast.LENGTH_LONG).show();
                             checkedArray.add(komisi.isChecked());
                         }
                     });
@@ -607,15 +550,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         pelayanan.setText(namaPelayanan);
                         pelayanan.setLayoutParams(childParams);
                         pelayanan.setId(idViewPelayanan);
-//                        pelayanan.setVisibility(CheckBox.INVISIBLE);
                         idViewPelayanan--;
                         child.addView(pelayanan);
                     }
                     myLinearLayout.addView(child);
 
                 } catch (JSONException e) {
-//                    e.printStackTrace();
-                    Log.d("error di Try JSON object from JadwalPelayananFragment","..");
+                    e.printStackTrace();
                 }
             }
         }

@@ -5,8 +5,9 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+
 /**
- * Created by USER on 28/05/2015.
+ * Created by William Stefan Hartono
  */
 public class NavigationDrawerDataProvider {
 

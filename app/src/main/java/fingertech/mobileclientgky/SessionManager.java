@@ -6,8 +6,9 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+
 /**
- * Created by ASUS on 6/15/2015.
+ * Created by Rita Sarah
  */
 public class SessionManager {
     // Shared Preferences
@@ -39,7 +40,6 @@ public class SessionManager {
     public static final String KEY_KOMISI = "komisi";
     public static final String KEY_PELAYANAN = "pelayanan";
 
-
     // Email address (make variable public to access from outside)
     public static final String KEY_ID = "id";
 
@@ -57,7 +57,7 @@ public class SessionManager {
         }
     }
 
-    public void createLoginSession(String name,String pass ,String id,String email , String alamat, String telepon,String idbaptis,String tgllahir,String komisi ,String pelayanan){
+    public void createLoginSession(String name, String pass, String id, String email, String alamat, String telepon, String idbaptis, String tgllahir, String komisi, String pelayanan){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -75,10 +75,8 @@ public class SessionManager {
         // Storing email in pref
         editor.putString(KEY_ID, id);
 
-        // commit changes
+        // Commit changes
         editor.commit();
-
-       Log.d("Preferen",pref.getAll().toString());
     }
 
     public void editLoginSession(String name, String email, String alamat, String telepon, String idbaptis, String komisi, String pelayanan){
@@ -94,10 +92,8 @@ public class SessionManager {
         editor.putString(KEY_KOMISI, komisi);
         editor.putString(KEY_PELAYANAN, pelayanan);
 
-        // commit changes
+        // Commit changes
         editor.commit();
-
-        Log.d("Preferen",pref.getAll().toString());
     }
 
     /**
@@ -105,21 +101,18 @@ public class SessionManager {
      * */
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
-        // user name
+        // User name
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
 
-        // user email id
+        // User email id
         user.put(KEY_ID, pref.getString(KEY_ID, null));
 
-        // return user
+        // Return user
         return user;
     }
 
     public void logoutUser(){
         // Clearing all data from Shared Preferences
-        editor.clear();
-//        editor.putBoolean(IS_LOGIN, false);
-
-        editor.commit();
+        editor.clear();editor.commit();
     }
 }

@@ -30,13 +30,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link JadwalPelayananFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link JadwalPelayananFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by William Stefan Hartono
  */
 public class KolportaseFragment extends Fragment {
     private Fragment frag;
@@ -56,12 +52,9 @@ public class KolportaseFragment extends Fragment {
         this.judul = judul;
     }
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -87,15 +80,6 @@ public class KolportaseFragment extends Fragment {
     private TextView IsiKeteranganTV;
     private Button SelengkapnyaBtn;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment JadwalPelayananFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static KolportaseFragment newInstance(String param1, String param2) {
         KolportaseFragment fragment = new KolportaseFragment();
         Bundle args = new Bundle();
@@ -105,9 +89,7 @@ public class KolportaseFragment extends Fragment {
         return fragment;
     }
 
-    public KolportaseFragment() {
-        // Required empty public constructor
-    }
+    public KolportaseFragment() {}
 
     private ArrayList<String> judulSaved;
     private ArrayList<String> pengarangSaved;
@@ -117,10 +99,10 @@ public class KolportaseFragment extends Fragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArrayList("judulSaved",judulSaved);
-        outState.putStringArrayList("pengarangSaved",pengarangSaved);
-        outState.putStringArrayList("keteranganSaved",keteranganSaved);
-        outState.putStringArrayList("linkSaved",linkSaved);
+        outState.putStringArrayList("judulSaved", judulSaved);
+        outState.putStringArrayList("pengarangSaved", pengarangSaved);
+        outState.putStringArrayList("keteranganSaved", keteranganSaved);
+        outState.putStringArrayList("linkSaved", linkSaved);
     }
 
     @Override
@@ -128,24 +110,20 @@ public class KolportaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
-            // probably orientation change
-            Log.d("from lagu: mencoba ambil arrayList yg disave..","..");
+            // Probably orientation change
             judulSaved = savedInstanceState.getStringArrayList("judulSaved");
             pengarangSaved = savedInstanceState.getStringArrayList("pengarangSaved");
             keteranganSaved = savedInstanceState.getStringArrayList("keteranganSaved");
             linkSaved = savedInstanceState.getStringArrayList("linkSaved");
             generateKontenKolportase();
-            Log.d("from lagu: berhasil ambil arrayList yang telah di-save","..");
         }
         else {
             if ((judulSaved!=null) && (pengarangSaved!=null) && (keteranganSaved!=null) && (linkSaved!=null)) {
-                //returning from backstack, data is fine, do nothing
-                Log.d("from KPPK, si arrayList!=null","..");
+                // Returning from backstack, data is fine, do nothing
                 generateKontenKolportase();
             }
             else {
-                //newly created, compute data
-                Log.d("tabel lirik lagu tidak exist","..");
+                // Newly created, compute data
                 Viewer v = new Viewer();
                 v.execute();
             }
@@ -174,7 +152,6 @@ public class KolportaseFragment extends Fragment {
         int dataLength = judulSaved.size();
         for (int i=0; i<dataLength; i++) {
             generateUI(judulSaved.get(i), pengarangSaved.get(i), keteranganSaved.get(i), linkSaved.get(i));
-            Log.d("iterasi-"+Integer.toString(i)+"-judul:"+judulSaved.get(i)+"-tanggal:"+pengarangSaved.get(i)+"-keterangan:"+keteranganSaved.get(i),"-linkGambar:"+linkSaved.get(i));
             if (i!=dataLength) {
                 rowLayout.addView(colLayout);
                 myLinearLayout.addView(rowLayout);
@@ -286,8 +263,6 @@ public class KolportaseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-//        Viewer v = new Viewer();
-//        v.execute();
     }
 
     @Override
@@ -314,11 +289,9 @@ public class KolportaseFragment extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -340,17 +313,13 @@ public class KolportaseFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu = "";
-//            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_kolportase.php");
+            HttpGet request = new HttpGet(Controller.url + "view_kolportase.php");
             HttpResponse response;
 
             try {
@@ -371,14 +340,11 @@ public class KolportaseFragment extends Fragment {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
-                    statu = "ok";
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -431,7 +397,7 @@ public class KolportaseFragment extends Fragment {
 
                 generateUI(judul, pengarang, keterangan, linkGambar);
 
-                if (i!=dataLength) {
+                if (i != dataLength) {
                     rowLayout.addView(colLayout);
                     myLinearLayout.addView(rowLayout);
                     rowLayout = new LinearLayout(getActivity());
@@ -443,18 +409,7 @@ public class KolportaseFragment extends Fragment {
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
@@ -473,14 +428,11 @@ public class KolportaseFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu = "";
-//            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_kolportasesearch.php?kw=" + keyword);
+            HttpGet request = new HttpGet(Controller.url + "view_kolportasesearch.php?kw=" + keyword);
             HttpResponse response;
 
             try {
-
                 response = client.execute(request);
 
                 // Get the response
@@ -491,20 +443,15 @@ public class KolportaseFragment extends Fragment {
                     result += line;
                 }
 
-                Log.d("Result", result);
-
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
-                    statu = "ok";
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -556,7 +503,7 @@ public class KolportaseFragment extends Fragment {
 
                 generateUI(judul, pengarang, keterangan, linkGambar);
 
-                if (i!=dataLength) {
+                if (i != dataLength) {
                     rowLayout.addView(colLayout);
                     myLinearLayout.addView(rowLayout);
                     rowLayout = new LinearLayout(getActivity());
