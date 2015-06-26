@@ -1,3 +1,4 @@
+
 package fingertech.mobileclientgky;
 
 import android.support.v4.app.FragmentManager;
@@ -25,12 +26,9 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 /**
- * Fragment used for managing interactions for and presentation of a navigation drawer.
- * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
- * design guidelines</a> for a complete explanation of the behaviors implemented here.
+ * Created by William Stefan Hartono
  */
 public class NavigationDrawerFragment extends Fragment {
-
     /**
      * Remember the position of the selected item.
      */
@@ -106,51 +104,7 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerListView = (ExpandableListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
-        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            /*@Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
-            }*/
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getActivity(), "Testing doang", Toast.LENGTH_LONG).show();
-                if (position == 0) {
-                    // Beranda
-                    Toast.makeText(getActivity(), "0", Toast.LENGTH_SHORT).show();
-                }
-                else if (position == 1) {
-                    // Pelayanan
-                    frag = new JadwalPelayananFragment();
-                    switchFragment();
-                    Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
-                    cont.viewJadwalPelayanan();
-                }
-                else if (position == 2) {
-                    // Pembinaan
-                    Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
-                }
-                else if (position == 3) {
-                    // Events
-                    cont.viewEvent();
-                    frag = new EventFragment();
-                    switchFragment();
-                    Toast.makeText(getActivity(), "3", Toast.LENGTH_SHORT).show();
-                    Log.d("isi aray", cont.getArrData().toString());
-                }
-                else if (position == 4) {
-                    // Tentang Kami
-                    frag = new TentangKamiFragment();
-                    switchFragment();
-                    Toast.makeText(getActivity(), "4", Toast.LENGTH_SHORT).show();
-                }
-                else if (position == 5) {
-                    // Hubungi Kami
-                    frag = new HubungiKamiFragment();
-                    switchFragment();
-                    Toast.makeText(getActivity(), "5", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
@@ -159,20 +113,14 @@ public class NavigationDrawerFragment extends Fragment {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
 
-    /**
-     * Users of this fragment must call this method to set up the navigation drawer interactions.
-     *
-     * @param fragmentId   The android:id of this fragment in its activity's layout.
-     * @param drawerLayout The DrawerLayout containing this fragment's UI.
-     */
     public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 
         // Set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // Set up the drawer's list view with items and click listener
 
+        // Set up the drawer's list view with items and click listener
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);

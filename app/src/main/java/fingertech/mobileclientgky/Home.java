@@ -36,7 +36,9 @@ import android.util.Log;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-
+/**
+ * Created by William Stefan Hartono
+ */
 public class Home extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -378,7 +380,6 @@ public class Home extends ActionBarActivity
                                         SessionManager sm = new SessionManager(getApplicationContext());
                                         sm.logoutUser();
                                         invalidateOptionsMenu();
-                                        Log.d("Logout preferen", sm.pref.getAll().toString());
                                         Toast.makeText(Home.this, "Anda berhasil logout", Toast.LENGTH_LONG).show();
                                     }
                                 })

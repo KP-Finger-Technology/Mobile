@@ -1,7 +1,8 @@
+
 package fingertech.mobileclientgky;
 
 /**
- * Created by USER on 28/05/2015.
+ * Created by William Stefan Hartono
  */
 public class NavigationDrawerData {
     public static String[] berandaArray = {};

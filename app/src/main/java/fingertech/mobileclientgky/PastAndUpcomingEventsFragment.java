@@ -32,22 +32,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PastAndUpcomingEventsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PastAndUpcomingEventsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by Andarias Silvanus
  */
 public class PastAndUpcomingEventsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -79,15 +70,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private LinearLayout subRowLayout;
     ProgressBar pb;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PastAndUpcomingEventsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static PastAndUpcomingEventsFragment newInstance(String param1, String param2) {
         PastAndUpcomingEventsFragment fragment = new PastAndUpcomingEventsFragment();
         Bundle args = new Bundle();
@@ -119,18 +101,15 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         if (savedInstanceState != null) {
             //  Probably orientation change
-            Log.d("from lagu: mencoba ambil arrayList yg disave..","..");
             judulSaved = savedInstanceState.getStringArrayList("judulSaved");
             tanggalSaved = savedInstanceState.getStringArrayList("tanggalSaved");
             keteranganSaved = savedInstanceState.getStringArrayList("keteranganSaved");
             linkSaved = savedInstanceState.getStringArrayList("linkSaved");
             generateKontenEvent();
-            Log.d("from lagu: berhasil ambil arrayList yang telah di-save","..");
         }
         else {
             if ((judulSaved!=null) && (tanggalSaved!=null) && (keteranganSaved!=null) && (linkSaved!=null)) {
                 // Returning from backstack, data is fine, do nothing
-                Log.d("from KPPK, si arrayList!=null","..");
                 generateKontenEvent();
             }
             else {
@@ -154,7 +133,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        // Buat linear layout vertical utk menampung kata-kata
+        // Buat linear layout vertical untuk menampung kata-kata
         colLayout = new LinearLayout(getActivity());
         colLayout.setOrientation(LinearLayout.VERTICAL);
         colLayout.setPadding(0,10,10,0);
@@ -163,9 +142,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         int dataLength = judulSaved.size();
-        for (int i=0; i<dataLength; i++) {
+        for (int i = 0; i < dataLength; i++) {
             generateUI(judulSaved.get(i), tanggalSaved.get(i), keteranganSaved.get(i), linkSaved.get(i));
-            Log.d("iterasi-"+Integer.toString(i)+"-judul:"+judulSaved.get(i)+"-tanggal:"+tanggalSaved.get(i)+"-keterangan:"+keteranganSaved.get(i),"-linkGambar:"+linkSaved.get(i));
             if (i!=dataLength) {
                 rowLayout.addView(colLayout);
                 myLinearLayout.addView(rowLayout);
@@ -216,7 +194,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -229,23 +206,11 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
     private void generateUI (String judul, String tanggal, String keterangan, String linkGambar) {
-
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int image_width = display.getWidth()/3;
         int image_height = (int) (display.getHeight()/4.3);
@@ -276,12 +241,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         JudulEventTV.setLayoutParams(params);
 
         if (subRowLayout.getParent()!=null) {
-            Log.d("masuk remove View","..");
-//            ((ViewGroup) subRowLayout.getParent()).removeAllViews();
             ((ViewGroup) subRowLayout.getParent()).removeView(subRowLayout);
-        }
-        else {
-            Log.d("remove View null beneran","..");
         }
 
         subRowLayout.addView(JudulEventTV);
@@ -398,14 +358,12 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu = "";
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_event.php");
+            HttpGet request = new HttpGet(Controller.url + "view_event.php");
             HttpResponse response;
 
             try {
-
-                response = client.execute(request);
+               response = client.execute(request);
 
                 // Get the response
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -414,21 +372,15 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 while ((line = rd.readLine()) != null) {
                     result += line;
                 }
-//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
-                Log.d("Result", result);
 
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
-                    Log.d("Array", arr.toString());
-                    statu = "ok";
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -441,6 +393,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             progressBar.setVisibility(View.INVISIBLE);
             progressBar.setProgress(0);
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
+
             // Add LayoutParams
             params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -449,7 +402,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            // Buat linear layout vertical utk menampung kata-kata
+            // Buat linear layout vertical untuk menampung kata-kata
             colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0,10,10,0);
@@ -459,18 +412,11 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
             int dataLength = arr.length();
 
-            LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int image_width = display.getWidth()/3;
-            int image_height = (int) (display.getHeight()/4.3);
-
             String judul = null, tanggal = null, keterangan = null, linkGambar = null;
             judulSaved = new ArrayList<String>();
             tanggalSaved = new ArrayList<String>();
             keteranganSaved = new ArrayList<String>();
             linkSaved = new ArrayList<String>();
-            int colorBlack = Color.BLACK;
 
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
@@ -491,8 +437,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                Log.d("for i: ", Integer.toString(i));
 
                 generateUI(judul, tanggal, keterangan, linkGambar);
 
@@ -522,13 +466,11 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu = "";
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url+"view_eventsearch.php?kw=" + keyword);
             HttpResponse response;
 
             try {
-
                 response = client.execute(request);
 
                 // Get the response
@@ -538,21 +480,16 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 while ((line = rd.readLine()) != null) {
                     result += line;
                 }
-//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
-                Log.d("Result", result);
 
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
-                    statu = "ok";
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -581,20 +518,14 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
             int dataLength = arr.length();
 
-            LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
             Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int image_width = display.getWidth()/3;
-            int image_height = (int) (display.getHeight()/4.3);
-
-            int colorBlack = Color.BLACK;
-
             String judul = null, tanggal = null, keterangan = null, linkGambar = null;
 
             judulSaved = new ArrayList<String>();
             tanggalSaved = new ArrayList<String>();
             keteranganSaved = new ArrayList<String>();
             linkSaved = new ArrayList<String>();
+
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
                 JSONObject jsonobj = null;

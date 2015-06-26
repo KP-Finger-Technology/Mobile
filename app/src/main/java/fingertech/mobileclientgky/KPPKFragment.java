@@ -1,4 +1,3 @@
-
 package fingertech.mobileclientgky;
 
 import android.graphics.Color;
@@ -30,20 +29,12 @@ import java.util.ArrayList;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link KPPKFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link KPPKFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by Andarias Silvanus
  */
 public class KPPKFragment extends Fragment implements View.OnClickListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -62,15 +53,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
     private ArrayList<String> arrKPPK;
     private Boolean adaKPPK = false;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment KPPKFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static KPPKFragment newInstance(String param1, String param2) {
         KPPKFragment fragment = new KPPKFragment();
         Bundle args = new Bundle();
@@ -111,22 +93,18 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         DBH.openDataBase();
         if (savedInstanceState != null) {
             // Probably orientation change
-            Log.d("mencoba ambil arrayList yg disave..","..");
             kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
             if (!DBH.isTableExists("kppk"))
                 generateKontenKPPK(false);
-            Log.d("berhasil ambil arrayList yang telah di-save","..");
         }
         else {
             if (kppkSaved != null) {
                 // Returning from backstack, data is fine, do nothing
-                Log.d("from KPPK, si arrayList!=null","..");
                 if (!DBH.isTableExists("kppk"))
                     generateKontenKPPK(false);
             }
             else {
                 // Newly created, compute data
-                Log.d("from KPPK, new Viewer & execute","..");
                 if (!DBH.isTableExists("kppk")) {
                     v = new Viewer();
                     v.execute();
@@ -138,8 +116,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
     private LinearLayout myLinearLayout;
 
     private void generateKontenKPPK(boolean mode) {
-        // Mode == true utk load dari database
-        // Mode == false utk load dari konten yg telah disave dari server
+        // Mode == true untuk load dari database
+        // Mode == false untuk load dari konten yang telah disave dari server
         ArrayList<String> containerString = new ArrayList<String>();
         if (mode)
             containerString = DB.getKPPK();
@@ -157,7 +135,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         Button ListKPPK;
 
         int cnt = 1;
-        for (int i=0; i<dataLength; i=i+2) {
+        for (int i = 0; i < dataLength; i = i + 2) {
             String container = "KPPK " + Integer.toString(cnt) + " - " + containerString.get(i);
             cnt++;
 
@@ -174,7 +152,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // masuk ke kosntruktor parameter kppkLengkapFragment dengan parameter isi
+                        // Masuk ke kosntruktor parameter kppkLengkapFragment dengan parameter isi
                         frag = new KPPKLengkapFragment(_isi);
                         fragManager = getActivity().getSupportFragmentManager();
                         fragTransaction = fragManager.beginTransaction();
@@ -202,12 +180,10 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         if (DB.isTableExists("KPPK")) {
             // Jika tabel KPPK exist, berarti sudah pernah di-download. Tampilkan daftar KPPK dari database
             kppk_download.setVisibility(View.INVISIBLE);
-            Log.d("tabel KPPK sudah exist","..");
             generateKontenKPPK(true);
         }
         else {
             // Belum pernah download KPPK, maka tampilkan dari ambil JSON ke server
-            /*v.execute();*/
         }
 
         sv = (SearchView) rootView.findViewById(R.id.kppk_searchview);
@@ -243,7 +219,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -262,19 +237,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         v.downloadKPPK();
         Toast.makeText(getActivity(), "Download Success!", Toast.LENGTH_LONG).show();
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+    
+	public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
     }
 
@@ -293,9 +257,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String status ="";
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_kppk.php");
+            HttpGet request = new HttpGet(Controller.url + "view_kppk.php");
             HttpResponse response;
 
             try {
@@ -309,20 +272,15 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     result += line;
                 }
 
-                Log.d("Result", result);
-
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
-                    Log.d("Array", arr.toString());
-                    status = "ok";
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -350,19 +308,16 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 }
             }
             if (DB.isTableExists("KPPK")) {
-                Log.d("tabel KPPK exist! persiapan delete tabel kppk..","..");
                 DB.deleteTableKPPK();
             }
-            Log.d("persiapan membuat tabel kppk baru..","..");
             DB.createTableKPPK();
-            Log.d("persiapan insert data pada tabel kppk..","..");
             DB.insertDataKPPK(tmp);
         }
 
         @Override
         protected void onPostExecute(String result) {
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
-            //add LayoutParams
+            // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
@@ -437,9 +392,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String status = "";
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_kppksearch.php?kw=" + keyword);
+            HttpGet request = new HttpGet(Controller.url + "view_kppksearch.php?kw=" + keyword);
             HttpResponse response;
 
             try {
@@ -453,24 +407,18 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     result += line;
                 }
 
-                Log.d("Result", result);
-
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
-                    status = "ok";
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
-//            }
             return "";
         }
 
@@ -479,6 +427,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             ArrayList<String> tmp = new ArrayList<String>();
 
             String judul = null, isi = null;
+
             // Generate konten KPPK dalam loop for
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
@@ -494,19 +443,17 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 }
             }
             if (DB.isTableExists("KPPK")) {
-                Log.d("tabel KPPK exist! persiapan delete tabel kppk..","..");
                 DB.deleteTableKPPK();
             }
-            Log.d("persiapan membuat tabel kppk baru..","..");
             DB.createTableKPPK();
-            Log.d("persiapan insert data pada tabel kppk..","..");
             DB.insertDataKPPK(tmp);
         }
 
         @Override
         protected void onPostExecute(String result) {
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
-            //add LayoutParams
+
+            // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
@@ -526,7 +473,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     judul = "";
                     try {
                         jsonobj = arr.getJSONObject(i);
-                        Log.d("JSONObject", arr.getJSONObject(i).toString());
                         judul = jsonobj.getString("judul");
                         isi = jsonobj.getString("isi");
 

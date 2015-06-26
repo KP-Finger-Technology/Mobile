@@ -1,12 +1,10 @@
 package fingertech.mobileclientgky;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,34 +27,17 @@ import java.io.InputStreamReader;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link WartaMingguanFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link WartaMingguanFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by Andarias Silvanus
  */
 public class WartaMingguanFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
     private View rootView;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WartaMingguanFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static WartaMingguanFragment newInstance(String param1, String param2) {
         WartaMingguanFragment fragment = new WartaMingguanFragment();
         Bundle args = new Bundle();
@@ -66,9 +47,7 @@ public class WartaMingguanFragment extends Fragment {
         return fragment;
     }
 
-    public WartaMingguanFragment() {
-        // Required empty public constructor
-    }
+    public WartaMingguanFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,13 +65,9 @@ public class WartaMingguanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_warta_mingguan, container, false);
-
-        // Inflate the layout for this fragment
-        // return inflater.inflate(R.layout.fragment_warta_mingguan, container, false);
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -105,18 +80,7 @@ public class WartaMingguanFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
@@ -126,6 +90,7 @@ public class WartaMingguanFragment extends Fragment {
         private TableLayout myTableLayout;
         private TableRow TR;
         private TextView JudulTabel;
+        private TextView IsiTabelHeader;
         private TextView IsiTabel;
         private TextView judulTV;
         private TextView deskripsiTV;
@@ -138,26 +103,17 @@ public class WartaMingguanFragment extends Fragment {
             return obj;
         }
 
-//        public JSONArray getArr() {
-//            return arr;
-//        }
-
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu = "";
-//            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_wartamingguan.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url + "view_wartamingguan.php");
             HttpResponse response;
 
             try {
-
                 response = client.execute(request);
 
                 // Get the response
@@ -167,33 +123,37 @@ public class WartaMingguanFragment extends Fragment {
                 while ((line = rd.readLine()) != null) {
                     result += line;
                 }
-//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
-                Log.d("Result", result);
 
                 try {
-                    // data
+                    // Data
                     JSONObject res = new JSONObject(result);
-                    Log.d("bikin res",res.toString());
                     obj = res.getJSONObject("data");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d("excep frm try2 Bckgrnd", "..");
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
-//            }
             return "";
+        }
+
+        private void IsiTabelHeader (String text) {
+            IsiTabelHeader = new TextView(getActivity());
+            IsiTabelHeader.setText(text);
+            IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
+            IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
+            TR.addView(IsiTabelHeader);
         }
 
         private void IsiTabel (String text) {
             IsiTabel = new TextView(getActivity());
             IsiTabel.setText(text);
+            IsiTabelHeader.setTextColor(getResources().getColor(R.color.fontTabel));
             IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabel.setBackground(getResources().getDrawable(R.drawable.header_tabel));
+            IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
             TR.addView(IsiTabel);
         }
 
@@ -211,9 +171,6 @@ public class WartaMingguanFragment extends Fragment {
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             paramsDeskripsi.setMargins(0, 0, 0, 0);
 
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-
-            int colorBlack = Color.BLACK;
             TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
             TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
             HorizontalScrollView HSV;
@@ -227,9 +184,7 @@ public class WartaMingguanFragment extends Fragment {
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0, 5, 0, 0);
 
-            LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            String tanggal=null, kebaktian=null, pengkotbah=null, judul=null, deskripsi=null;
+            String tanggal = null, kebaktian = null, pengkotbah = null, judul = null, deskripsi = null;
 
             JSONArray jadwal = new JSONArray();
             JSONArray warta = new JSONArray();
@@ -248,13 +203,8 @@ public class WartaMingguanFragment extends Fragment {
             for (int i=0; i < dataLength; i++){
                 try {
                     JSONArray jsonAtribut = jadwal.getJSONObject(i).getJSONArray("atribut");
-                    Log.d("jsonAtribut: ", jsonAtribut.toString());
 
                     tanggal = jadwal.getJSONObject(i).getString("tanggal");
-                    Log.d("jsonTanggal: ", tanggal);
-
-                    Log.d("tanggal di iterasi-"+Integer.toString(i),tanggal);
-                    // ============= mungkin salah di tanggal, perhatiin lagi sama ambil tanggal di mana
 
                     myTableLayout = new TableLayout(getActivity());
                     myTableLayout.setLayoutParams(tableParams);
@@ -264,8 +214,8 @@ public class WartaMingguanFragment extends Fragment {
                     TR.setLayoutParams(rowTableParams);
 
                     // Judul kolom
-                    IsiTabel("Kebaktian");  // Kebaktian
-                    IsiTabel("Pengkotbah"); // Pengkotbah
+                    IsiTabelHeader("Kebaktian");  // Kebaktian
+                    IsiTabelHeader("Pengkotbah"); // Pengkotbah
                     myTableLayout.addView(TR, tableParams);  // Add row to table
 
                     JudulTabel = new TextView(getActivity());
@@ -274,7 +224,7 @@ public class WartaMingguanFragment extends Fragment {
                     myLinearLayout.addView(JudulTabel);
 
                     int length2 = jsonAtribut.length();
-                    for (int j=0; j<length2; j++) {
+                    for (int j = 0; j < length2; j++) {
                         pengkotbah = jsonAtribut.getJSONObject(j).getString("pengkotbah");
                         kebaktian = jsonAtribut.getJSONObject(j).getString("kebaktianumum");
 
@@ -291,7 +241,6 @@ public class WartaMingguanFragment extends Fragment {
                     myLinearLayout.addView(HSV);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d("excp di try atribut","..");
                 }
             }
 
@@ -307,6 +256,7 @@ public class WartaMingguanFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
                 // Judul warta
                 TextView wartaTV = new TextView(getActivity());
                 wartaTV.setText("Judul: " + judul);

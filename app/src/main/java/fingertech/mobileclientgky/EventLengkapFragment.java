@@ -13,22 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
-
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EventLengkapFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link EventLengkapFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by Andarias Silvanus
  */
 public class EventLengkapFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -37,7 +28,6 @@ public class EventLengkapFragment extends Fragment {
     private LinearLayout myLinearLayout;
     private View rootView;
 
-    // Untuk komponen-komponen
     private TextView TitleEventTV;
     private TextView JudulEventTV;
     private TextView TitleTanggalTV;
@@ -49,15 +39,6 @@ public class EventLengkapFragment extends Fragment {
     int colorBlack = Color.BLACK;
     private String judul = null, tanggal = null, keterangan = null, linkGambar = null;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EventLengkapFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static EventLengkapFragment newInstance(String param1, String param2) {
         EventLengkapFragment fragment = new EventLengkapFragment();
         Bundle args = new Bundle();
@@ -67,9 +48,7 @@ public class EventLengkapFragment extends Fragment {
         return fragment;
     }
 
-    public EventLengkapFragment() {
-        // Required empty public constructor
-    }
+    public EventLengkapFragment() {}
 
     public EventLengkapFragment(String _judul, String _tanggal, String _keterangan, String _linkGambar) {
         this.judul = _judul;
@@ -108,19 +87,7 @@ public class EventLengkapFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
@@ -135,7 +102,7 @@ public class EventLengkapFragment extends Fragment {
         LinearLayout rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        // Buat linear layout vertical utk menampung kata2
+        // Buat linear layout vertical untuk menampung kata2
         LinearLayout colLayout = new LinearLayout(getActivity());
         colLayout.setOrientation(LinearLayout.VERTICAL);
         colLayout.setPadding(0,10,10,0);
