@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -24,7 +23,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -84,9 +82,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
     Viewer v = new Viewer();
 
-    public KPPKFragment() {
-        // Required empty public constructor
-    }
+    public KPPKFragment() {}
 
     private DataBaseHelper DB;
     private Button kppk_download;
@@ -114,7 +110,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         DataBaseHelper DBH = new DataBaseHelper(getActivity().getApplicationContext());
         DBH.openDataBase();
         if (savedInstanceState != null) {
-            // probably orientation change
+            // Probably orientation change
             Log.d("mencoba ambil arrayList yg disave..","..");
             kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
             if (!DBH.isTableExists("kppk"))
@@ -122,14 +118,14 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             Log.d("berhasil ambil arrayList yang telah di-save","..");
         }
         else {
-            if (kppkSaved!=null) {
-                //returning from backstack, data is fine, do nothing
+            if (kppkSaved != null) {
+                // Returning from backstack, data is fine, do nothing
                 Log.d("from KPPK, si arrayList!=null","..");
                 if (!DBH.isTableExists("kppk"))
                     generateKontenKPPK(false);
             }
             else {
-                //newly created, compute data
+                // Newly created, compute data
                 Log.d("from KPPK, new Viewer & execute","..");
                 if (!DBH.isTableExists("kppk")) {
                     v = new Viewer();
@@ -142,8 +138,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
     private LinearLayout myLinearLayout;
 
     private void generateKontenKPPK(boolean mode) {
-        // mode == true utk load dr database
-        // mode == false utk load dr konten yg telah disave dari server
+        // Mode == true utk load dari database
+        // Mode == false utk load dari konten yg telah disave dari server
         ArrayList<String> containerString = new ArrayList<String>();
         if (mode)
             containerString = DB.getKPPK();
@@ -254,17 +250,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -273,7 +258,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-//        v.execute();
         Toast.makeText(getActivity(), "Downloading..", Toast.LENGTH_LONG).show();
         v.downloadKPPK();
         Toast.makeText(getActivity(), "Download Success!", Toast.LENGTH_LONG).show();
@@ -310,7 +294,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         protected String doInBackground(String... params) {
             String result = "";
             String status ="";
-//            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url+"view_kppk.php");
             HttpResponse response;
@@ -343,7 +326,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 e.printStackTrace();
             }
 
-//            }
             return "";
         }
 
@@ -352,6 +334,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             ArrayList<String> tmp = new ArrayList<String>();
 
             String judul = null, isi = null;
+
             // Generate konten KPPK dalam loop for
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
@@ -454,8 +437,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String status ="";
-//            for (String urlp : params) {
+            String status = "";
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url+"view_kppksearch.php?kw=" + keyword);
             HttpResponse response;

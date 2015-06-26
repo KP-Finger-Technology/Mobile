@@ -1,11 +1,9 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-//import android.app.Fragment;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -14,12 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -27,7 +23,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -55,8 +50,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
     private Button buttonFetchData;
     private View rootView;
 
-    // Controller cont = new Controller();
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -75,9 +68,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         return fragment;
     }
 
-    public JadwalPelayananFragment() {
-        // Required empty public constructor
-    }
+    public JadwalPelayananFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,8 +79,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         }
         Viewer v = new Viewer();
         v.execute();
-        /*cont.viewJadwalPelayanan();
-        Log.d("Jadwal ", cont.getArrData().toString());*/
     }
 
     @Override
@@ -97,22 +86,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
-        /*LinearLayout myLinearLayout;
-        Log.d("masuk 1:", "yes");
-        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
-        Log.d("masuk 2:", "yes");
-        //add LayoutParams
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        Log.d("masuk 3:", "yes");
 
-        Button dummy = new Button(getActivity());
-        dummy.setText("dummy!");
-        dummy.setLayoutParams(params);
-        myLinearLayout.addView(dummy);*/
-
-        // Inflate the layout for this fragment
-        /*return inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);*/
         buttonFetchData = (Button)rootView.findViewById(R.id.jadwalPelayanan_fetchData);
         buttonFetchData.setOnClickListener(this);
 
@@ -125,17 +99,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -241,7 +204,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         protected void onPostExecute(String result) {
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
 
-            //add LayoutParams
+            // Add LayoutParams
             params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
@@ -256,6 +219,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
             HorizontalScrollView HSV;
 
             String jenisPelayanan=null, tanggal=null, gedung=null, kebaktian=null, waktuMulai=null, waktuSelesai=null, judulLagu =null;
+
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
                 JSONObject jsonobj = null;
@@ -266,16 +230,22 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
                 TR = new TableRow(getActivity());
                 TR.setLayoutParams(tableParams);
+
                 // Tanggal
                 IsiTabel("Tanggal");
+
                 // Gedung
                 IsiTabel("Gedung");
+
                 // Kebaktian
                 IsiTabel("Kebaktian");
+
                 // Waktu
                 IsiTabel("Waktu");
+
                 // Judul Lagu
                 IsiTabel("Judul Lagu");
+
                 // Add row to table
                 myTableLayout.addView(TR);
 
@@ -301,17 +271,23 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
                         TR = new TableRow(getActivity());
                         TR.setLayoutParams(rowTableParams);
+
                         // Tanggal
                         IsiTabel(tanggal);
+
                         // Gedung
                         IsiTabel(gedung);
+
                         // Kebaktian
                         IsiTabel(kebaktian);
+
                         // Waktu
                         String waktu = waktuMulai + " - " + waktuSelesai;
                         IsiTabel(waktu);
+
                         // Judul Lagu
                         IsiTabel(judulLagu);
+
                         // Add row to table
                         myTableLayout.addView(TR, tableParams);
                     }
@@ -319,7 +295,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                     myLinearLayout.addView(HSV);
 
                 } catch (JSONException e) {
-//                    e.printStackTrace();
+                    e.printStackTrace();
                     Log.d("error di Try JSON object from JadwalPelayananFragment","..");
                 }
             }

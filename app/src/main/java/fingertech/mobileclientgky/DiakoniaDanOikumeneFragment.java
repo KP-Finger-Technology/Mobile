@@ -1,9 +1,7 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-/*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,9 +46,7 @@ public class DiakoniaDanOikumeneFragment extends Fragment {
         return fragment;
     }
 
-    public DiakoniaDanOikumeneFragment() {
-        // Required empty public constructor
-    }
+    public DiakoniaDanOikumeneFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,17 +70,6 @@ public class DiakoniaDanOikumeneFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {

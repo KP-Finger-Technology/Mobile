@@ -14,10 +14,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
-//import android.app.Fragment;
 
 
 /**
@@ -66,9 +63,7 @@ public class AyatAlkitabFragment extends Fragment {
         return fragment;
     }
 
-    public AyatAlkitabFragment() {
-        // Required empty public constructor
-    }
+    public AyatAlkitabFragment() {}
 
     public AyatAlkitabFragment (String _kitab, int _pasal, int _ayat) {
         this.kitab = _kitab;
@@ -86,14 +81,6 @@ public class AyatAlkitabFragment extends Fragment {
         }
         DB = new DataBaseHelper(getActivity().getApplicationContext());
         DB.openDataBase();
-
-//        try {
-//            DB.createDataBase();
-//            DB.openDataBase();
-//        } catch (IOException e) {
-////            e.printStackTrace();
-//            Log.d("gagal create & open database!", "");
-//        }
     }
 
     @Override
@@ -103,7 +90,6 @@ public class AyatAlkitabFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_ayat_alkitab, container, false);
         generateAyatAlkitab();
         return rootView;
-//        return inflater.inflate(R.layout.fragment_ayat_alkitab, container, false);
     }
 
     int x_TV = 0, y_TV = 0;
@@ -119,11 +105,6 @@ public class AyatAlkitabFragment extends Fragment {
         Log.d("from AyatAlkitabFragment","kitab="+kitab+" & pasal="+Integer.toString(pasal));
         if (kitab!=null) {
             ArrayList<String> daftarAyat = DB.getPasal(kitab, pasal);
-//            String ayat = DB.getResultQueryPasal();
-//            TextView ayatTV = new TextView(getActivity());
-//            ayatTV.setText(ayat);
-//            ayatTV.setLayoutParams(params);
-//            myLinearLayout.addView(ayatTV);
             int len = daftarAyat.size();
             Log.d("From ayatAlkitab-> ayat yang dipilih",Integer.toString(ayat));
             Log.d("From ayatAlkitab-> jumlah ayat iterasi",Integer.toString(len));
@@ -135,8 +116,6 @@ public class AyatAlkitabFragment extends Fragment {
             display.getSize(size);
             int sum_pading = 35;
             int deviceWidth  = size.x - sum_pading;
-//            int height = size.y; -> ga kepake
-//            int deviceWidth = display.getWidth();
 
             boolean Mark = false;
             TextView ayatTV = null;
@@ -174,7 +153,6 @@ public class AyatAlkitabFragment extends Fragment {
                 public void run(){
                     ScrollView SV = (ScrollView) rootView.findViewById(R.id.scroll_ayatAlkitab);
                     Log.d("nilai height ayat",Integer.toString(finalHeight_ayat));
-//                    SV.scrollTo(0, finalHeight_ayat);
                     SV.scrollTo(0, y_TV);
                 }
             });
@@ -191,17 +169,6 @@ public class AyatAlkitabFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
 
     @Override
     public void onDetach() {

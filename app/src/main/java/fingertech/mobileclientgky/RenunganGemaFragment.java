@@ -351,7 +351,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         private DatePickerDialog.OnDateSetListener mDateSetListener;
 
         public DatePickerDialogFragment() {
-            // nothing to see here, move along
+            // Nothing to see here, move along
         }
 
         public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {

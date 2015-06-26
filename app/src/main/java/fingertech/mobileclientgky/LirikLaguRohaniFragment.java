@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -23,7 +22,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -82,9 +80,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
     Viewer v = new Viewer();
 
-    public LirikLaguRohaniFragment() {
-        // Required empty public constructor
-    }
+    public LirikLaguRohaniFragment() {}
 
     private DataBaseHelper DB;
     private Button lirikLaguRohani_download;
@@ -112,7 +108,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         DataBaseHelper DBH = new DataBaseHelper(getActivity().getApplicationContext());
         DBH.openDataBase();
         if (savedInstanceState != null) {
-            // probably orientation change
+            // Probably orientation change
             Log.d("from lagu: mencoba ambil arrayList yg disave..","..");
             laguSaved = savedInstanceState.getStringArrayList("laguSaved");
             if (!DBH.isTableExists("LirikLaguRohani"))
@@ -121,7 +117,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         }
         else {
             if (laguSaved!=null) {
-                //returning from backstack, data is fine, do nothing
+                // Returning from backstack, data is fine, do nothing
                 Log.d("from KPPK, si arrayList!=null","..");
                 if (!DBH.isTableExists("LirikLaguRohani")) {
                     Log.d("tabel lirik lagu tidak exist","..");
@@ -129,7 +125,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 }
             }
             else {
-                //newly created, compute data
+                //Newly created, compute data
                 Log.d("from KPPK, new Viewer & execute","..");
                 if (!DBH.isTableExists("LirikLaguRohani")) {
                     Log.d("tabel lirik lagu tidak exist","..");
@@ -143,8 +139,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
     private LinearLayout myLinearLayout;
 
     private void generateKontenLirikLaguRohani(boolean mode) {
-        // mode == true utk load dr database
-        // mode == false utk load dr konten yg telah di save dr server
+        // Mode == true utk load dr database
+        // Mode == false utk load dr konten yg telah di save dr server
 
         ArrayList<String> containerString = new ArrayList<String>();
 
@@ -217,7 +213,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
 //            isLirikLaguRohaniExist = false;
 //            v.execute();
-
         }
 
         sv = (SearchView) rootView.findViewById(R.id.lirikLaguRohani_searchview);
@@ -303,7 +298,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String status ="";
+            String status = "";
 
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url+"view_lagu.php");
@@ -373,7 +368,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         @Override
         protected void onPostExecute(String result) {
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
-            //add LayoutParams
+
+            // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
@@ -518,7 +514,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         @Override
         protected void onPostExecute(String result) {
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
-            //add LayoutParams
+            // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);

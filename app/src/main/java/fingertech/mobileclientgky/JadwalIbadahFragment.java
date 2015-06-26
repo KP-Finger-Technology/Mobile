@@ -1,25 +1,20 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-/*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -27,7 +22,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -72,9 +66,7 @@ public class JadwalIbadahFragment extends Fragment {
         return fragment;
     }
 
-    public JadwalIbadahFragment() {
-        // Required empty public constructor
-    }
+    public JadwalIbadahFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,17 +96,6 @@ public class JadwalIbadahFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -161,9 +142,8 @@ public class JadwalIbadahFragment extends Fragment {
         protected String doInBackground(String... params) {
             String result = "";
             String statu = "";
-//            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_jadwalibadah.php"); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_jadwalibadah.php");
             HttpResponse response;
 
             try {
@@ -234,10 +214,13 @@ public class JadwalIbadahFragment extends Fragment {
             TR.setLayoutParams(tableParams);
 
             // Judul kolom
+
             // Tanggal
             IsiTabel("Tanggal");
+
             // Isi
             IsiTabel("Isi");
+
             // Add row to table
             myTableLayout.addView(TR);
 
@@ -253,10 +236,13 @@ public class JadwalIbadahFragment extends Fragment {
 
                     TR = new TableRow(getActivity());
                     TR.setLayoutParams(rowTableParams);
+
                     // Tanggal
                     IsiTabel(tanggal);
+
                     // Isi
                     IsiTabel(isi);
+
                     // Add row to table
                     myTableLayout.addView(TR, tableParams);
                 } catch (JSONException e) {

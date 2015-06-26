@@ -1,9 +1,7 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.app.Fragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -54,9 +52,7 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
         return fragment;
     }
 
-    public KumpulanBtnAyatAlkitabFragment() {
-        // Required empty public constructor
-    }
+    public KumpulanBtnAyatAlkitabFragment() {}
 
     private String kitab;
     private int pasal;
@@ -80,7 +76,6 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_kumpulan_btn_ayat_alkitab, container, false);
         rootView = inflater.inflate(R.layout.fragment_kumpulan_btn_ayat_alkitab, container, false);
         generateBtnAyat();
@@ -97,9 +92,9 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
         DB.openDataBase();
         int jumAyat = DB.getJumlahAyat(kitab, pasal);
 
-        //add LinearLayout
+        // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_btnAyatAlkitab);
-        //add LayoutParams
+        // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         params.setMargins(0, 0, 10, 15);
@@ -144,7 +139,7 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
                 }
             );
 
-            // NGIDE
+            // Coba-coba
             if (pasalBtn.getParent()!=null) {
                 ((ViewGroup) pasalBtn.getParent()).removeView(pasalBtn);
                 Log.d("masuk removeView pasalBtn from KumpulanBtnAyat","..");
@@ -170,17 +165,6 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -201,5 +185,4 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
 }

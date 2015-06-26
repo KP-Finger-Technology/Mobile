@@ -123,6 +123,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         daftarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 //                registerClicked(rootView);
                 String tmp="";
                 for (int i=0; i<checkedArray.size();i++){
@@ -153,17 +154,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -386,14 +376,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 Log.d("komisi selected", komisi);
                 Log.d("pelayanan selected", pelayanan);
 
-        /*Date date = new Date();*/
                 String dateInString = null;
 
                 try {
-            /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");*/
                     dateInString = now;
-            /*date = formatter.parse(dateInString);
-            Log.d("now", now);*/
                     Log.d("registerdateee", dateInString);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -401,7 +387,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
                 cont.register(nama, pass, email, telepon, alamat, dateInString, idbaptis, komisi, pelayanan);
             } else {
-                //password dan konfirmasi tidak sama, keluarin toast.
+                // Password dan konfirmasi tidak sama, tampilkan toast.
                 Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
             }
         }

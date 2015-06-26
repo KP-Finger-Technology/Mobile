@@ -13,15 +13,12 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -29,10 +26,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -57,32 +52,8 @@ public class KolportaseFragment extends Fragment {
         return judul;
     }
 
-    public String getPengarang() {
-        return pengarang;
-    }
-
-    public String getKeterangan() {
-        return keterangan;
-    }
-
-    public String getGambar() {
-        return gambar;
-    }
-
     public void setJudul(String judul) {
         this.judul = judul;
-    }
-
-    public void setGambar(String gambar) {
-        this.gambar = gambar;
-    }
-
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
-    }
-
-    public void setPengarang(String pengarang) {
-        this.pengarang = pengarang;
     }
 
     // TODO: Rename parameter arguments, choose names that match
@@ -593,7 +564,6 @@ public class KolportaseFragment extends Fragment {
                     colLayout.setOrientation(LinearLayout.VERTICAL);
                     subRowLayout = new LinearLayout(getActivity());
                 }
-
             }
         }
     }

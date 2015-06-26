@@ -1,25 +1,20 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-/*import android.app.Fragment;*/
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.TableRow.LayoutParams;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -104,17 +99,6 @@ public class WartaMingguanFragment extends Fragment {
         }
     }
 
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -191,21 +175,8 @@ public class WartaMingguanFragment extends Fragment {
                     JSONObject res = new JSONObject(result);
                     Log.d("bikin res",res.toString());
                     obj = res.getJSONObject("data");
-//                    Log.d("jooo" , test.toString());
-
-//                    for (int i=0; i<arr.length(); i++) {
-//                        JSONObject z = arr.getJSONObject(i);
-//                        for (int j=0; j<z.length(); j++) {
-//                            Log.d("kode i="+i+" dan j="+j,z.get);
-//                        }
-//                    }
-
-//                    JSONObject b = arr.getJSONObject(1);
-//                    Log.d("array warta atau 1", b.toString());
-//                    JSONObject c = arr.getJSONObject(2);
-//                    Log.d("array warta atau 2",c.toString());
                 } catch (JSONException e) {
-//                    e.printStackTrace();
+                    e.printStackTrace();
                     Log.d("excep frm try2 Bckgrnd", "..");
                 }
 
@@ -270,7 +241,6 @@ public class WartaMingguanFragment extends Fragment {
                 Log.d("excp olah atribut jdwal","..");
             }
             int dataLength = obj.length();
-//            int dataLength = jadwal.length();
             Log.d("length obj.length",Integer.toString(obj.length()));
             Log.d("length jadwal.length",Integer.toString(jadwal.length()));
 
@@ -320,7 +290,7 @@ public class WartaMingguanFragment extends Fragment {
                     HSV.addView(myTableLayout);
                     myLinearLayout.addView(HSV);
                 } catch (JSONException e) {
-//                    e.printStackTrace();
+                    e.printStackTrace();
                     Log.d("excp di try atribut","..");
                 }
             }

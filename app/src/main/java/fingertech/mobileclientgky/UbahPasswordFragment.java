@@ -1,10 +1,7 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
-import android.content.pm.PackageInstaller;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.app.Fragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,9 +51,7 @@ public class UbahPasswordFragment extends Fragment implements View.OnClickListen
         return fragment;
     }
 
-    public UbahPasswordFragment() {
-        // Required empty public constructor
-    }
+    public UbahPasswordFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,8 +132,5 @@ public class UbahPasswordFragment extends Fragment implements View.OnClickListen
         }else {
             Toast.makeText(getActivity(), "Re-enter Old Password", Toast.LENGTH_LONG).show();
         }
-
-
-
-        }
+    }
 }

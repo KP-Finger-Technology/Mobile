@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-//import android.app.Fragment;
-
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
@@ -82,20 +80,12 @@ public class PasalAlkitabFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-//        try {
-//            DB.createDataBase();
-//            DB.openDataBase();
-//        } catch (IOException e) {
-////            e.printStackTrace();
-//            Log.d("gagal create & open database!", "");
-//        }
     }
 
     private void generateBtnPasal(){
-        //add LinearLayout
+        // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pasalAlkitab);
-        //add LayoutParams
+        // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         params.setMargins(0, 0, 10, 15);
@@ -138,7 +128,7 @@ public class PasalAlkitabFragment extends Fragment {
                 }
             );
 
-            // NGIDE
+            // Coba-coba
             if (pasalBtn.getParent()!=null)
                 ((ViewGroup)pasalBtn.getParent()).removeView(pasalBtn);
             rowLayout.addView(pasalBtn);
@@ -161,7 +151,6 @@ public class PasalAlkitabFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_pasal_alkitab, container, false);
         generateBtnPasal();
         return rootView;
-//        return inflater.inflate(R.layout.fragment_pasal_alkitab, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -170,17 +159,6 @@ public class PasalAlkitabFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
 
     @Override
     public void onDetach() {
@@ -202,5 +180,4 @@ public class PasalAlkitabFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
 }

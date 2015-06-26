@@ -1,20 +1,16 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-//import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -22,7 +18,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -67,9 +62,7 @@ public class KatekisasiFragment extends Fragment {
         return fragment;
     }
 
-    public KatekisasiFragment() {
-        // Required empty public constructor
-    }
+    public KatekisasiFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,26 +76,8 @@ public class KatekisasiFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-//        View rootView = inflater.inflate(R.layout.fragment_katekisasi, container, false);
-//        LinearLayout myLinearLayout;
-//
-//        Log.d("masuk 1:", "yes");
-//        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_katekisasi);
-//        Log.d("masuk 2:", "yes");
-//        //add LayoutParams
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-//        Log.d("masuk 3:", "yes");
-//
-//        Button dummy = new Button(getActivity());
-//        dummy.setText("dummy!");
-//        dummy.setLayoutParams(params);
-//        myLinearLayout.addView(dummy);
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_katekisasi, container, false);
-//        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -111,17 +86,6 @@ public class KatekisasiFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -202,7 +166,7 @@ public class KatekisasiFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            String judul= null,IsiAyat=null,kitab,pasal,ayat,IsiRenungan=null,linkGambar;
+            String judul = null, IsiAyat = null, kitab, pasal, ayat, IsiRenungan = null, linkGambar;
             //add LinearLayout
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
             //add LayoutParams
@@ -242,8 +206,6 @@ public class KatekisasiFragment extends Fragment {
             myLinearLayout.addView(isiRenungan);
 
 //        } catch(JSONException e){e.printStackTrace();}
-
         }
     }
-
 }

@@ -207,6 +207,8 @@
 
                     </LinearLayout>
 
+                    <!-- Komisi -->
+
                     <CheckBox
                         android:id="@+id/register_checkboxKomisiAnak"
                         android:layout_width="match_parent"
@@ -246,31 +248,43 @@
                         android:id="@+id/register_textPelayanan"
                         android:layout_marginTop="5dp"/>
 
+                    <!-- Pelayanan -->
                     <CheckBox
                         android:id="@+id/register_checkboxPelayananAnak"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/register_textKomisiAnak"/>
+                        android:text="@string/register_textKomisiAnak"
+                        android:visibility="invisible"/>
                     <CheckBox
                         android:id="@+id/register_checkboxPelayananKaleb"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/register_textKomisiKaleb"/>
+                        android:text="@string/register_textKomisiKaleb"
+                        android:visibility="invisible"/>
+                    <CheckBox
+                        android:id="@+id/register_checkboxPelayananPasutri"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/register_textKomisiPasutri"
+                        android:visibility="invisible"/>
                     <CheckBox
                         android:id="@+id/register_checkboxPelayananPemudaDewasa"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/register_textKomisiPemudaDewasa"/>
+                        android:text="@string/register_textKomisiPemudaDewasa"
+                        android:visibility="invisible"/>
                     <CheckBox
                         android:id="@+id/register_checkboxPelayananRemajaPemuda"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/register_textKomisiRemajaPemuda"/>
+                        android:text="@string/register_textKomisiRemajaPemuda"
+                        android:visibility="invisible"/>
                     <CheckBox
                         android:id="@+id/register_checkboxPelayananWanita"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/register_textKomisiWanita"/>
+                        android:text="@string/register_textKomisiWanita"
+                        android:visibility="invisible"/>
 
                     <Button
                         style="?android:attr/buttonStyle"

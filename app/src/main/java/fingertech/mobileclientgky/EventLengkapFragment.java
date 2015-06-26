@@ -1,6 +1,5 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 
 
@@ -92,9 +90,8 @@ public class EventLengkapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_event_lengkap, container, false);
         // Inflate the layout for this fragment
-        /*return inflater.inflate(R.layout.fragment_event_lengkap, container, false);*/
+        rootView = inflater.inflate(R.layout.fragment_event_lengkap, container, false);
         generateEventLengkap();
         return rootView;
     }
@@ -105,17 +102,6 @@ public class EventLengkapFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -140,7 +126,8 @@ public class EventLengkapFragment extends Fragment {
 
     public void generateEventLengkap() {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_eventLengkap);
-        //add LayoutParams
+
+        // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         params.setMargins(0, 10, 20, 0);
@@ -148,7 +135,7 @@ public class EventLengkapFragment extends Fragment {
         LinearLayout rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        //buat linear layout vertical utk menampung kata2
+        // Buat linear layout vertical utk menampung kata2
         LinearLayout colLayout = new LinearLayout(getActivity());
         colLayout.setOrientation(LinearLayout.VERTICAL);
         colLayout.setPadding(0,10,10,0);
@@ -156,14 +143,14 @@ public class EventLengkapFragment extends Fragment {
         LinearLayout subRowLayout = new LinearLayout(getActivity());
         subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        //add image View
+        // Add image View
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int image_width = display.getWidth()/3;
         int image_height = (int) (display.getHeight()/4.3);
 
         ImageView GambarIV = new ImageView(getActivity());
 
-        //Loading image from below url into imageView
+        // Loading image from below url into imageView
         Picasso.with(getActivity())
                 .load(linkGambar)
                 .resize(image_height, image_width)
@@ -171,14 +158,14 @@ public class EventLengkapFragment extends Fragment {
         GambarIV.setLayoutParams(params);
         rowLayout.addView(GambarIV);
 
-        //add text View TitleEventTV
+        // Add text View TitleEventTV
         TitleEventTV = new TextView(getActivity());
         TitleEventTV.setText("Event: ");
         TitleEventTV.setLayoutParams(params);
         TitleEventTV.setTextColor(colorBlack);
         subRowLayout.addView(TitleEventTV);
 
-        //add text View JudulEventTV
+        // Add text View JudulEventTV
         JudulEventTV = new TextView(getActivity());
         JudulEventTV.setText(judul);
         JudulEventTV.setLayoutParams(params);
@@ -186,14 +173,14 @@ public class EventLengkapFragment extends Fragment {
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        //add text View TitleTanggalTV
+        // Add text View TitleTanggalTV
         TitleTanggalTV = new TextView(getActivity());
         TitleTanggalTV.setText("Tanggal: ");
         TitleTanggalTV.setTextColor(colorBlack);
         TitleTanggalTV.setLayoutParams(params);
         subRowLayout.addView(TitleTanggalTV);
 
-        //add text View JudulTanggalTV
+        // Add text View JudulTanggalTV
         JudulTanggalTV= new TextView(getActivity());
         JudulTanggalTV.setText(tanggal);
         JudulTanggalTV.setLayoutParams(params);
@@ -201,14 +188,14 @@ public class EventLengkapFragment extends Fragment {
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        //add text View TitleWaktuTV
+        // Add text View TitleWaktuTV
         TitleWaktuTV = new TextView(getActivity());
         TitleWaktuTV.setText("Waktu: ");
         TitleWaktuTV.setTextColor(colorBlack);
         TitleWaktuTV.setLayoutParams(params);
         subRowLayout.addView(TitleWaktuTV);
 
-        //add text View JudulWaktuTV
+        // Add text View JudulWaktuTV
         JudulWaktuTV = new TextView(getActivity());
         JudulWaktuTV.setText(tanggal);
         JudulWaktuTV.setLayoutParams(params);
@@ -216,14 +203,14 @@ public class EventLengkapFragment extends Fragment {
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        //add text View TitleKeteranganTV
+        // Add text View TitleKeteranganTV
         TitleKeteranganTV = new TextView(getActivity());
         TitleKeteranganTV.setText("Keterangan: ");
         TitleKeteranganTV.setTextColor(colorBlack);
         TitleKeteranganTV.setLayoutParams(params);
         subRowLayout.addView(TitleKeteranganTV);
 
-        //add text View IsiKeteranganTV
+        // Add text View IsiKeteranganTV
         IsiKeteranganTV = new TextView(getActivity());
         IsiKeteranganTV.setText(keterangan);
         IsiKeteranganTV.setLayoutParams(params);

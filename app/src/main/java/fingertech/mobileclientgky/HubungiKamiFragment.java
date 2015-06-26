@@ -1,26 +1,18 @@
 package fingertech.mobileclientgky;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
-
-// Untuk Map
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -53,7 +45,7 @@ public class HubungiKamiFragment extends Fragment {
     private UiSettings mapSettings;
     private Button buttonGetDirection;
 
-    // latitude and longitude
+    // Latitude and longitude
     double latitude = -6.113887;
     double longitude = 106.791796;
     LatLng ll = new LatLng(latitude, longitude);
@@ -76,9 +68,7 @@ public class HubungiKamiFragment extends Fragment {
         return fragment;
     }
 
-    public HubungiKamiFragment() {
-        // Required empty public constructor
-    }
+    public HubungiKamiFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,15 +77,6 @@ public class HubungiKamiFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        /*buttonGetDirection = (Button) getActivity().findViewById(R.id.hubungiKami_getDirection);
-        buttonGetDirection.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                openMapApps();
-            }
-        });*/
     }
 
     @Override
@@ -107,7 +88,7 @@ public class HubungiKamiFragment extends Fragment {
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
-        mMapView.onResume();// needed to get the map to display immediately
+        mMapView.onResume(); // Needed to get the map to display immediately
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -117,16 +98,16 @@ public class HubungiKamiFragment extends Fragment {
 
         googleMap = mMapView.getMap();
 
-        // settings
+        // Settings
         mapSettings = googleMap.getUiSettings();
         mapSettings.setZoomControlsEnabled(true);
         mapSettings.setScrollGesturesEnabled(true);
 
-        // user's location
+        // User's location
         if(googleMap != null)
             googleMap.setMyLocationEnabled(true);
 
-        // create marker
+        // Create marker
         MarkerOptions marker = new MarkerOptions().position(
                 new LatLng(latitude, longitude)).title("GKY Pluit");
 
@@ -134,9 +115,7 @@ public class HubungiKamiFragment extends Fragment {
         marker.icon(BitmapDescriptorFactory
                 .defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
-        /*marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.logo));*/
-
-        // adding marker
+        // Adding marker
         googleMap.addMarker(marker);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(-6.113887, 106.791796)).zoom(12).build();
@@ -152,17 +131,6 @@ public class HubungiKamiFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -208,12 +176,5 @@ public class HubungiKamiFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
-    }
-
-    public void openMapApps() {
-        Intent intent = null;
-        intent = new Intent(android.content.Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("geo:" + latitude + "," + longitude));
-        startActivity(intent);
     }
 }
