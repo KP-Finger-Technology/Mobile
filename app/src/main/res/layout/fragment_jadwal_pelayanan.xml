@@ -54,12 +54,6 @@
                     android:textColor="#ffffffff"
                     android:onClick="fetchDataJadwalPelayanan"/>
 
-                <!--<TableLayout-->
-                    <!--android:id="@+id/tabelJadwalPelayanan"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-                <!--</TableLayout>-->
-
             </LinearLayout>
 
         </ScrollView>
