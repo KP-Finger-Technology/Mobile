@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
@@ -40,6 +41,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -71,6 +73,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private int pMonth;
     private String now = null;
     public Controller cont;
+
+    private int jumKomisi;
+    private int jumPelayanan;
+    private ArrayList<Integer> idxPelayanan;
+    private ArrayList<Boolean> checkedArray;
 
     /**
      * Use this factory method to create a new instance of
@@ -107,6 +114,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_register, container, false);
 
         dateET = (EditText) rootView.findViewById(R.id.register_editTanggalLahir);
@@ -115,24 +123,27 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         daftarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setDate(v);
-                registerClicked(rootView);
+//                registerClicked(rootView);
+                String tmp="";
+                for (int i=0; i<checkedArray.size();i++){
+                    tmp=tmp+Boolean.toString(checkedArray.get(i))+", ";
+                }
+                Toast.makeText(getActivity(), tmp, Toast.LENGTH_LONG).show();
             }
         });
 
         dateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setDate(v);
                 DatePickerDialogFragment datePicker = new DatePickerDialogFragment();
                 datePicker.show(getFragmentManager(), "datePicker");
 //                Toast.makeText(getActivity(), "clicking datepicker..", Toast.LENGTH_LONG).show();
-                /*Log.d("tanggal yg dipilih, tahun:"+ Integer.toString(datePicker.getpYear()) +" bulan:"+Integer.toString(datePicker.getpMonth())+" hari:"+Integer.toString(datePicker.getpDay()),"..");*/
             }
         });
 
-        // Inflate the layout for this fragment
-        /*return inflater.inflate(R.layout.fragment_register, container, false);*/
+        Viewer v = new Viewer();
+        v.execute();
+
         return rootView;
     }
 
@@ -488,10 +499,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     class Viewer extends AsyncTask<String, String, String> {
         private LinearLayout myLinearLayout;
-        private TableLayout myTableLayout;
-        private TableRow TR;
-        private TextView JudulTabel;
-        private TextView IsiTabel;
         private LinearLayout.LayoutParams params;
 
         JSONArray arr = new JSONArray();
@@ -509,14 +516,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         protected String doInBackground(String... params) {
             SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
-            Log.d("jadwalpel",sm.pref.getAll().toString());
-            Log.d("Nm",sm.pref.getAll().get("name").toString());
-            Log.d("ID", sm.pref.getAll().get("id").toString());
             String result = "";
             String statu = "";
 //            for (String urlp : params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_jadwalpelayanan.php?id="+sm.pref.getAll().get("id").toString()); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url+"view_komisipelayanan.php");
             HttpResponse response;
 
             try {
@@ -552,94 +556,76 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             return "";
         }
 
-        private void IsiTabel (String text) {
-            IsiTabel = new TextView(getActivity());
-            IsiTabel.setText(text);
-            IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabel.setBackground(getResources().getDrawable(R.drawable.cell_shape));
-            TR.addView(IsiTabel);
-        }
-
         @Override
         protected void onPostExecute(String result) {
-            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
+            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.checkbox_register);
 
             //add LayoutParams
             params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
+            LinearLayout.LayoutParams childParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            childParams.setMargins(0,-10,0,0);
 
             int dataLength = arr.length();
-
             Display display = getActivity().getWindowManager().getDefaultDisplay();
-
             int colorBlack = Color.BLACK;
-            TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
-            TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-            HorizontalScrollView HSV;
 
-            String jenisPelayanan=null, tanggal=null, gedung=null, kebaktian=null, waktuMulai=null, waktuSelesai=null, judulLagu =null;
+            String namaKomisi=null, namaPelayanan=null;
+            int idKomisi=0, idPelayanan=0;
+            jumPelayanan = 0; idxPelayanan = new ArrayList<Integer>();
+            jumKomisi = dataLength;
+            Log.d("from Viewer Register, isi dari jumKomisi:"+Integer.toString(jumKomisi),"..");
+            LinearLayout child;
+            int idViewPelayanan=999;
+            checkedArray = new ArrayList<Boolean>();
+
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
                 JSONObject jsonobj = null;
 
-                myTableLayout = new TableLayout(getActivity());
-                myTableLayout.setLayoutParams(tableParams);
-                HSV = new HorizontalScrollView(getActivity());
-
-                TR = new TableRow(getActivity());
-                TR.setLayoutParams(tableParams);
-                // Tanggal
-                IsiTabel("Tanggal");
-                // Gedung
-                IsiTabel("Gedung");
-                // Kebaktian
-                IsiTabel("Kebaktian");
-                // Waktu
-                IsiTabel("Waktu");
-                // Judul Lagu
-                IsiTabel("Judul Lagu");
-                // Add row to table
-                myTableLayout.addView(TR);
-
                 try {
                     jsonobj = arr.getJSONObject(i);
                     Log.d("JSONObject",arr.getJSONObject(i).toString());
-                    jenisPelayanan = jsonobj.getString("jenispelayanan");
+                    namaKomisi = jsonobj.getString("namakomisi");
+                    idKomisi = jsonobj.getInt("idkomisi");
                     JSONArray jsonArr = jsonobj.getJSONArray("atribut");
 
-                    JudulTabel = new TextView(getActivity());
-                    JudulTabel.setText(jenisPelayanan);
-                    JudulTabel.setLayoutParams(params);
-                    myLinearLayout.addView(JudulTabel);
+                    final CheckBox komisi = new CheckBox(getActivity());
+                    komisi.setText(namaKomisi);
+                    komisi.setLayoutParams(params);
+                    komisi.setId(i);
+                    final String finalNamaKomisi = namaKomisi;
+                    komisi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+//                            Toast.makeText(getActivity(), "greeting from"+ finalNamaKomisi, Toast.LENGTH_LONG).show();
+                            checkedArray.add(komisi.isChecked());
+                        }
+                    });
+                    myLinearLayout.addView(komisi);
+
+                    child = new LinearLayout(getActivity());
+                    child.setOrientation(LinearLayout.VERTICAL);
+                    child.setPadding(30,0,0,0);
 
                     int length2 = jsonArr.length();
+                    idxPelayanan.add(length2);
                     for (int j=0; j<length2; j++) {
-                        tanggal = jsonArr.getJSONObject(j).getString("tanggal");
-                        gedung = jsonArr.getJSONObject(j).getString("gedung");
-                        kebaktian = jsonArr.getJSONObject(j).getString("kebaktian");
-                        waktuMulai = jsonArr.getJSONObject(j).getString("waktumulai");
-                        waktuSelesai = jsonArr.getJSONObject(j).getString("waktuselesai");
-                        judulLagu = jsonArr.getJSONObject(j).getString("judul");
+                        namaPelayanan = jsonArr.getJSONObject(j).getString("jenispelayanan");
+                        idPelayanan = jsonArr.getJSONObject(j).getInt("idpelayanan");
+                        Log.d("nama pelayanan"+namaPelayanan,"..");
+                        jumPelayanan++;
 
-                        TR = new TableRow(getActivity());
-                        TR.setLayoutParams(rowTableParams);
-                        // Tanggal
-                        IsiTabel(tanggal);
-                        // Gedung
-                        IsiTabel(gedung);
-                        // Kebaktian
-                        IsiTabel(kebaktian);
-                        // Waktu
-                        String waktu = waktuMulai + " - " + waktuSelesai;
-                        IsiTabel(waktu);
-                        // Judul Lagu
-                        IsiTabel(judulLagu);
-                        // Add row to table
-                        myTableLayout.addView(TR, tableParams);
+                        CheckBox pelayanan = new CheckBox(getActivity());
+                        pelayanan.setText(namaPelayanan);
+                        pelayanan.setLayoutParams(childParams);
+                        pelayanan.setId(idViewPelayanan);
+//                        pelayanan.setVisibility(CheckBox.INVISIBLE);
+                        idViewPelayanan--;
+                        child.addView(pelayanan);
                     }
-                    HSV.addView(myTableLayout);
-                    myLinearLayout.addView(HSV);
+                    myLinearLayout.addView(child);
 
                 } catch (JSONException e) {
 //                    e.printStackTrace();
