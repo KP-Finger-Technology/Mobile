@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffb01815">
+        android:background="@color/header">
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffddbb"
+        android:background="#FFFFE6"
         >
 
         <LinearLayout
@@ -79,7 +79,7 @@
                         android:text="@string/hubungiKami_getDirection"
                         android:id="@+id/hubungiKami_getDirection"
                         android:layout_marginTop="15dp"
-                        android:background="#ffb01815"
+                        android:background="@color/header"
                         android:textColor="#ffffffff"/>-->
 
                     <com.google.android.gms.maps.MapView

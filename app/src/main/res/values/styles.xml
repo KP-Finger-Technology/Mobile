@@ -5,4 +5,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="headerFont" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">#F2BAD0</item>
+        <item name="android:textSize">12pt</item>
+    </style>
+
 </resources>

@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffb01815">
+        android:background="@color/header">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffddbb"
+        android:background="#FFFFE6"
         >
 
         <LinearLayout
@@ -245,139 +245,138 @@
 
                         <TableLayout android:layout_width="match_parent" android:layout_height="match_parent">
                             <!-- Kebaktian 1 -->
-
                             <TableRow>
-                                <TextView android:text="@string/komisiAnak_kebaktianWaktu"  android:textStyle="bold" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas" android:textStyle="bold" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempat" android:textStyle="bold" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="@string/komisiAnak_kebaktianWaktu" android:textStyle="bold" android:background="@drawable/header_tabel" android:textColor="@color/white"/>
+                                <TextView android:text="@string/komisiAnak_kelas" android:textStyle="bold" android:background="@drawable/header_tabel" android:textColor="@color/white"/>
+                                <TextView android:text="@string/komisiAnak_tempat" android:textStyle="bold" android:background="@drawable/header_tabel" android:textColor="@color/white"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="@string/komisiAnak_kebaktianI" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_KecilIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="@string/komisiAnak_kebaktianI" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_KecilIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TengahIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TengahIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TengahIng" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TengahIng" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_BesarIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_BesarIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_BesarIng" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_BesarIng" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <!-- Kebaktian 2 -->
                             <TableRow>
-                                <TextView android:text="@string/komisiAnak_kebaktianII" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_BayiIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="@string/komisiAnak_kebaktianII" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_BayiIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_BatitaIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_BatitaIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_PraTKIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_PraTKIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TKAIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TKAIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TKBIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TKBIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD1Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD1Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD2Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD2Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD3Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD3Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TengahMandarin" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TengahMandarin" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD4Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD4Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD5Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD5Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD6Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD6Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_BesarMandarin" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_BesarMandarin" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <!-- Kebaktian 3 -->
                             <TableRow>
-                                <TextView android:text="@string/komisiAnak_kebaktianIII" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_KecilIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="@string/komisiAnak_kebaktianIII" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_KecilIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TengahIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TengahIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt1" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_BesarIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_BesarIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatI_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                         </TableLayout>
@@ -401,100 +400,100 @@
                         <TableLayout android:layout_width="match_parent" android:layout_height="match_parent">
                             <!-- Kebaktian 1 -->
                             <TableRow>
-                                <TextView android:text="@string/komisiAnak_kebaktianWaktu" android:id="@+id/komisiAnak_kebaktianWaktu" android:textStyle="bold" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas" android:id="@+id/komisiAnak_kelas" android:textStyle="bold" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempat" android:id="@+id/komisiAnak_tempat" android:textStyle="bold" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="@string/komisiAnak_kebaktianWaktu" android:id="@+id/komisiAnak_kebaktianWaktu" android:textStyle="bold" android:background="@drawable/header_tabel" android:textColor="@color/white"/>
+                                <TextView android:text="@string/komisiAnak_kelas" android:id="@+id/komisiAnak_kelas" android:textStyle="bold" android:background="@drawable/header_tabel" android:textColor="@color/white"/>
+                                <TextView android:text="@string/komisiAnak_tempat" android:id="@+id/komisiAnak_tempat" android:textStyle="bold" android:background="@drawable/header_tabel" android:textColor="@color/white"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="@string/komisiAnak2_kebaktianI" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_KecilIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="@string/komisiAnak2_kebaktianI" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_KecilIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TengahIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TengahIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_BesarIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_BesarIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <!-- Kebaktian 2 -->
                             <TableRow>
-                                <TextView android:text="@string/komisiAnak2_kebaktianII" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_BayiBalitaIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="@string/komisiAnak2_kebaktianII" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_BayiBalitaIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_PraTKIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_PraTKIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TKAIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TKAIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TKBIndo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TKBIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD1Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt4" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD1Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt4" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD2Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt4" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD2Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt4" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD3Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt4" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD3Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt4" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_TengahIng" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt4" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_TengahIng" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt4" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD4Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD4Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD5Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD5Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt3" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_SD6Indo" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_SD6Indo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                             <TableRow>
-                                <TextView android:text="" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_kelas_BesarIng" android:background="@drawable/cell_shape"/>
-                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt2" android:background="@drawable/cell_shape"/>
+                                <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_kelas_BesarIng" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                                <TextView android:text="@string/komisiAnak_tempatII_GedungLt2" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                             </TableRow>
 
                         </TableLayout>
@@ -518,27 +517,27 @@
                     <TableLayout android:layout_width="match_parent" android:layout_height="match_parent">
                         <!-- Kebaktian 1 -->
                         <TableRow>
-                            <TextView android:text="@string/komisiAnak_kebaktianWaktu" android:textStyle="bold" android:background="@drawable/cell_shape"/>
-                            <TextView android:text="@string/komisiAnak_kelas" android:textStyle="bold" android:background="@drawable/cell_shape"/>
-                            <TextView android:text="@string/komisiAnak_tempat" android:textStyle="bold" android:background="@drawable/cell_shape"/>
+                            <TextView android:text="@string/komisiAnak_kebaktianWaktu" android:textStyle="bold" android:background="@drawable/header_tabel" android:textColor="@color/white"/>
+                            <TextView android:text="@string/komisiAnak_kelas" android:textStyle="bold" android:background="@drawable/header_tabel" android:textColor="@color/white"/>
+                            <TextView android:text="@string/komisiAnak_tempat" android:textStyle="bold" android:background="@drawable/header_tabel" android:textColor="@color/white"/>
                         </TableRow>
 
                         <TableRow>
-                            <TextView android:text="@string/komisiAnak3_kebaktianI" android:background="@drawable/cell_shape"/>
-                            <TextView android:text="@string/komisiAnak_kelas_KecilIndo" android:background="@drawable/cell_shape"/>
-                            <TextView android:text="@string/komisiAnak_tempatIII_GedungSD" android:background="@drawable/cell_shape"/>
+                            <TextView android:text="@string/komisiAnak3_kebaktianI" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                            <TextView android:text="@string/komisiAnak_kelas_KecilIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                            <TextView android:text="@string/komisiAnak_tempatIII_GedungSD" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                         </TableRow>
 
                         <TableRow>
-                            <TextView android:text="" android:background="@drawable/cell_shape"/>
-                            <TextView android:text="@string/komisiAnak_kelas_TengahIndo" android:background="@drawable/cell_shape"/>
-                            <TextView android:text="@string/komisiAnak_tempatIII_GedungSD" android:background="@drawable/cell_shape"/>
+                            <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                            <TextView android:text="@string/komisiAnak_kelas_TengahIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                            <TextView android:text="@string/komisiAnak_tempatIII_GedungSD" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                         </TableRow>
 
                         <TableRow>
-                            <TextView android:text="" android:background="@drawable/cell_shape"/>
-                            <TextView android:text="@string/komisiAnak_kelas_BesarIndo" android:background="@drawable/cell_shape"/>
-                            <TextView android:text="@string/komisiAnak_tempatIII_GedungSD" android:background="@drawable/cell_shape"/>
+                            <TextView android:text="" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                            <TextView android:text="@string/komisiAnak_kelas_BesarIndo" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
+                            <TextView android:text="@string/komisiAnak_tempatIII_GedungSD" android:background="@drawable/background_tabel" android:textColor="@color/fontTabel"/>
                         </TableRow>
 
                     </TableLayout>
