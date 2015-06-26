@@ -105,6 +105,7 @@ public class AlkitabFragment extends Fragment {
                 kitabBtn = new Button(getActivity());
                 kitabBtn.setText(DB.getPasalAlkitab().get(i));
                 kitabBtn.setLayoutParams(params);
+                kitabBtn.setBackground(getResources().getDrawable(R.layout.alkitabbuttonstyle));
 //            kitabBtn.setBackgroundColor(0);
                 final int finalI = i;
                 kitabBtn.setOnClickListener(
