@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +67,15 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private ArrayList<Integer> idxPelayanan;
     private ArrayList<Boolean> checkedArray;
 
+    private Boolean[] checkedKomisi;
+    private String[] namaKomisiArr;
+    private Boolean[] checkedPelayanan;
+    private ArrayList<String> namaPelayananArr;
+
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
+    private FragmentManager fragManager;
+
     public static RegisterFragment newInstance(String param1, String param2) {
         RegisterFragment fragment = new RegisterFragment();
         Bundle args = new Bundle();
@@ -98,11 +109,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         daftarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            String tmp = "";
-            for (int i=0; i<checkedArray.size();i++){
-                tmp = tmp + Boolean.toString(checkedArray.get(i)) + ", ";
-            }
-            Toast.makeText(getActivity(), tmp, Toast.LENGTH_LONG).show();
+                register();
             }
         });
 
@@ -141,7 +148,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         public void onFragmentInteraction(Uri uri);
     }
 
-    public void registerClicked(View v) {
+    public void register() {
         EditText namaET = (EditText) rootView.findViewById(R.id.register_editNama);
         EditText passET = (EditText) rootView.findViewById(R.id.register_editPassword);
         EditText passconET = (EditText) rootView.findViewById(R.id.register_editKonfirmasiPassword);
@@ -165,170 +172,47 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
 
-            boolean checked_komisiAnak = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiAnak)).isChecked();
-            boolean checked_komisiKaleb = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiKaleb)).isChecked();
-            boolean checked_komisiPasutri = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiPasutri)).isChecked();
-            boolean checked_komisiPemuda = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiPemudaDewasa)).isChecked();
-            boolean checked_komisiRemaja = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiRemajaPemuda)).isChecked();
-            boolean checked_komisiWanita = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiWanita)).isChecked();
-
-            boolean checked_pelayananAnak = ((CheckBox) rootView.findViewById(R.id.register_checkboxPelayananAnak)).isChecked();
-            boolean checked_pelayananKaleb = ((CheckBox) rootView.findViewById(R.id.register_checkboxPelayananKaleb)).isChecked();
-            boolean checked_pelayananPasutri = ((CheckBox) rootView.findViewById(R.id.register_checkboxKomisiPasutri)).isChecked();
-            boolean checked_pelayananPemuda = ((CheckBox) rootView.findViewById(R.id.register_checkboxPelayananPemudaDewasa)).isChecked();
-            boolean checked_pelayananRemaja = ((CheckBox) rootView.findViewById(R.id.register_checkboxPelayananRemajaPemuda)).isChecked();
-            boolean checked_pelayananWanita = ((CheckBox) rootView.findViewById(R.id.register_checkboxPelayananWanita)).isChecked();
-
             String komisi = "";
             Log.d("komisi", komisi);
 
             String pelayanan = "";
 
-            // Check which checkbox was checked
-            // Komisi
-            // Komisi Anak
-            if (checked_komisiAnak) {
-                if (komisi != "")
-                    komisi += ",";
-                komisi += "1";
-
-                // Berlangganan untuk push notification komisiAnak
-                ParsePush.subscribeInBackground("komisiAnak", new SaveCallback() {
-                    @Override
-                    public void done(com.parse.ParseException e) {
-                        if (e == null) {
-                            Log.d("com.parse.push", "successfully subscribed to the komisiAnak channel.");
-                        } else {
-                            Log.e("com.parse.push", "failed to subscribe for push to the komisiAnak", e);
-                        }
-                    }
-                });
-            }
-            // Komisi Kaleb
-            if (checked_komisiKaleb) {
-                if (komisi != "")
-                    komisi += ",";
-                komisi += "2";
-
-                // Berlangganan untuk push notification komisiKaleb
-                ParsePush.subscribeInBackground("komisiKaleb", new SaveCallback() {
-                    @Override
-                    public void done(com.parse.ParseException e) {
-                        if (e == null) {
-                            Log.d("com.parse.push", "successfully subscribed to the komisiKaleb channel.");
-                        } else {
-                            Log.e("com.parse.push", "failed to subscribe for push to the komisiKaleb", e);
-                        }
-                    }
-                });
-            }
-            // Komisi Pasutri
-            if (checked_komisiPasutri) {
-                if (komisi != "")
-                    komisi += ",";
-                komisi += "3";
-
-                // Berlangganan untuk push notification komisiPasutri
-                ParsePush.subscribeInBackground("komisiPasutri", new SaveCallback() {
-                    @Override
-                    public void done(com.parse.ParseException e) {
-                        if (e == null) {
-                            Log.d("com.parse.push", "successfully subscribed to the komisiPasutri channel.");
-                        } else {
-                            Log.e("com.parse.push", "failed to subscribe for push to the komisiPasutri", e);
-                        }
-                    }
-                });
-            }
-            // Komisi Pemuda Dewasa
-            if (checked_komisiPemuda) {
-                if (komisi != "")
-                    komisi += ",";
-                komisi += "4";
-
-                // Berlangganan untuk push notification komisiPemuda
-                ParsePush.subscribeInBackground("komisiPemuda", new SaveCallback() {
-                    @Override
-                    public void done(com.parse.ParseException e) {
-                        if (e == null) {
-                            Log.d("com.parse.push", "successfully subscribed to the komisiPemuda channel.");
-                        } else {
-                            Log.e("com.parse.push", "failed to subscribe for push to the komisiPemuda", e);
-                        }
-                    }
-                });
-            }
-            // Komisi Remaja dan Pemuda
-            if (checked_komisiRemaja) {
-                if (komisi != "")
-                    komisi += ",";
-                komisi += "5";
-
-                // Berlangganan untuk push notification komisiRemaja
-                ParsePush.subscribeInBackground("komisiRemaja", new SaveCallback() {
-                    @Override
-                    public void done(com.parse.ParseException e) {
-                        if (e == null) {
-                            Log.d("com.parse.push", "successfully subscribed to the komisiRemaja channel.");
-                        } else {
-                            Log.e("com.parse.push", "failed to subscribe for push to the komisiRemaja", e);
-                        }
-                    }
-                });
-            }
-                // Komisi Wanita
-                if (checked_komisiWanita) {
+            for (int i=0; i<checkedKomisi.length; i++) {
+                if (checkedKomisi[i]) {
                     if (komisi != "")
                         komisi += ",";
-                    komisi += "6";
-
-                    // Berlangganan untuk push notification komisiWanita
-                    ParsePush.subscribeInBackground("komisiWanita", new SaveCallback() {
+                    komisi += Integer.toString(i+1);
+                    Log.d("iterasi ke-"+Integer.toString(i)+", isi string komisi:"+komisi,"..");
+                    ParsePush.subscribeInBackground(namaKomisiArr[i], new SaveCallback() {
                         @Override
                         public void done(com.parse.ParseException e) {
                             if (e == null) {
-                                Log.d("com.parse.push", "successfully subscribed to the komisiWanita channel.");
+                                Log.d("com.parse.push", "successfully subscribed to the komisi channel.");
                             } else {
-                                Log.e("com.parse.push", "failed to subscribe for push to the komisiWanita", e);
+                                Log.e("com.parse.push", "failed to subscribe for push to the komisi", e);
                             }
-                    }
-                });
+                        }
+                    });
+                }
             }
 
-            // Pelayanan
-            if (checked_pelayananAnak) {
-                if (pelayanan != "")
-                    pelayanan += ",";
-                pelayanan += "1";
-            }
-
-            if (checked_pelayananKaleb) {
-                if (pelayanan != "")
-                    pelayanan += ",";
-                pelayanan += "2";
-            }
-
-            if (checked_pelayananPasutri) {
-                if (pelayanan != "")
-                    pelayanan += ",";
-                pelayanan += "3";
-            }
-
-            if (checked_pelayananPemuda) {
-                if (pelayanan != "")
-                    pelayanan += ",";
-                pelayanan += "4";
-            }
-
-            if (checked_pelayananRemaja) {
-                if (pelayanan != "")
-                    pelayanan += ",";
-                pelayanan += "5";
-            }
-            if (checked_pelayananWanita) {
-                if (pelayanan != "")
-                    pelayanan += ",";
-                pelayanan += "6";
+            for (int i=0; i<checkedPelayanan.length; i++) {
+                if (checkedPelayanan[i]) {
+                    if (pelayanan != "")
+                        pelayanan += ",";
+                    pelayanan += Integer.toString(i+1);
+                    Log.d("iterasi ke-"+Integer.toString(i)+", isi string pelayanan:"+pelayanan,"..");
+                    ParsePush.subscribeInBackground(namaPelayananArr.get(i), new SaveCallback() {
+                        @Override
+                        public void done(com.parse.ParseException e) {
+                            if (e == null) {
+                                Log.d("com.parse.push", "successfully subscribed to the pelayanan channel.");
+                            } else {
+                                Log.e("com.parse.push", "failed to subscribe for push to the pelayanan", e);
+                            }
+                        }
+                    });
+                }
             }
 
             String dateInString = null;
@@ -341,12 +225,22 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             }
 
             cont.register(nama, pass, email, telepon, alamat, dateInString, idbaptis, komisi, pelayanan);
+            frag = new Home.PlaceholderFragment();
+            switchFragment();
 
-            } else {
-                // Password dan konfirmasi tidak sama, tampilkan toast.
-                Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
-            }
+        } else {
+            // Password dan konfirmasi tidak sama, tampilkan toast.
+            Toast.makeText(getActivity(), "Re-enter Password", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void switchFragment() {
+        fragManager = getActivity().getSupportFragmentManager();
+        fragTransaction = fragManager.beginTransaction();
+        fragTransaction.replace(R.id.container, frag);
+        fragTransaction.addToBackStack(null);
+        fragTransaction.commit();
+    }
 
     public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -440,7 +334,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     class Viewer extends AsyncTask<String, String, String> {
         private LinearLayout myLinearLayout;
         private LinearLayout.LayoutParams params;
-
+        private int sumPelayanan;
         JSONArray arr = new JSONArray();
 
         public JSONArray getArr() {
@@ -476,6 +370,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
+                    sumPelayanan = res.getInt("count");
                     Log.d("Array", arr.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -500,9 +395,16 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             childParams.setMargins(0,-10,0,0);
 
             int dataLength = arr.length();
+            checkedKomisi = new Boolean[dataLength];
+            namaKomisiArr = new String[dataLength];
+            checkedPelayanan = new Boolean[sumPelayanan];
+            namaPelayananArr = new ArrayList<String>();
+            for (int idx=0; idx<checkedKomisi.length; idx++)
+                checkedKomisi[idx] = false;
+            for (int idx=0; idx<checkedPelayanan.length; idx++)
+                checkedPelayanan[idx] = false;
 
-            String namaKomisi = null, namaPelayanan = null;
-            int idKomisi = 0, idPelayanan = 0;
+            String namaKomisi = null;
             jumPelayanan = 0; idxPelayanan = new ArrayList<Integer>();
             jumKomisi = dataLength;
 
@@ -510,7 +412,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             int idViewPelayanan = 999;
             checkedArray = new ArrayList<Boolean>();
 
-            // Generate konten Event dalam loop for
+            int idx_pelayanan = 0;
+
+            // Generate konten Register dalam loop for
             for (int i = 0; i < dataLength; i++){
                 JSONObject jsonobj = null;
 
@@ -518,18 +422,43 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     jsonobj = arr.getJSONObject(i);
                     Log.d("JSONObject",arr.getJSONObject(i).toString());
                     namaKomisi = jsonobj.getString("namakomisi");
-                    idKomisi = jsonobj.getInt("idkomisi");
+//                    idKomisi = jsonobj.getInt("idkomisi");
                     JSONArray jsonArr = jsonobj.getJSONArray("atribut");
+                    namaKomisiArr[i] = namaKomisi;
+                    final int length2 = jsonArr.length();
+                    idxPelayanan.add(length2);
 
+                    // Membuat checkbox komisi
                     final CheckBox komisi = new CheckBox(getActivity());
                     komisi.setText(namaKomisi);
                     komisi.setLayoutParams(params);
                     komisi.setId(i);
                     final String finalNamaKomisi = namaKomisi;
+                    final int finalI = i;
+                    final int finalIdViewPelayanan = idViewPelayanan;
+
+                    // Set listener pada setiap checkbox
                     komisi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                            checkedArray.add(komisi.isChecked());
+//                            checkedArray.add(komisi.isChecked());
+                            checkedKomisi[finalI] = komisi.isChecked();
+                            Log.d("from register-> checkedKomisi["+Integer.toString(finalI)+"] = "+Boolean.toString(checkedKomisi[finalI]),"..");
+                            int id = finalIdViewPelayanan;
+                            for (int i = 0; i < length2; i++) {
+                                CheckBox tmp_pelayanan = (CheckBox) rootView.findViewById(id);
+                                Log.d("iterasi ke-"+Integer.toString(i)+" utk mencoba setEnabled anak2 checkbox","");
+                                if (tmp_pelayanan != null) {
+                                    Log.d("tmp_pelayanan tidak null","..");
+                                    if (komisi.isChecked())
+                                        tmp_pelayanan.setEnabled(true);
+                                    else {
+                                        tmp_pelayanan.setChecked(false);
+                                        tmp_pelayanan.setEnabled(false);
+                                    }
+                                }
+                                id--;
+                            }
                         }
                     });
 
@@ -539,20 +468,41 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     child.setOrientation(LinearLayout.VERTICAL);
                     child.setPadding(30,0,0,0);
 
-                    int length2 = jsonArr.length();
-                    idxPelayanan.add(length2);
-                    for (int j=0; j<length2; j++) {
+                    String namaPelayanan = null, tanggal = null, gedung = null, waktuMulai = null, waktuSelesai = null;
+
+                    for (int j = 0; j < length2; j++) {
                         namaPelayanan = jsonArr.getJSONObject(j).getString("jenispelayanan");
-                        idPelayanan = jsonArr.getJSONObject(j).getInt("idpelayanan");
+                        waktuMulai = jsonArr.getJSONObject(j).getString("waktumulai");
+                        waktuSelesai = jsonArr.getJSONObject(j).getString("waktuselesai");
+//                        idPelayanan = jsonArr.getJSONObject(j).getInt("idpelayanan");
+
                         Log.d("nama pelayanan"+namaPelayanan,"..");
+                        namaPelayananArr.add(namaPelayanan);
                         jumPelayanan++;
 
-                        CheckBox pelayanan = new CheckBox(getActivity());
-                        pelayanan.setText(namaPelayanan);
-                        pelayanan.setLayoutParams(childParams);
-                        pelayanan.setId(idViewPelayanan);
-                        idViewPelayanan--;
-                        child.addView(pelayanan);
+                        //  Membuat checkbox pelayanan
+                        if (namaPelayanan != null) {
+                            final CheckBox pelayanan = new CheckBox(getActivity());
+                            pelayanan.setText(namaPelayanan + " (" + waktuMulai + "-" + waktuSelesai + ")");
+                            pelayanan.setLayoutParams(childParams);
+                            pelayanan.setId(idViewPelayanan);
+                            pelayanan.setEnabled(false);
+                            idViewPelayanan--;
+                            final int idx_pelayanan_tmp = idx_pelayanan;
+
+                            // Set listener pada setiap checkbox
+                            final String finalNamaPelayanan = namaPelayanan;
+                            pelayanan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                @Override
+                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (finalNamaPelayanan != "null")
+                                    checkedPelayanan[idx_pelayanan_tmp] = komisi.isChecked();
+//                                Log.d("from register-> checkedPelayanan["+Integer.toString(finalI)+"] = "+Boolean.toString(checkedKomisi[finalI]),"..");
+                                }
+                            });
+                            idx_pelayanan++;
+                            child.addView(pelayanan);
+                        }
                     }
                     myLinearLayout.addView(child);
 

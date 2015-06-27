@@ -87,7 +87,7 @@ public class AlkitabFragment extends Fragment {
                 kitabBtn.setText(DB.getPasalAlkitab().get(i));
                 kitabBtn.setLayoutParams(params);
 
-                if (i<39) // Perjanjian Lama
+                if (i < 39) // Perjanjian Lama
                     kitabBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonplstyle));
                 else      // Perjanjian Baru
                     kitabBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonpbstyle));
@@ -141,13 +141,13 @@ public class AlkitabFragment extends Fragment {
                 // Reset view
                 myLinearLayout=(LinearLayout) rootView.findViewById(R.id.container_alkitab);
                 myLinearLayout.removeAllViews();
-                if (DB.getJumlahPasal().size()>0) {
+                if (DB.getJumlahPasal().size() > 0) {
                     // Terdapat hasil pencarian generate UI
-                    generateBtnKitab(1,s);
+                    generateBtnKitab(1, s);
                 }
                 else {
                     // Tidak terdapat hasil pencarian
-                    generateBtnKitab(2,s);
+                    generateBtnKitab(2, s);
                 }
                 return true;
             }

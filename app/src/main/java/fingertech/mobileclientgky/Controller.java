@@ -30,7 +30,7 @@ import java.util.TimerTask;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-    public static final String url = "http://192.168.0.107/gky_web_service/";
+    public static final String url = "http://192.168.1.110/gky_web_service/";
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;
@@ -100,7 +100,8 @@ public class Controller {
             @Override
             public void run() {
                 new Writer().execute(url + "register.php?nama=" + nama + "&pass=" + password + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&tgl=" + tgllahir);
-             }
+                Log.d("url",url + "register.php?nama=" + nama + "&pass=" + password + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&tgl=" + tgllahir);
+            }
         });
     }
 
@@ -130,9 +131,9 @@ public class Controller {
         });
     }
 
-    public void login (final String nama,final String password ){
+    public void login (final String email, final String password ){
         Writer w = new Writer();
-        w.execute(url + "login.php?nama=" + nama + "&password=" + password);
+        w.execute(url + "login.php?email=" + email + "&password=" + password);
     }
 
     class Viewer extends AsyncTask<String, String, String> {
