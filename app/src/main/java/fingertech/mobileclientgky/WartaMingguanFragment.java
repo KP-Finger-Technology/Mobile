@@ -151,7 +151,7 @@ public class WartaMingguanFragment extends Fragment {
         private void IsiTabel (String text) {
             IsiTabel = new TextView(getActivity());
             IsiTabel.setText(text);
-            IsiTabelHeader.setTextColor(getResources().getColor(R.color.fontTabel));
+            IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
             IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
             TR.addView(IsiTabel);
