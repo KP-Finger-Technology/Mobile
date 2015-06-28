@@ -129,41 +129,41 @@ public class Home extends ActionBarActivity
                 if (groupPosition == 0) {
                     frag = new Home.PlaceholderFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                     return true;
                 }
                 // Alkitab
                 else if(groupPosition == 1){
                     frag = new AlkitabFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                     return true;
                 }// Tentang Kami
                 else if (groupPosition == 6) {
                     frag = new TentangKamiFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                     return true;
                 }
                 // Hubungi Kami
                 else if (groupPosition == 7) {
                     frag = new HubungiKamiFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                     return true;
                 }
                 // Login
                 else if (groupPosition == 8 && !isLoginFinal) {
                     frag = new LoginFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                     return true;
                 }
                 // Register
                 else if (groupPosition == 9 && !isLoginFinal) {
                     frag = new RegisterFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                     return true;
                 }
                 else {
@@ -181,42 +181,42 @@ public class Home extends ActionBarActivity
                 if (groupPosition == 2 && childPosition == 0) {
                     frag = new KomisiAnakFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Komisi Kaleb
                 else if (groupPosition == 2 && childPosition == 1) {
                     frag = new KomisiKalebFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Komisi Pasutri
                 else if (groupPosition == 2 && childPosition == 2) {
                     frag = new KomisiPasutriFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Komisi Pemuda Dewasa
                 else if (groupPosition == 2 && childPosition == 3) {
                     frag = new KomisiPemudaDewasaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Komisi Remaja & Pemuda
                 else if (groupPosition == 2 && childPosition == 4) {
                     frag = new KomisiRemajaDanPemudaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Komisi Wanita
                 else if (groupPosition == 2 && childPosition == 5) {
                     frag = new KomisiWanitaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Sub menu dari menu Pelayanan
@@ -224,35 +224,35 @@ public class Home extends ActionBarActivity
                 else if (groupPosition == 3 && childPosition == 0) {
                     frag = new DiakoniaDanOikumeneFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Kebaktian Doa
                 else if (groupPosition == 3 && childPosition == 1) {
                     frag = new KebaktianDoaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Kebaktian Umum
                 else if (groupPosition == 3 && childPosition == 2) {
                     frag = new KebaktianUmumFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Kelompok Kecil
                 else if (groupPosition == 3 && childPosition == 3) {
                     frag = new KelompokKecilFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Misi / Pengabaran Injil
                 else if (groupPosition == 3 && childPosition == 4) {
                     frag = new MisiPengabaranInjilFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Sub menu dari menu Pembinaan
@@ -260,28 +260,28 @@ public class Home extends ActionBarActivity
                 else if (groupPosition == 4 && childPosition == 0) {
                     frag = new KatekisasiFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Pre-marital
                 else if (groupPosition == 4 && childPosition == 1) {
                     frag = new PreMaritalClassFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Renungan Gema
                 else if (groupPosition == 4 && childPosition == 2) {
                     frag = new RenunganGemaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Rekaman Khotbah
                 else if (groupPosition == 4 && childPosition == 3) {
                     frag = new RekamanKhotbahFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Permohonan Doa
@@ -289,35 +289,35 @@ public class Home extends ActionBarActivity
                     SessionManager sm = new SessionManager(getApplicationContext());
                     frag = new PermohonanDoaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // KPPK
                 else if (groupPosition == 4 && childPosition == 5) {
                     frag = new KPPKFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Lirik Lagu Rohani
                 else if (groupPosition == 4 && childPosition == 6) {
                     frag = new LirikLaguRohaniFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Pengakuan Iman
                 else if (groupPosition == 4 && childPosition == 7) {
                     frag = new PengakuanImanFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Kolportase
                 else if (groupPosition == 4 && childPosition == 8) {
                     frag = new KolportaseFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Sub menu dari menu Events
@@ -325,28 +325,28 @@ public class Home extends ActionBarActivity
                 else if (groupPosition == 5 && childPosition == 0) {
                     frag = new WartaMingguanFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Liturgi Mingguan
                 else if (groupPosition == 5 && childPosition == 1) {
                     frag = new LiturgiMingguanFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Past and Upcoming Events
                 else if (groupPosition == 5 && childPosition == 2) {
                     frag = new PastAndUpcomingEventsFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Jadwal Ibadah
                 else if (groupPosition == 5 && childPosition == 3) {
                     frag = new JadwalIbadahFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment();
+                    switchFragment(frag);
                 }
 
                 // Konten Sesudah Login
@@ -355,19 +355,19 @@ public class Home extends ActionBarActivity
                     if (groupPosition == 8 && childPosition == 0) {
                         frag = new JadwalPelayananFragment();
                         mDrawerLayout.closeDrawer(Gravity.START);
-                        switchFragment();
+                        switchFragment(frag);
                     }
                     // Pengaturan Profil
                     else if (groupPosition == 8 && childPosition == 1) {
                         frag = new ProfilFragment();
                         mDrawerLayout.closeDrawer(Gravity.START);
-                        switchFragment();
+                        switchFragment(frag);
                     }
                     // Ubah Password
                     else if (groupPosition == 8 && childPosition == 2) {
                         frag = new UbahPasswordFragment();
                         mDrawerLayout.closeDrawer(Gravity.START);
-                        switchFragment();
+                        switchFragment(frag);
                     }
                     // Logout
                     else if (groupPosition == 8 && childPosition == 3) {
@@ -395,6 +395,23 @@ public class Home extends ActionBarActivity
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mDrawerLayout.isDrawerOpen(Gravity.START)) {
+            mDrawerLayout.closeDrawer(Gravity.START);
+        } else {
+            super.onBackPressed();
+        }
+
+        // Jika backstack hanya berisi 1 fragment, langsung keluar dari aplikasi
+        /*if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }
+        else {
+            super.onBackPressed();
+        }*/
     }
 
     @Override
@@ -447,39 +464,39 @@ public class Home extends ActionBarActivity
     // Untuk button-button di halaman utama
     public void renunganClicked(View v) {
         frag = new RenunganGemaFragment();
-        switchFragment();
+        switchFragment(frag);
     }
 
     public void maritalClicked(View v) {
         frag = new PreMaritalClassFragment();
-        switchFragment();
+        switchFragment(frag);
     }
 
     public void katekisasiClicked(View v) {
         frag = new KatekisasiFragment();
-        switchFragment();
+        switchFragment(frag);
     }
 
     public void permohonanClicked(View v) {
         frag = new PermohonanDoaFragment();
-        switchFragment();
+        switchFragment(frag);
     }
 
     public void alkitabClicked(View v) {
         frag = new AlkitabFragment();
-        switchFragment();
+        switchFragment(frag);
     }
 
     public void kelompokClicked(View v) {
         frag = new KelompokKecilFragment();
-        switchFragment();
+        switchFragment(frag);
     }
 
     // Mengirimkan doa ke server
     public void KirimDoa(View v) {
         ambilDataDoa(v);
         frag = new Home.PlaceholderFragment();
-        switchFragment();
+        switchFragment(frag);
     }
 
     // Mengambil data yang berada di formulir permohonan doa
@@ -532,7 +549,7 @@ public class Home extends ActionBarActivity
 
         if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")) {
             frag = new Home.PlaceholderFragment();
-            switchFragment();
+            switchFragment(frag);
         }
     }
 
@@ -571,11 +588,49 @@ public class Home extends ActionBarActivity
     }
 
     // Untuk mengganti tampilan fragment
-    public void switchFragment() {
-        fragManager = getSupportFragmentManager();
+    public void switchFragment(Fragment fragment) {
+        /*fragManager = getSupportFragmentManager();
         fragTransaction = fragManager.beginTransaction();
         fragTransaction.replace(R.id.container, frag);
         fragTransaction.addToBackStack(null);
-        fragTransaction.commit();
+        fragTransaction.commit();*/
+
+        // Resume fragment bila ada di backstack dan hapus semua fragment sisanya
+        String backStateName =  fragment.getClass().getName();
+        String fragmentTag = backStateName;
+
+        FragmentManager manager = getSupportFragmentManager();
+        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+
+        FragmentTransaction ft = manager.beginTransaction();
+        if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null) { // fragment not in back stack, create it.
+            /*ft.replace(R.id.container, fragment, fragmentTag);*/
+            ft.replace(R.id.container, fragment);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(backStateName);
+            ft.commit();
+        }
+        /*else {
+            ft.detach(backStateName);
+            ft.addToBackStack(backStateName);
+        }*/
     }
+
+    /*private android.app.FragmentManager.OnBackStackChangedListener getListener() {
+        android.app.FragmentManager.OnBackStackChangedListener result = new android.app.FragmentManager.OnBackStackChangedListener() {
+            public void onBackStackChanged() {
+                FragmentManager manager = getSupportFragmentManager();
+                if (manager != null) {
+                    int backStackEntryCount = manager.getBackStackEntryCount();
+                    if (backStackEntryCount == 0) {
+                        finish();
+                    }
+                    Fragment fragment = manager.getFragments()
+                            .get(backStackEntryCount - 1);
+                    fragment.onResume();
+                }
+            }
+        };
+        return result;
+    }*/
 }

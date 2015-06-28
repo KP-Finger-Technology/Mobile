@@ -91,6 +91,8 @@ public class AlkitabFragment extends Fragment {
                     kitabBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonplstyle));
                 else      // Perjanjian Baru
                     kitabBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonpbstyle));
+
+                
 //            kitabBtn.setBackgroundColor(0);
 
                 final int finalI = i;

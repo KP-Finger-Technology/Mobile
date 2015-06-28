@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,7 +31,7 @@ import java.util.TimerTask;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-    public static final String url = "http://192.168.1.110/gky_web_service/";
+    public static final String url = "http://192.168.1.103/gky_web_service/";
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;
