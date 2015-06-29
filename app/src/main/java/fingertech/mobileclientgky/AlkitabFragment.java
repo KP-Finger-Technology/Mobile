@@ -72,6 +72,7 @@ public class AlkitabFragment extends Fragment {
         // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        params.setMargins(0,0,0,10);
 
         if ((mode < 2) && (mode > -1)) {
             if (mode == 0) {
@@ -84,7 +85,7 @@ public class AlkitabFragment extends Fragment {
 
             for (int i = 0; i < length; i++) {
                 kitabBtn = new Button(getActivity());
-                kitabBtn.setText(DB.getPasalAlkitab().get(i));
+                kitabBtn.setText(DB.getPasalAlkitab().get(i).toUpperCase());
                 kitabBtn.setLayoutParams(params);
 
                 if (i < 39) // Perjanjian Lama
@@ -92,7 +93,7 @@ public class AlkitabFragment extends Fragment {
                 else      // Perjanjian Baru
                     kitabBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonpbstyle));
 
-                
+                kitabBtn.setTextAppearance(getActivity().getApplicationContext(), R.style.alkitabButtonStyle);
 //            kitabBtn.setBackgroundColor(0);
 
                 final int finalI = i;

@@ -4,4 +4,5 @@
     <color name="body">#ffffe6</color>
     <color name="fontTabel">#336600</color>
     <color name="white">#FFFFFF</color>
+    <color name="dividerLine">#59554A</color>
 </resources>

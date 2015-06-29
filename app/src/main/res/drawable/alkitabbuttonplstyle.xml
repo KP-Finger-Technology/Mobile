@@ -6,9 +6,9 @@
 
     <item android:state_pressed="true" >
         <shape>
-            <solid android:color="#449def" />
+            <solid android:color="#59554A" />
             <stroke android:width="0dp" android:color="#2f6699" />
-            <corners android:radius="0dp" />
+            <corners android:radius="2dp" />
             <padding
                 android:left="10dp"
                 android:top="10dp"
@@ -23,10 +23,12 @@
                 <!--android:startColor="#CC2B09"-->
                 <!--android:endColor="#FF5936"-->
                 <!--android:angle="270" />-->
+            <solid android:angle="270"
+                android:color="#8B181A"/>
             <stroke
                 android:width="0dp"
                 android:color="#2f6699" />
-            <corners android:radius="0dp" />
+            <corners android:radius="2dp" />
             <padding
                 android:left="10dp"
                 android:top="10dp"

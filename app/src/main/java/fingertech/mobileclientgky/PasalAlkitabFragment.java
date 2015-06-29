@@ -1,6 +1,7 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,11 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -68,7 +71,8 @@ public class PasalAlkitabFragment extends Fragment {
 
         // Add LayoutParams
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        myLinearLayout.setHorizontalGravity(LinearLayout.TEXT_ALIGNMENT_CENTER);
+//        myLinearLayout.setHorizontalGravity(LinearLayout.TEXT_ALIGNMENT_CENTER);
+        myLinearLayout.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
 
         int btnWidth = 150;
         int btnHeight = 100;
@@ -81,10 +85,27 @@ public class PasalAlkitabFragment extends Fragment {
         LinearLayout rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
         TextView namaKitab = new TextView(getActivity());
+        namaKitab.setTextAppearance(getActivity().getApplicationContext(), R.style.judulPasal);
         namaKitab.setText(kitab);
         namaKitab.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-//        namaKitab.setBackground(getResources().getDrawable(R.style.judulPasal));
         rowLayout.addView(namaKitab);
+        myLinearLayout.addView(rowLayout);
+
+        // Tambah garis divider
+        View divider = new View(getActivity());
+        LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,5);
+        LP.setMargins(0,0,0,20);
+        divider.setLayoutParams(LP);
+        divider.setBackgroundColor(getResources().getColor(R.color.dividerLine));
+        myLinearLayout.addView(divider);
+
+        // Tambah text view utk memberi penjelasan jika sedang berada di halaman pasal
+        TextView halPasal = new TextView(getActivity());
+        halPasal.setTextAppearance(getActivity().getApplicationContext(), R.style.judulPasal);
+        halPasal.setText("Pasal");
+        halPasal.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        rowLayout = new LinearLayout(getActivity());
+        rowLayout.addView(halPasal);
         myLinearLayout.addView(rowLayout);
 
         // Button-button untuk kitab tersebut sebanyak jumlah pasal
@@ -94,9 +115,9 @@ public class PasalAlkitabFragment extends Fragment {
         int cnt = 0;
         Button pasalBtn;
 
+        // Untuk menghitung batas horisontal button yang dibuat
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int displayWidth = display.getWidth();
-        int displayHeight = (display.getHeight());
         int sumPadding = 35;
         int jumlahDraw = ((displayWidth-sumPadding-sumMargin)/btnWidth);
 
@@ -105,9 +126,8 @@ public class PasalAlkitabFragment extends Fragment {
             pasalBtn = new Button(getActivity());
             pasalBtn.setText(Integer.toString(i+1));
             pasalBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonstyle));
+            pasalBtn.setTextAppearance(getActivity().getApplicationContext(), R.style.pasalAyatButtonStyle);
             pasalBtn.setLayoutParams(params);
-//            pasalBtn.setWidth(btnWidth);
-//            pasalBtn.setHeight(btnHeight);
 
             final int finalI = i+1;
             pasalBtn.setOnClickListener(
