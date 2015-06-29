@@ -276,7 +276,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
                 judul = jsonobj.getString("judul");
                 IsiAyat = jsonobj.getString("firman");
                 IsiRenungan = jsonobj.getString("deskripsi");
-                linkGambar = Controller.url + "res/gema/";
+                linkGambar = Controller.urlgambar + "assets/image/";
                 linkGambar += jsonobj.getString("gambar");
             } catch (JSONException e) {
                 e.printStackTrace();

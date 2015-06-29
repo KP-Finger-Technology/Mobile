@@ -24,6 +24,9 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -588,6 +591,37 @@ public class Home extends ActionBarActivity
         cont.addDoa(nama,umur,email,telepon,jenisKelamin, doa);
     }
 
+    public String encryptPass(String password){
+        MessageDigest md = null;
+        StringBuffer hexString = new StringBuffer();
+        try {
+            md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+
+            byte byteData[] = md.digest();
+
+            //convert the byte to hex format method 1
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < byteData.length; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+
+            System.out.println("Digest(in hex format):: " + sb.toString());
+
+            //convert the byte to hex format method 2
+            for (int i=0;i<byteData.length;i++) {
+                String hex=Integer.toHexString(0xff & byteData[i]);
+                if(hex.length()==1) hexString.append('0');
+                hexString.append(hex);
+            }
+            System.out.println("Digest(in hex format):: " + hexString.toString());
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return hexString.toString();
+    }
+
     // Login
     public void loginClicked(View v) {
         EditText namaET = (EditText) findViewById(R.id.login_editNama);
@@ -601,7 +635,7 @@ public class Home extends ActionBarActivity
             e.printStackTrace();
         }
 
-        cont.login(nama, pass);
+        cont.login(nama,encryptPass(pass));
         invalidateOptionsMenu();
         SessionManager sm = new SessionManager(this);
 

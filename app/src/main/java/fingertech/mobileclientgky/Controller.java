@@ -35,6 +35,8 @@ import java.util.TimerTask;
  */
 public class Controller {
     public static final String url = "http://192.168.0.104/gky_web_service/";
+    public static final String urlgambar = "http://192.168.0.112/gereja/";
+    
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;
