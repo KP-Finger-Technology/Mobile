@@ -388,7 +388,7 @@ public class KolportaseFragment extends Fragment {
                     judul = jsonobj.getString("judulbuku");
                     pengarang = jsonobj.getString("pengarang");
                     keterangan = jsonobj.getString("keterangan");
-                    linkGambar = Controller.urlgambar + "assets/images/";
+                    linkGambar = Controller.urlgambar ;
                     linkGambar += jsonobj.getString("gambarbuku");
 
                 } catch (JSONException e) {
@@ -495,7 +495,7 @@ public class KolportaseFragment extends Fragment {
                     judul = jsonobj.getString("judulbuku");
                     pengarang = jsonobj.getString("pengarang");
                     keterangan = jsonobj.getString("keterangan");
-                    linkGambar = Controller.urlgambar + "assets/image/";
+                    linkGambar = Controller.urlgambar;
                     linkGambar += jsonobj.getString("gambarbuku");
                 } catch (JSONException e) {
                     e.printStackTrace();
