@@ -452,7 +452,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     judul = jsonobj.getString("judul");
                     tanggal = jsonobj.getString("tanggal");
                     keterangan = jsonobj.getString("keterangan");
-                    linkGambar = Controller.url + "res/event/";
+                    linkGambar = Controller.urlgambar + "assets/image/";
                     linkGambar += jsonobj.getString("gambarevent");
 
                     judulSaved.add(judul);
@@ -566,7 +566,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     judul = jsonobj.getString("judul");
                     tanggal = jsonobj.getString("tanggal");
                     keterangan = jsonobj.getString("keterangan");
-                    linkGambar = Controller.url + "res/event/";
+                    linkGambar = Controller.urlgambar + "assets/image/";
                     linkGambar += jsonobj.getString("gambarevent");
 
                     judulSaved.add(judul);

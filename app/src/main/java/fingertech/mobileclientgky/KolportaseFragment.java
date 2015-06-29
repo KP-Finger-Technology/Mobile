@@ -73,6 +73,9 @@ public class KolportaseFragment extends Fragment {
 
     private LinearLayout myLinearLayout;
     private LinearLayout.LayoutParams params;
+    private LinearLayout.LayoutParams paramsJarakAntarEvent;
+    private LinearLayout.LayoutParams paramsJarakAntarIsi;
+    private LinearLayout.LayoutParams paramsJarakIsiDenganButton;
     private LinearLayout rowLayout;
     private LinearLayout colLayout;
     private LinearLayout subRowLayout;
@@ -132,11 +135,17 @@ public class KolportaseFragment extends Fragment {
 
     private void generateKontenKolportase() {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kolportase);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
         // Add LayoutParams
-        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        params.setMargins(0, 10, 20, 0);
+        paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+
+        paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
+
+        paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
 
         rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -231,8 +240,9 @@ public class KolportaseFragment extends Fragment {
         // Add selengkapnya button
         SelengkapnyaBtn = new Button(getActivity());
         SelengkapnyaBtn.setText("Selengkapnya");
+        SelengkapnyaBtn.setTextColor(getResources().getColor(R.color.white));
         SelengkapnyaBtn.setLayoutParams(params);
-        SelengkapnyaBtn.setBackgroundColor(0);
+        SelengkapnyaBtn.setBackgroundColor(getResources().getColor(R.color.header));
         subRowLayout.addView(SelengkapnyaBtn);
         colLayout.addView(subRowLayout);
 
@@ -358,11 +368,17 @@ public class KolportaseFragment extends Fragment {
             // Add LinearLayout
             View v = rootView.findViewById(R.id.container_kolportase);
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kolportase);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             // Add LayoutParams
-            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 20, 0);
+            paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+
+            paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
+
+            paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
 
             rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -388,7 +404,7 @@ public class KolportaseFragment extends Fragment {
                     judul = jsonobj.getString("judulbuku");
                     pengarang = jsonobj.getString("pengarang");
                     keterangan = jsonobj.getString("keterangan");
-                    linkGambar = Controller.url + "res/kolportase/";
+                    linkGambar = Controller.urlgambar + "assets/images/";
                     linkGambar += jsonobj.getString("gambarbuku");
 
                 } catch (JSONException e) {
@@ -465,14 +481,17 @@ public class KolportaseFragment extends Fragment {
             // Add LinearLayout
             View v = rootView.findViewById(R.id.container_kolportase);
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kolportase);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             // Add LayoutParams
-            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 20, 0);
+            paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
 
-            rowLayout = new LinearLayout(getActivity());
-            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+            paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
+
+            paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
 
             // Membuat linear layout vertical untuk menampung kata-kata
             colLayout = new LinearLayout(getActivity());
@@ -495,7 +514,7 @@ public class KolportaseFragment extends Fragment {
                     judul = jsonobj.getString("judulbuku");
                     pengarang = jsonobj.getString("pengarang");
                     keterangan = jsonobj.getString("keterangan");
-                    linkGambar = Controller.url + "res/kolportase/";
+                    linkGambar = Controller.urlgambar + "assets/image/";
                     linkGambar += jsonobj.getString("gambarbuku");
                 } catch (JSONException e) {
                     e.printStackTrace();
