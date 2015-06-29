@@ -325,7 +325,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
             int dataLength = arr.length();
 
-            int colorBlack = Color.BLACK;
+            int defaultColor = getResources().getColor(R.color.defaultFont);
             String container, judul, isi = null;
 
             kppkSaved = new ArrayList<String>();
@@ -352,7 +352,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 ListKPPK = new Button(getActivity());
                 ListKPPK.setText(container);
                 ListKPPK.setLayoutParams(params);
-                ListKPPK.setTextColor(colorBlack);
+                ListKPPK.setTextColor(getResources().getColor(R.color.defaultFont));
                 ListKPPK.setBackgroundColor(0);
 
                 final String _judul = judul;
@@ -462,7 +462,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
             int dataLength = arr.length();
 
-            int colorBlack = Color.BLACK;
+            int defaultColor = getResources().getColor(R.color.defaultFont);
 
             String container, judul = null, isi = null;
 
@@ -490,7 +490,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     ListKPPK = new Button(getActivity());
                     ListKPPK.setText(container);
                     ListKPPK.setLayoutParams(params);
-                    ListKPPK.setTextColor(colorBlack);
+                    ListKPPK.setTextColor(getResources().getColor(R.color.defaultFont));
                     ListKPPK.setBackgroundColor(0);
 
                     final String _judul = judul;
@@ -536,7 +536,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     ListKPPK = new Button(getActivity());
                     ListKPPK.setText(container);
                     ListKPPK.setLayoutParams(params);
-                    ListKPPK.setTextColor(colorBlack);
+                    ListKPPK.setTextColor(getResources().getColor(R.color.defaultFont));
                     ListKPPK.setBackgroundColor(0);
 
                     final String _judul = judul;

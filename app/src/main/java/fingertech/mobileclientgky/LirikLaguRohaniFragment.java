@@ -330,7 +330,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             params.setMargins(0, 10, 20, 0);
 
             int dataLength = arr.length();
-            int colorBlack = Color.BLACK;
+            int defaultColor = getResources().getColor(R.color.defaultFont);
             String container, judul, isi = null;
 
             // Generate konten LirikLaguRohani dalam loop for
@@ -353,7 +353,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 ListLirikLaguRohani = new Button(getActivity());
                 ListLirikLaguRohani.setText(container);
                 ListLirikLaguRohani.setLayoutParams(params);
-                ListLirikLaguRohani.setTextColor(colorBlack);
+                ListLirikLaguRohani.setTextColor(getResources().getColor(R.color.defaultFont));
                 ListLirikLaguRohani.setBackgroundColor(0);
 
                 final String _judul = judul;
@@ -464,7 +464,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             params.setMargins(0, 10, 20, 0);
 
             int dataLength = arr.length();
-            int colorBlack = Color.BLACK;
+            int defaultColor = getResources().getColor(R.color.defaultFont);
             String container = null, judul = null, isi = null;
 
             // Cari dari server
@@ -489,7 +489,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     ListLirikLaguRohani = new Button(getActivity());
                     ListLirikLaguRohani.setText(container);
                     ListLirikLaguRohani.setLayoutParams(params);
-                    ListLirikLaguRohani.setTextColor(colorBlack);
+                    ListLirikLaguRohani.setTextColor(getResources().getColor(R.color.defaultFont));
                     ListLirikLaguRohani.setBackgroundColor(0);
 
                     final String _judul = judul;
@@ -535,7 +535,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     ListLirikLaguRohani = new Button(getActivity());
                     ListLirikLaguRohani.setText(container);
                     ListLirikLaguRohani.setLayoutParams(params);
-                    ListLirikLaguRohani.setTextColor(colorBlack);
+                    ListLirikLaguRohani.setTextColor(getResources().getColor(R.color.defaultFont));
                     ListLirikLaguRohani.setBackgroundColor(0);
 
                     final String _judul = judul;

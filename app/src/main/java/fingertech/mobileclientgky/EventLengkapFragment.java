@@ -36,7 +36,7 @@ public class EventLengkapFragment extends Fragment {
     private TextView JudulWaktuTV;
     private TextView TitleKeteranganTV;
     private TextView IsiKeteranganTV;
-    int colorBlack = Color.BLACK;
+    int defaultColor = getResources().getColor(R.color.defaultFont);
     private String judul = null, tanggal = null, keterangan = null, linkGambar = null;
 
     public static EventLengkapFragment newInstance(String param1, String param2) {
@@ -129,7 +129,7 @@ public class EventLengkapFragment extends Fragment {
         TitleEventTV = new TextView(getActivity());
         TitleEventTV.setText("Event: ");
         TitleEventTV.setLayoutParams(params);
-        TitleEventTV.setTextColor(colorBlack);
+        TitleEventTV.setTextColor(getResources().getColor(R.color.defaultFont));
         subRowLayout.addView(TitleEventTV);
 
         // Add text View JudulEventTV
@@ -143,7 +143,7 @@ public class EventLengkapFragment extends Fragment {
         // Add text View TitleTanggalTV
         TitleTanggalTV = new TextView(getActivity());
         TitleTanggalTV.setText("Tanggal: ");
-        TitleTanggalTV.setTextColor(colorBlack);
+        TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
         TitleTanggalTV.setLayoutParams(params);
         subRowLayout.addView(TitleTanggalTV);
 
@@ -158,7 +158,7 @@ public class EventLengkapFragment extends Fragment {
         // Add text View TitleWaktuTV
         TitleWaktuTV = new TextView(getActivity());
         TitleWaktuTV.setText("Waktu: ");
-        TitleWaktuTV.setTextColor(colorBlack);
+        TitleWaktuTV.setTextColor(getResources().getColor(R.color.defaultFont));
         TitleWaktuTV.setLayoutParams(params);
         subRowLayout.addView(TitleWaktuTV);
 
@@ -173,7 +173,7 @@ public class EventLengkapFragment extends Fragment {
         // Add text View TitleKeteranganTV
         TitleKeteranganTV = new TextView(getActivity());
         TitleKeteranganTV.setText("Keterangan: ");
-        TitleKeteranganTV.setTextColor(colorBlack);
+        TitleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
         TitleKeteranganTV.setLayoutParams(params);
         subRowLayout.addView(TitleKeteranganTV);
 
