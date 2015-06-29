@@ -3,7 +3,7 @@
     android:id="@+id/textViewChild"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:textColor="#ffffffff"
+    android:textColor="#EBD6CC"
     android:paddingLeft="30dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"

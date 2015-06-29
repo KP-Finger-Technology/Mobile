@@ -48,17 +48,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/login_textUsername"
-                        android:id="@+id/login_textNama"
+                        android:text="@string/login_textEmail"
+                        android:id="@+id/login_textEmail"
                         android:textStyle="bold"/>
 
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
-                        android:hint="contoh: RitaSarah"
+                        android:hint="contoh: rita@sarah.com"
                         android:ems="15"
-                        android:id="@+id/login_editNama"
+                        android:id="@+id/login_editEmail"
                         android:layout_marginTop="5dp"/>
 
                     <TextView

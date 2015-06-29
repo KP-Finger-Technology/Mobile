@@ -156,7 +156,7 @@ public class JadwalIbadahFragment extends Fragment {
             IsiTabel.setText(text);
             IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
-            IsiTabelHeader.setTextColor(getResources().getColor(R.color.fontTabel));
+            IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
             TR.addView(IsiTabel);
         }
 
@@ -177,7 +177,7 @@ public class JadwalIbadahFragment extends Fragment {
             TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
             HorizontalScrollView HSV;
 
-            String tanggal=null, isi=null;
+            String tanggal = null, isi = null;
 
             myTableLayout = new TableLayout(getActivity());
             myTableLayout.setLayoutParams(tableParams);
@@ -188,10 +188,10 @@ public class JadwalIbadahFragment extends Fragment {
 
             // Judul kolom
             // Tanggal
-            IsiTabel("Tanggal");
+            IsiTabelHeader("Tanggal");
 
             // Isi
-            IsiTabel("Isi");
+            IsiTabelHeader("Isi");
 
             // Add row to table
             myTableLayout.addView(TR);

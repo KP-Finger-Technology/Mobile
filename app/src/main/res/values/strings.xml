@@ -99,7 +99,7 @@
     <string name="register_textKomisiWanita">Wanita</string>
 
     <!-- Untuk halaman Login -->
-    <string name="login_textUsername">Nama</string>
+    <string name="login_textEmail">Email</string>
     <string name="login_textPassword">Password</string>
 
     <!-- Untuk button -->
@@ -366,5 +366,6 @@
     <string name="ubahPassword_textPasswordBaru">Password Baru</string>
     <string name="ubahPassword_textKonfirmasiPasswordBaru">Konfirmasi Password Baru</string>
     <string name="ubahPassword_textPasswordLama">Masukkan password lama untuk melanjutkan</string>
+    <string name="queryHintRekaman">Cari apapun pada halaman rekaman</string>
 
 </resources>
