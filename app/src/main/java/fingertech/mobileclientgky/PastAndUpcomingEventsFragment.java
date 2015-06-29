@@ -71,7 +71,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private LinearLayout rowLayout;
     private LinearLayout colLayout;
     private LinearLayout subRowLayout;
-    ProgressBar pb;
+//    ProgressBar pb;
 
     public static PastAndUpcomingEventsFragment newInstance(String param1, String param2) {
         PastAndUpcomingEventsFragment fragment = new PastAndUpcomingEventsFragment();
@@ -117,8 +117,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             }
             else {
                 // Newly created, compute data
-                Log.d("tabel lirik lagu tidak exist","..");
-                Viewer v = new Viewer(pb);
+//                Log.d("tabel lirik lagu tidak exist","..");
+                Viewer v = new Viewer();
                 v.execute();
             }
         }
@@ -181,7 +181,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         sv = (SearchView) rootView.findViewById(R.id.pastupcoming_searchView);
         cll = (LinearLayout) rootView.findViewById(R.id.container_pastupcoming);
-        pb = (ProgressBar) rootView.findViewById(R.id.pbDefault);
+//        pb = (ProgressBar) rootView.findViewById(R.id.pbDefault);
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
@@ -252,6 +252,11 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         if (subRowLayout.getParent() != null) {
             ((ViewGroup) subRowLayout.getParent()).removeView(subRowLayout);
         }
+        else {
+//            Log.d("remove View null beneran","..");
+        }
+//            ((ViewGroup) subRowLayout.getParent()).removeView(subRowLayout);
+
 
         subRowLayout.addView(JudulEventTV);
         colLayout.addView(subRowLayout);
@@ -340,29 +345,32 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         JSONArray arr = new JSONArray();
 
 //        ProgressDialog progressDialog;
-        ProgressBar progressBar;
+//        ProgressBar progressBar;
 
         public JSONArray getArr() {
             return arr;
         }
 
-        public Viewer(ProgressBar pb){
-            progressBar = pb;
-        }
+//        public Viewer(ProgressBar pb){
+//            progressBar = pb;
+//        }
 
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility(View.VISIBLE);
 //            progressDialog = ProgressDialog.show(getActivity(),"Wait","Downloading..");
         };
 
         @Override
         protected void onProgressUpdate(String... progress) {
 
-            super.onProgressUpdate(String.valueOf(progress[0]));
-            progressBar.setProgress(Integer.parseInt(String.valueOf(progress[0])));
+//            super.onProgressUpdate(String.valueOf(progress[0]));
+//            if (this.progressBar != null) {
+//                progressBar.setProgress(Integer.parseInt(progress[0]));
+//            }
+//            progressBar.setProgress(Integer.parseInt(progress[0]));
         }
 
         @Override
@@ -400,8 +408,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
 //            progressDialog.dismiss();
-            progressBar.setVisibility(View.INVISIBLE);
-            progressBar.setProgress(0);
+//            progressBar.setVisibility(View.INVISIBLE);
+//            progressBar.setProgress(0);
 
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);

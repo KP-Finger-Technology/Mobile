@@ -8,6 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -253,7 +256,7 @@ public class Controller {
                     e.printStackTrace();
                 }
             if(operation.equals("login")){
-                String nama = null, id = null, email = null, alamat = null, telepon = null, idbaptis = null, tgllahir = null, komisi = null, pelayanan = null , pass = null;
+                String nama = null, id = null, email = null, alamat = null, telepon = null, idbaptis = null, tgllahir = null, komisi = null, pelayanan = null , pass = null ,namakomisi = null;
                 try {
                     nama = result.getString("nama");
                     pass = result.getString("pass");
@@ -265,13 +268,36 @@ public class Controller {
                     tgllahir = result.getString("tgllahir");
                     komisi = result.getString("komisi");
                     pelayanan = result.getString("pelayanan");
+                    namakomisi = result.getString("namakomisi");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 if (writeResponse.equals("ok")) {
                     SessionManager smn = new SessionManager(context);
-                    smn.createLoginSession(nama, pass, id, email, alamat, telepon, idbaptis, tgllahir, komisi,pelayanan);
+                    smn.createLoginSession(nama, pass, id, email, alamat, telepon, idbaptis, tgllahir, komisi,pelayanan,namakomisi);
+                    try {
+                        JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
+                        Log.d("komisi",arrKomisi.toString());
+
+                        for ( int i = 0 ; i < arrKomisi.length(); i++){
+                            Log.d("iterasi ke-" + i, "isi komisi:" + arrKomisi.get(i).toString());
+                            ParsePush.subscribeInBackground(arrKomisi.get(i).toString().replace(" ","").replace("&",""), new SaveCallback() {
+                                @Override
+                                public void done(com.parse.ParseException e) {
+                                    if (e == null) {
+                                        Log.d("com.parse.push", "successfully subscribed to the komisi channel.");
+                                    } else {
+                                        Log.e("com.parse.push", "failed to subscribe for push to the komisi", e);
+                                    }
+                                }
+                            });
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     Toast.makeText(context, "Login success", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(context, "Login " + writeResponse, Toast.LENGTH_LONG).show();

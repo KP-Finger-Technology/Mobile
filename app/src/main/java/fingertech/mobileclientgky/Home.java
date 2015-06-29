@@ -33,6 +33,13 @@ import android.widget.RadioButton;
 
 import android.os.Bundle;
 import android.util.Log;
+
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -378,6 +385,7 @@ public class Home extends ActionBarActivity
                                     public void onClick(DialogInterface dialog, int which) {
                                         // continue with delete
                                         SessionManager sm = new SessionManager(getApplicationContext());
+                                        unsubscribePush();
                                         sm.logoutUser();
                                         invalidateOptionsMenu();
                                         Toast.makeText(Home.this, "Anda berhasil logout", Toast.LENGTH_LONG).show();
@@ -395,6 +403,36 @@ public class Home extends ActionBarActivity
                 return false;
             }
         });
+    }
+
+    private void unsubscribePush() {
+
+        SessionManager smn = new SessionManager(this);
+        Log.d("id",smn.pref.getAll().get("email").toString());
+        Log.d("namakomisis", smn.pref.getAll().get("namakomisi").toString());
+        try {
+
+            JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
+            Log.d("komisi",arrKomisi.toString());
+
+            for ( int i = 0 ; i < arrKomisi.length(); i++){
+                Log.d("iterasi ke-" + i, "isi komisi:" + arrKomisi.get(i).toString());
+                ParsePush.unsubscribeInBackground(arrKomisi.get(i).toString().replace(" ","").replace("&",""), new SaveCallback() {
+                    @Override
+                    public void done(com.parse.ParseException e) {
+                        if (e == null) {
+                            Log.d("com.parse.push", "successfully subscribed to the komisi channel.");
+                        } else {
+                            Log.e("com.parse.push", "failed to subscribe for push to the komisi", e);
+                        }
+                    }
+                });
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -571,6 +609,8 @@ public class Home extends ActionBarActivity
             frag = new Home.PlaceholderFragment();
             switchFragment(frag);
         }
+
+
     }
 
     /**
