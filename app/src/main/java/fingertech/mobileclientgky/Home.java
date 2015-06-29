@@ -467,8 +467,23 @@ public class Home extends ActionBarActivity
         switchFragment(frag);
     }
 
-    public void maritalClicked(View v) {
-        frag = new PreMaritalClassFragment();
+    public void eventClicked(View v) {
+        frag = new PastAndUpcomingEventsFragment();
+        switchFragment(frag);
+    }
+
+    public void renunganGemaClicked(View v) {
+        frag = new RenunganGemaFragment();
+        switchFragment(frag);
+    }
+
+    public void kolportaseClicked(View v) {
+        frag = new KolportaseFragment();
+        switchFragment(frag);
+    }
+
+    public void kelompokKecilClicked(View v) {
+        frag = new KelompokKecilFragment();
         switchFragment(frag);
     }
 
@@ -489,6 +504,11 @@ public class Home extends ActionBarActivity
 
     public void kelompokClicked(View v) {
         frag = new KelompokKecilFragment();
+        switchFragment(frag);
+    }
+
+    public void wartaMingguanClicked(View v) {
+        frag = new WartaMingguanFragment();
         switchFragment(frag);
     }
 

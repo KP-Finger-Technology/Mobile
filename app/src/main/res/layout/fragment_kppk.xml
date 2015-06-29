@@ -43,9 +43,10 @@
 
                 <SearchView
                     android:layout_width="wrap_content"
+                    android:maxWidth="200dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/kppk_searchview"
-                    android:hint="Cari Judul KPPK"/>
+                    android:queryHint="@string/queryHintKPPK"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

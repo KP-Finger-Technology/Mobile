@@ -48,25 +48,37 @@ public class KPPKLengkapFragment extends Fragment {
     public void generateIsiKPPK() {
         // Add LinearLayout
         LinearLayout myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kppkLengkap);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
         // Add LayoutParams
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams paramsJudul = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJudul.setMargins(0, 0, 0, 0);
+
+        LinearLayout.LayoutParams paramsJudulDanIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJudulDanIsi.setMargins(0, 15, 0, 0);
+
+        LinearLayout.LayoutParams paramsAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsAntarIsi.setMargins(0, 0, 0, 0);
 
         if (judul != null) {
             TextView kppkTV = new TextView(getActivity());
             kppkTV.setText(judul);
             kppkTV.setTypeface(null, Typeface.BOLD);
             kppkTV.setGravity(Gravity.CENTER);
-            kppkTV.setLayoutParams(params);
+            kppkTV.setLayoutParams(paramsJudul);
             myLinearLayout.addView(kppkTV);
         }
 
         if (isi != null) {
             TextView kppkTV = new TextView(getActivity());
+            kppkTV.setText("");
+            kppkTV.setLayoutParams(paramsJudulDanIsi);
+            myLinearLayout.addView(kppkTV);
+
+            kppkTV = new TextView(getActivity());
             kppkTV.setText(isi);
             kppkTV.setGravity(Gravity.CENTER);
-            kppkTV.setLayoutParams(params);
+            kppkTV.setLayoutParams(paramsAntarIsi);
             myLinearLayout.addView(kppkTV);
         }
     }
