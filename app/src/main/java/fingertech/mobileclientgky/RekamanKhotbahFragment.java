@@ -87,6 +87,7 @@ public class RekamanKhotbahFragment extends Fragment {
         v.execute();
 
         sv = (SearchView) rootView.findViewById(R.id.rekamanKhotbah_searchview);
+        sv.setIconified(false);
         crk = (LinearLayout) rootView.findViewById(R.id.container_rekamanKhotbah);
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

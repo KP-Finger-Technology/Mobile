@@ -552,18 +552,18 @@ public class Home extends ActionBarActivity
 
     // Login
     public void loginClicked(View v) {
-        EditText namaET = (EditText) findViewById(R.id.login_editNama);
+        EditText emailET = (EditText) findViewById(R.id.login_editEmail);
         EditText passET = (EditText) findViewById(R.id.login_editPassword);
 
-        String nama = null, pass = null;
+        String email = null, pass = null;
         try {
-            nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
+            email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
             pass = URLEncoder.encode(passET.getText().toString(),"utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        cont.login(nama, pass);
+        cont.login(email, pass);
         invalidateOptionsMenu();
         SessionManager sm = new SessionManager(this);
 
