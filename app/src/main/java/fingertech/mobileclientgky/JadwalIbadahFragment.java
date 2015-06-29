@@ -177,7 +177,7 @@ public class JadwalIbadahFragment extends Fragment {
             TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
             HorizontalScrollView HSV;
 
-            String tanggal=null, isi=null;
+            String tanggal = null, isi = null;
 
             myTableLayout = new TableLayout(getActivity());
             myTableLayout.setLayoutParams(tableParams);

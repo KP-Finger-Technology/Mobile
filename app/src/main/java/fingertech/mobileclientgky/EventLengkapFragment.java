@@ -36,7 +36,6 @@ public class EventLengkapFragment extends Fragment {
     private TextView JudulWaktuTV;
     private TextView TitleKeteranganTV;
     private TextView IsiKeteranganTV;
-    int defaultColor = getResources().getColor(R.color.defaultFont);
     private String judul = null, tanggal = null, keterangan = null, linkGambar = null;
 
     public static EventLengkapFragment newInstance(String param1, String param2) {

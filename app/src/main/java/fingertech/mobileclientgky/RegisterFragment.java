@@ -2,6 +2,7 @@ package fingertech.mobileclientgky;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -351,6 +352,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         private int sumPelayanan;
         JSONArray arr = new JSONArray();
 
+        ProgressDialog progressDialog;
+
         public JSONArray getArr() {
             return arr;
         }
@@ -358,6 +361,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         @Override
         protected void onPreExecute()
         {
+                progressDialog = ProgressDialog.show(getActivity(),"Loading","Koneksi ke server");
+
         };
 
         @Override
@@ -399,6 +404,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(String result) {
+            progressDialog.dismiss();
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.checkbox_register);
 
             // Add LayoutParams
