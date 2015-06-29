@@ -20,9 +20,9 @@
     <item>
         <shape>
             <!--<gradient-->
-                <!--android:startColor="#444B57"-->
-                <!--android:endColor="#444B57"-->
-                <!--android:angle="270" />-->
+            <!--android:startColor="#444B57"-->
+            <!--android:endColor="#444B57"-->
+            <!--android:angle="270" />-->
             <solid android:angle="270"
                 android:color="#59554A"/>
             <stroke

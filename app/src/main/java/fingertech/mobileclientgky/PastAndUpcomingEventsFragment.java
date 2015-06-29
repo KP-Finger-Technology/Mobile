@@ -65,6 +65,9 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private TextView IsiKeteranganTV;
     private Button SelengkapnyaBtn;
     private LinearLayout.LayoutParams params;
+    private LinearLayout.LayoutParams paramsJarakAntarEvent;
+    private LinearLayout.LayoutParams paramsJarakAntarIsi;
+    private LinearLayout.LayoutParams paramsJarakIsiDenganButton;
     private LinearLayout rowLayout;
     private LinearLayout colLayout;
     private LinearLayout subRowLayout;
@@ -108,7 +111,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             generateKontenEvent();
         }
         else {
-            if ((judulSaved!=null) && (tanggalSaved!=null) && (keteranganSaved!=null) && (linkSaved!=null)) {
+            if ((judulSaved != null) && (tanggalSaved != null) && (keteranganSaved != null) && (linkSaved != null)) {
                 // Returning from backstack, data is fine, do nothing
                 generateKontenEvent();
             }
@@ -122,13 +125,19 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     }
 
     private void generateKontenEvent() {
-        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
+        myLinearLayout = (LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         myLinearLayout.removeAllViews();
 
         // Add LayoutParams
-        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        params.setMargins(0, 10, 20, 0);
+        paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+
+        paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
+
+        paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
 
         rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -136,7 +145,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         // Buat linear layout vertical untuk menampung kata-kata
         colLayout = new LinearLayout(getActivity());
         colLayout.setOrientation(LinearLayout.VERTICAL);
-        colLayout.setPadding(0,10,10,0);
+        colLayout.setPadding(0, 10, 10, 0);
 
         subRowLayout = new LinearLayout(getActivity());
         subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -144,7 +153,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         int dataLength = judulSaved.size();
         for (int i = 0; i < dataLength; i++) {
             generateUI(judulSaved.get(i), tanggalSaved.get(i), keteranganSaved.get(i), linkSaved.get(i));
-            if (i!=dataLength) {
+            if (i != dataLength) {
                 rowLayout.addView(colLayout);
                 myLinearLayout.addView(rowLayout);
                 rowLayout = new LinearLayout(getActivity());
@@ -215,7 +224,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         int image_width = display.getWidth()/3;
         int image_height = (int) (display.getHeight()/4.3);
 
-        int colorWhite = Color.WHITE;
+        int defaultColor = getResources().getColor(R.color.defaultFont);
 
         // Add image View
         ImageView GambarIV = new ImageView(getActivity());
@@ -225,23 +234,22 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 .load(linkGambar)
                 .resize(image_height, image_width)
                 .into(GambarIV);
-        GambarIV.setLayoutParams(params);
+        GambarIV.setLayoutParams(paramsJarakAntarEvent);
         rowLayout.addView(GambarIV);
 
         // Add text View TitleEventTV
         TitleEventTV = new TextView(getActivity());
         TitleEventTV.setText("Event: ");
-        TitleEventTV.setLayoutParams(params);
-        TitleEventTV.setTextColor(colorWhite);
+        TitleEventTV.setLayoutParams(paramsJarakAntarIsi);
+        TitleEventTV.setTextColor(getResources().getColor(R.color.defaultFont));
         subRowLayout.addView(TitleEventTV);
 
         // Add text View JudulEventTV
         JudulEventTV = new TextView(getActivity());
         JudulEventTV.setText(judul);
-        JudulEventTV.setLayoutParams(params);
+        JudulEventTV.setLayoutParams(paramsJarakAntarIsi);
 
-        if (subRowLayout.getParent()!=null) {
-//            ((ViewGroup) subRowLayout.getParent()).removeAllViews();
+        if (subRowLayout.getParent() != null) {
             ((ViewGroup) subRowLayout.getParent()).removeView(subRowLayout);
         }
         else {
@@ -257,14 +265,14 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         // Add text View TitleTanggalTV
         TitleTanggalTV = new TextView(getActivity());
         TitleTanggalTV.setText("Tanggal: ");
-        TitleTanggalTV.setTextColor(colorWhite);
-        TitleTanggalTV.setLayoutParams(params);
+        TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
+        TitleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleTanggalTV);
 
         // Add text View JudulTanggalTV
         JudulTanggalTV= new TextView(getActivity());
         JudulTanggalTV.setText(tanggal);
-        JudulTanggalTV.setLayoutParams(params);
+        JudulTanggalTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(JudulTanggalTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
@@ -272,14 +280,14 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         // Add text View TitleWaktuTV
         TitleWaktuTV = new TextView(getActivity());
         TitleWaktuTV.setText("Waktu: ");
-        TitleWaktuTV.setTextColor(colorWhite);
-        TitleWaktuTV.setLayoutParams(params);
+        TitleWaktuTV.setTextColor(getResources().getColor(R.color.defaultFont));
+        TitleWaktuTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleWaktuTV);
 
         // Add text View JudulWaktuTV
         JudulWaktuTV = new TextView(getActivity());
         JudulWaktuTV.setText(tanggal);
-        JudulWaktuTV.setLayoutParams(params);
+        JudulWaktuTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(JudulWaktuTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
@@ -287,18 +295,18 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         // Add text View TitleKeteranganTV
         TitleKeteranganTV = new TextView(getActivity());
         TitleKeteranganTV.setText("Keterangan: ");
-        TitleKeteranganTV.setTextColor(colorWhite);
-        TitleKeteranganTV.setLayoutParams(params);
+        TitleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
+        TitleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleKeteranganTV);
 
         // Add text View IsiKeteranganTV
         IsiKeteranganTV = new TextView(getActivity());
-        if (keterangan.length()>80) {
+        if (keterangan.length() > 80) {
             keterangan = keterangan.substring(0, 80);
             keterangan = keterangan + "...";
         }
         IsiKeteranganTV.setText(keterangan);
-        IsiKeteranganTV.setLayoutParams(params);
+        IsiKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(IsiKeteranganTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
@@ -306,8 +314,9 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         // Add selengkapnya button
         SelengkapnyaBtn = new Button(getActivity());
         SelengkapnyaBtn.setText("Selengkapnya");
-        SelengkapnyaBtn.setLayoutParams(params);
-        SelengkapnyaBtn.setBackgroundColor(0);
+        SelengkapnyaBtn.setTextColor(getResources().getColor(R.color.white));
+        SelengkapnyaBtn.setLayoutParams(paramsJarakIsiDenganButton);
+        SelengkapnyaBtn.setBackgroundColor(getResources().getColor(R.color.header));
         subRowLayout.addView(SelengkapnyaBtn);
         colLayout.addView(subRowLayout);
 
@@ -357,7 +366,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         @Override
         protected void onProgressUpdate(String... progress) {
 
-            super.onProgressUpdate(String.valueOf(progress[0]));
+//            super.onProgressUpdate(String.valueOf(progress[0]));
 //            if (this.progressBar != null) {
 //                progressBar.setProgress(Integer.parseInt(progress[0]));
 //            }
@@ -401,12 +410,19 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 //            progressDialog.dismiss();
 //            progressBar.setVisibility(View.INVISIBLE);
 //            progressBar.setProgress(0);
+
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             // Add LayoutParams
-            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 20, 0);
+            paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+
+            paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
+
+            paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
 
             rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -509,10 +525,16 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         protected void onPostExecute(String result) {
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
             myLinearLayout.removeAllViews();
+
             // Add LayoutParams
-            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 20, 0);
+            paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+
+            paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
+
+            paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
 
             rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);

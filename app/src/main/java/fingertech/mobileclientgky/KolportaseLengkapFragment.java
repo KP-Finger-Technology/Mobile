@@ -118,7 +118,7 @@ public class KolportaseLengkapFragment extends Fragment {
         int image_width = display.getWidth()/3;
         int image_height = (int) (display.getHeight()/4.3);
 
-        int colorBlack = Color.BLACK;
+        int defaultColor = getResources().getColor(R.color.defaultFont);
 
         // Add image View
         ImageView GambarIV = new ImageView(getActivity());
@@ -135,7 +135,7 @@ public class KolportaseLengkapFragment extends Fragment {
         TitleBukuTV = new TextView(getActivity());
         TitleBukuTV.setText("Judul: ");
         TitleBukuTV.setLayoutParams(params);
-        TitleBukuTV.setTextColor(colorBlack);
+        TitleBukuTV.setTextColor(getResources().getColor(R.color.defaultFont));
         subRowLayout.addView(TitleBukuTV);
 
         // Add textView JudulBukuTV
@@ -150,7 +150,7 @@ public class KolportaseLengkapFragment extends Fragment {
         TitlePengarangTV = new TextView(getActivity());
         TitlePengarangTV.setText("Pengarang: ");
         TitlePengarangTV.setLayoutParams(params);
-        TitlePengarangTV.setTextColor(colorBlack);
+        TitlePengarangTV.setTextColor(getResources().getColor(R.color.defaultFont));
         subRowLayout.addView(TitlePengarangTV);
 
         // Add textView JudulPengarangTV
@@ -164,7 +164,7 @@ public class KolportaseLengkapFragment extends Fragment {
         // Add textView TitleKeteranganTV
         TitleKeteranganTV = new TextView(getActivity());
         TitleKeteranganTV.setText("Keterangan: ");
-        TitleKeteranganTV.setTextColor(colorBlack);
+        TitleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
         TitleKeteranganTV.setLayoutParams(params);
         subRowLayout.addView(TitleKeteranganTV);
 

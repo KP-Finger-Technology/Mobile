@@ -48,24 +48,38 @@ public class LirikLaguRohaniLengkapFragment extends Fragment {
     public void generateIsiLirikLaguRohani() {
         // Add LinearLayout
         LinearLayout myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_lirikLaguRohaniLengkap);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
         // Add LayoutParams
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams paramsJudul = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJudul.setMargins(0, 0, 0, 0);
+
+        LinearLayout.LayoutParams paramsJudulDanIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJudulDanIsi.setMargins(0, 15, 0, 0);
+
+        LinearLayout.LayoutParams paramsAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsAntarIsi.setMargins(0, 0, 0, 0);
+
 
         if (judul != null) {
             TextView lirikLaguRohaniTV = new TextView(getActivity());
             lirikLaguRohaniTV.setText(judul);
             lirikLaguRohaniTV.setTypeface(null, Typeface.BOLD);
             lirikLaguRohaniTV.setGravity(Gravity.CENTER);
-            lirikLaguRohaniTV.setLayoutParams(params);
+            lirikLaguRohaniTV.setLayoutParams(paramsJudul);
             myLinearLayout.addView(lirikLaguRohaniTV);
         }
 
         if (isi != null) {
             TextView lirikLaguRohaniTV = new TextView(getActivity());
+            lirikLaguRohaniTV.setText("");
+            lirikLaguRohaniTV.setLayoutParams(paramsJudulDanIsi);
+            myLinearLayout.addView(lirikLaguRohaniTV);
+
+            lirikLaguRohaniTV = new TextView(getActivity());
             lirikLaguRohaniTV.setText(isi);
-            lirikLaguRohaniTV.setLayoutParams(params);
+            lirikLaguRohaniTV.setGravity(Gravity.CENTER);
+            lirikLaguRohaniTV.setLayoutParams(paramsAntarIsi);
             myLinearLayout.addView(lirikLaguRohaniTV);
         }
     }

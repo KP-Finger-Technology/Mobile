@@ -1,6 +1,5 @@
 package fingertech.mobileclientgky;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 
 /**
@@ -148,15 +145,17 @@ public class RekamanKhotbahFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_khotbah);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             // Add LayoutParams
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 0, 0, 0);
+            LinearLayout.LayoutParams params0 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params0.setMargins(0, 0, 0, 0);
 
-            LinearLayout.LayoutParams paramsSpasi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 0, 0);
+            LinearLayout.LayoutParams paramsJarakJudulDenganIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakJudulDenganIsi.setMargins(0, 10, 0, 0);
+
+            LinearLayout.LayoutParams paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarIsi.setMargins(0, 0, 0, 0);
 
             rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -170,7 +169,7 @@ public class RekamanKhotbahFragment extends Fragment {
             subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
             int dataLength = arr.length();
-            int colorBlack = Color.BLACK;
+            int defaultColor = getResources().getColor(R.color.defaultFont);
             String container, judul = null, isi = null, tanggal = null, pembicara = null;
 
             // Generate konten Khotbah dalam loop for
@@ -191,31 +190,31 @@ public class RekamanKhotbahFragment extends Fragment {
                 // Add text View TitleJudulTV
                 TitleJudulTV = new TextView(getActivity());
                 TitleJudulTV.setText("Judul: ");
-                TitleJudulTV.setLayoutParams(paramsSpasi);
-                TitleJudulTV.setTextColor(colorBlack);
+                TitleJudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
+                TitleJudulTV.setTextColor(getResources().getColor(R.color.defaultFont));
                 subRowLayout.addView(TitleJudulTV);
 
                 // Add text View JudulTV
                 JudulTV = new TextView(getActivity());
                 JudulTV.setText(judul);
-                JudulTV.setLayoutParams(paramsSpasi);
+                JudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
                 subRowLayout.addView(JudulTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
                 // Add text View TitleIsiTV
                 TitleIsiTV = new TextView(getActivity());
-                TitleIsiTV.setText("Isi ");
-                TitleIsiTV.setLayoutParams(params);
-                TitleIsiTV.setTextColor(colorBlack);
+                TitleIsiTV.setText("Khotbah ");
+                TitleIsiTV.setLayoutParams(paramsJarakAntarIsi);
+                TitleIsiTV.setTextColor(getResources().getColor(R.color.defaultFont));
                 subRowLayout.addView(TitleIsiTV);
 
                 // Add text View IsiTV
                 IsiTV = new TextView(getActivity());
-                IsiTV.setText(Html.fromHtml("<a href=\"" + isi + "\">" + "dapat di download di sini" + "</a>"));
+                IsiTV.setText(Html.fromHtml("<a href=\"" + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
                 IsiTV.setClickable(true);
                 IsiTV.setMovementMethod(LinkMovementMethod.getInstance());
-                IsiTV.setLayoutParams(params);
+                IsiTV.setLayoutParams(paramsJarakAntarIsi);
                 subRowLayout.addView(IsiTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
@@ -223,14 +222,14 @@ public class RekamanKhotbahFragment extends Fragment {
                 // Add text View TitleTanggalTV
                 TitleTanggalTV = new TextView(getActivity());
                 TitleTanggalTV.setText("Tanggal: ");
-                TitleTanggalTV.setLayoutParams(params);
-                TitleTanggalTV.setTextColor(colorBlack);
+                TitleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
+                TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
                 subRowLayout.addView(TitleTanggalTV);
 
                 // Add text View TanggalTV
                 TanggalTV = new TextView(getActivity());
                 TanggalTV.setText(tanggal);
-                TanggalTV.setLayoutParams(params);
+                TanggalTV.setLayoutParams(paramsJarakAntarIsi);
                 subRowLayout.addView(TanggalTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
@@ -238,14 +237,14 @@ public class RekamanKhotbahFragment extends Fragment {
                 // Add text View TitlePembicaraTV
                 TitlePembicaraTV = new TextView(getActivity());
                 TitlePembicaraTV.setText("Pembicara: ");
-                TitlePembicaraTV.setLayoutParams(params);
-                TitlePembicaraTV.setTextColor(colorBlack);
+                TitlePembicaraTV.setLayoutParams(paramsJarakAntarIsi);
+                TitlePembicaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
                 subRowLayout.addView(TitlePembicaraTV);
 
                 // Add text View PembicaraTV
                 PembicaraTV = new TextView(getActivity());
                 PembicaraTV.setText(pembicara);
-                PembicaraTV.setLayoutParams(params);
+                PembicaraTV.setLayoutParams(paramsJarakAntarIsi);
                 subRowLayout.addView(PembicaraTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());

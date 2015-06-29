@@ -261,7 +261,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
 
             Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int image_width = display.getWidth()/3;
+            int image_width = display.getWidth();
             int image_height = (int) (display.getHeight()/4.3);
 
             // Add LayoutParams
@@ -287,9 +287,10 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
             // Loading image from below url into imageView
             Picasso.with(getActivity())
-                .load(linkGambar)
-                .resize(image_height, image_width)
-                .into(GambarIV);
+                    .load(linkGambar)
+                    .resize(image_width, image_height)
+                    .centerCrop()
+                    .into(GambarIV);
             GambarIV.setLayoutParams(params);
             myLinearLayout.addView(GambarIV);
 
@@ -335,8 +336,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             pYear = year;
             pDay = day;
             pMonth = month;
-
-//            Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
 
             String bulan = null;
             // Januari

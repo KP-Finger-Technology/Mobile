@@ -142,11 +142,23 @@ public class LiturgiMingguanFragment extends Fragment {
 
             // Add LinearLayout
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_liturgi_mingguan);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             // Add LayoutParams
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 0, 0);
+            LinearLayout.LayoutParams params0 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params0.setMargins(0, 0, 0, 0);
+
+            LinearLayout.LayoutParams paramsJarakIDLiturgiDenganAcara = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakIDLiturgiDenganAcara.setMargins(10, 0, 0, 0);
+
+            LinearLayout.LayoutParams paramsJarakIDLiturgiDenganIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakIDLiturgiDenganIsi.setMargins(0, 10, 0, 0);
+
+            LinearLayout.LayoutParams paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarIsi.setMargins(0, 0, 0, 0);
+
+            LinearLayout.LayoutParams paramsJarakAntarKolom = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarKolom.setMargins(30, 0, 0, 0);
 
             LinearLayout rowLayout = new LinearLayout(getActivity());
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -154,14 +166,14 @@ public class LiturgiMingguanFragment extends Fragment {
             // Membuat linear layout vertical untuk menampung kata-kata
             LinearLayout colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
-            colLayout.setPadding(0, 5, 0, 0);
+            colLayout.setPadding(0, 0, 0, 0);
 
             LinearLayout subRowLayout = new LinearLayout(getActivity());
             subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
             LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            int colorBlack = Color.BLACK;
+            int defaultColor = getResources().getColor(R.color.defaultFont);
             int dataLength = arr.length();
 
             // Generate konten Liturgi Mingguan dalam loop for
@@ -176,8 +188,8 @@ public class LiturgiMingguanFragment extends Fragment {
                     // Add textView idLiturgiTV
                     idLiturgiTV = new TextView(getActivity());
                     idLiturgiTV.setText(idLiturgi);
-                    idLiturgiTV.setLayoutParams(params);
-                    idLiturgiTV.setTextColor(colorBlack);
+                    idLiturgiTV.setLayoutParams(paramsJarakIDLiturgiDenganIsi);
+                    idLiturgiTV.setTextColor(getResources().getColor(R.color.defaultFont));
                     subRowLayout.addView(idLiturgiTV);
                     rowLayout.addView(subRowLayout);
 
@@ -185,8 +197,8 @@ public class LiturgiMingguanFragment extends Fragment {
                     subRowLayout = new LinearLayout(getActivity());
                     judulAcaraTV = new TextView(getActivity());
                     judulAcaraTV.setText(judulAcara);
-                    judulAcaraTV.setLayoutParams(params);
-                    judulAcaraTV.setTextColor(colorBlack);
+                    judulAcaraTV.setLayoutParams(paramsJarakIDLiturgiDenganIsi);
+                    judulAcaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
                     subRowLayout.addView(judulAcaraTV);
                     rowLayout.addView(subRowLayout);
                     colLayout.addView(rowLayout);
@@ -202,8 +214,8 @@ public class LiturgiMingguanFragment extends Fragment {
                         subRowLayout = new LinearLayout(getActivity());
                         idSubAcaraTV = new TextView(getActivity());
                         idSubAcaraTV.setText(idSubAcara);
-                        idSubAcaraTV.setLayoutParams(params);
-                        idSubAcaraTV.setTextColor(colorBlack);
+                        idSubAcaraTV.setLayoutParams(paramsJarakAntarIsi);
+                        idSubAcaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
                         subRowLayout.addView(idSubAcaraTV);
                         rowLayout.addView(subRowLayout);
 
@@ -211,8 +223,8 @@ public class LiturgiMingguanFragment extends Fragment {
                         subRowLayout = new LinearLayout(getActivity());
                         subAcaraTV = new TextView(getActivity());
                         subAcaraTV.setText(subAcara);
-                        subAcaraTV.setLayoutParams(params);
-                        subAcaraTV.setTextColor(colorBlack);
+                        subAcaraTV.setLayoutParams(paramsJarakAntarKolom);
+                        subAcaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
                         subRowLayout.addView(subAcaraTV);
                         rowLayout.addView(subRowLayout);
 
@@ -220,8 +232,8 @@ public class LiturgiMingguanFragment extends Fragment {
                         subRowLayout = new LinearLayout(getActivity());
                         keteranganTV = new TextView(getActivity());
                         keteranganTV.setText(keterangan);
-                        keteranganTV.setLayoutParams(params);
-                        keteranganTV.setTextColor(colorBlack);
+                        keteranganTV.setLayoutParams(paramsJarakAntarKolom);
+                        keteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
                         subRowLayout.addView(keteranganTV);
                         rowLayout.addView(subRowLayout);
                         colLayout.addView(rowLayout);
