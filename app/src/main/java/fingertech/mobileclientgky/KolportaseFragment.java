@@ -186,20 +186,20 @@ public class KolportaseFragment extends Fragment {
                 .load(linkGambar)
                 .resize(image_height, image_width)
                 .into(GambarIV);
-        GambarIV.setLayoutParams(params);
+        GambarIV.setLayoutParams(paramsJarakAntarEvent);
         rowLayout.addView(GambarIV);
 
         // Add textView TitleBukuTV
         TitleBukuTV = new TextView(getActivity());
         TitleBukuTV.setText("Judul: ");
-        TitleBukuTV.setLayoutParams(params);
+        TitleBukuTV.setLayoutParams(paramsJarakAntarIsi);
         TitleBukuTV.setTextColor(getResources().getColor(R.color.defaultFont));
         subRowLayout.addView(TitleBukuTV);
 
         // Add textView JudulBukuTV
         JudulBukuTV = new TextView(getActivity());
         JudulBukuTV.setText(judul);
-        JudulBukuTV.setLayoutParams(params);
+        JudulBukuTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(JudulBukuTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
@@ -207,14 +207,14 @@ public class KolportaseFragment extends Fragment {
         // Add textView TitlePengarangTV
         TitlePengarangTV = new TextView(getActivity());
         TitlePengarangTV.setText("Pengarang: ");
-        TitlePengarangTV.setLayoutParams(params);
+        TitlePengarangTV.setLayoutParams(paramsJarakAntarIsi);
         TitlePengarangTV.setTextColor(getResources().getColor(R.color.defaultFont));
         subRowLayout.addView(TitlePengarangTV);
 
         // Add textView JudulPengarangTV
         JudulPengarangTV = new TextView(getActivity());
         JudulPengarangTV.setText(pengarang);
-        JudulPengarangTV.setLayoutParams(params);
+        JudulPengarangTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(JudulPengarangTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
@@ -223,7 +223,7 @@ public class KolportaseFragment extends Fragment {
         TitleKeteranganTV = new TextView(getActivity());
         TitleKeteranganTV.setText("Keterangan: ");
         TitleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        TitleKeteranganTV.setLayoutParams(params);
+        TitleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleKeteranganTV);
 
         // Add text View IsiKeteranganTV
@@ -233,7 +233,7 @@ public class KolportaseFragment extends Fragment {
             keterangan = keterangan + "...";
         }
         IsiKeteranganTV.setText(keterangan);
-        IsiKeteranganTV.setLayoutParams(params);
+        IsiKeteranganTV.setLayoutParams(paramsJarakIsiDenganButton);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
@@ -241,7 +241,7 @@ public class KolportaseFragment extends Fragment {
         SelengkapnyaBtn = new Button(getActivity());
         SelengkapnyaBtn.setText("Selengkapnya");
         SelengkapnyaBtn.setTextColor(getResources().getColor(R.color.white));
-        SelengkapnyaBtn.setLayoutParams(params);
+        SelengkapnyaBtn.setLayoutParams(paramsJarakIsiDenganButton);
         SelengkapnyaBtn.setBackgroundColor(getResources().getColor(R.color.header));
         subRowLayout.addView(SelengkapnyaBtn);
         colLayout.addView(subRowLayout);

@@ -241,7 +241,7 @@ public class RekamanKhotbahFragment extends Fragment {
 
                 // Add text View IsiTV
                 IsiTV = new TextView(getActivity());
-                IsiTV.setText(Html.fromHtml("<a href=\"" + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
+                IsiTV.setText(Html.fromHtml("<a href=\"" + Controller.urlaudio + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
                 IsiTV.setClickable(true);
                 IsiTV.setMovementMethod(LinkMovementMethod.getInstance());
                 IsiTV.setLayoutParams(paramsJarakAntarIsi);
@@ -404,7 +404,7 @@ public class RekamanKhotbahFragment extends Fragment {
 
                 // Add text View IsiTV
                 IsiTV = new TextView(getActivity());
-                IsiTV.setText(Html.fromHtml("<a href=\"" + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
+                IsiTV.setText(Html.fromHtml("<a href=\"" + Controller.urlaudio + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
                 IsiTV.setClickable(true);
                 IsiTV.setMovementMethod(LinkMovementMethod.getInstance());
                 IsiTV.setLayoutParams(paramsJarakAntarIsi);
