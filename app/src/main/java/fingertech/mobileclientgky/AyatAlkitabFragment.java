@@ -1,3 +1,4 @@
+
 package fingertech.mobileclientgky;
 
 import android.content.Context;
@@ -18,20 +19,12 @@ import java.util.ArrayList;
 
 
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AyatAlkitabFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AyatAlkitabFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by Andarias Silvanus
  */
 public class AyatAlkitabFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -45,15 +38,6 @@ public class AyatAlkitabFragment extends Fragment {
     private int pasal, ayat;
     private Context context;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AyatAlkitabFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AyatAlkitabFragment newInstance(String param1, String param2) {
         AyatAlkitabFragment fragment = new AyatAlkitabFragment();
         Bundle args = new Bundle();
@@ -95,19 +79,17 @@ public class AyatAlkitabFragment extends Fragment {
     int x_TV = 0, y_TV = 0;
 
     public void generateAyatAlkitab() {
-        //add LinearLayout
+        // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_ayatAlkitab);
-        //add LayoutParams
+
+        // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         params.setMargins(0, 10, 0, 0);
 
-        Log.d("from AyatAlkitabFragment","kitab="+kitab+" & pasal="+Integer.toString(pasal));
         if (kitab!=null) {
             ArrayList<String> daftarAyat = DB.getPasal(kitab, pasal);
             int len = daftarAyat.size();
-            Log.d("From ayatAlkitab-> ayat yang dipilih",Integer.toString(ayat));
-            Log.d("From ayatAlkitab-> jumlah ayat iterasi",Integer.toString(len));
 
             int height_ayat = 0;
             WindowManager wm = (WindowManager) getActivity().getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
@@ -133,7 +115,6 @@ public class AyatAlkitabFragment extends Fragment {
                 }
 
                 if ((i+1)==this.ayat) {
-                    Log.d("AyatAlkitab dalam for", Integer.toString(this.ayat));
                     final TextView finalAyatTV = ayatTV;
                     ayatTV.post(new Runnable() {
                         @Override
@@ -142,28 +123,21 @@ public class AyatAlkitabFragment extends Fragment {
                             y_TV = finalAyatTV.getTop();
                         }
                     });
-                    Log.d("nilai koordinat x="+Integer.toString(x_TV)+" dan y="+Integer.toString(y_TV),"..");
                     Mark = true;
                 }
             }
 
             ScrollView SV = (ScrollView) rootView.findViewById(R.id.scroll_ayatAlkitab);
-            final int finalHeight_ayat = height_ayat;
             SV.post(new Runnable() {
                 public void run(){
                     ScrollView SV = (ScrollView) rootView.findViewById(R.id.scroll_ayatAlkitab);
-                    Log.d("nilai height ayat",Integer.toString(finalHeight_ayat));
                     SV.scrollTo(0, y_TV);
                 }
             });
-            int xx = ayatTV.getLeft();
-            int yy = ayatTV.getTop();
-            Log.d("posisi koordinat xx="+Integer.toString(xx)+", y="+Integer.toString(yy),"..");
         }
         DB.closeDataBase();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -176,19 +150,7 @@ public class AyatAlkitabFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
 }

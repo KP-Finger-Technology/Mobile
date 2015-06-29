@@ -28,20 +28,12 @@ import java.util.ArrayList;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link LirikLaguRohaniFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LirikLaguRohaniFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by William Stefan Hartono
  */
 public class LirikLaguRohaniFragment extends Fragment implements View.OnClickListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -60,15 +52,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
     private ArrayList<String> arrLirik;
     private Boolean adaLirik = false;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LirikLaguRohaniFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static LirikLaguRohaniFragment newInstance(String param1, String param2) {
         LirikLaguRohaniFragment fragment = new LirikLaguRohaniFragment();
         Bundle args = new Bundle();
@@ -109,26 +92,20 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         DBH.openDataBase();
         if (savedInstanceState != null) {
             // Probably orientation change
-            Log.d("from lagu: mencoba ambil arrayList yg disave..","..");
             laguSaved = savedInstanceState.getStringArrayList("laguSaved");
             if (!DBH.isTableExists("LirikLaguRohani"))
                 generateKontenLirikLaguRohani(false);
-            Log.d("from lagu: berhasil ambil arrayList yang telah di-save","..");
         }
         else {
             if (laguSaved!=null) {
                 // Returning from backstack, data is fine, do nothing
-                Log.d("from KPPK, si arrayList!=null","..");
                 if (!DBH.isTableExists("LirikLaguRohani")) {
-                    Log.d("tabel lirik lagu tidak exist","..");
                     generateKontenLirikLaguRohani(false);
                 }
             }
             else {
                 //Newly created, compute data
-                Log.d("from KPPK, new Viewer & execute","..");
                 if (!DBH.isTableExists("LirikLaguRohani")) {
-                    Log.d("tabel lirik lagu tidak exist","..");
                     v = new Viewer();
                     v.execute();
                 }
@@ -139,8 +116,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
     private LinearLayout myLinearLayout;
 
     private void generateKontenLirikLaguRohani(boolean mode) {
-        // Mode == true utk load dr database
-        // Mode == false utk load dr konten yg telah di save dr server
+        // Mode == true untuk load dr database
+        // Mode == false untuk load dr konten yg telah di save dr server
 
         ArrayList<String> containerString = new ArrayList<String>();
 
@@ -268,26 +245,13 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         Toast.makeText(getActivity(), "Download Success!", Toast.LENGTH_LONG).show();
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
     class Viewer extends AsyncTask<String, String, String> {
         private Button ListLirikLaguRohani;
-
         JSONArray arr = new JSONArray();
-
         public JSONArray getArr() {
             return arr;
         }
@@ -298,7 +262,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String status = "";
 
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url+"view_lagu.php");
@@ -315,20 +278,16 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     result += line;
                 }
 
-                Log.d("Result", result);
-
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
-                    status = "ok";
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -338,7 +297,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         public void downloadLirikLaguRohani() {
             int dataLength = arr.length();
             ArrayList<String> tmp = new ArrayList<String>();
-
             String judul = null, isi = null;
 
             // Generate konten Event dalam loop for
@@ -346,7 +304,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
                     tmp.add(judul);
@@ -356,12 +313,9 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 }
             }
             if (DB.isTableExists("LirikLaguRohani")) {
-                Log.d("tabel LirikLaguRohani exist! persiapan delete tabel liriklagu..","..");
                 DB.deleteTableLirikLaguRohani();
             }
-            Log.d("persiapan membuat tabel liriklagu baru..","..");
             DB.createTableLirikLaguRohani();
-            Log.d("persiapan insert data pada tabel liriklagu..","..");
             DB.insertDataLirikLaguRohani(tmp);
         }
 
@@ -375,9 +329,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             params.setMargins(0, 10, 20, 0);
 
             int dataLength = arr.length();
-
             int colorBlack = Color.BLACK;
-
             String container, judul, isi = null;
 
             // Generate konten LirikLaguRohani dalam loop for
@@ -428,9 +380,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
     class ViewerSearch extends AsyncTask<String, String, String> {
         private Button ListLirikLaguRohani;
-
         JSONArray arr = new JSONArray();
-
         public JSONArray getArr() {
             return arr;
         }
@@ -441,10 +391,9 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String status ="";
 
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_lagusearch.php?kw=" + keyword);
+            HttpGet request = new HttpGet(Controller.url + "view_lagusearch.php?kw=" + keyword);
             HttpResponse response;
 
             try {
@@ -458,20 +407,15 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     result += line;
                 }
 
-                Log.d("Result", result);
-
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
-                    Log.d("Array", arr.toString());
-                    status = "ok";
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -502,32 +446,27 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 }
             }
             if (DB.isTableExists("LirikLaguRohani")) {
-                Log.d("tabel LirikLaguRohani exist! persiapan delete tabel liriklagu..","..");
                 DB.deleteTableLirikLaguRohani();
             }
-            Log.d("persiapan membuat tabel liriklagu baru..","..");
             DB.createTableLirikLaguRohani();
-            Log.d("persiapan insert data pada tabel liriklagu..","..");
             DB.insertDataLirikLaguRohani(tmp);
         }
 
         @Override
         protected void onPostExecute(String result) {
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
+
             // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
 
             int dataLength = arr.length();
-
             int colorBlack = Color.BLACK;
-
             String container = null, judul = null, isi = null;
 
             // Cari dari server
             if (!adaLirik) {
-                Log.d("!adaLirik", "generate dari server");
                 Toast.makeText(getActivity(), "Lagu yang Anda cari: " + keyword + " digenerate dari server", Toast.LENGTH_LONG).show();
                 // Generate konten LirikLaguRohani dalam loop for
                 for (int i = 0; i < dataLength; i++) {

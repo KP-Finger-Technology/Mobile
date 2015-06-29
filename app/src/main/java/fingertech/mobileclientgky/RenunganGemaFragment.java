@@ -35,21 +35,14 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RenunganGemaFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RenunganGemaFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by Andarias Silvanus
  */
 public class RenunganGemaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -67,15 +60,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
     private String now = null;
     private EditText dateET;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RenunganGemaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static RenunganGemaFragment newInstance(String param1, String param2) {
         RenunganGemaFragment fragment = new RenunganGemaFragment();
         Bundle args = new Bundle();
@@ -85,9 +69,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         return fragment;
     }
 
-    public RenunganGemaFragment() {
-        // Required empty public constructor
-    }
+    public RenunganGemaFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -182,11 +164,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            // TODO Auto-generated method stub
-            // arg1 = year
-            // arg2 = month
-            // arg3 = day
-            showDate(arg1, arg2+1, arg3);
+            showDate(arg1, arg2 + 1, arg3);
         }
     };
 
@@ -213,18 +191,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
@@ -249,7 +216,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu ="";
 
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -275,14 +241,12 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
-                    statu = "ok";
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -314,8 +278,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
                 IsiRenungan = jsonobj.getString("deskripsi");
                 linkGambar = Controller.url + "res/gema/";
                 linkGambar += jsonobj.getString("gambar");
-
-                Log.d("Isi renungan",IsiRenungan);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -324,10 +286,10 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             ImageView GambarIV = new ImageView(getActivity());
 
             // Loading image from below url into imageView
-        Picasso.with(getActivity())
-                    .load(linkGambar)
-                    .resize(image_height, image_width)
-                    .into(GambarIV);
+            Picasso.with(getActivity())
+                .load(linkGambar)
+                .resize(image_height, image_width)
+                .into(GambarIV);
             GambarIV.setLayoutParams(params);
             myLinearLayout.addView(GambarIV);
 
@@ -350,9 +312,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
         private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-        public DatePickerDialogFragment() {
-            // Nothing to see here, move along
-        }
+        public DatePickerDialogFragment() {}
 
         public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {
             mDateSetListener = (DatePickerDialog.OnDateSetListener) callback;

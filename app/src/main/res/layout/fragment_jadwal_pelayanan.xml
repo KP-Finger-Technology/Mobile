@@ -43,30 +43,6 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="8dp">
 
-<<<<<<< HEAD
-                <!--<Button-->
-                    <!--style="?android:attr/buttonStyle"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="@string/fetchData"-->
-                    <!--android:id="@+id/jadwalPelayanan_fetchData"-->
-                    <!--android:layout_marginTop="15dp"-->
-                    <!--android:background="#ffb01815"-->
-                    <!--android:textColor="#ffffffff"-->
-                    <!--android:onClick="fetchDataJadwalPelayanan"/>-->
-=======
-                <Button
-                    style="?android:attr/buttonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fetchData"
-                    android:id="@+id/jadwalPelayanan_fetchData"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/header"
-                    android:textColor="#ffffffff"
-                    android:onClick="fetchDataJadwalPelayanan"/>
->>>>>>> d5dadc41520a5034d855f7c3fb21cef2d923a5d3
-
             </LinearLayout>
 
         </ScrollView>

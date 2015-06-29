@@ -46,15 +46,6 @@ public class Controller {
         return arrData;
     }
 
-    public String getWriteResponse() {
-        return writeResponse;
-    }
-
-    public void setEmptyArr(){
-        JSONArray newEmpty = new JSONArray();
-        arrData = newEmpty;
-    }
-
     public boolean isArrEmpty(){
         if(arrData.length()==0) {
             return true;
@@ -66,7 +57,6 @@ public class Controller {
 
 
     public boolean viewEvent() {
-        Log.d("Now running","run");
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             Viewer v = new Viewer();
@@ -74,7 +64,6 @@ public class Controller {
             public void run() {
                 v.execute(url + "view_event.php");
                 while(isArrEmpty()){}
-                Log.d("arrData",arrData.toString());
             }
         });
         return true;
@@ -88,7 +77,6 @@ public class Controller {
             public void run() {
                 v.execute(url + "view_jadwalpelayanan.php");
                 while(isArrEmpty()){}
-                Log.d("arrData",arrData.toString());
             }
         });
         return true;
@@ -106,41 +94,38 @@ public class Controller {
     }
 
     public void register(final String nama, final String password ,final String email , final String tlp , final String alamat , final String tgllahir, final String idbaptis, final String komisi ,final String pelayanan ){
-        //post
+        // Post to server
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url + "register.php?nama="+nama+"&pass="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir);
-                Log.d("Url","register.php?nama="+nama+"&password="+password+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&tgl="+tgllahir);
+                new Writer().execute(url + "register.php?nama=" + nama + "&pass=" + password + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&tgl=" + tgllahir);
              }
         });
     }
 
     public void editprofil(final String nama, final String email , final String tlp , final String alamat ,final String idbaptis, final String komisi ,final String pelayanan ){
-        //post
+        // Post to server
         SessionManager sm = new SessionManager(context);
         final String id = sm.pref.getAll().get("id").toString();
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url + "edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&id="+id);
-                Log.d("Url","edit_profil.php?nama="+nama+"&email="+email+"&no="+tlp+"&alamat="+alamat+"&idbaptis="+idbaptis+"&komisi="+komisi+"&pel="+pelayanan+"&id="+id);
+                new Writer().execute(url + "edit_profil.php?nama=" + nama + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan+"&id="+id);
             }
         });
     }
 
     public void editPass(final String pass){
-        //post
+        // Post to server
         SessionManager sm = new SessionManager(context);
         final String id = sm.pref.getAll().get("id").toString();
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url + "edit_pass.php?pass="+pass+"&id="+id);
-                Log.d("Url",url + "edit_pass.php?pass="+pass+"&id="+id);
+                new Writer().execute(url + "edit_pass.php?pass=" + pass + "&id=" + id);
             }
         });
     }
@@ -148,29 +133,19 @@ public class Controller {
     public void login (final String nama,final String password ){
         Writer w = new Writer();
         w.execute(url + "login.php?nama=" + nama + "&password=" + password);
-        Log.d("Url",url + "login.php?nama=" + nama + "&password=" + password);
-
     }
 
     class Viewer extends AsyncTask<String, String, String> {
         JSONArray arr = new JSONArray();
-
-        ProgressDialog progressDialog;
 
         public JSONArray getArr() {
             return arr;
         }
 
         @Override
-        protected void onPreExecute()
-        {
-//            progressDialog= ProgressDialog.show(aa.this, "Progress Dialog Title Text","Process Description Text", true);
-        };
+        protected void onPreExecute() {}
 
         protected void onPostExecute(Long result) {
-//            lock = false;
-//            super.onPostExecute(result);
-//            progressDialog.dismiss();
             try {
                 for (int i = 0; i < 2; i++) {
                     Log.d("Process", "Parsing json");
@@ -189,13 +164,10 @@ public class Controller {
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String statu = "";
             for (String urlp : params) {
                 HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet(urlp); // ngikutin ip disini loh
+                HttpGet request = new HttpGet(urlp);
                 HttpResponse response;
-
-                Log.d("Now running,","do in background.");
 
                 try {
                     response = client.execute(request);
@@ -207,20 +179,15 @@ public class Controller {
                     while ((line = rd.readLine()) != null) {
                         result += line;
                     }
-//            result = result.substring(result.indexOf("{"), result.indexOf("}") + 1);
-                    Log.d("Result", result);
 
                     try {
                         JSONObject res = new JSONObject(result);
                         arrData = res.getJSONArray("data");
-                        Log.d("Array", arrData.toString());
-                        statu = "ok";
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -229,13 +196,12 @@ public class Controller {
     }
 
     public class Writer extends AsyncTask<String, Void, JSONObject> {
-        private final String TAG = "HttpClient";
         private JSONObject result = null;
 
         @Override
         protected JSONObject doInBackground(String... params) {
             String sendMessage;
-            String urlpost= null;
+            String urlpost = null;
             for (String urlp : params) {
                 urlpost = urlp;
             }
@@ -243,8 +209,6 @@ public class Controller {
             try {
                 DefaultHttpClient httpclient = new DefaultHttpClient();
                 HttpPost httpPostRequest = new HttpPost(urlpost);
-
-                Log.d("urlpost",urlpost);
                 JSONObject sendObject = new JSONObject();
 
                 sendMessage = sendObject.toString();
@@ -259,27 +223,18 @@ public class Controller {
 
                 long t = System.currentTimeMillis();
                 HttpResponse response = (HttpResponse) httpclient.execute(httpPostRequest);
-                Log.i(TAG, "HTTPResponse received in [" + (System.currentTimeMillis() - t) + "ms]");
 
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
-//                    Read the content stream
                     InputStream instream = entity.getContent();
 
-                    // convert content stream to a String
                     String resultString = convertStreamToString(instream);
                     instream.close();
-//                    resultString = resultString.substring(1, resultString.length() - 1); // remove wrapping "[" and "]"
 
                     result = new JSONObject(resultString);
                     writeResponse = result.getString("status");
-                    Log.d("write response ", writeResponse);
-
-//                    Raw DEBUG output of our received JSON object:
-                    Log.i(TAG, "<JSONObject>\n" + resultString + "\n</JSONObject>");
 
                     return result;
-//                }
                 }
             }catch (Exception e) {
                 e.printStackTrace();
@@ -289,52 +244,48 @@ public class Controller {
 
         @Override
         protected void onPostExecute(JSONObject result) {
-        String operation = null;
-            try {
-                operation = result.getString("operation");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        if(operation.equals("login")){
-            String nama=null, id=null ,email=null,alamat=null,telepon=null,idbaptis=null,tgllahir=null,komisi=null,pelayanan=null,pass=null;
-            try {
-                nama = result.getString("nama");
-                pass = result.getString("pass");
-                id = result.getString("id");
-                email = result.getString("email");
-                alamat = result.getString("alamat");
-                telepon= result.getString("telepon");
-                idbaptis = result.getString("idbaptis");
-                tgllahir = result.getString("tgllahir");
-                komisi = result.getString("komisi");
-                pelayanan = result.getString("pelayanan");
+            String operation = null;
+                try {
+                    operation = result.getString("operation");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            if(operation.equals("login")){
+                String nama = null, id = null, email = null, alamat = null, telepon = null, idbaptis = null, tgllahir = null, komisi = null, pelayanan = null , pass = null;
+                try {
+                    nama = result.getString("nama");
+                    pass = result.getString("pass");
+                    id = result.getString("id");
+                    email = result.getString("email");
+                    alamat = result.getString("alamat");
+                    telepon= result.getString("telepon");
+                    idbaptis = result.getString("idbaptis");
+                    tgllahir = result.getString("tgllahir");
+                    komisi = result.getString("komisi");
+                    pelayanan = result.getString("pelayanan");
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (writeResponse.equals("ok")) {
+                    SessionManager smn = new SessionManager(context);
+                    smn.createLoginSession(nama, pass, id, email, alamat, telepon, idbaptis, tgllahir, komisi,pelayanan);
+                    Toast.makeText(context, "Login success", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Login " + writeResponse, Toast.LENGTH_LONG).show();
+                }
             }
-            if (writeResponse.equals("ok")) {
-                SessionManager smn = new SessionManager(context);
-                smn.createLoginSession(nama,pass,id,email,alamat,telepon,idbaptis,tgllahir,komisi,pelayanan);
-                Toast.makeText(context, "login success", Toast.LENGTH_LONG).show();
-                Log.d("log in ","success");
-            } else {
-                Toast.makeText(context, "login " + writeResponse, Toast.LENGTH_LONG).show();
-                Log.d("log in ", "fail");
-            }
-        }
-            else { //operation.eq("add doa") , edit profil , register
-            if (writeResponse.equals("ok")) {
-                Toast.makeText(context, operation +" Success", Toast.LENGTH_LONG).show();
-                Log.d (operation,"success");
-            } else {
-                Toast.makeText(context, operation+""+ writeResponse, Toast.LENGTH_LONG).show();
-                Log.d(operation, "fail");
+                else {
+                // Operation.eq("add doa") , edit profil , register
+                if (writeResponse.equals("ok")) {
+                    Toast.makeText(context, operation +" Success", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, operation+""+ writeResponse, Toast.LENGTH_LONG).show();
+                }
             }
         }
-    }
 
         private String convertStreamToString(InputStream is) {
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
 
