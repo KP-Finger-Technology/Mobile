@@ -92,11 +92,17 @@ public class EventLengkapFragment extends Fragment {
 
     public void generateEventLengkap() {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_eventLengkap);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
         // Add LayoutParams
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        params.setMargins(0, 10, 20, 0);
+        LinearLayout.LayoutParams paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+
+        LinearLayout.LayoutParams paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
+
+        LinearLayout.LayoutParams paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
 
         LinearLayout rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -121,20 +127,20 @@ public class EventLengkapFragment extends Fragment {
                 .load(linkGambar)
                 .resize(image_height, image_width)
                 .into(GambarIV);
-        GambarIV.setLayoutParams(params);
+        GambarIV.setLayoutParams(paramsJarakAntarEvent);
         rowLayout.addView(GambarIV);
 
         // Add text View TitleEventTV
         TitleEventTV = new TextView(getActivity());
         TitleEventTV.setText("Event: ");
-        TitleEventTV.setLayoutParams(params);
+        TitleEventTV.setLayoutParams(paramsJarakAntarIsi);
         TitleEventTV.setTextColor(getResources().getColor(R.color.defaultFont));
         subRowLayout.addView(TitleEventTV);
 
         // Add text View JudulEventTV
         JudulEventTV = new TextView(getActivity());
         JudulEventTV.setText(judul);
-        JudulEventTV.setLayoutParams(params);
+        JudulEventTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(JudulEventTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
@@ -143,13 +149,13 @@ public class EventLengkapFragment extends Fragment {
         TitleTanggalTV = new TextView(getActivity());
         TitleTanggalTV.setText("Tanggal: ");
         TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        TitleTanggalTV.setLayoutParams(params);
+        TitleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleTanggalTV);
 
         // Add text View JudulTanggalTV
         JudulTanggalTV= new TextView(getActivity());
         JudulTanggalTV.setText(tanggal);
-        JudulTanggalTV.setLayoutParams(params);
+        JudulTanggalTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(JudulTanggalTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
@@ -158,13 +164,13 @@ public class EventLengkapFragment extends Fragment {
         TitleWaktuTV = new TextView(getActivity());
         TitleWaktuTV.setText("Waktu: ");
         TitleWaktuTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        TitleWaktuTV.setLayoutParams(params);
+        TitleWaktuTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleWaktuTV);
 
         // Add text View JudulWaktuTV
         JudulWaktuTV = new TextView(getActivity());
         JudulWaktuTV.setText(tanggal);
-        JudulWaktuTV.setLayoutParams(params);
+        JudulWaktuTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(JudulWaktuTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
@@ -173,13 +179,13 @@ public class EventLengkapFragment extends Fragment {
         TitleKeteranganTV = new TextView(getActivity());
         TitleKeteranganTV.setText("Keterangan: ");
         TitleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        TitleKeteranganTV.setLayoutParams(params);
+        TitleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleKeteranganTV);
 
         // Add text View IsiKeteranganTV
         IsiKeteranganTV = new TextView(getActivity());
         IsiKeteranganTV.setText(keterangan);
-        IsiKeteranganTV.setLayoutParams(params);
+        IsiKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(IsiKeteranganTV);
         colLayout.addView(subRowLayout);
 
