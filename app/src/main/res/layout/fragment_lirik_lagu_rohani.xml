@@ -44,9 +44,10 @@
 
                 <SearchView
                     android:layout_width="wrap_content"
+                    android:maxWidth="200dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/lirikLaguRohani_searchview"
-                    android:hint="Cari Judul Lirik Lagu Rohani"/>
+                    android:queryHint="@string/queryHintLirikLaguRohani"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -60,6 +60,13 @@
     <string name="hintPermohonan">Mendaftarkan diri untuk didoakan oleh gereja</string>
     <string name="hintAlkitab">Membuka alkitab</string>
     <string name="hintKelompok">Membuka daftar kelompok kecil yang ada</string>
+    <string name="hintWartaMingguan">Membuka halaman warta mingguan</string>
+    <string name="hintkelompokKecil">Membuka halaman kelompok kecil</string>
+    <string name="hintEvent">Membuka halaman past and upcoming events</string>
+    <string name="hintKolportase">Membuka halaman kolportase</string>
+    <string name="hintRenunganGema">Membuka halaman renungan gema</string>
+    <string name="queryHintKPPK">Cari judul ataupun isi dari KPPK</string>
+    <string name="queryHintLirikLaguRohani">Cari judul ataupun isi dari lirik lagu rohani</string>
 
     <!-- Untuk halaman permohonan doa -->
     <string name="permohonanDoa_textNama">Nama</string>
@@ -359,4 +366,5 @@
     <string name="ubahPassword_textPasswordBaru">Password Baru</string>
     <string name="ubahPassword_textKonfirmasiPasswordBaru">Konfirmasi Password Baru</string>
     <string name="ubahPassword_textPasswordLama">Masukkan password lama untuk melanjutkan</string>
+
 </resources>

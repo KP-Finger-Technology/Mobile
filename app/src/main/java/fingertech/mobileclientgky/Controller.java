@@ -31,7 +31,7 @@ import java.util.TimerTask;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-    public static final String url = "http://192.168.1.103/gky_web_service/";
+    public static final String url = "http://192.168.0.104/gky_web_service/";
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;

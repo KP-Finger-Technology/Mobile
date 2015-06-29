@@ -1,25 +1,96 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".Home$PlaceholderFragment"
-    android:background="@drawable/background3"
+    android:background="@drawable/background4"
     android:orientation="vertical"
-    android:gravity="center"
-    android:weightSum="2"
-    android:nestedScrollingEnabled="true">
+    android:gravity="center">
 
-    <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="renunganClicked"
-        android:layout_row="0"
-        android:layout_column="0" />
 
-    <LinearLayout android:layout_width="fill_parent"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:background="@drawable/gky_pluit_home"/>
+    
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/alkitab"
+                android:background="@drawable/alkitab"
+                android:clickable="true"
+                android:enabled="true"
+                android:onClick="alkitabClicked"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/wartaMingguan"
+                android:background="@drawable/warta_mingguan"
+                android:clickable="true"
+                android:enabled="true"
+                android:onClick="wartaMingguanClicked"
+                android:layout_marginTop="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/renunganGema"
+                android:background="@drawable/renungan_gema"
+                android:clickable="true"
+                android:enabled="true"
+                android:onClick="renunganGemaClicked"
+                android:layout_marginTop="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/kolportase"
+                android:background="@drawable/kolportase"
+                android:clickable="true"
+                android:enabled="true"
+                android:onClick="kolportaseClicked"
+                android:layout_marginTop="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/kelompokKecil"
+                android:background="@drawable/kelompok_kecil"
+                android:clickable="true"
+                android:enabled="true"
+                android:onClick="kelompokKecilClicked"
+                android:layout_marginTop="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/Event"
+                android:background="@drawable/event"
+                android:clickable="true"
+                android:enabled="true"
+                android:onClick="eventClicked"
+                android:layout_marginTop="10dp"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--<LinearLayout android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
         android:orientation="horizontal">
@@ -149,6 +220,6 @@
             android:layout_row="5"
             android:layout_column="1" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>
