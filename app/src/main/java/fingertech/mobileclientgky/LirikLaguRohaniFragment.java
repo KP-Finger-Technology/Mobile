@@ -325,7 +325,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
 
             // Add LayoutParams
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 10, 20, 0);
 
@@ -353,8 +353,10 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 ListLirikLaguRohani = new Button(getActivity());
                 ListLirikLaguRohani.setText(container);
                 ListLirikLaguRohani.setLayoutParams(params);
-                ListLirikLaguRohani.setTextColor(colorBlack);
-                ListLirikLaguRohani.setBackgroundColor(0);
+//                ListLirikLaguRohani.setTextColor(colorBlack);
+//                ListLirikLaguRohani.setBackgroundColor(0);
+                ListLirikLaguRohani.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
+                ListLirikLaguRohani.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
                 final String _judul = judul;
                 final String _isi = isi;
