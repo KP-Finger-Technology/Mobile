@@ -140,6 +140,7 @@ public class Controller {
     public void login (final String email, final String password ){
         Writer w = new Writer();
         w.execute(url + "login.php?email=" + email + "&password=" + password);
+        Log.d("url login",url + "login.php?email=" + email + "&password=" + password);
     }
 
     class Viewer extends AsyncTask<String, String, String> {
@@ -258,6 +259,7 @@ public class Controller {
                     e.printStackTrace();
                 }
             if(operation.equals("login")){
+
                 String nama = null, id = null, email = null, alamat = null, telepon = null, idbaptis = null, tgllahir = null, komisi = null, pelayanan = null , pass = null ,namakomisi = null;
                 try {
                     nama = result.getString("nama");

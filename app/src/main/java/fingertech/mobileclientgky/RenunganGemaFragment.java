@@ -57,7 +57,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
     private int pYear;
     private int pDay;
     private int pMonth;
-    private String now = null;
+    private String now = "2015-06-29";
     private EditText dateET;
 
     public static RenunganGemaFragment newInstance(String param1, String param2) {
@@ -276,7 +276,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
                 judul = jsonobj.getString("judul");
                 IsiAyat = jsonobj.getString("firman");
                 IsiRenungan = jsonobj.getString("deskripsi");
-                linkGambar = Controller.urlgambar + "assets/image/";
+                linkGambar = Controller.urlgambar ;
                 linkGambar += jsonobj.getString("gambar");
             } catch (JSONException e) {
                 e.printStackTrace();
