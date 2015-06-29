@@ -145,6 +145,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             ListKPPK.setLayoutParams(params);
             ListKPPK.setBackgroundColor(0);
 
+            final String _judul = containerString.get(i+1);
             final String _isi = containerString.get(i+1);
 
             // Add button listener here
@@ -152,8 +153,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Masuk ke kosntruktor parameter kppkLengkapFragment dengan parameter isi
-                        frag = new KPPKLengkapFragment(_isi);
+                        // Masuk ke kosntruktor parameter kppkLengkapFragment dengan parameter judul dan isi
+                        frag = new KPPKLengkapFragment(_judul, _isi);
                         fragManager = getActivity().getSupportFragmentManager();
                         fragTransaction = fragManager.beginTransaction();
                         fragTransaction.replace(R.id.container, frag);
@@ -354,6 +355,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 ListKPPK.setTextColor(colorBlack);
                 ListKPPK.setBackgroundColor(0);
 
+                final String _judul = judul;
                 final String _isi = isi;
 
                 // Add button listener here
@@ -361,8 +363,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // Masuk ke konstruktor parameter kppkLengkapFragment dengan parameter isi
-                            frag = new KPPKLengkapFragment(_isi);
+                            // Masuk ke konstruktor parameter kppkLengkapFragment dengan parameter judul dan isi
+                            frag = new KPPKLengkapFragment(_judul, _isi);
                             fragManager = getActivity().getSupportFragmentManager();
                             fragTransaction = fragManager.beginTransaction();
                             fragTransaction.replace(R.id.container, frag);
@@ -491,6 +493,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     ListKPPK.setTextColor(colorBlack);
                     ListKPPK.setBackgroundColor(0);
 
+                    final String _judul = judul;
                     final String _isi = isi;
 
                     // Add button listener here
@@ -498,8 +501,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    // Masuk ke konstruktor parameter kppkLengkapFragment dengan parameter isi
-                                    frag = new KPPKLengkapFragment(_isi);
+                                    // Masuk ke konstruktor parameter kppkLengkapFragment dengan parameter judul dan isi
+                                    frag = new KPPKLengkapFragment(_judul, _isi);
                                     fragManager = getActivity().getSupportFragmentManager();
                                     fragTransaction = fragManager.beginTransaction();
                                     fragTransaction.replace(R.id.container, frag);
@@ -536,6 +539,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     ListKPPK.setTextColor(colorBlack);
                     ListKPPK.setBackgroundColor(0);
 
+                    final String _judul = judul;
                     final String _isi = isi;
 
                     // Add button listener here
@@ -543,8 +547,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    // Masuk ke konstruktor parameter KPPKLengkapFragment dengan parameter isi
-                                    frag = new KPPKLengkapFragment(_isi);
+                                    // Masuk ke konstruktor parameter KPPKLengkapFragment dengan parameter judul dan isi
+                                    frag = new KPPKLengkapFragment(_judul, _isi);
                                     fragManager = getActivity().getSupportFragmentManager();
                                     fragTransaction = fragManager.beginTransaction();
                                     fragTransaction.replace(R.id.container, frag);

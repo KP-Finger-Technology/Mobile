@@ -114,7 +114,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             }
             else {
                 // Newly created, compute data
-                Log.d("tabel lirik lagu tidak exist","..");
+//                Log.d("tabel lirik lagu tidak exist","..");
                 Viewer v = new Viewer();
                 v.execute();
             }

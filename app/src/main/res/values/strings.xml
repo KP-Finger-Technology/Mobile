@@ -82,7 +82,7 @@
     <string name="register_textTanggalLahir">Tanggal Lahir</string>
     <string name="register_textDataGereja">Data Gereja</string>
     <string name="register_textIdBaptis">ID Baptis</string>
-    <string name="register_textKomisi">Komisi</string>
+    <string name="register_textKomisi">Komisi dan Pelayanan</string>
     <string name="register_textPelayanan">Pelayanan</string>
     <string name="register_textKomisiAnak">Anak</string>
     <string name="register_textKomisiKaleb">Kaleb</string>

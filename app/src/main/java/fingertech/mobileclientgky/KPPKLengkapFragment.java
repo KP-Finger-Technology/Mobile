@@ -1,8 +1,10 @@
 package fingertech.mobileclientgky;
 
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +37,11 @@ public class KPPKLengkapFragment extends Fragment {
 
     public KPPKLengkapFragment() {}
 
+    private String judul;
     private String isi;
 
-    public KPPKLengkapFragment(String _isi) {
+    public KPPKLengkapFragment(String _judul, String _isi) {
+        this.judul = _judul;
         this.isi = _isi;
     }
 
@@ -49,9 +53,19 @@ public class KPPKLengkapFragment extends Fragment {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        if (isi!=null) {
+        if (judul != null) {
+            TextView kppkTV = new TextView(getActivity());
+            kppkTV.setText(judul);
+            kppkTV.setTypeface(null, Typeface.BOLD);
+            kppkTV.setGravity(Gravity.CENTER);
+            kppkTV.setLayoutParams(params);
+            myLinearLayout.addView(kppkTV);
+        }
+
+        if (isi != null) {
             TextView kppkTV = new TextView(getActivity());
             kppkTV.setText(isi);
+            kppkTV.setGravity(Gravity.CENTER);
             kppkTV.setLayoutParams(params);
             myLinearLayout.addView(kppkTV);
         }

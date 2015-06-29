@@ -147,6 +147,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             ListLirikLaguRohani.setLayoutParams(params);
             ListLirikLaguRohani.setBackgroundColor(0);
 
+            final String _judul = containerString.get(i+1);
             final String _isi = containerString.get(i+1);
 
             // Add button listener here
@@ -154,8 +155,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // Masuk ke konstruktor parameter LirikLaguRohaniLiengkapFragment dengan parameter isi
-                            frag = new LirikLaguRohaniLengkapFragment(_isi);
+                            // Masuk ke konstruktor parameter LirikLaguRohaniLiengkapFragment dengan parameter judul dan isi
+                            frag = new LirikLaguRohaniLengkapFragment(_judul, _isi);
                             fragManager = getActivity().getSupportFragmentManager();
                             fragTransaction = fragManager.beginTransaction();
                             fragTransaction.replace(R.id.container, frag);
@@ -355,6 +356,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 ListLirikLaguRohani.setTextColor(colorBlack);
                 ListLirikLaguRohani.setBackgroundColor(0);
 
+                final String _judul = judul;
                 final String _isi = isi;
 
                 // Add button listener here
@@ -362,8 +364,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                // Masuk ke konstruktor parameter LirikLaguRohaniLengkapFragment dengan parameter isi
-                                frag = new LirikLaguRohaniLengkapFragment(_isi);
+                                // Masuk ke konstruktor parameter LirikLaguRohaniLengkapFragment dengan parameter judul dan isi
+                                frag = new LirikLaguRohaniLengkapFragment(_judul, _isi);
                                 fragManager = getActivity().getSupportFragmentManager();
                                 fragTransaction = fragManager.beginTransaction();
                                 fragTransaction.replace(R.id.container, frag);
@@ -490,6 +492,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     ListLirikLaguRohani.setTextColor(colorBlack);
                     ListLirikLaguRohani.setBackgroundColor(0);
 
+                    final String _judul = judul;
                     final String _isi = isi;
 
                     // Add button listener here
@@ -497,8 +500,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    // Masuk ke konstruktor parameter LirikLaguRohaniLengkapFragment dengan parameter isi
-                                    frag = new LirikLaguRohaniLengkapFragment(_isi);
+                                    // Masuk ke konstruktor parameter LirikLaguRohaniLengkapFragment dengan parameter judul dan isi
+                                    frag = new LirikLaguRohaniLengkapFragment(_judul, _isi);
                                     fragManager = getActivity().getSupportFragmentManager();
                                     fragTransaction = fragManager.beginTransaction();
                                     fragTransaction.replace(R.id.container, frag);
@@ -535,6 +538,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     ListLirikLaguRohani.setTextColor(colorBlack);
                     ListLirikLaguRohani.setBackgroundColor(0);
 
+                    final String _judul = judul;
                     final String _isi = isi;
 
                     // Add button listener here
@@ -542,8 +546,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    // Masuk ke konstruktor parameter LirikLaguRohaniLengkapFragment dengan parameter isi
-                                    frag = new LirikLaguRohaniLengkapFragment(_isi);
+                                    // Masuk ke konstruktor parameter LirikLaguRohaniLengkapFragment dengan parameter jduul dan isi
+                                    frag = new LirikLaguRohaniLengkapFragment(_judul, _isi);
                                     fragManager = getActivity().getSupportFragmentManager();
                                     fragTransaction = fragManager.beginTransaction();
                                     fragTransaction.replace(R.id.container, frag);
