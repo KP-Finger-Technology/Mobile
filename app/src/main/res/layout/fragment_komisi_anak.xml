@@ -247,7 +247,8 @@
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:fadeScrollbars="false">
 
                         <TableLayout android:layout_width="match_parent" android:layout_height="match_parent">
                             <!-- Kebaktian 1 -->
@@ -401,7 +402,8 @@
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:fadeScrollbars="false">
 
                         <TableLayout android:layout_width="match_parent" android:layout_height="match_parent">
                             <!-- Kebaktian 1 -->
@@ -518,7 +520,8 @@
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:fadeScrollbars="false">
 
                     <TableLayout android:layout_width="match_parent" android:layout_height="match_parent">
                         <!-- Kebaktian 1 -->

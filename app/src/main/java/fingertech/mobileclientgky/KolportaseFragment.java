@@ -186,7 +186,7 @@ public class KolportaseFragment extends Fragment {
                 .load(linkGambar)
                 .resize(image_height, image_width)
                 .into(GambarIV);
-        GambarIV.setLayoutParams(params);
+        GambarIV.setLayoutParams(paramsJarakAntarEvent);
         rowLayout.addView(GambarIV);
 
         // Add textView TitleBukuTV
