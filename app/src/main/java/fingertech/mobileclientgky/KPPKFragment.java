@@ -319,7 +319,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         protected void onPostExecute(String result) {
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
             // Add LayoutParams
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 0, 0, 10);
 
