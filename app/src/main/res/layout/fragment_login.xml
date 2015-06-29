@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
-                        android:hint="contoh: rita@sarah.com"
+                        android:hint="contoh: franki@franki.com"
                         android:ems="15"
                         android:id="@+id/login_editEmail"
                         android:layout_marginTop="5dp"/>
@@ -74,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:hint="contoh: ritasarah"
+                        android:hint="contoh: franki"
                         android:ems="15"
                         android:id="@+id/login_editPassword"
                         android:layout_marginTop="5dp"/>

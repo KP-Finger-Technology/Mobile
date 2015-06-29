@@ -66,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
-                        android:hint="contoh: Rita Sarah"
+                        android:hint="contoh: Franki"
                         android:ems="15"
                         android:id="@+id/profil_editNama"/>
 
@@ -82,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:hint="contoh: ritasarah@ritasarah.com"
+                        android:hint="contoh: franki@franki.com"
                         android:ems="15"
                         android:id="@+id/profil_editEmail"/>
 
@@ -97,7 +97,7 @@
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="textPhonetic"
+                        android:inputType="number"
                         android:hint="contoh: 081234567890"
                         android:ems="15"
                         android:id="@+id/profil_editTelepon"/>
@@ -114,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
-                        android:hint="contoh: Jalan Oswegia 100, Jakarta Barat"
+                        android:hint="contoh: Jalan Welsh 100, Jakarta Barat"
                         android:ems="15"
                         android:id="@+id/profil_editAlamat"/>
 
@@ -155,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:hint="contoh: 100"
+                        android:hint="contoh: franki100"
                         android:ems="15"
                         android:id="@+id/profil_editIdBaptis"/>
 
@@ -257,7 +257,9 @@
                         android:onClick="profilClicked"/>
 
                 </LinearLayout>
+
             </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>
