@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -39,6 +41,10 @@ public class RekamanKhotbahFragment extends Fragment {
     private LinearLayout rowLayout;
     private LinearLayout subRowLayout;
     private LinearLayout colLayout;
+
+    private SearchView sv;
+    private LinearLayout crk;
+    private String keyword = null;
 
     // Untuk komponen-komponen
     private TextView TitleJudulTV;
@@ -79,6 +85,29 @@ public class RekamanKhotbahFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_rekaman_khotbah, container, false);
         v.execute();
+
+        sv = (SearchView) rootView.findViewById(R.id.rekamanKhotbah_searchview);
+        crk = (LinearLayout) rootView.findViewById(R.id.container_rekamanKhotbah);
+
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                keyword = s;
+                Toast.makeText(getActivity(), "Rekaman khotbah yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
+
+                crk.removeAllViews();
+                ViewerSearch vs = new ViewerSearch();
+                vs.execute();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return rootView;
     }
 
@@ -112,7 +141,7 @@ public class RekamanKhotbahFragment extends Fragment {
             String result = "";
 
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_kotbah.php");
+            HttpGet request = new HttpGet(Controller.url + "view_kotbah.php");
             HttpResponse response;
 
             try {
@@ -144,7 +173,170 @@ public class RekamanKhotbahFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_khotbah);
+            myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_rekamanKhotbah);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
+            // Add LayoutParams
+            LinearLayout.LayoutParams params0 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params0.setMargins(0, 0, 0, 0);
+
+            LinearLayout.LayoutParams paramsJarakJudulDenganIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakJudulDenganIsi.setMargins(0, 10, 0, 0);
+
+            LinearLayout.LayoutParams paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsJarakAntarIsi.setMargins(0, 0, 0, 0);
+
+            rowLayout = new LinearLayout(getActivity());
+            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            // Buat linear layout vertical untuk menampung kata-kata
+            colLayout = new LinearLayout(getActivity());
+            colLayout.setOrientation(LinearLayout.VERTICAL);
+            colLayout.setPadding(0, 10, 10, 0);
+
+            subRowLayout = new LinearLayout(getActivity());
+            subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            int dataLength = arr.length();
+            int defaultColor = getResources().getColor(R.color.defaultFont);
+            String container, judul = null, isi = null, tanggal = null, pembicara = null;
+
+            // Generate konten Khotbah dalam loop for
+            for (int i = 0; i < dataLength; i++) {
+                JSONObject jsonobj = null;
+                judul = "";
+                try {
+                    jsonobj = arr.getJSONObject(i);
+                    Log.d("JSONObject", arr.getJSONObject(i).toString());
+                    judul = jsonobj.getString("judul");
+                    isi = jsonobj.getString("isi");
+                    tanggal = jsonobj.getString("tanggal");
+                    pembicara = jsonobj.getString("pembicara");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // Add text View TitleJudulTV
+                TitleJudulTV = new TextView(getActivity());
+                TitleJudulTV.setText("Judul: ");
+                TitleJudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
+                TitleJudulTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(TitleJudulTV);
+
+                // Add text View JudulTV
+                JudulTV = new TextView(getActivity());
+                JudulTV.setText(judul);
+                JudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
+                subRowLayout.addView(JudulTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                // Add text View TitleIsiTV
+                TitleIsiTV = new TextView(getActivity());
+                TitleIsiTV.setText("Khotbah ");
+                TitleIsiTV.setLayoutParams(paramsJarakAntarIsi);
+                TitleIsiTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(TitleIsiTV);
+
+                // Add text View IsiTV
+                IsiTV = new TextView(getActivity());
+                IsiTV.setText(Html.fromHtml("<a href=\"" + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
+                IsiTV.setClickable(true);
+                IsiTV.setMovementMethod(LinkMovementMethod.getInstance());
+                IsiTV.setLayoutParams(paramsJarakAntarIsi);
+                subRowLayout.addView(IsiTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                // Add text View TitleTanggalTV
+                TitleTanggalTV = new TextView(getActivity());
+                TitleTanggalTV.setText("Tanggal: ");
+                TitleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
+                TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(TitleTanggalTV);
+
+                // Add text View TanggalTV
+                TanggalTV = new TextView(getActivity());
+                TanggalTV.setText(tanggal);
+                TanggalTV.setLayoutParams(paramsJarakAntarIsi);
+                subRowLayout.addView(TanggalTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                // Add text View TitlePembicaraTV
+                TitlePembicaraTV = new TextView(getActivity());
+                TitlePembicaraTV.setText("Pembicara: ");
+                TitlePembicaraTV.setLayoutParams(paramsJarakAntarIsi);
+                TitlePembicaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(TitlePembicaraTV);
+
+                // Add text View PembicaraTV
+                PembicaraTV = new TextView(getActivity());
+                PembicaraTV.setText(pembicara);
+                PembicaraTV.setLayoutParams(paramsJarakAntarIsi);
+                subRowLayout.addView(PembicaraTV);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                if (i != dataLength) {
+                    rowLayout.addView(colLayout);
+                    myLinearLayout.addView(rowLayout);
+                    rowLayout = new LinearLayout(getActivity());
+                    colLayout = new LinearLayout(getActivity());
+                    colLayout.setOrientation(LinearLayout.VERTICAL);
+                    subRowLayout = new LinearLayout(getActivity());
+                }
+            }
+        }
+    }
+
+    class ViewerSearch extends AsyncTask<String, String, String> {
+        JSONArray arr = new JSONArray();
+        public JSONArray getArr() {
+            return arr;
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(Controller.url + "view_kotbahsearch.php?kw=" + keyword);
+            HttpResponse response;
+
+            try {
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
+
+                try {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_rekamanKhotbah);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             // Add LayoutParams
