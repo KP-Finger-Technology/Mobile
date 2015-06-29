@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context=".Home$PlaceholderFragment"
-    android:background="@drawable/background4"
+    android:background="@drawable/background"
     android:orientation="vertical"
     android:gravity="center">
 
