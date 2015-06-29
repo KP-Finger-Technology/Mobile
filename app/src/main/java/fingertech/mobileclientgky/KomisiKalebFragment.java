@@ -1,4 +1,3 @@
-
 package fingertech.mobileclientgky;
 
 import android.net.Uri;
