@@ -29,6 +29,21 @@
         android:id="@+id/shell_alkitab"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="3dp">
+
+            <SearchView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/alkitab_searchView"
+                android:hint="cari kitab alkitab"/>
+
+        </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -43,12 +58,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="8dp">
-
-                <SearchView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/alkitab_searchView"
-                    android:hint="cari kitab alkitab"/>
 
             </LinearLayout>
 

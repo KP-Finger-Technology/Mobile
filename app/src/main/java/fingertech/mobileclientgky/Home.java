@@ -194,37 +194,37 @@ public class Home extends ActionBarActivity
                     switchFragment(frag);
                 }
 
-                // Komisi Kaleb
-                else if (groupPosition == 2 && childPosition == 1) {
-                    frag = new KomisiKalebFragment();
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment(frag);
-                }
-
-                // Komisi Pasutri
-                else if (groupPosition == 2 && childPosition == 2) {
-                    frag = new KomisiPasutriFragment();
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment(frag);
-                }
-
-                // Komisi Pemuda Dewasa
-                else if (groupPosition == 2 && childPosition == 3) {
-                    frag = new KomisiPemudaDewasaFragment();
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    switchFragment(frag);
-                }
-
                 // Komisi Remaja & Pemuda
-                else if (groupPosition == 2 && childPosition == 4) {
+                else if (groupPosition == 2 && childPosition == 1) {
                     frag = new KomisiRemajaDanPemudaFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment(frag);
                 }
 
+                // Komisi Pemuda Dewasa
+                else if (groupPosition == 2 && childPosition == 2) {
+                    frag = new KomisiPemudaDewasaFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment(frag);
+                }
+
                 // Komisi Wanita
-                else if (groupPosition == 2 && childPosition == 5) {
+                else if (groupPosition == 2 && childPosition == 3) {
                     frag = new KomisiWanitaFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment(frag);
+                }
+
+                // Komisi Pasutri
+                else if (groupPosition == 2 && childPosition == 4) {
+                    frag = new KomisiPasutriFragment();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    switchFragment(frag);
+                }
+
+                // Komisi Kaleb
+                else if (groupPosition == 2 && childPosition == 5) {
+                    frag = new KomisiKalebFragment();
                     mDrawerLayout.closeDrawer(Gravity.START);
                     switchFragment(frag);
                 }

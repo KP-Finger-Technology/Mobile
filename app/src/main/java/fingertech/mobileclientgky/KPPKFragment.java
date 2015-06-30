@@ -127,9 +127,9 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
 
         // Add LayoutParams
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        params.setMargins(0, 10, 20, 0);
+        params.setMargins(0, 0, 0, 10);
 
         int dataLength = containerString.size();
         Button ListKPPK;
@@ -143,9 +143,11 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             ListKPPK = new Button(getActivity());
             ListKPPK.setText(container);
             ListKPPK.setLayoutParams(params);
-            ListKPPK.setBackgroundColor(0);
+//            ListKPPK.setBackgroundColor(0);
+            ListKPPK.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
+            ListKPPK.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
-            final String _judul = containerString.get(i+1);
+            final String _judul = containerString.get(i);
             final String _isi = containerString.get(i+1);
 
             // Add button listener here
@@ -459,9 +461,9 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
 
             // Add LayoutParams
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 20, 0);
+            params.setMargins(0, 0, 0, 10);
 
             int dataLength = arr.length();
 
@@ -493,8 +495,10 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     ListKPPK = new Button(getActivity());
                     ListKPPK.setText(container);
                     ListKPPK.setLayoutParams(params);
-                    ListKPPK.setTextColor(getResources().getColor(R.color.defaultFont));
-                    ListKPPK.setBackgroundColor(0);
+//                    ListKPPK.setTextColor(getResources().getColor(R.color.defaultFont));
+//                    ListKPPK.setBackgroundColor(0);
+                    ListKPPK.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
+                    ListKPPK.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
                     final String _judul = judul;
                     final String _isi = isi;
@@ -540,7 +544,9 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     ListKPPK.setText(container);
                     ListKPPK.setLayoutParams(params);
                     ListKPPK.setTextColor(getResources().getColor(R.color.defaultFont));
-                    ListKPPK.setBackgroundColor(0);
+//                    ListKPPK.setBackgroundColor(0);
+                    ListKPPK.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
+                    ListKPPK.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
                     final String _judul = judul;
                     final String _isi = isi;
