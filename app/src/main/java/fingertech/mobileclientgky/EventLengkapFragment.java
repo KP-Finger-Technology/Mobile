@@ -96,7 +96,7 @@ public class EventLengkapFragment extends Fragment {
 
         // Add LayoutParams
         LinearLayout.LayoutParams paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+        paramsJarakAntarEvent.setMargins(0, 15, 20, 0);
 
         LinearLayout.LayoutParams paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         paramsJarakAntarIsi.setMargins(5, 0, 0, 0);

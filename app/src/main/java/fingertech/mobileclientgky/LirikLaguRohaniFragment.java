@@ -464,7 +464,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 20, 0);
+            params.setMargins(0, 0, 0, 10);
 
             int dataLength = arr.length();
             int defaultColor = getResources().getColor(R.color.defaultFont);
@@ -492,8 +492,10 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     ListLirikLaguRohani = new Button(getActivity());
                     ListLirikLaguRohani.setText(container);
                     ListLirikLaguRohani.setLayoutParams(params);
-                    ListLirikLaguRohani.setTextColor(getResources().getColor(R.color.defaultFont));
-                    ListLirikLaguRohani.setBackgroundColor(0);
+//                    ListLirikLaguRohani.setTextColor(getResources().getColor(R.color.defaultFont));
+//                    ListLirikLaguRohani.setBackgroundColor(0);
+                    ListLirikLaguRohani.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
+                    ListLirikLaguRohani.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
                     final String _judul = judul;
                     final String _isi = isi;
@@ -538,8 +540,10 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     ListLirikLaguRohani = new Button(getActivity());
                     ListLirikLaguRohani.setText(container);
                     ListLirikLaguRohani.setLayoutParams(params);
-                    ListLirikLaguRohani.setTextColor(getResources().getColor(R.color.defaultFont));
-                    ListLirikLaguRohani.setBackgroundColor(0);
+//                    ListLirikLaguRohani.setTextColor(getResources().getColor(R.color.defaultFont));
+//                    ListLirikLaguRohani.setBackgroundColor(0);
+                    ListLirikLaguRohani.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
+                    ListLirikLaguRohani.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
                     final String _judul = judul;
                     final String _isi = isi;

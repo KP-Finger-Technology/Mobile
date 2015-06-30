@@ -131,7 +131,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         // Add LayoutParams
         paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+        paramsJarakAntarEvent.setMargins(0, 15, 20, 0);
 
         paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
@@ -416,7 +416,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
             // Add LayoutParams
             paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+            paramsJarakAntarEvent.setMargins(0, 15, 20, 0);
 
             paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             paramsJarakAntarIsi.setMargins(5, 0, 0, 0);

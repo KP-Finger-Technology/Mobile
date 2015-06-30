@@ -69,9 +69,13 @@ public class AlkitabFragment extends Fragment {
         // Add LinearLayout
         myLinearLayout=(LinearLayout) rootView.findViewById(R.id.container_alkitab);
 
+        LinearLayout containerKitabLayout = new LinearLayout(getActivity());
+        containerKitabLayout.setOrientation(LinearLayout.VERTICAL);
+
         // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        myLinearLayout.setPadding(0,0,0,10);
         params.setMargins(0,0,0,10);
 
         if ((mode < 2) && (mode > -1)) {
@@ -106,15 +110,18 @@ public class AlkitabFragment extends Fragment {
                         }
                     }
                 );
-                myLinearLayout.addView(kitabBtn);
+//                myLinearLayout.addView(kitabBtn);
+                containerKitabLayout.addView(kitabBtn);
             }
         }
         else {
             TextView TV = new TextView(getActivity());
             TV.setText("Pencarian terhadap kata " + req + " tidak ditemukan");
             TV.setLayoutParams(params);
-            myLinearLayout.addView(TV);
+//            myLinearLayout.addView(TV);
+            containerKitabLayout.addView(TV);
         }
+        myLinearLayout.addView(containerKitabLayout);
     }
 
     private void switchFragment() {
