@@ -57,7 +57,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
     private int pYear;
     private int pDay;
     private int pMonth;
-    private String now = "2015-06-29";
+    private String now;
     private EditText dateET;
 
     public static RenunganGemaFragment newInstance(String param1, String param2) {
@@ -81,10 +81,10 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-
+        Log.d("from renungan, year-month-day:"+Integer.toString(year)+"-"+Integer.toString(month+1)+"-"+Integer.toString(day),"..");
+        now = Integer.toString(year)+"-"+Integer.toString(month+1)+"-"+Integer.toString(day);
         Viewer v = new Viewer();
         v.execute();
     }
