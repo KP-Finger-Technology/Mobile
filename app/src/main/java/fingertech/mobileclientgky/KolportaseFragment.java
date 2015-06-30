@@ -478,6 +478,10 @@ public class KolportaseFragment extends Fragment {
         protected void onPostExecute(String result) {
             String judul = null, pengarang = null, keterangan = null, linkGambar = null;
 
+            if(arr.length()==0){
+                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada kolportase baru", Toast.LENGTH_SHORT).show();
+            }
+
             // Add LinearLayout
             View v = rootView.findViewById(R.id.container_kolportase);
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kolportase);

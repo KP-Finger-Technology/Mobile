@@ -410,6 +410,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 //            progressDialog.dismiss();
 //            progressBar.setVisibility(View.INVISIBLE);
 //            progressBar.setProgress(0);
+            if(arr.length()==0){
+                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada event", Toast.LENGTH_SHORT).show();
+            }else{
+            }
 
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -523,6 +527,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
             myLinearLayout.removeAllViews();
 
