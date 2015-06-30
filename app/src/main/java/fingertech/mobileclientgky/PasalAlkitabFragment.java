@@ -68,9 +68,9 @@ public class PasalAlkitabFragment extends Fragment {
     private void generateBtnPasal(){
         // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pasalAlkitab);
-
         // Add LayoutParams
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        myLinearLayout.setPadding(0,0,0,10);
 //        myLinearLayout.setHorizontalGravity(LinearLayout.TEXT_ALIGNMENT_CENTER);
         myLinearLayout.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
 
@@ -147,10 +147,15 @@ public class PasalAlkitabFragment extends Fragment {
             // Coba-coba
             if (pasalBtn.getParent()!=null)
                 ((ViewGroup)pasalBtn.getParent()).removeView(pasalBtn);
+
             rowLayout.addView(pasalBtn);
 
             if (cnt >= jumlahDraw) {
                 cnt = 0;
+                colLayout.addView(rowLayout);
+                rowLayout = new LinearLayout(getActivity());
+            }
+            if ((i==pasal-1) && (pasal > jumlahDraw)) {
                 colLayout.addView(rowLayout);
                 rowLayout = new LinearLayout(getActivity());
             }

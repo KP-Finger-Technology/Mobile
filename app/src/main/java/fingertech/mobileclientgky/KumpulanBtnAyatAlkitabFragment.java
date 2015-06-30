@@ -113,8 +113,7 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
         halAyat.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         rowLayout = new LinearLayout(getActivity());
         rowLayout.addView(halAyat);
-        myLinearLayout.addView(rowLayout)
-        ;
+        myLinearLayout.addView(rowLayout);
 
         // Button-button untuk pasal tersebut sebanyak jumlah ayat
         rowLayout = new LinearLayout(getActivity());
@@ -160,6 +159,10 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
             rowLayout.addView(pasalBtn);
             if (cnt >= jumlahDraw) {
                 cnt = 0;
+                colLayout.addView(rowLayout);
+                rowLayout = new LinearLayout(getActivity());
+            }
+            if ((i==jumAyat-1) && (jumAyat> jumlahDraw)) {
                 colLayout.addView(rowLayout);
                 rowLayout = new LinearLayout(getActivity());
             }

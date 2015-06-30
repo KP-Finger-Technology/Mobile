@@ -139,7 +139,7 @@ public class KolportaseFragment extends Fragment {
 
         // Add LayoutParams
         paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+        paramsJarakAntarEvent.setMargins(0, 15, 20, 0);
 
         paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
@@ -372,7 +372,7 @@ public class KolportaseFragment extends Fragment {
 
             // Add LayoutParams
             paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
+            paramsJarakAntarEvent.setMargins(0, 15, 20, 0);
 
             paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
@@ -514,6 +514,7 @@ public class KolportaseFragment extends Fragment {
                     judul = jsonobj.getString("judulbuku");
                     pengarang = jsonobj.getString("pengarang");
                     keterangan = jsonobj.getString("keterangan");
+Log.d("from kolportase, fetch keterangan:"+keterangan,"..");
                     linkGambar = Controller.urlgambar;
                     linkGambar += jsonobj.getString("gambarbuku");
                 } catch (JSONException e) {

@@ -99,7 +99,7 @@ public class KolportaseLengkapFragment extends Fragment {
         // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        params.setMargins(0, 10, 20, 0);
+        params.setMargins(0, 15, 20, 0);
 
         LinearLayout rowLayout = new LinearLayout(getActivity());
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -170,10 +170,6 @@ public class KolportaseLengkapFragment extends Fragment {
 
         // Add text View IsiKeteranganTV
         IsiKeteranganTV = new TextView(getActivity());
-        if (keterangan.length()>80) {
-            keterangan = keterangan.substring(0, 80);
-            keterangan = keterangan + "...";
-        }
         IsiKeteranganTV.setText(keterangan);
         IsiKeteranganTV.setLayoutParams(params);
         colLayout.addView(subRowLayout);
