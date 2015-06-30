@@ -184,7 +184,7 @@ public class WartaMingguanFragment extends Fragment {
             colLayout.setOrientation(LinearLayout.VERTICAL);
             colLayout.setPadding(0, 5, 0, 0);
 
-            String tanggal = null, kebaktian = null, pengkotbah = null, judul = null, deskripsi = null;
+            String tanggal = null, kebaktian = null, pengkotbah = null, judul = null, deskripsi = null,gedung =null, penerjemah = null, liturgis = null, pianis = null ,paduansuara = null;
 
             JSONArray jadwal = new JSONArray();
             JSONArray warta = new JSONArray();
@@ -195,7 +195,7 @@ public class WartaMingguanFragment extends Fragment {
             catch (JSONException e) {
                 Log.d("excp olah atribut jdwal","..");
             }
-            int dataLength = obj.length();
+            int dataLength = jadwal.length();
             Log.d("length obj.length",Integer.toString(obj.length()));
             Log.d("length jadwal.length",Integer.toString(jadwal.length()));
 
@@ -215,7 +215,13 @@ public class WartaMingguanFragment extends Fragment {
 
                     // Judul kolom
                     IsiTabelHeader("Kebaktian");  // Kebaktian
+                    IsiTabelHeader("Gedung");
                     IsiTabelHeader("Pengkotbah"); // Pengkotbah
+                    IsiTabelHeader("Penerjemah");
+                    IsiTabelHeader("Liturgis");
+                    IsiTabelHeader("Pianis");
+                    IsiTabelHeader("Paduan Suara");
+
                     myTableLayout.addView(TR, tableParams);  // Add row to table
 
                     JudulTabel = new TextView(getActivity());
@@ -227,13 +233,24 @@ public class WartaMingguanFragment extends Fragment {
                     for (int j = 0; j < length2; j++) {
                         pengkotbah = jsonAtribut.getJSONObject(j).getString("pengkotbah");
                         kebaktian = jsonAtribut.getJSONObject(j).getString("kebaktianumum");
+                        gedung=jsonAtribut.getJSONObject(j).getString("gedung");
+                        penerjemah = jsonAtribut.getJSONObject(j).getString("penerjemah");
+                        liturgis = jsonAtribut.getJSONObject(j).getString("liturgis");
+                        pianis = jsonAtribut.getJSONObject(j).getString("pianis");
+                        paduansuara = jsonAtribut.getJSONObject(j).getString("paduansuara");
+
 
                         TR = new TableRow(getActivity());
                         TR.setLayoutParams(rowTableParams);
                         // Kebaktian
                         IsiTabel(kebaktian);
+                        IsiTabel(gedung);
                         // Pengkotbah
                         IsiTabel(pengkotbah);
+                        IsiTabel(penerjemah);
+                        IsiTabel(liturgis);
+                        IsiTabel(pianis);
+                        IsiTabel(paduansuara);
                         // Add row to table
                         myTableLayout.addView(TR, tableParams);
                     }
