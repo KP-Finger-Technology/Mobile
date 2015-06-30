@@ -40,8 +40,8 @@ import javax.mail.MessagingException;
  */
 public class Controller {
     public static final String url = "http://192.168.0.111/gky_web_service/";
-    public static final String urlgambar = "http://192.168.43.212/gereja/assets/images/";
-    public static final String urlaudio = "http://192.168.43.212/gereja/video/";
+    public static final String urlgambar = "http://192.168.0.111/gereja/assets/images/";
+    public static final String urlaudio = "http://192.168.0.111/gereja/video/";
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;

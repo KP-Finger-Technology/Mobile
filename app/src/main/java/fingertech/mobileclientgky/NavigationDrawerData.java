@@ -6,7 +6,7 @@ package fingertech.mobileclientgky;
 public class NavigationDrawerData {
     public static String[] berandaArray = {};
     public static String[] alkitabArray = {};
-    public static String[] komisiArray = {"Komisi Anak", "Komisi Kaleb", "Komisi Pasutri", "Komisi Pemuda Dewasa", "Komisi Remaja dan Pemuda", "Komisi Wanita"};
+    public static String[] komisiArray = {"Komisi Anak", "Komisi Remaja dan Pemuda", "Komisi Pemuda Dewasa", "Komisi Wanita", "Komisi Pasutri", "Komisi Kaleb"};
     public static String[] pelayananArray = {"Diakonia dan Oikumene", "Kebaktian Doa", "Kebaktian Umum", "Kelompok Kecil", "Misi/Pengabaran Injil"};
     public static String[] pembinaanArray = {"Katekisasi", "Pre-marital", "Renungan Gema", "Rekaman Khotbah", "Permohonan Doa", "KPPK", "Lirik Lagu Rohani", "Pengakuan Iman", "Kolportase"};
     public static String[] eventsArray = {"Warta Mingguan", "Liturgi Mingguan", "Past and Upcoming Events", "Jadwal Ibadah"};
