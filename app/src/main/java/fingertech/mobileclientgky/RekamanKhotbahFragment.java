@@ -1,8 +1,11 @@
 package fingertech.mobileclientgky;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -10,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -47,14 +51,15 @@ public class RekamanKhotbahFragment extends Fragment {
     private String keyword = null;
 
     // Untuk komponen-komponen
-    private TextView TitleJudulTV;
-    private TextView JudulTV;
-    private TextView TitleIsiTV;
-    private TextView IsiTV;
-    private TextView TitleTanggalTV;
-    private TextView TanggalTV;
-    private TextView TitlePembicaraTV;
-    private TextView PembicaraTV;
+    private TextView titleJudulTV;
+    private TextView judulTV;
+    private TextView titleIsiTV;
+    private TextView isiTV;
+    private TextView titleTanggalTV;
+    private TextView tanggalTV;
+    private TextView titlePembicaraTV;
+    private TextView pembicaraTV;
+    private Button downloadButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -87,7 +92,7 @@ public class RekamanKhotbahFragment extends Fragment {
         v.execute();
 
         sv = (SearchView) rootView.findViewById(R.id.rekamanKhotbah_searchview);
-        sv.setIconified(false);
+        /*sv.setIconified(false);*/
         crk = (LinearLayout) rootView.findViewById(R.id.container_rekamanKhotbah);
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -217,67 +222,89 @@ public class RekamanKhotbahFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                // Add text View TitleJudulTV
-                TitleJudulTV = new TextView(getActivity());
-                TitleJudulTV.setText("Judul: ");
-                TitleJudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
-                TitleJudulTV.setTextColor(getResources().getColor(R.color.defaultFont));
-                subRowLayout.addView(TitleJudulTV);
+                // Add text View titleJudulTV
+                titleJudulTV = new TextView(getActivity());
+                titleJudulTV.setText("Judul: ");
+                titleJudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
+                titleJudulTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(titleJudulTV);
 
-                // Add text View JudulTV
-                JudulTV = new TextView(getActivity());
-                JudulTV.setText(judul);
-                JudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
-                subRowLayout.addView(JudulTV);
+                // Add text View judulTV
+                judulTV = new TextView(getActivity());
+                judulTV.setText(judul);
+                judulTV.setLayoutParams(paramsJarakJudulDenganIsi);
+                subRowLayout.addView(judulTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View TitleIsiTV
-                TitleIsiTV = new TextView(getActivity());
-                TitleIsiTV.setText("Khotbah ");
-                TitleIsiTV.setLayoutParams(paramsJarakAntarIsi);
-                TitleIsiTV.setTextColor(getResources().getColor(R.color.defaultFont));
-                subRowLayout.addView(TitleIsiTV);
+                // Add text View titleIsiTV
+                titleIsiTV = new TextView(getActivity());
+                titleIsiTV.setText("Khotbah ");
+                titleIsiTV.setLayoutParams(paramsJarakAntarIsi);
+                titleIsiTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(titleIsiTV);
 
-                // Add text View IsiTV
-                IsiTV = new TextView(getActivity());
-                IsiTV.setText(Html.fromHtml("<a href=\"" + Controller.urlaudio + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
-                IsiTV.setClickable(true);
-                IsiTV.setMovementMethod(LinkMovementMethod.getInstance());
-                IsiTV.setLayoutParams(paramsJarakAntarIsi);
-                subRowLayout.addView(IsiTV);
+                // Add text View isiTV
+                isiTV = new TextView(getActivity());
+                isiTV.setText(Html.fromHtml("<a href=\"" + Controller.urlaudio + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
+                isiTV.setClickable(true);
+                isiTV.setMovementMethod(LinkMovementMethod.getInstance());
+                isiTV.setLayoutParams(paramsJarakAntarIsi);
+                subRowLayout.addView(isiTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View TitleTanggalTV
-                TitleTanggalTV = new TextView(getActivity());
-                TitleTanggalTV.setText("Tanggal: ");
-                TitleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
-                TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
-                subRowLayout.addView(TitleTanggalTV);
+                // Add text View titleTanggalTV
+                titleTanggalTV = new TextView(getActivity());
+                titleTanggalTV.setText("Tanggal: ");
+                titleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
+                titleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(titleTanggalTV);
 
-                // Add text View TanggalTV
-                TanggalTV = new TextView(getActivity());
-                TanggalTV.setText(tanggal);
-                TanggalTV.setLayoutParams(paramsJarakAntarIsi);
-                subRowLayout.addView(TanggalTV);
+                // Add text View tanggalTV
+                tanggalTV = new TextView(getActivity());
+                tanggalTV.setText(tanggal);
+                tanggalTV.setLayoutParams(paramsJarakAntarIsi);
+                subRowLayout.addView(tanggalTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View TitlePembicaraTV
-                TitlePembicaraTV = new TextView(getActivity());
-                TitlePembicaraTV.setText("Pembicara: ");
-                TitlePembicaraTV.setLayoutParams(paramsJarakAntarIsi);
-                TitlePembicaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
-                subRowLayout.addView(TitlePembicaraTV);
+                // Add text View titlePembicaraTV
+                titlePembicaraTV = new TextView(getActivity());
+                titlePembicaraTV.setText("Pembicara: ");
+                titlePembicaraTV.setLayoutParams(paramsJarakAntarIsi);
+                titlePembicaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(titlePembicaraTV);
 
-                // Add text View PembicaraTV
-                PembicaraTV = new TextView(getActivity());
-                PembicaraTV.setText(pembicara);
-                PembicaraTV.setLayoutParams(paramsJarakAntarIsi);
-                subRowLayout.addView(PembicaraTV);
+                // Add text View pembicaraTV
+                pembicaraTV = new TextView(getActivity());
+                pembicaraTV.setText(pembicara);
+                pembicaraTV.setLayoutParams(paramsJarakAntarIsi);
+                subRowLayout.addView(pembicaraTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
+
+                // Add button for download
+                final String linkDownload = Controller.urlaudio + isi;
+                final String finalTanggal = tanggal;
+                final String finalJudul = judul;
+
+                downloadButton = new Button(getActivity());
+                downloadButton.setText("Download");
+                downloadButton.setTextColor(getResources().getColor(R.color.white));
+                downloadButton.setBackgroundColor(getResources().getColor(R.color.header));
+                subRowLayout.addView(downloadButton);
+                colLayout.addView(subRowLayout);
+                subRowLayout = new LinearLayout(getActivity());
+
+                downloadButton.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                DownloadFiles(linkDownload, finalTanggal, finalJudul);
+                            }
+                        }
+                );
 
                 if (i != dataLength) {
                     rowLayout.addView(colLayout);
@@ -380,67 +407,86 @@ public class RekamanKhotbahFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                // Add text View TitleJudulTV
-                TitleJudulTV = new TextView(getActivity());
-                TitleJudulTV.setText("Judul: ");
-                TitleJudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
-                TitleJudulTV.setTextColor(getResources().getColor(R.color.defaultFont));
-                subRowLayout.addView(TitleJudulTV);
+                // Add text View titleJudulTV
+                titleJudulTV = new TextView(getActivity());
+                titleJudulTV.setText("Judul: ");
+                titleJudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
+                titleJudulTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(titleJudulTV);
 
-                // Add text View JudulTV
-                JudulTV = new TextView(getActivity());
-                JudulTV.setText(judul);
-                JudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
-                subRowLayout.addView(JudulTV);
+                // Add text View judulTV
+                judulTV = new TextView(getActivity());
+                judulTV.setText(judul);
+                judulTV.setLayoutParams(paramsJarakJudulDenganIsi);
+                subRowLayout.addView(judulTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View TitleIsiTV
-                TitleIsiTV = new TextView(getActivity());
-                TitleIsiTV.setText("Khotbah ");
-                TitleIsiTV.setLayoutParams(paramsJarakAntarIsi);
-                TitleIsiTV.setTextColor(getResources().getColor(R.color.defaultFont));
-                subRowLayout.addView(TitleIsiTV);
+                // Add text View titleIsiTV
+                titleIsiTV = new TextView(getActivity());
+                titleIsiTV.setText("Khotbah ");
+                titleIsiTV.setLayoutParams(paramsJarakAntarIsi);
+                titleIsiTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(titleIsiTV);
 
-                // Add text View IsiTV
-                IsiTV = new TextView(getActivity());
-                IsiTV.setText(Html.fromHtml("<a href=\"" + Controller.urlaudio + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
-                IsiTV.setClickable(true);
-                IsiTV.setMovementMethod(LinkMovementMethod.getInstance());
-                IsiTV.setLayoutParams(paramsJarakAntarIsi);
-                subRowLayout.addView(IsiTV);
+                // Add text View isiTV
+                isiTV = new TextView(getActivity());
+                isiTV.setText(Html.fromHtml("<a href=\"" + Controller.urlaudio + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
+                isiTV.setClickable(true);
+                isiTV.setMovementMethod(LinkMovementMethod.getInstance());
+                isiTV.setLayoutParams(paramsJarakAntarIsi);
+                subRowLayout.addView(isiTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View TitleTanggalTV
-                TitleTanggalTV = new TextView(getActivity());
-                TitleTanggalTV.setText("Tanggal: ");
-                TitleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
-                TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
-                subRowLayout.addView(TitleTanggalTV);
+                // Add text View titleTanggalTV
+                titleTanggalTV = new TextView(getActivity());
+                titleTanggalTV.setText("Tanggal: ");
+                titleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
+                titleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(titleTanggalTV);
 
-                // Add text View TanggalTV
-                TanggalTV = new TextView(getActivity());
-                TanggalTV.setText(tanggal);
-                TanggalTV.setLayoutParams(paramsJarakAntarIsi);
-                subRowLayout.addView(TanggalTV);
+                // Add text View tanggalTV
+                tanggalTV = new TextView(getActivity());
+                tanggalTV.setText(tanggal);
+                tanggalTV.setLayoutParams(paramsJarakAntarIsi);
+                subRowLayout.addView(tanggalTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View TitlePembicaraTV
-                TitlePembicaraTV = new TextView(getActivity());
-                TitlePembicaraTV.setText("Pembicara: ");
-                TitlePembicaraTV.setLayoutParams(paramsJarakAntarIsi);
-                TitlePembicaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
-                subRowLayout.addView(TitlePembicaraTV);
+                // Add text View titlePembicaraTV
+                titlePembicaraTV = new TextView(getActivity());
+                titlePembicaraTV.setText("Pembicara: ");
+                titlePembicaraTV.setLayoutParams(paramsJarakAntarIsi);
+                titlePembicaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
+                subRowLayout.addView(titlePembicaraTV);
 
-                // Add text View PembicaraTV
-                PembicaraTV = new TextView(getActivity());
-                PembicaraTV.setText(pembicara);
-                PembicaraTV.setLayoutParams(paramsJarakAntarIsi);
-                subRowLayout.addView(PembicaraTV);
+                // Add text View pembicaraTV
+                pembicaraTV = new TextView(getActivity());
+                pembicaraTV.setText(pembicara);
+                pembicaraTV.setLayoutParams(paramsJarakAntarIsi);
+                subRowLayout.addView(pembicaraTV);
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
+
+                // Add button for download
+                final String linkDownload = Controller.urlaudio + isi;
+                final String finalTanggal = tanggal;
+                final String finalJudul = judul;
+
+                downloadButton = new Button(getActivity());
+                downloadButton.setText("Download");
+                downloadButton.setTextColor(getResources().getColor(R.color.white));
+                downloadButton.setBackgroundColor(getResources().getColor(R.color.header));
+
+                downloadButton.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                DownloadFiles(linkDownload, finalTanggal, finalJudul);
+                            }
+                        }
+                );
 
                 if (i != dataLength) {
                     rowLayout.addView(colLayout);
@@ -452,5 +498,20 @@ public class RekamanKhotbahFragment extends Fragment {
                 }
             }
         }
+    }
+
+    // Untuk download rekaman khotbah
+    private void DownloadFiles(String url, String deskripsi, String judul) {
+        String urlWeb = url;
+
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urlWeb.replace("https://", "http://")));
+        request.setDescription(deskripsi);
+        request.setTitle(judul);
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, judul);
+
+        DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
     }
 }

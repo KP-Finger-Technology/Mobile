@@ -2,8 +2,10 @@ package fingertech.mobileclientgky;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -30,6 +32,9 @@ import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.TimerTask;
 
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
+
 /**
  * Created by Rita on 5/27/2015.
  */
@@ -38,12 +43,14 @@ public class Controller {
     public static final String urlgambar = "http://192.168.0.111/gereja/assets/images/";
     public static final String urlaudio = "http://192.168.0.111/gereja/video/";
 
-
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;
     private Context context;
 
-    public Controller() {}
+    public Controller() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+    }
 
     public Controller(Context _context){
         this.context = _context;
@@ -98,6 +105,33 @@ public class Controller {
                 Log.d("URL", url + "add_doa.php?nama=" + nama + "&umur=" + umur + "&email=" + email + "&nomortelepon=" + tlp + "&jeniskelamin=" + jk + "&doa=" + isiDoa);
             }
         });
+
+        // Mengirimkan isi form kepada email.
+        /*Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"williamstefanh@yahoo.com"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Permohonan Doa");
+        i.putExtra(Intent.EXTRA_TEXT   , "body of email");
+        try {
+            context.startActivity(i);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }*/
+
+        Log.d("Controller ", "sebelum masuk try");
+        try {
+            Log.d("Controller ", "masuk try");
+            GMailSender sender = new GMailSender("parkmonitoringsystem@gmail.com", "pplhawai");
+            sender.sendMail("Permohonan Doa",
+                    "Dari: " + nama + " dengan umur " + umur + " dan jenis kelamin " + jk + " tahun" + "\nEmail: " + email + "\nTelepon: " + tlp + "\nIsi doa: " + isiDoa,
+                    "parkmonitoringsystem@gmail.com",
+                    "williamstefanh@yahoo.com");
+            Log.d("Controller ", "selesai try");
+        } catch (Exception e) {
+            Log.e("SendMail", e.getMessage(), e);
+            Log.d("Controller ", "masuk catch");
+        }
+        Log.d("Controller ", "keluar try & catch");
     }
 
     public void register(final String nama, final String password ,final String email , final String tlp , final String alamat , final String tgllahir, final String idbaptis, final String komisi ,final String pelayanan ){
@@ -339,4 +373,38 @@ public class Controller {
             return sb.toString();
         }
     }
+
+    /*class SendEmailAsyncTask extends AsyncTask <Void, Void, Boolean> {
+        GMailSender m = new GMailSender("parkmonitoringsystem@gmail.com", "pplhawai");
+
+        public SendEmailAsyncTask() {
+            if (BuildConfig.DEBUG)
+                Log.v(SendEmailAsyncTask.class.getName(), "SendEmailAsyncTask()");
+            String[] toArr = {"to mail@gmail.com"};
+            m.setTo(toArr);
+            m.setFrom("from mail@gmail.com");
+            m.setSubject("Email from Android");
+            m.setBody("body.");
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            if (BuildConfig.DEBUG) Log.v(SendEmailAsyncTask.class.getName(), "doInBackground()");
+            try {
+                m.send();
+                return true;
+            } catch (AuthenticationFailedException e) {
+                Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
+                e.printStackTrace();
+                return false;
+            } catch (MessagingException e) {
+                Log.e(SendEmailAsyncTask.class.getName(), m.getTo(null) + "failed");
+                e.printStackTrace();
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }*/
 }

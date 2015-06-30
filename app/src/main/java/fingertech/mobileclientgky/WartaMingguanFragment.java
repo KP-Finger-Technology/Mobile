@@ -254,6 +254,7 @@ public class WartaMingguanFragment extends Fragment {
                         // Add row to table
                         myTableLayout.addView(TR, tableParams);
                     }
+                    HSV.setScrollbarFadingEnabled(false);
                     HSV.addView(myTableLayout);
                     myLinearLayout.addView(HSV);
                 } catch (JSONException e) {
