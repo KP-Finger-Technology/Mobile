@@ -82,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:hint="contoh: abcd1"
+                        android:hint="contoh: franki"
                         android:ems="15"
                         android:id="@+id/register_editPassword"/>
 
@@ -98,7 +98,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:hint="contoh: abcd1"
                         android:ems="15"
                         android:id="@+id/register_editKonfirmasiPassword"/>
 
@@ -111,10 +110,10 @@
                         android:layout_marginTop="5dp"/>
 
                     <EditText
-                        android:layout_width="wrap_content"
+                                            android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:hint="contoh: franki@yahoo.com"
+                        android:hint="contoh: franki@franki.com"
                         android:ems="15"
                         android:id="@+id/register_editEmail"/>
 
@@ -129,7 +128,7 @@
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="textPhonetic"
+                        android:inputType="number"
                         android:hint="contoh: 081234567890"
                         android:ems="15"
                         android:id="@+id/register_editTelepon"/>
@@ -146,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
-                        android:hint="contoh: Jalan Oswegia 100, Jakarta Barat"
+                        android:hint="contoh: Jalan Welsh 100, Jakarta Barat"
                         android:ems="15"
                         android:id="@+id/register_editAlamat"/>
 
@@ -162,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="dd/mm/yyyy"
+                        android:hint="dd/mm/yyyy, contoh:01/01/1991"
                         android:ems="15"
                         android:id="@+id/register_editTanggalLahir"
                         android:onClick="setDate"/>
@@ -187,7 +186,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:hint="contoh: 100"
+                        android:hint="contoh: franki100"
                         android:ems="15"
                         android:id="@+id/register_editIdBaptis"/>
 
@@ -219,7 +218,9 @@
                         android:onClick="registerClicked"/>
 
                 </LinearLayout>
+
             </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>
