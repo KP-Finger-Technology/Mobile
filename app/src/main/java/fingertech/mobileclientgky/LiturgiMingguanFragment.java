@@ -253,14 +253,16 @@ public class LiturgiMingguanFragment extends Fragment {
                         idSubAcara = jsonArr.getJSONObject(j).getString("idsubacara");
                         subAcara = jsonArr.getJSONObject(j).getString("subacara");
 
-                        TR = new TableRow(getActivity());
-                        TR.setLayoutParams(tableParams);
+                        if (keterangan!=null && keterangan!="null" && idSubAcara!="null" && idSubAcara!=null && subAcara!=null && subAcara!="null") {
+                            TR = new TableRow(getActivity());
+                            TR.setLayoutParams(tableParams);
 
-                        // Masukkan ke cell tabel
-                        IsiTabel(""); // utk tambal kolom pertama
-                        IsiTabel(idSubAcara+". "+subAcara);
-                        IsiTabel(keterangan);
-                        myTableLayout.addView(TR, tableParams);
+                            // Masukkan ke cell tabel
+                            IsiTabel(""); // utk tambal kolom pertama
+                            IsiTabel(idSubAcara + ". " + subAcara);
+                            IsiTabel(keterangan);
+                            myTableLayout.addView(TR, tableParams);
+                        }
 
 //                        // Add textView idSubAcaraTV
 //                        rowLayout = new LinearLayout(getActivity());
