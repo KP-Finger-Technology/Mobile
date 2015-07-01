@@ -2,9 +2,8 @@ Notulensi Meeting dengan Klien (Majelis Gereja) 29 Juni 2015
 
 - bisa download dari Google Play Store / melalui web dengan APK,
 - komisi (mungkin) bisa dinamis untuk web; untuk mobile dengan update aplikasi,
-- renungan gema di-update mungkin setiap 3 bulan sekali --> bisa melihat tanggal yang belum dilalui,
+- renungan gema di-update mungkin setiap 3 bulan sekali --> bisa melihat tanggal yang belum dilalui,	
 - update app --> yang sudah didownload tidak hilang,
-- perbaiki tabel warta mingguan (tunggu database Ko Arvin),
 - dinamiskan halaman komisi dan pelayanan (tunggu database Ko Arvin),
 - event dibuat per komisi,
 
