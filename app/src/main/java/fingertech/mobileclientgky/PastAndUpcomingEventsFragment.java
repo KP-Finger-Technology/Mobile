@@ -13,11 +13,14 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.squareup.picasso.Picasso;
@@ -31,6 +34,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Andarias Silvanus
@@ -88,6 +92,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private ArrayList<String> tanggalSaved;
     private ArrayList<String> keteranganSaved;
     private ArrayList<String> linkSaved;
+    private ArrayList<ContainerKomisiEvent> cntKomEv;
 
     @Override
     public void onSaveInstanceState(final Bundle outState) {
@@ -111,9 +116,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             generateKontenEvent();
         }
         else {
-            if ((judulSaved != null) && (tanggalSaved != null) && (keteranganSaved != null) && (linkSaved != null)) {
+            if ((judulSaved != null) && (tanggalSaved != null) && (keteranganSaved != null) && (linkSaved != null) && (cntKomEv != null)) {
                 // Returning from backstack, data is fine, do nothing
                 generateKontenEvent();
+                addItemsOnSpinner();
             }
             else {
                 // Newly created, compute data
@@ -124,7 +130,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         }
     }
 
-    private void generateKontenEvent() {
+    private void setUpLayout(){
         myLinearLayout = (LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         myLinearLayout.removeAllViews();
@@ -149,6 +155,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         subRowLayout = new LinearLayout(getActivity());
         subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+    }
+
+    private void generateKontenEvent() {
+        setUpLayout();
 
         int dataLength = judulSaved.size();
         for (int i = 0; i < dataLength; i++) {
@@ -340,6 +350,60 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         );
     }
 
+    // add items into spinner dynamically
+    private void addItemsOnSpinner() {
+        Spinner dropdownKomisi = (Spinner) rootView.findViewById(R.id.dropdownEvent);
+        List<String> list = new ArrayList<String>();
+        list.add("Semua komisi");
+        for (int i = 0; i < cntKomEv.size(); i++) {
+            list.add(cntKomEv.get(i).getNamaKomisi());
+        }
+
+        // Set adapter
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdownKomisi.setAdapter(dataAdapter);
+
+        dropdownKomisi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> arg0, View v, int position, long id) {
+                if (position != 0) {
+                    Log.d("Spinner ", "masuk set onItemSelected");
+                    Log.d("from Event, posisi dropdown yang terpilih:" + Integer.toString(position), "..");
+                    setUpLayout();
+                    ArrayList<JSONObject> jsonKomisi = cntKomEv.get(position-1).getJSON();
+                    for (int i = 0; i < jsonKomisi.size(); i++) {
+                        try {
+                            Log.d("Spinner", "komisi yang dipilih: " + position);
+                            Log.d("Spinner ", "masuk generate UI");
+                            Log.d("Spinner, judul:"+jsonKomisi.get(i).getString("judul")+", tanggal:"+jsonKomisi.get(i).getString("tanggal")+", keterangan: "+jsonKomisi.get(i).getString("keterangan"),"..");
+                            generateUI(jsonKomisi.get(i).getString("judul"), jsonKomisi.get(i).getString("tanggal"), jsonKomisi.get(i).getString("keterangan"), jsonKomisi.get(i).getString("linkGambar"));
+                            Log.d("Spinner ", "selesai generate UI");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (i!=jsonKomisi.size()) {
+                            rowLayout.addView(colLayout);
+                            myLinearLayout.addView(rowLayout);
+                            rowLayout = new LinearLayout(getActivity());
+                            colLayout = new LinearLayout(getActivity());
+                            colLayout.setOrientation(LinearLayout.VERTICAL);
+                            subRowLayout = new LinearLayout(getActivity());
+                        }
+                    }
+                }
+                else {
+                // Terpilih menu dropdown "Semua Komisi", generate UI semuanya
+                    generateKontenEvent();
+                }
+            }
+
+            public void onNothingSelected(AdapterView<?> arg0) {
+                Log.v("dropdownKomisi", "nothing selected");
+            }
+        });
+    }
+
     class Viewer extends AsyncTask<String, String, String> {
 
         JSONArray arr = new JSONArray();
@@ -405,6 +469,22 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             return "";
         }
 
+        private int isExistContainerKomisiEvent(String _namaKomisi){
+            int len = cntKomEv.size();
+            int idx = -999;
+            boolean Mark=false;
+            int i=0;
+            while (i<len && !Mark) {
+                if (cntKomEv.get(i).getNamaKomisi().equals(_namaKomisi))
+                    Mark=true;
+                else
+                    i++;
+            }
+            if (Mark)
+                idx=i;
+            return idx;
+        }
+
         @Override
         protected void onPostExecute(String result) {
 //            progressDialog.dismiss();
@@ -415,29 +495,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             }else{
             }
 
-            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-
-            // Add LayoutParams
-            paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakAntarEvent.setMargins(0, 15, 20, 0);
-
-            paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
-
-            paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
-
-            rowLayout = new LinearLayout(getActivity());
-            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            // Buat linear layout vertical untuk menampung kata-kata
-            colLayout = new LinearLayout(getActivity());
-            colLayout.setOrientation(LinearLayout.VERTICAL);
-            colLayout.setPadding(0,10,10,0);
-
-            subRowLayout = new LinearLayout(getActivity());
-            subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+            setUpLayout();
 
             int dataLength = arr.length();
 
@@ -446,6 +504,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             tanggalSaved = new ArrayList<String>();
             keteranganSaved = new ArrayList<String>();
             linkSaved = new ArrayList<String>();
+
+            cntKomEv = new ArrayList<ContainerKomisiEvent>();
 
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
@@ -458,6 +518,36 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     keterangan = jsonobj.getString("keterangan");
                     linkGambar = Controller.urlgambar ;
                     linkGambar += jsonobj.getString("gambarevent");
+
+                    JSONArray tmp_komisi = jsonobj.getJSONArray("atribut");
+                    int length2 = tmp_komisi.length();
+
+                    for (int j=0; j<length2; j++) {
+                    // Mengisi nama komisi dan event
+                        String tmp_namaKomisi = tmp_komisi.getJSONObject(j).getString("namakomisi");
+                        Log.d("from event, hasil tmp_namaKomisi:"+tmp_namaKomisi,"..");
+
+                        int idx = isExistContainerKomisiEvent(tmp_namaKomisi);
+
+                        JSONObject tmpJSON = new JSONObject();
+                        tmpJSON.put("judul",judul);
+                        tmpJSON.put("tanggal", tanggal);
+                        tmpJSON.put("keterangan",keterangan);
+                        tmpJSON.put("linkGambar",linkGambar);
+
+                        if (idx != -999) {
+                            // nama komisi sudah exist
+                            cntKomEv.get(idx).setJSON(tmpJSON);
+                        }
+                        else {
+                            // nama komisi belum exist
+                            ContainerKomisiEvent container = new ContainerKomisiEvent();
+                            container.setNamaKomisi(tmp_namaKomisi);
+                            container.setJSON(tmpJSON);
+                            cntKomEv.add(container);
+                        }
+                        Log.d("from Event, namaKomisi:"+tmp_namaKomisi+", isi cntKomEv:"+cntKomEv.get(j).printArrayJSON(),"..");
+                    }
 
                     judulSaved.add(judul);
                     tanggalSaved.add(tanggal);
@@ -478,8 +568,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     subRowLayout = new LinearLayout(getActivity());
                 }
             }
+            addItemsOnSpinner();
         }
     }
+
 
     class ViewerSearch extends AsyncTask<String, String, String> {
 
@@ -527,40 +619,17 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-
-            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
-            myLinearLayout.removeAllViews();
-
-            // Add LayoutParams
-            paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakAntarEvent.setMargins(0, 10, 0, 0);
-
-            paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
-
-            paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
-
-            rowLayout = new LinearLayout(getActivity());
-            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            // Buat linear layout vertical untuk menampung kata-kata
-            colLayout = new LinearLayout(getActivity());
-            colLayout.setOrientation(LinearLayout.VERTICAL);
-            colLayout.setPadding(0,10,10,0);
-
-            subRowLayout = new LinearLayout(getActivity());
-            subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+            setUpLayout();
 
             int dataLength = arr.length();
 
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
+//            Display display = getActivity().getWindowManager().getDefaultDisplay();
             String judul = null, tanggal = null, keterangan = null, linkGambar = null;
 
-            judulSaved = new ArrayList<String>();
-            tanggalSaved = new ArrayList<String>();
-            keteranganSaved = new ArrayList<String>();
-            linkSaved = new ArrayList<String>();
+//            judulSaved = new ArrayList<String>();
+//            tanggalSaved = new ArrayList<String>();
+//            keteranganSaved = new ArrayList<String>();
+//            linkSaved = new ArrayList<String>();
 
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
@@ -574,10 +643,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     linkGambar = Controller.urlgambar ;
                     linkGambar += jsonobj.getString("gambarevent");
 
-                    judulSaved.add(judul);
-                    tanggalSaved.add(tanggal);
-                    keteranganSaved.add(keterangan);
-                    linkSaved.add(linkGambar);
+//                    judulSaved.add(judul);
+//                    tanggalSaved.add(tanggal);
+//                    keteranganSaved.add(keterangan);
+//                    linkSaved.add(linkGambar);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -593,6 +662,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     subRowLayout = new LinearLayout(getActivity());
                 }
             }
+            addItemsOnSpinner();
         }
     }
 }
