@@ -32,7 +32,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/scroll_btnAyatAlkitab">
+            android:id="@+id/scroll_btnAyatAlkitab"
+            android:layout_marginBottom="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
