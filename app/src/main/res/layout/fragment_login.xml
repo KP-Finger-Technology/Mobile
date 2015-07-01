@@ -47,7 +47,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/login_textEmail"
                         android:id="@+id/login_textEmail"
@@ -56,7 +55,7 @@
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
+                        android:inputType="textEmailAddress"
                         android:hint="contoh: franki@franki.com"
                         android:ems="15"
                         android:id="@+id/login_editEmail"

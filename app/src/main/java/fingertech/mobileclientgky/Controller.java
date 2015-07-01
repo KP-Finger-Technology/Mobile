@@ -3,6 +3,8 @@ package fingertech.mobileclientgky;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -34,6 +36,7 @@ import java.util.TimerTask;
 
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
+
 
 /**
  * Created by Rita on 5/27/2015.
@@ -141,7 +144,7 @@ public class Controller {
             @Override
             public void run() {
                 new Writer().execute(url + "register.php?nama=" + nama + "&pass=" + password + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&tgl=" + tgllahir);
-                Log.d("url",url + "register.php?nama=" + nama + "&pass=" + password + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&tgl=" + tgllahir);
+                Log.d("url", url + "register.php?nama=" + nama + "&pass=" + password + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&tgl=" + tgllahir);
             }
         });
     }
@@ -154,7 +157,7 @@ public class Controller {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new Writer().execute(url + "edit_profil.php?nama=" + nama + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan+"&id="+id);
+                new Writer().execute(url + "edit_profil.php?nama=" + nama + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&id=" + id);
             }
         });
     }
@@ -175,7 +178,25 @@ public class Controller {
     public void login (final String email, final String password ){
         Writer w = new Writer();
         w.execute(url + "login.php?email=" + email + "&password=" + password);
-        Log.d("url login",url + "login.php?email=" + email + "&password=" + password);
+        Log.d("url login", url + "login.php?email=" + email + "&password=" + password);
+    }
+
+    // Untuk mengecek apakah ada koneksi internet
+    public boolean isNetworkAvailable() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
 
     class Viewer extends AsyncTask<String, String, String> {
@@ -206,34 +227,39 @@ public class Controller {
 
         @Override
         protected String doInBackground(String... params) {
-            String result = "";
-            for (String urlp : params) {
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet(urlp);
-                HttpResponse response;
-
-                try {
-                    response = client.execute(request);
-
-                    // Get the response
-                    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-                    String line = "";
-                    while ((line = rd.readLine()) != null) {
-                        result += line;
-                    }
+            if(isNetworkAvailable()) {
+                String result = "";
+                for (String urlp : params) {
+                    HttpClient client = new DefaultHttpClient();
+                    HttpGet request = new HttpGet(urlp);
+                    HttpResponse response;
 
                     try {
-                        JSONObject res = new JSONObject(result);
-                        arrData = res.getJSONArray("data");
-                    } catch (JSONException e) {
+                        response = client.execute(request);
+
+                        // Get the response
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                        String line = "";
+                        while ((line = rd.readLine()) != null) {
+                            result += line;
+                        }
+
+                        try {
+                            JSONObject res = new JSONObject(result);
+                            arrData = res.getJSONArray("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+            } else {
+                Toast.makeText(context, "Anda tidak terhubung ke internet", Toast.LENGTH_SHORT).show();
             }
+
             return "";
         }
     }
@@ -243,112 +269,118 @@ public class Controller {
 
         @Override
         protected JSONObject doInBackground(String... params) {
-            String sendMessage;
-            String urlpost = null;
-            for (String urlp : params) {
-                urlpost = urlp;
-            }
-
-            try {
-                DefaultHttpClient httpclient = new DefaultHttpClient();
-                HttpPost httpPostRequest = new HttpPost(urlpost);
-                JSONObject sendObject = new JSONObject();
-
-                sendMessage = sendObject.toString();
-
-                StringEntity se;
-                se = new StringEntity(sendMessage);
-
-                // Set HTTP parameters
-                httpPostRequest.setEntity(se);
-                httpPostRequest.setHeader("Accept", "application/json");
-                httpPostRequest.setHeader("Content-type", "application/json");
-
-                long t = System.currentTimeMillis();
-                HttpResponse response = (HttpResponse) httpclient.execute(httpPostRequest);
-
-                HttpEntity entity = response.getEntity();
-                if (entity != null) {
-                    InputStream instream = entity.getContent();
-
-                    String resultString = convertStreamToString(instream);
-                    instream.close();
-
-                    result = new JSONObject(resultString);
-                    writeResponse = result.getString("status");
-
-                    return result;
+            if(isNetworkAvailable()) {
+                String sendMessage;
+                String urlpost = null;
+                for (String urlp : params) {
+                    urlpost = urlp;
                 }
-            }catch (Exception e) {
-                e.printStackTrace();
+
+                try {
+                    DefaultHttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httpPostRequest = new HttpPost(urlpost);
+                    JSONObject sendObject = new JSONObject();
+
+                    sendMessage = sendObject.toString();
+
+                    StringEntity se;
+                    se = new StringEntity(sendMessage);
+
+                    // Set HTTP parameters
+                    httpPostRequest.setEntity(se);
+                    httpPostRequest.setHeader("Accept", "application/json");
+                    httpPostRequest.setHeader("Content-type", "application/json");
+
+                    long t = System.currentTimeMillis();
+                    HttpResponse response = (HttpResponse) httpclient.execute(httpPostRequest);
+
+                    HttpEntity entity = response.getEntity();
+                    if (entity != null) {
+                        InputStream instream = entity.getContent();
+
+                        String resultString = convertStreamToString(instream);
+                        instream.close();
+
+                        result = new JSONObject(resultString);
+                        writeResponse = result.getString("status");
+
+                        return result;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+
             return null;
         }
 
         @Override
         protected void onPostExecute(JSONObject result) {
-            String operation = null;
+            if(isNetworkAvailable()) {
+                String operation = null;
                 try {
                     operation = result.getString("operation");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            if(operation.equals("login")){
+                if (operation.equals("login")) {
 
-                String nama = null, id = null, email = null, alamat = null, telepon = null, idbaptis = null, tgllahir = null, komisi = null, pelayanan = null , pass = null ,namakomisi = null;
-                try {
-                    nama = result.getString("nama");
-                    pass = result.getString("pass");
-                    id = result.getString("id");
-                    email = result.getString("email");
-                    alamat = result.getString("alamat");
-                    telepon= result.getString("telepon");
-                    idbaptis = result.getString("idbaptis");
-                    tgllahir = result.getString("tgllahir");
-                    komisi = result.getString("komisi");
-                    pelayanan = result.getString("pelayanan");
-                    namakomisi = result.getString("namakomisi");
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                if (writeResponse.equals("ok")) {
-                    SessionManager smn = new SessionManager(context);
-                    smn.createLoginSession(nama, pass, id, email, alamat, telepon, idbaptis, tgllahir, komisi,pelayanan,namakomisi);
+                    String nama = null, id = null, email = null, alamat = null, telepon = null, idbaptis = null, tgllahir = null, komisi = null, pelayanan = null, pass = null, namakomisi = null;
                     try {
-                        JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
-                        Log.d("komisi",arrKomisi.toString());
-
-                        for ( int i = 0 ; i < arrKomisi.length(); i++){
-                            Log.d("iterasi ke-" + i, "isi komisi:" + arrKomisi.get(i).toString());
-                            ParsePush.subscribeInBackground(arrKomisi.get(i).toString().replace(" ","").replace("&",""), new SaveCallback() {
-                                @Override
-                                public void done(com.parse.ParseException e) {
-                                    if (e == null) {
-                                        Log.d("com.parse.push", "successfully subscribed to the komisi channel.");
-                                    } else {
-                                        Log.e("com.parse.push", "failed to subscribe for push to the komisi", e);
-                                    }
-                                }
-                            });
-
-                        }
+                        nama = result.getString("nama");
+                        pass = result.getString("pass");
+                        id = result.getString("id");
+                        email = result.getString("email");
+                        alamat = result.getString("alamat");
+                        telepon = result.getString("telepon");
+                        idbaptis = result.getString("idbaptis");
+                        tgllahir = result.getString("tgllahir");
+                        komisi = result.getString("komisi");
+                        pelayanan = result.getString("pelayanan");
+                        namakomisi = result.getString("namakomisi");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(context, "Login success", Toast.LENGTH_LONG).show();
+                    if (writeResponse.equals("ok")) {
+                        SessionManager smn = new SessionManager(context);
+                        smn.createLoginSession(nama, pass, id, email, alamat, telepon, idbaptis, tgllahir, komisi, pelayanan, namakomisi);
+                        try {
+                            JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
+                            Log.d("komisi", arrKomisi.toString());
+
+                            for (int i = 0; i < arrKomisi.length(); i++) {
+                                Log.d("iterasi ke-" + i, "isi komisi:" + arrKomisi.get(i).toString());
+                                ParsePush.subscribeInBackground(arrKomisi.get(i).toString().replace(" ", "").replace("&", ""), new SaveCallback() {
+                                    @Override
+                                    public void done(com.parse.ParseException e) {
+                                        if (e == null) {
+                                            Log.d("com.parse.push", "successfully subscribed to the komisi channel.");
+                                        } else {
+                                            Log.e("com.parse.push", "failed to subscribe for push to the komisi", e);
+                                        }
+                                    }
+                                });
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(context, "Login success", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context, "Login " + writeResponse, Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    Toast.makeText(context, "Login " + writeResponse, Toast.LENGTH_LONG).show();
+                    // Operation.eq("add doa") , edit profil , register
+                    if (writeResponse.equals("ok")) {
+                        Toast.makeText(context, operation + " Success", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context, operation + "" + writeResponse, Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-                else {
-                // Operation.eq("add doa") , edit profil , register
-                if (writeResponse.equals("ok")) {
-                    Toast.makeText(context, operation +" Success", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(context, operation+""+ writeResponse, Toast.LENGTH_LONG).show();
-                }
+            } else {
+                Toast.makeText(context, "Anda tidak terhubung ke internet", Toast.LENGTH_SHORT).show();
             }
         }
 

@@ -3,6 +3,9 @@ package fingertech.mobileclientgky;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -259,6 +262,24 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         fragTransaction.commit();
     }
 
+    // Untuk mengecek apakah ada koneksi internet
+    public boolean isNetworkAvailable() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
     public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -404,7 +425,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
             String result = "";
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_komisipelayanan.php");
+            HttpGet request = new HttpGet(Controller.url + "view_komisipelayanan.php");
             HttpResponse response;
 
             try {
@@ -432,7 +453,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
 
-            return "";
+            return null;
         }
 
         @Override
