@@ -1,7 +1,10 @@
 package fingertech.mobileclientgky;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +40,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by Andarias Silvanus
@@ -102,13 +106,12 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         outState.putStringArrayList("judulSaved",judulSaved);
         outState.putStringArrayList("tanggalSaved",tanggalSaved);
         outState.putStringArrayList("keteranganSaved",keteranganSaved);
-        outState.putStringArrayList("linkSaved",linkSaved);
+        outState.putStringArrayList("linkSaved", linkSaved);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         if (savedInstanceState != null) {
             //  Probably orientation change
             judulSaved = savedInstanceState.getStringArrayList("judulSaved");
@@ -116,62 +119,14 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             keteranganSaved = savedInstanceState.getStringArrayList("keteranganSaved");
             linkSaved = savedInstanceState.getStringArrayList("linkSaved");
             generateKontenEvent();
-        }
-        else {
+        } else {
             if ((judulSaved != null) && (tanggalSaved != null) && (keteranganSaved != null) && (linkSaved != null) && (cntKomEv != null)) {
                 // Returning from backstack, data is fine, do nothing
                 generateKontenEvent();
                 addItemsOnSpinner();
-            }
-            else {
-                // Newly created, compute data
-//                Log.d("tabel lirik lagu tidak exist","..");
+            } else {
                 Viewer v = new Viewer();
                 v.execute();
-            }
-        }
-    }
-
-    private void setUpLayout(){
-        myLinearLayout = (LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
-        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        myLinearLayout.removeAllViews();
-
-        // Add LayoutParams
-        paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        paramsJarakAntarEvent.setMargins(0, 15, 20, 0);
-
-        paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
-
-        paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
-
-        rowLayout = new LinearLayout(getActivity());
-        rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        // Buat linear layout vertical untuk menampung kata-kata
-        colLayout = new LinearLayout(getActivity());
-        colLayout.setOrientation(LinearLayout.VERTICAL);
-        colLayout.setPadding(0, 10, 10, 0);
-
-        subRowLayout = new LinearLayout(getActivity());
-        subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
-    }
-
-    private void generateKontenEvent() {
-        setUpLayout();
-
-        int dataLength = judulSaved.size();
-        for (int i = 0; i < dataLength; i++) {
-            generateUI(judulSaved.get(i), tanggalSaved.get(i), keteranganSaved.get(i), linkSaved.get(i));
-            if (i != dataLength) {
-                rowLayout.addView(colLayout);
-                myLinearLayout.addView(rowLayout);
-                rowLayout = new LinearLayout(getActivity());
-                colLayout = new LinearLayout(getActivity());
-                colLayout.setOrientation(LinearLayout.VERTICAL);
-                subRowLayout = new LinearLayout(getActivity());
             }
         }
     }
@@ -195,15 +150,14 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         cll = (LinearLayout) rootView.findViewById(R.id.container_pastupcoming);
 //        pb = (ProgressBar) rootView.findViewById(R.id.pbDefault);
 
-        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit (String s) {
+            public boolean onQueryTextSubmit(String s) {
                 try {
                     keyword = URLEncoder.encode(s, "utf-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-//                Toast.makeText(getActivity(), "Event yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
                 cll.removeAllViews();
                 ViewerSearch vs = new ViewerSearch();
                 vs.execute();
@@ -235,7 +189,70 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    private void generateUI (String judul, String tanggal, String keterangan, String linkGambar) {
+    // Untuk mengecek apakah ada koneksi internet
+    public boolean isNetworkAvailable() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
+    // Untuk generate tampilan
+    public void setUpLayout(){
+        myLinearLayout = (LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        myLinearLayout.removeAllViews();
+
+        // Add LayoutParams
+        paramsJarakAntarEvent = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakAntarEvent.setMargins(0, 15, 20, 0);
+
+        paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakAntarIsi.setMargins(5, 0, 0, 0);
+
+        paramsJarakIsiDenganButton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsJarakIsiDenganButton.setMargins(5, 5, 0, 15);
+
+        rowLayout = new LinearLayout(getActivity());
+        rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        // Buat linear layout vertical untuk menampung kata-kata
+        colLayout = new LinearLayout(getActivity());
+        colLayout.setOrientation(LinearLayout.VERTICAL);
+        colLayout.setPadding(0, 10, 10, 0);
+
+        subRowLayout = new LinearLayout(getActivity());
+        subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+    }
+
+    public void generateKontenEvent() {
+        setUpLayout();
+
+        int dataLength = judulSaved.size();
+        for (int i = 0; i < dataLength; i++) {
+            generateUI(judulSaved.get(i), tanggalSaved.get(i), keteranganSaved.get(i), linkSaved.get(i));
+            if (i != dataLength) {
+                rowLayout.addView(colLayout);
+                myLinearLayout.addView(rowLayout);
+                rowLayout = new LinearLayout(getActivity());
+                colLayout = new LinearLayout(getActivity());
+                colLayout.setOrientation(LinearLayout.VERTICAL);
+                subRowLayout = new LinearLayout(getActivity());
+            }
+        }
+    }
+
+    public void generateUI (String judul, String tanggal, String keterangan, String linkGambar) {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int image_width = display.getWidth()/3;
         int image_height = (int) (display.getHeight()/4.3);
@@ -268,11 +285,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         if (subRowLayout.getParent() != null) {
             ((ViewGroup) subRowLayout.getParent()).removeView(subRowLayout);
         }
-        else {
-//            Log.d("remove View null beneran","..");
-        }
-//            ((ViewGroup) subRowLayout.getParent()).removeView(subRowLayout);
-
 
         subRowLayout.addView(JudulEventTV);
         colLayout.addView(subRowLayout);
@@ -357,7 +369,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     }
 
     // add items into spinner dynamically
-    private void addItemsOnSpinner() {
+    public void addItemsOnSpinner() {
         Spinner dropdownKomisi = (Spinner) rootView.findViewById(R.id.dropdownEvent);
         List<String> list = new ArrayList<String>();
         list.add("Semua komisi");
@@ -397,9 +409,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                             subRowLayout = new LinearLayout(getActivity());
                         }
                     }
-                }
-                else {
-                // Terpilih menu dropdown "Semua Komisi", generate UI semuanya
+                } else {
+                    // Terpilih menu dropdown "Semua Komisi", generate UI semuanya
                     generateKontenEvent();
                 }
             }
@@ -445,31 +456,40 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            String result = "";
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url + "view_event.php");
-            HttpResponse response;
-
-            try {
-               response = client.execute(request);
-
-                // Get the response
-                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-                String line = "";
-                while ((line = rd.readLine()) != null) {
-                    result += line;
-                }
+            if (isNetworkAvailable()) {
+                String result = "";
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet(Controller.url + "view_event.php");
+                HttpResponse response;
 
                 try {
-                    JSONObject res = new JSONObject(result);
-                    arr = res.getJSONArray("data");
-                } catch (JSONException e) {
+                    response = client.execute(request);
+
+                    // Get the response
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                    String line = "";
+                    while ((line = rd.readLine()) != null) {
+                        result += line;
+                    }
+
+                    try {
+                        JSONObject res = new JSONObject(result);
+                        arr = res.getJSONArray("data");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity().getApplicationContext(), "Anda tidak terhubung ke internet", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             return "";
@@ -493,12 +513,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-//            progressDialog.dismiss();
-//            progressBar.setVisibility(View.INVISIBLE);
-//            progressBar.setProgress(0);
-            if(arr.length()==0){
+            if (arr.length() == 0 && isNetworkAvailable()){
                 Toast.makeText(getActivity().getApplicationContext(), "Tidak ada event", Toast.LENGTH_SHORT).show();
-            }else{
             }
 
             setUpLayout();
@@ -542,11 +558,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                         tmpJSON.put("linkGambar",linkGambar);
 
                         if (idx != -999) {
-                            // nama komisi sudah exist
+                            // Nama komisi sudah exist
                             cntKomEv.get(idx).setJSON(tmpJSON);
-                        }
-                        else {
-                            // nama komisi belum exist
+                        } else {
+                            // Nama komisi belum exist
                             ContainerKomisiEvent container = new ContainerKomisiEvent();
                             container.setNamaKomisi(tmp_namaKomisi);
                             container.setJSON(tmpJSON);
@@ -578,7 +593,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         }
     }
 
-
     class ViewerSearch extends AsyncTask<String, String, String> {
 
         JSONArray arr = new JSONArray();
@@ -592,32 +606,41 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            String result = "";
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_eventsearch.php?kw=" + keyword);
-            HttpResponse response;
-
-            try {
-                response = client.execute(request);
-
-                // Get the response
-                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-                String line = "";
-                while ((line = rd.readLine()) != null) {
-                    result += line;
-                }
+            if (isNetworkAvailable()) {
+                String result = "";
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet(Controller.url+"view_eventsearch.php?kw=" + keyword);
+                HttpResponse response;
 
                 try {
-                    JSONObject res = new JSONObject(result);
-                    arr = res.getJSONArray("data");
-                    Log.d("Array", arr.toString());
-                } catch (JSONException e) {
+                    response = client.execute(request);
+
+                    // Get the response
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                    String line = "";
+                    while ((line = rd.readLine()) != null) {
+                        result += line;
+                    }
+
+                    try {
+                        JSONObject res = new JSONObject(result);
+                        arr = res.getJSONArray("data");
+                        Log.d("Array", arr.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity().getApplicationContext(), "Anda tidak terhubung ke internet", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             return "";
@@ -626,22 +649,13 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             setUpLayout();
-
             int dataLength = arr.length();
 
-            if(arr.length()==0){
-                Toast.makeText(getActivity().getApplicationContext(), "Event yang anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
-            }else{
+            if (arr.length() == 0 && isNetworkAvailable()){
+                Toast.makeText(getActivity().getApplicationContext(), "Event yang Anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
 
-
-//            Display display = getActivity().getWindowManager().getDefaultDisplay();
             String judul = null, tanggal = null, keterangan = null, linkGambar = null;
-
-//            judulSaved = new ArrayList<String>();
-//            tanggalSaved = new ArrayList<String>();
-//            keteranganSaved = new ArrayList<String>();
-//            linkSaved = new ArrayList<String>();
 
             // Generate konten Event dalam loop for
             for (int i=0; i<dataLength; i++){
@@ -654,11 +668,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     keterangan = jsonobj.getString("keterangan");
                     linkGambar = Controller.urlgambar ;
                     linkGambar += jsonobj.getString("gambarevent");
-
-//                    judulSaved.add(judul);
-//                    tanggalSaved.add(tanggal);
-//                    keteranganSaved.add(keterangan);
-//                    linkSaved.add(linkGambar);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

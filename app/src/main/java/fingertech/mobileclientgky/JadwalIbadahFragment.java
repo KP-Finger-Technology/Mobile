@@ -1,6 +1,9 @@
 package fingertech.mobileclientgky;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -87,6 +92,24 @@ public class JadwalIbadahFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    // Untuk mengecek apakah ada koneksi internet
+    public boolean isNetworkAvailable() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
     class Viewer extends AsyncTask<String, String, String> {
         // Untuk komponen-komponen
         private LinearLayout myLinearLayout;
@@ -110,33 +133,42 @@ public class JadwalIbadahFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            String result = "";
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url + "view_jadwalibadah.php");
-            HttpResponse response;
-
-            try {
-                response = client.execute(request);
-
-                // Get the response
-                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-                String line = "";
-                while ((line = rd.readLine()) != null) {
-                    result += line;
-                }
+            if(isNetworkAvailable()) {
+                String result = "";
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet(Controller.url + "view_jadwalibadah.php");
+                HttpResponse response;
 
                 try {
-                    // Data
-                    JSONObject res = new JSONObject(result);
-                    arr = res.getJSONArray("data");
-                    Log.d("Array data", arr.toString());
-                } catch (JSONException e) {
+                    response = client.execute(request);
+
+                    // Get the response
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                    String line = "";
+                    while ((line = rd.readLine()) != null) {
+                        result += line;
+                    }
+
+                    try {
+                        // Data
+                        JSONObject res = new JSONObject(result);
+                        arr = res.getJSONArray("data");
+                        Log.d("Array data", arr.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity().getApplicationContext(), "Anda tidak terhubung ke internet", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             return "";
@@ -162,6 +194,10 @@ public class JadwalIbadahFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+            if (arr.length() == 0 && isNetworkAvailable()){
+                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada jadwal ibadah", Toast.LENGTH_SHORT).show();
+            }
+
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalIbadah);
 
             // Add LayoutParams
