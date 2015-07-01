@@ -25,6 +25,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
@@ -195,8 +197,12 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                keyword = s;
-                Toast.makeText(getActivity(), "KPPK yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
+                try {
+                    keyword = URLEncoder.encode(s, "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+//                Toast.makeText(getActivity(), "KPPK yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
 
                 if (DB.isTableExists("KPPK")) {
                     arrKPPK = DB.searchKPPK(keyword);
@@ -458,6 +464,11 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
         @Override
         protected void onPostExecute(String result) {
+
+            if(arr.length()==0){
+                Toast.makeText(getActivity().getApplicationContext(), "KPPK yang anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
+            }
+
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
 
             // Add LayoutParams

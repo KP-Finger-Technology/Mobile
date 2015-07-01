@@ -28,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
@@ -285,8 +287,12 @@ public class KolportaseFragment extends Fragment {
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit (String s) {
-                keyword = s;
-                Toast.makeText(getActivity(), "Buku yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
+                try {
+                    keyword = URLEncoder.encode(s, "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+//                Toast.makeText(getActivity(), "Buku yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
                 cll.removeAllViews();
                 ViewerSearch vs = new ViewerSearch();
                 vs.execute();
@@ -364,6 +370,9 @@ public class KolportaseFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             String judul = null, pengarang = null, keterangan = null, linkGambar = null;
+            if(arr.length()==0){
+                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada kolportase baru", Toast.LENGTH_SHORT).show();
+            }
 
             // Add LinearLayout
             View v = rootView.findViewById(R.id.container_kolportase);
@@ -445,6 +454,7 @@ public class KolportaseFragment extends Fragment {
         protected String doInBackground(String... params) {
             String result = "";
             HttpClient client = new DefaultHttpClient();
+
             HttpGet request = new HttpGet(Controller.url + "view_kolportasesearch.php?kw=" + keyword);
             HttpResponse response;
 
@@ -479,7 +489,7 @@ public class KolportaseFragment extends Fragment {
             String judul = null, pengarang = null, keterangan = null, linkGambar = null;
 
             if(arr.length()==0){
-                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada kolportase baru", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Kolportase yang anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
 
             // Add LinearLayout

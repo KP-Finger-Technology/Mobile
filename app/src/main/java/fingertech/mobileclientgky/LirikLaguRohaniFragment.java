@@ -24,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
@@ -199,7 +201,12 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                keyword = s;
+                try {
+                    keyword = URLEncoder.encode(s, "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 Toast.makeText(getActivity(), "Lagu yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
 
                 if (DB.isTableExists("LirikLaguRohani")) {
@@ -459,6 +466,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
         @Override
         protected void onPostExecute(String result) {
+
+
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
 
             // Add LayoutParams
@@ -467,6 +476,11 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             params.setMargins(0, 0, 0, 10);
 
             int dataLength = arr.length();
+
+            if(arr.length()==0){
+                Toast.makeText(getActivity().getApplicationContext(), "Lagu yang anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
+            }
+
             int defaultColor = getResources().getColor(R.color.defaultFont);
             String container = null, judul = null, isi = null;
 
