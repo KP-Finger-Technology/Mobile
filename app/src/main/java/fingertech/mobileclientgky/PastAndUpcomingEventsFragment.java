@@ -623,6 +623,12 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
             int dataLength = arr.length();
 
+//            if(arr.length()==0){
+//                Toast.makeText(getActivity().getApplicationContext(), "Event yang anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
+//            }else{
+//            }
+
+
 //            Display display = getActivity().getWindowManager().getDefaultDisplay();
             String judul = null, tanggal = null, keterangan = null, linkGambar = null;
 
