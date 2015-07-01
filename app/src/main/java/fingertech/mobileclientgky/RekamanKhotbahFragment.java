@@ -509,7 +509,9 @@ public class RekamanKhotbahFragment extends Fragment {
         request.setTitle(judul);
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, deskripsi + judul);
+
+        String namaFile = deskripsi + "_" + judul;
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, namaFile);
 
         DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);

@@ -49,8 +49,7 @@ public class AlkitabFragment extends Fragment {
 
     public AlkitabFragment() {}
 
-    public AlkitabFragment(Context _context) {
-    }
+    public AlkitabFragment(Context _context) {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
