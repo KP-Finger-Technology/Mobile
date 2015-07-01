@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -74,10 +75,23 @@ public class PasalAlkitabFragment extends Fragment {
 //        myLinearLayout.setHorizontalGravity(LinearLayout.TEXT_ALIGNMENT_CENTER);
         myLinearLayout.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
 
-        int btnWidth = 150;
-        int btnHeight = 100;
         int rightMargin = 5;
         int sumMargin = rightMargin;
+
+        // Untuk menghitung batas horisontal button yang dibuat
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        int displayWidth = display.getWidth();
+        int displayHeight = display.getHeight();
+        int sumPaddingDP = 35; // dalam satuan dp, didapat dari jumlah margin kiri&kanan dari fragment XML
+        int sumPadding = (int) (sumPaddingDP * (metrics.xdpi / 160));
+//        int jumlahDraw = ((displayWidth-sumPadding-sumMargin)/btnWidth);
+        int jumlahDraw = 6;
+
+//        int btnWidth = 150;
+//        int btnHeight = 100;
+        int btnWidth = (displayWidth-sumPadding-(rightMargin*jumlahDraw))/(jumlahDraw);
+        int btnHeight = (int) (btnWidth*0.65);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(btnWidth, btnHeight);
         params.setMargins(0, 0, rightMargin, 5);
 
@@ -115,11 +129,6 @@ public class PasalAlkitabFragment extends Fragment {
         int cnt = 0;
         Button pasalBtn;
 
-        // Untuk menghitung batas horisontal button yang dibuat
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        int displayWidth = display.getWidth();
-        int sumPadding = 35;
-        int jumlahDraw = ((displayWidth-sumPadding-sumMargin)/btnWidth);
 
         for (int i = 0; i < pasal; i++) {
             cnt++;
