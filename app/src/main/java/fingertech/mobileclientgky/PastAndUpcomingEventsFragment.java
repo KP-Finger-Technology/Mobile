@@ -33,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,8 +198,12 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit (String s) {
-                keyword = s;
-                Toast.makeText(getActivity(), "Event yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
+                try {
+                    keyword = URLEncoder.encode(s, "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+//                Toast.makeText(getActivity(), "Event yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
                 cll.removeAllViews();
                 ViewerSearch vs = new ViewerSearch();
                 vs.execute();
@@ -623,10 +629,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
             int dataLength = arr.length();
 
-//            if(arr.length()==0){
-//                Toast.makeText(getActivity().getApplicationContext(), "Event yang anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
-//            }else{
-//            }
+            if(arr.length()==0){
+                Toast.makeText(getActivity().getApplicationContext(), "Event yang anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
+            }else{
+            }
 
 
 //            Display display = getActivity().getWindowManager().getDefaultDisplay();
@@ -668,7 +674,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     subRowLayout = new LinearLayout(getActivity());
                 }
             }
-            addItemsOnSpinner();
         }
     }
 }
