@@ -1,6 +1,7 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -108,7 +109,7 @@ public class JadwalIbadahFragment extends Fragment {
         myTableLayout.addView(TR);  // Add row to table
 
         for (int i = 0; i < jadwalSaved.size(); i = i + 2) {
-            fillingTable(jadwalSaved.get(i), jadwalSaved.get(i+1));
+            fillingTable(jadwalSaved.get(i), jadwalSaved.get(i + 1));
         }
         HSV.addView(myTableLayout);
         myLinearLayout.addView(HSV);
@@ -212,14 +213,6 @@ public class JadwalIbadahFragment extends Fragment {
     }
 
     class Viewer extends AsyncTask<String, String, String> {
-        // Untuk komponen-komponen
-        private LinearLayout myLinearLayout;
-        private TableLayout myTableLayout;
-        private TableRow TR;
-        private TextView IsiTabelHeader;
-        private TextView IsiTabel;
-        private LinearLayout.LayoutParams params;
-
         JSONArray arr = new JSONArray();
 
         public JSONArray getArr() {
@@ -227,7 +220,9 @@ public class JadwalIbadahFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute()
+        {
+        };
 
         @Override
         protected String doInBackground(String... params) {
@@ -252,10 +247,10 @@ public class JadwalIbadahFragment extends Fragment {
                         // Data
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array data", arr.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -271,24 +266,6 @@ public class JadwalIbadahFragment extends Fragment {
             return "";
         }
 
-        private void IsiTabelHeader(String text) {
-            IsiTabelHeader = new TextView(getActivity());
-            IsiTabelHeader.setText(text);
-            IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
-            IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
-            TR.addView(IsiTabelHeader);
-        }
-
-        private void IsiTabel(String text) {
-            IsiTabel = new TextView(getActivity());
-            IsiTabel.setText(text);
-            IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
-            IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
-            TR.addView(IsiTabel);
-        }
-
         @Override
         protected void onPostExecute(String result) {
             if (arr.length() == 0 && isNetworkAvailable()){
@@ -299,6 +276,7 @@ public class JadwalIbadahFragment extends Fragment {
             jadwalSaved = new ArrayList<String>();
 
             int dataLength = arr.length();
+            int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
             String tanggal = null, isi = null;
 
@@ -325,10 +303,8 @@ public class JadwalIbadahFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-            if(isNetworkAvailable()) {
-                HSV.addView(myTableLayout);
-                myLinearLayout.addView(HSV);
-            }
+            HSV.addView(myTableLayout);
+            myLinearLayout.addView(HSV);
         }
     }
 }

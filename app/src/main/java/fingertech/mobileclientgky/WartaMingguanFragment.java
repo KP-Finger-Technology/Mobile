@@ -44,7 +44,7 @@ public class WartaMingguanFragment extends Fragment {
     private View rootView;
 
     private Viewer viewer;
-    private ArrayList<JSONArray> wartaSaved; // idx 0 utk jadwal. 1 utk warta,
+    private ArrayList<JSONArray> wartaSaved; // Index 0 untuk jadwal, 1 untuk warta
 
     // Untuk komponen-komponen
     private LinearLayout myLinearLayout;
@@ -53,8 +53,6 @@ public class WartaMingguanFragment extends Fragment {
     private TextView JudulTabel;
     private TextView IsiTabelHeader;
     private TextView IsiTabel;
-    private TextView judulTV;
-    private TextView deskripsiTV;
     private LinearLayout.LayoutParams params;
     private LinearLayout.LayoutParams paramsDeskripsi;
     private TableLayout.LayoutParams tableParams;
@@ -75,16 +73,13 @@ public class WartaMingguanFragment extends Fragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putStringArrayList("jadwalSaved",jadwalSaved);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            // Probably orientation change
-        }
+        if (savedInstanceState != null) {}
         else {
             if (wartaSaved != null) {
                 // Returning from backstack, data is fine, do nothing
@@ -196,12 +191,10 @@ public class WartaMingguanFragment extends Fragment {
         setUpLayout();
 
         int dataLength = jadwal.length();
-//        Log.d("length obj.length",Integer.toString(obj.length()));
-//        Log.d("length jadwal.length",Integer.toString(jadwal.length()));
-
         String tanggal = null, kebaktian = null, pengkotbah = null, judul = null, deskripsi = null,gedung =null, penerjemah = null, liturgis = null, pianis = null ,paduansuara = null;
+
         // Generate konten Warta Mingguan dalam loop for
-        for (int i=0; i < dataLength; i++){
+        for (int i = 0; i < dataLength; i++){
             try {
                 JSONArray jsonAtribut = jadwal.getJSONObject(i).getJSONArray("atribut");
 
@@ -240,7 +233,6 @@ public class WartaMingguanFragment extends Fragment {
                     pianis = jsonAtribut.getJSONObject(j).getString("pianis");
                     paduansuara = jsonAtribut.getJSONObject(j).getString("paduansuara");
 
-
                     TR = new TableRow(getActivity());
                     TR.setLayoutParams(rowTableParams);
                     // Kebaktian
@@ -269,7 +261,6 @@ public class WartaMingguanFragment extends Fragment {
             JSONObject jsonobj = null;
             try {
                 jsonobj = warta.getJSONObject(i);
-                Log.d("JSONObject", warta.getJSONObject(i).toString());
                 judul = jsonobj.getString("judul");
                 deskripsi = jsonobj.getString("deskripsi");
             } catch (JSONException e) {
@@ -326,7 +317,6 @@ public class WartaMingguanFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -358,7 +348,7 @@ public class WartaMingguanFragment extends Fragment {
                 wartaSaved.add(warta);
             }
             catch (JSONException e) {
-                Log.d("excp olah atribut jdwal","..");
+                Log.e("Warta Mingguan:", e.getMessage());
             }
             generateKontenWarta(jadwal, warta);
         }

@@ -71,18 +71,13 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putStringArrayList("jadwalSaved",jadwalSaved);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            // Probably orientation change
-//            jadwalSaved = savedInstanceState.getStringArrayList("jadwalSaved");
-//            generateKontenJadwal();
-        }
+        if (savedInstanceState != null) {}
         else {
             if (pelayananSaved != null) {
                 // Returning from backstack, data is fine, do nothing
@@ -185,6 +180,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         IsiTabel(kebaktian);    // Kebaktian
         IsiTabel(waktu);        // Waktu
         IsiTabel(judulLagu);    // Judul Lagu
+
         // Add row to table
         myTableLayout.addView(TR, tableParams);
     }
@@ -199,10 +195,10 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
     private void generateKontenPelayanan() {
         setUpLayout();
         int cnt = 0;
-        for (int i=0; i<sumTable; i++) {
+        for (int i = 0; i < sumTable; i++) {
             setTitleText(jenisPelayananSaved.get(i));
             createHeaderTable();
-            for (int j=0; j<sumRowTable.get(i); j++) {
+            for (int j = 0; j < sumRowTable.get(i); j++) {
                 String tanggal = null, gedung = null, kebaktian = null, waktu = null, judulLagu = null;
                 try {
                     tanggal = pelayananSaved.get(cnt).getString("tanggal");
@@ -238,9 +234,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         protected String doInBackground(String... params) {
             SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
-            Log.d("jadwalpel",sm.pref.getAll().toString());
-            Log.d("Nm",sm.pref.getAll().get("name").toString());
-            Log.d("ID", sm.pref.getAll().get("id").toString());
             String result = "";
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(Controller.url+"view_jadwalpelayanan.php?id="+sm.pref.getAll().get("id").toString()); // ngikutin ip disini loh
@@ -260,7 +253,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
-                    Log.d("Array", arr.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -269,7 +261,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                 e.printStackTrace();
             }
 
-//            }
             return "";
         }
 
@@ -303,8 +294,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                     int length2 = jsonArr.length();
                     sumRowTable.add(length2);
                     for (int j = 0; j < length2; j++) {
-//                        tanggal = jsonArr.getJSONObject(j).getString("tanggal");
-                        tanggal = "2015-6-29";
                         gedung = jsonArr.getJSONObject(j).getString("gedung");
                         kebaktian = jsonArr.getJSONObject(j).getString("kebaktian");
                         waktuMulai = jsonArr.getJSONObject(j).getString("waktumulai");
