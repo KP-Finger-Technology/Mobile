@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 /**
@@ -42,6 +43,24 @@ public class WartaMingguanFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private View rootView;
 
+    private Viewer viewer;
+    private ArrayList<JSONArray> wartaSaved; // idx 0 utk jadwal. 1 utk warta,
+
+    // Untuk komponen-komponen
+    private LinearLayout myLinearLayout;
+    private TableLayout myTableLayout;
+    private TableRow TR;
+    private TextView JudulTabel;
+    private TextView IsiTabelHeader;
+    private TextView IsiTabel;
+    private TextView judulTV;
+    private TextView deskripsiTV;
+    private LinearLayout.LayoutParams params;
+    private LinearLayout.LayoutParams paramsDeskripsi;
+    private TableLayout.LayoutParams tableParams;
+    private TableLayout.LayoutParams rowTableParams;
+    private HorizontalScrollView HSV;
+
     public static WartaMingguanFragment newInstance(String param1, String param2) {
         WartaMingguanFragment fragment = new WartaMingguanFragment();
         Bundle args = new Bundle();
@@ -54,15 +73,38 @@ public class WartaMingguanFragment extends Fragment {
     public WartaMingguanFragment() {}
 
     @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putStringArrayList("jadwalSaved",jadwalSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Probably orientation change
+        }
+        else {
+            if (wartaSaved != null) {
+                // Returning from backstack, data is fine, do nothing
+                generateKontenWarta(wartaSaved.get(0), wartaSaved.get(1));
+            }
+            else {
+                // Newly created, compute data
+                viewer = new Viewer();
+                viewer.execute();
+            }
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        Viewer viewer = new Viewer();
-        viewer.execute();
     }
 
     @Override
@@ -106,17 +148,149 @@ public class WartaMingguanFragment extends Fragment {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
-    class Viewer extends AsyncTask<String, String, String> {
-        // Untuk komponen-komponen
-        private LinearLayout myLinearLayout;
-        private TableLayout myTableLayout;
-        private TableRow TR;
-        private TextView judulTabel;
-        private TextView isiTabelHeader;
-        private TextView isiTabel;
-        private LinearLayout.LayoutParams params;
-        private LinearLayout.LayoutParams paramsDeskripsi;
+    private void IsiTabelHeader (String text) {
+        IsiTabelHeader = new TextView(getActivity());
+        IsiTabelHeader.setText(text);
+        IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
+        IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
+        TR.addView(IsiTabelHeader);
+    }
 
+    private void IsiTabel (String text) {
+        IsiTabel = new TextView(getActivity());
+        IsiTabel.setText(text);
+        IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
+        IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
+        TR.addView(IsiTabel);
+    }
+
+    private void setUpLayout() {
+        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_wartaMingguan);
+
+        // Add LayoutParams
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        params.setMargins(0, 10, 0, 0);
+
+        // Param untuk deskripsi
+        paramsDeskripsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        paramsDeskripsi.setMargins(0, 0, 0, 0);
+
+        tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+        // Untuk tag "warta"
+        LinearLayout rowLayout = new LinearLayout(getActivity());
+        rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        // Membuat linear layout vertical untuk menampung kata-kata
+        LinearLayout colLayout = new LinearLayout(getActivity());
+        colLayout.setOrientation(LinearLayout.VERTICAL);
+        colLayout.setPadding(0, 5, 0, 0);
+    }
+
+    private void generateKontenWarta (JSONArray jadwal, JSONArray warta) {
+        setUpLayout();
+
+        int dataLength = jadwal.length();
+//        Log.d("length obj.length",Integer.toString(obj.length()));
+//        Log.d("length jadwal.length",Integer.toString(jadwal.length()));
+
+        String tanggal = null, kebaktian = null, pengkotbah = null, judul = null, deskripsi = null,gedung =null, penerjemah = null, liturgis = null, pianis = null ,paduansuara = null;
+        // Generate konten Warta Mingguan dalam loop for
+        for (int i=0; i < dataLength; i++){
+            try {
+                JSONArray jsonAtribut = jadwal.getJSONObject(i).getJSONArray("atribut");
+
+                tanggal = jadwal.getJSONObject(i).getString("tanggal");
+
+                myTableLayout = new TableLayout(getActivity());
+                myTableLayout.setLayoutParams(tableParams);
+                HSV = new HorizontalScrollView(getActivity());
+
+                TR = new TableRow(getActivity());
+                TR.setLayoutParams(rowTableParams);
+
+                // Judul kolom
+                IsiTabelHeader("Kebaktian");  // Kebaktian
+                IsiTabelHeader("Gedung");
+                IsiTabelHeader("Pengkotbah"); // Pengkotbah
+                IsiTabelHeader("Penerjemah");
+                IsiTabelHeader("Liturgis");
+                IsiTabelHeader("Pianis");
+                IsiTabelHeader("Paduan Suara");
+
+                myTableLayout.addView(TR, tableParams);  // Add row to table
+
+                JudulTabel = new TextView(getActivity());
+                JudulTabel.setText("Jadwal khotbah pada tanggal "+tanggal);
+                JudulTabel.setLayoutParams(params);
+                myLinearLayout.addView(JudulTabel);
+
+                int length2 = jsonAtribut.length();
+                for (int j = 0; j < length2; j++) {
+                    pengkotbah = jsonAtribut.getJSONObject(j).getString("pengkotbah");
+                    kebaktian = jsonAtribut.getJSONObject(j).getString("kebaktianumum");
+                    gedung=jsonAtribut.getJSONObject(j).getString("gedung");
+                    penerjemah = jsonAtribut.getJSONObject(j).getString("penerjemah");
+                    liturgis = jsonAtribut.getJSONObject(j).getString("liturgis");
+                    pianis = jsonAtribut.getJSONObject(j).getString("pianis");
+                    paduansuara = jsonAtribut.getJSONObject(j).getString("paduansuara");
+
+
+                    TR = new TableRow(getActivity());
+                    TR.setLayoutParams(rowTableParams);
+                    // Kebaktian
+                    IsiTabel(kebaktian);
+                    IsiTabel(gedung);
+                    // Pengkotbah
+                    IsiTabel(pengkotbah);
+                    IsiTabel(penerjemah);
+                    IsiTabel(liturgis);
+                    IsiTabel(pianis);
+                    IsiTabel(paduansuara);
+                    // Add row to table
+                    myTableLayout.addView(TR, tableParams);
+                }
+                HSV.setScrollbarFadingEnabled(false);
+                HSV.addView(myTableLayout);
+                myLinearLayout.addView(HSV);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        dataLength = warta.length();
+
+        for (int i=0; i < dataLength; i++){
+            JSONObject jsonobj = null;
+            try {
+                jsonobj = warta.getJSONObject(i);
+                Log.d("JSONObject", warta.getJSONObject(i).toString());
+                judul = jsonobj.getString("judul");
+                deskripsi = jsonobj.getString("deskripsi");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // Judul warta
+            TextView wartaTV = new TextView(getActivity());
+            wartaTV.setText("Judul: " + judul);
+            wartaTV.setLayoutParams(params);
+            myLinearLayout.addView(wartaTV);
+
+            // Deskripsi warta
+            wartaTV = new TextView(getActivity());
+            wartaTV.setText("Deskripsi: " + deskripsi);
+            wartaTV.setLayoutParams(paramsDeskripsi);
+            myLinearLayout.addView(wartaTV);
+        }
+    }
+
+    class Viewer extends AsyncTask<String, String, String> {
         JSONObject obj = new JSONObject();
 
         public JSONObject getObj() {
@@ -168,159 +342,25 @@ public class WartaMingguanFragment extends Fragment {
             return "";
         }
 
-        private void IsiTabelHeader (String text) {
-            isiTabelHeader = new TextView(getActivity());
-            isiTabelHeader.setText(text);
-            isiTabelHeader.setTextColor(getResources().getColor(R.color.white));
-            isiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            isiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
-            TR.addView(isiTabelHeader);
-        }
-
-        private void IsiTabel (String text) {
-            isiTabel = new TextView(getActivity());
-            isiTabel.setText(text);
-            isiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
-            isiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            isiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
-            TR.addView(isiTabel);
-        }
-
         @Override
         protected void onPostExecute(String result) {
             if (obj.length() == 0 && isNetworkAvailable()){
                 Toast.makeText(getActivity().getApplicationContext(), "Tidak ada warta mingguan", Toast.LENGTH_SHORT).show();
             }
-
-            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_wartaMingguan);
-
-            // Add LayoutParams
-            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 0, 0);
-
-            // Param untuk deskripsi
-            paramsDeskripsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            paramsDeskripsi.setMargins(0, 0, 0, 0);
-
-            TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
-            TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-            HorizontalScrollView HSV;
-
-            // Untuk tag "warta"
-            LinearLayout rowLayout = new LinearLayout(getActivity());
-            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            // Membuat linear layout vertical untuk menampung kata-kata
-            LinearLayout colLayout = new LinearLayout(getActivity());
-            colLayout.setOrientation(LinearLayout.VERTICAL);
-            colLayout.setPadding(0, 5, 0, 0);
-
-            String tanggal = null, kebaktian = null, pengkotbah = null, judul = null, deskripsi = null,gedung =null, penerjemah = null, liturgis = null, pianis = null ,paduansuara = null;
+            wartaSaved = new ArrayList<JSONArray>();
 
             JSONArray jadwal = new JSONArray();
             JSONArray warta = new JSONArray();
             try {
                 jadwal = obj.getJSONArray("jadwal");
+                wartaSaved.add(jadwal);
                 warta = obj.getJSONArray("warta");
+                wartaSaved.add(warta);
             }
             catch (JSONException e) {
                 Log.d("excp olah atribut jdwal","..");
             }
-            int dataLength = jadwal.length();
-            Log.d("length obj.length",Integer.toString(obj.length()));
-            Log.d("length jadwal.length",Integer.toString(jadwal.length()));
-
-            // Generate konten Warta Mingguan dalam loop for
-            for (int i=0; i < dataLength; i++){
-                try {
-                    JSONArray jsonAtribut = jadwal.getJSONObject(i).getJSONArray("atribut");
-
-                    tanggal = jadwal.getJSONObject(i).getString("tanggal");
-
-                    myTableLayout = new TableLayout(getActivity());
-                    myTableLayout.setLayoutParams(tableParams);
-                    HSV = new HorizontalScrollView(getActivity());
-
-                    TR = new TableRow(getActivity());
-                    TR.setLayoutParams(rowTableParams);
-
-                    // Judul kolom
-                    IsiTabelHeader("Kebaktian");  // Kebaktian
-                    IsiTabelHeader("Gedung");
-                    IsiTabelHeader("Pengkotbah"); // Pengkotbah
-                    IsiTabelHeader("Penerjemah");
-                    IsiTabelHeader("Liturgis");
-                    IsiTabelHeader("Pianis");
-                    IsiTabelHeader("Paduan Suara");
-
-                    myTableLayout.addView(TR, tableParams);  // Add row to table
-
-                    judulTabel = new TextView(getActivity());
-                    judulTabel.setText("Jadwal khotbah pada tanggal " + tanggal);
-                    judulTabel.setLayoutParams(params);
-                    myLinearLayout.addView(judulTabel);
-
-                    int length2 = jsonAtribut.length();
-                    for (int j = 0; j < length2; j++) {
-                        pengkotbah = jsonAtribut.getJSONObject(j).getString("pengkotbah");
-                        kebaktian = jsonAtribut.getJSONObject(j).getString("kebaktianumum");
-                        gedung=jsonAtribut.getJSONObject(j).getString("gedung");
-                        penerjemah = jsonAtribut.getJSONObject(j).getString("penerjemah");
-                        liturgis = jsonAtribut.getJSONObject(j).getString("liturgis");
-                        pianis = jsonAtribut.getJSONObject(j).getString("pianis");
-                        paduansuara = jsonAtribut.getJSONObject(j).getString("paduansuara");
-
-
-                        TR = new TableRow(getActivity());
-                        TR.setLayoutParams(rowTableParams);
-                        // Kebaktian
-                        IsiTabel(kebaktian);
-                        IsiTabel(gedung);
-                        // Pengkotbah
-                        IsiTabel(pengkotbah);
-                        IsiTabel(penerjemah);
-                        IsiTabel(liturgis);
-                        IsiTabel(pianis);
-                        IsiTabel(paduansuara);
-                        // Add row to table
-                        myTableLayout.addView(TR, tableParams);
-                    }
-                    if(isNetworkAvailable()) {
-                        HSV.setScrollbarFadingEnabled(false);
-                        HSV.addView(myTableLayout);
-                        myLinearLayout.addView(HSV);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            dataLength = warta.length();
-
-            for (int i = 0; i < dataLength; i++){
-                JSONObject jsonobj = null;
-                try {
-                    jsonobj = warta.getJSONObject(i);
-                    judul = jsonobj.getString("judul");
-                    deskripsi = jsonobj.getString("deskripsi");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                // Judul warta
-                TextView wartaTV = new TextView(getActivity());
-                wartaTV.setText("Judul: " + judul);
-                wartaTV.setLayoutParams(params);
-                myLinearLayout.addView(wartaTV);
-
-                // Deskripsi warta
-                wartaTV = new TextView(getActivity());
-                wartaTV.setText("Deskripsi: " + deskripsi);
-                wartaTV.setLayoutParams(paramsDeskripsi);
-                myLinearLayout.addView(wartaTV);
-            }
+            generateKontenWarta(jadwal, warta);
         }
     }
 }

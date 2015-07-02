@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 /**
@@ -41,14 +42,17 @@ public class LiturgiMingguanFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private JSONArray liturgiSaved;
+
     // Untuk komponen-komponen
     private LinearLayout myLinearLayout;
     private View rootView;
-
     private TableLayout myTableLayout;
     private TableRow TR;
     private TextView IsiTabelHeader;
     private TextView IsiTabel;
+    private TableLayout.LayoutParams tableParams;
+    private HorizontalScrollView HSV;
 
     public static LiturgiMingguanFragment newInstance(String param1, String param2) {
         LiturgiMingguanFragment fragment = new LiturgiMingguanFragment();
@@ -62,15 +66,38 @@ public class LiturgiMingguanFragment extends Fragment {
     public LiturgiMingguanFragment() {}
 
     @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putStringArrayList("jadwalSaved",jadwalSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Probably orientation change
+        }
+        else {
+            if (liturgiSaved != null) {
+                // Returning from backstack, data is fine, do nothing
+                generateKontenLiturgi(liturgiSaved);
+            }
+            else {
+                // Newly created, compute data
+                Viewer viewer = new Viewer();
+                viewer.execute();
+            }
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        Viewer viewer = new Viewer();
-        viewer.execute();
     }
 
     @Override
@@ -113,6 +140,98 @@ public class LiturgiMingguanFragment extends Fragment {
                     haveConnectedMobile = true;
         }
         return haveConnectedWifi || haveConnectedMobile;
+    }
+
+    private void IsiTabelHeader (String text) {
+        IsiTabelHeader = new TextView(getActivity());
+        IsiTabelHeader.setText(text);
+        IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
+        IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
+        TR.addView(IsiTabelHeader);
+    }
+
+    private void IsiTabel (String text) {
+        IsiTabel = new TextView(getActivity());
+        IsiTabel.setText(text);
+        IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
+        IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
+        TR.addView(IsiTabel);
+    }
+
+    private void setUpLayout() {
+        // Add LinearLayout
+        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_liturgi_mingguan);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        // Add layout utk tabel
+        tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        HSV = null;
+        myTableLayout = new TableLayout(getActivity());
+        myTableLayout.setLayoutParams(tableParams);
+//            TR = new TableRow(getActivity());
+//            TR.setLayoutParams(tableParams);
+    }
+
+    private void setHeaderTable (String idLiturgi, String judulAcara) {
+        HSV = new HorizontalScrollView(getActivity());
+        TR = new TableRow(getActivity());
+        TR.setLayoutParams(tableParams);
+
+        // Tambah atribut header tabel
+        IsiTabelHeader(idLiturgi);
+        IsiTabelHeader(judulAcara);
+        IsiTabelHeader(""); // utk kolom ketiga
+        myTableLayout.addView(TR);
+    }
+
+    private void fillingTable (String keterangan, String idSubAcara, String subAcara) {
+        if (keterangan!=null && keterangan!="null" && idSubAcara!="null" && idSubAcara!=null && subAcara!=null && subAcara!="null") {
+            TR = new TableRow(getActivity());
+            TR.setLayoutParams(tableParams);
+
+            // Masukkan ke cell tabel
+            IsiTabel(""); // utk tambal kolom pertama
+            IsiTabel(idSubAcara + ". " + subAcara);
+            IsiTabel(keterangan);
+            myTableLayout.addView(TR, tableParams);
+        }
+    }
+
+    private void generateKontenLiturgi (JSONArray json_arr) {
+        setUpLayout();
+
+        int dataLength = json_arr.length();
+        String idLiturgi = null, judulAcara = null, subAcara = null, keterangan = null, idSubAcara = null;
+        // Generate konten Liturgi Mingguan dalam loop for
+        for (int i = 0; i < dataLength; i++) {
+            JSONObject jsonobj = null;
+            try {
+                jsonobj = json_arr.getJSONObject(i);
+                JSONArray jsonArr = jsonobj.getJSONArray("atribut");
+
+                idLiturgi = jsonobj.getString("idliturgi");
+                judulAcara = jsonobj.getString("judulacara");
+
+                setHeaderTable(idLiturgi, judulAcara);
+
+                for(int j = 0; j < jsonArr.length(); j++) {
+                    keterangan = jsonArr.getJSONObject(j).getString("keterangan");
+                    idSubAcara = jsonArr.getJSONObject(j).getString("idsubacara");
+                    subAcara = jsonArr.getJSONObject(j).getString("subacara");
+
+                    fillingTable(keterangan, idSubAcara, subAcara);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(isNetworkAvailable()) {
+            HSV.addView(myTableLayout);
+            myLinearLayout.addView(HSV);
+        }
     }
 
     class Viewer extends AsyncTask<String, String, String> {
@@ -161,7 +280,6 @@ public class LiturgiMingguanFragment extends Fragment {
                     }
                 });
             }
-
             return "";
         }
 
@@ -188,6 +306,7 @@ public class LiturgiMingguanFragment extends Fragment {
             if (arr.length() == 0 && isNetworkAvailable()){
                 Toast.makeText(getActivity().getApplicationContext(), "Tidak ada liturgi mingguan", Toast.LENGTH_SHORT).show();
             }
+            liturgiSaved = new JSONArray();
 
             String idLiturgi = null, judulAcara = null, subAcara = null, keterangan = null, idSubAcara = null;
 
@@ -275,6 +394,8 @@ public class LiturgiMingguanFragment extends Fragment {
                 HSV.addView(myTableLayout);
                 myLinearLayout.addView(HSV);
             }
+            liturgiSaved = arr;
+            generateKontenLiturgi(arr);
         }
     }
 }

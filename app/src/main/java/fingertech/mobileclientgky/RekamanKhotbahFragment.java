@@ -67,7 +67,7 @@ public class RekamanKhotbahFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private Viewer v = new Viewer();
+    private Viewer v;
 
     public static RekamanKhotbahFragment newInstance(String param1, String param2) {
         RekamanKhotbahFragment fragment = new RekamanKhotbahFragment();
@@ -93,6 +93,7 @@ public class RekamanKhotbahFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_rekaman_khotbah, container, false);
+        v = new Viewer();
         v.execute();
 
         sv = (SearchView) rootView.findViewById(R.id.rekamanKhotbah_searchview);

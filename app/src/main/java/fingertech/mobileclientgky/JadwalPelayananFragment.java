@@ -1,8 +1,5 @@
 package fingertech.mobileclientgky;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,8 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -29,12 +24,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 /**
  * Created by William Stefan Hartono
  */
-public class JadwalPelayananFragment extends Fragment {
+public class JadwalPelayananFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -44,6 +40,22 @@ public class JadwalPelayananFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private View rootView;
+
+    private LinearLayout myLinearLayout;
+    private TableLayout myTableLayout;
+    private TableRow TR;
+    private TextView JudulTabel;
+    private TextView IsiTabelHeader;
+    private TextView IsiTabel;
+    private LinearLayout.LayoutParams params;
+    private HorizontalScrollView HSV;
+    private TableLayout.LayoutParams tableParams;
+    private TableLayout.LayoutParams rowTableParams;
+
+    private ArrayList<JSONObject> pelayananSaved;
+    private ArrayList<String> jenisPelayananSaved;
+    private int sumTable;
+    private ArrayList<Integer> sumRowTable;
 
     public static JadwalPelayananFragment newInstance(String param1, String param2) {
         JadwalPelayananFragment fragment = new JadwalPelayananFragment();
@@ -57,20 +69,44 @@ public class JadwalPelayananFragment extends Fragment {
     public JadwalPelayananFragment() {}
 
     @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putStringArrayList("jadwalSaved",jadwalSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Probably orientation change
+//            jadwalSaved = savedInstanceState.getStringArrayList("jadwalSaved");
+//            generateKontenJadwal();
+        }
+        else {
+            if (pelayananSaved != null) {
+                // Returning from backstack, data is fine, do nothing
+                generateKontenPelayanan();
+            }
+            else {
+                // Newly created, compute data
+                Viewer viewer = new Viewer();
+                viewer.execute();
+            }
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Viewer v = new Viewer();
-        v.execute();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
         return rootView;
     }
@@ -87,37 +123,106 @@ public class JadwalPelayananFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+    }
+
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
     }
 
-    // Untuk mengecek apakah ada koneksi internet
-    public boolean isNetworkAvailable() {
-        boolean haveConnectedWifi = false;
-        boolean haveConnectedMobile = false;
+    private void IsiTabelHeader (String text) {
+        IsiTabelHeader = new TextView(getActivity());
+        IsiTabelHeader.setText(text);
+        IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
+        IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
+        TR.addView(IsiTabelHeader);
+    }
 
-        ConnectivityManager cm = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-        for (NetworkInfo ni : netInfo) {
-            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-                if (ni.isConnected())
-                    haveConnectedWifi = true;
-            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (ni.isConnected())
-                    haveConnectedMobile = true;
+    private void IsiTabel (String text) {
+        IsiTabel = new TextView(getActivity());
+        IsiTabel.setText(text);
+        IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
+        IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
+        TR.addView(IsiTabel);
+    }
+
+    private void setUpLayout() {
+        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
+
+        // Add LayoutParams
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        params.setMargins(0, 10, 20, 0);
+
+        tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+    }
+
+    private void createHeaderTable() {
+        myTableLayout = new TableLayout(getActivity());
+        myTableLayout.setLayoutParams(tableParams);
+        HSV = new HorizontalScrollView(getActivity());
+
+        TR = new TableRow(getActivity());
+        TR.setLayoutParams(tableParams);
+
+        IsiTabelHeader("Tanggal");      // Tanggal
+        IsiTabelHeader("Gedung");       // Gedung
+        IsiTabelHeader("Kebaktian");    // Kebaktian
+        IsiTabelHeader("Waktu");        // Waktu
+        IsiTabelHeader("Judul Lagu");   // Judul Lagu
+        myTableLayout.addView(TR);      // Add row to table
+    }
+
+    private void fillingTable(String tanggal, String gedung, String kebaktian, String waktu, String judulLagu) {
+        TR = new TableRow(getActivity());
+        TR.setLayoutParams(rowTableParams);
+        IsiTabel(tanggal);      // Tanggal
+        IsiTabel(gedung);       // Gedung
+        IsiTabel(kebaktian);    // Kebaktian
+        IsiTabel(waktu);        // Waktu
+        IsiTabel(judulLagu);    // Judul Lagu
+        // Add row to table
+        myTableLayout.addView(TR, tableParams);
+    }
+
+    private void setTitleText(String jenisPelayanan) {
+        JudulTabel = new TextView(getActivity());
+        JudulTabel.setText(jenisPelayanan);
+        JudulTabel.setLayoutParams(params);
+        myLinearLayout.addView(JudulTabel);
+    }
+
+    private void generateKontenPelayanan() {
+        setUpLayout();
+        int cnt = 0;
+        for (int i=0; i<sumTable; i++) {
+            setTitleText(jenisPelayananSaved.get(i));
+            createHeaderTable();
+            for (int j=0; j<sumRowTable.get(i); j++) {
+                String tanggal = null, gedung = null, kebaktian = null, waktu = null, judulLagu = null;
+                try {
+                    tanggal = pelayananSaved.get(cnt).getString("tanggal");
+                    gedung = pelayananSaved.get(cnt).getString("gedung");
+                    kebaktian = pelayananSaved.get(cnt).getString("kebaktian");
+                    waktu = pelayananSaved.get(cnt).getString("waktu");
+                    judulLagu = pelayananSaved.get(cnt).getString("judulLagu");
+
+                    fillingTable(tanggal, gedung, kebaktian, waktu, judulLagu);
+                    cnt++;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            HSV.addView(myTableLayout);
+            myLinearLayout.addView(HSV);
         }
-        return haveConnectedWifi || haveConnectedMobile;
     }
 
     class Viewer extends AsyncTask<String, String, String> {
-        private LinearLayout myLinearLayout;
-        private TableLayout myTableLayout;
-        private TableRow TR;
-        private TextView JudulTabel;
-        private TextView IsiTabelHeader;
-        private TextView IsiTabel;
-        private LinearLayout.LayoutParams params;
-
         JSONArray arr = new JSONArray();
 
         public JSONArray getArr() {
@@ -125,116 +230,66 @@ public class JadwalPelayananFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute()
+        {
+        };
 
         @Override
         protected String doInBackground(String... params) {
-            if(isNetworkAvailable()) {
-                SessionManager sm = new SessionManager(getActivity().getApplicationContext());
+            SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
-                String result = "";
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet(Controller.url + "view_jadwalpelayanan.php?id=" + sm.pref.getAll().get("id").toString()); // ngikutin ip disini loh
-                HttpResponse response;
+            Log.d("jadwalpel",sm.pref.getAll().toString());
+            Log.d("Nm",sm.pref.getAll().get("name").toString());
+            Log.d("ID", sm.pref.getAll().get("id").toString());
+            String result = "";
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(Controller.url+"view_jadwalpelayanan.php?id="+sm.pref.getAll().get("id").toString()); // ngikutin ip disini loh
+            HttpResponse response;
+
+            try {
+                response = client.execute(request);
+
+                // Get the response
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result += line;
+                }
 
                 try {
-                    response = client.execute(request);
-
-                    // Get the response
-                    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-                    String line = "";
-                    while ((line = rd.readLine()) != null) {
-                        result += line;
-                    }
-                    try {
-                        JSONObject res = new JSONObject(result);
-                        arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
+                    JSONObject res = new JSONObject(result);
+                    arr = res.getJSONArray("data");
+                    Log.d("Array", arr.toString());
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getActivity().getApplicationContext(), "Anda tidak terhubung ke internet", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
+//            }
             return "";
-        }
-
-        private void IsiTabelHeader(String text) {
-            IsiTabelHeader = new TextView(getActivity());
-            IsiTabelHeader.setText(text);
-            IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
-            IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
-            TR.addView(IsiTabelHeader);
-        }
-
-        private void IsiTabel(String text) {
-            IsiTabel = new TextView(getActivity());
-            IsiTabel.setText(text);
-            IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
-            IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
-            TR.addView(IsiTabel);
         }
 
         @Override
         protected void onPostExecute(String result) {
-            if (arr.length() == 0 && isNetworkAvailable()){
-                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada event", Toast.LENGTH_SHORT).show();
-            }
-            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
+            setUpLayout();
 
-            // Add LayoutParams
-            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            params.setMargins(0, 10, 20, 0);
+            pelayananSaved = new ArrayList<JSONObject>();
+            sumRowTable = new ArrayList<Integer>();
+            jenisPelayananSaved = new ArrayList<String>();
 
             int dataLength = arr.length();
-
-            TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
-            TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-            HorizontalScrollView HSV;
-
+            sumTable = dataLength;
             String jenisPelayanan = null, tanggal = null, gedung = null, kebaktian = null, waktuMulai = null, waktuSelesai = null, judulLagu = null;
 
             // Generate konten Event dalam loop for
             for (int i = 0; i < dataLength; i++){
                 JSONObject jsonobj = null;
 
-                myTableLayout = new TableLayout(getActivity());
-                myTableLayout.setLayoutParams(tableParams);
-                HSV = new HorizontalScrollView(getActivity());
-
-                TR = new TableRow(getActivity());
-                TR.setLayoutParams(tableParams);
-
-                // Tanggal
-                IsiTabelHeader("Tanggal");
-
-                // Gedung
-                IsiTabelHeader("Gedung");
-
-                // Kebaktian
-                IsiTabelHeader("Kebaktian");
-
-                // Waktu
-                IsiTabelHeader("Waktu");
-
-                // Judul Lagu
-                IsiTabelHeader("Judul Lagu");
-
-                // Add row to table
-                myTableLayout.addView(TR);
+                createHeaderTable();
 
                 try {
                     jsonobj = arr.getJSONObject(i);
@@ -242,45 +297,34 @@ public class JadwalPelayananFragment extends Fragment {
                     jenisPelayanan = jsonobj.getString("jenispelayanan");
                     JSONArray jsonArr = jsonobj.getJSONArray("atribut");
 
-                    JudulTabel = new TextView(getActivity());
-                    JudulTabel.setText(jenisPelayanan);
-                    JudulTabel.setLayoutParams(params);
-                    myLinearLayout.addView(JudulTabel);
+                    setTitleText(jenisPelayanan);
+                    jenisPelayananSaved.add(jenisPelayanan);
 
                     int length2 = jsonArr.length();
+                    sumRowTable.add(length2);
                     for (int j = 0; j < length2; j++) {
+//                        tanggal = jsonArr.getJSONObject(j).getString("tanggal");
+                        tanggal = "2015-6-29";
                         gedung = jsonArr.getJSONObject(j).getString("gedung");
                         kebaktian = jsonArr.getJSONObject(j).getString("kebaktian");
                         waktuMulai = jsonArr.getJSONObject(j).getString("waktumulai");
                         waktuSelesai = jsonArr.getJSONObject(j).getString("waktuselesai");
                         judulLagu = jsonArr.getJSONObject(j).getString("judul");
-
-                        TR = new TableRow(getActivity());
-                        TR.setLayoutParams(rowTableParams);
-
-                        // Tanggal
-                        IsiTabel(tanggal);
-
-                        // Gedung
-                        IsiTabel(gedung);
-
-                        // Kebaktian
-                        IsiTabel(kebaktian);
-
-                        // Waktu
                         String waktu = waktuMulai + " - " + waktuSelesai;
-                        IsiTabel(waktu);
 
-                        // Judul Lagu
-                        IsiTabel(judulLagu);
+                        JSONObject tmp_json = new JSONObject();
+                        tmp_json.put("tanggal", tanggal);
+                        tmp_json.put("gedung", gedung);
+                        tmp_json.put("kebaktian", kebaktian);
+                        tmp_json.put("waktu", waktu);
+                        tmp_json.put("judulLagu", judulLagu);
+                        pelayananSaved.add(tmp_json);
 
-                        // Add row to table
-                        myTableLayout.addView(TR, tableParams);
+                        fillingTable(tanggal, gedung, kebaktian, waktu, judulLagu);
                     }
-                    if(isNetworkAvailable()) {
-                        HSV.addView(myTableLayout);
-                        myLinearLayout.addView(HSV);
-                    }
+                    HSV.addView(myTableLayout);
+                    myLinearLayout.addView(HSV);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
