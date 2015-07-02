@@ -1,6 +1,7 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +43,6 @@ public class LiturgiMingguanFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
     private JSONArray liturgiSaved;
 
     // Untuk komponen-komponen
@@ -108,6 +109,7 @@ public class LiturgiMingguanFragment extends Fragment {
         return rootView;
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -121,6 +123,7 @@ public class LiturgiMingguanFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
@@ -142,7 +145,7 @@ public class LiturgiMingguanFragment extends Fragment {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
-    private void IsiTabelHeader (String text) {
+    private void IsiTabelHeader(String text) {
         IsiTabelHeader = new TextView(getActivity());
         IsiTabelHeader.setText(text);
         IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -151,7 +154,7 @@ public class LiturgiMingguanFragment extends Fragment {
         TR.addView(IsiTabelHeader);
     }
 
-    private void IsiTabel (String text) {
+    private void IsiTabel(String text) {
         IsiTabel = new TextView(getActivity());
         IsiTabel.setText(text);
         IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -165,13 +168,11 @@ public class LiturgiMingguanFragment extends Fragment {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_liturgi_mingguan);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        // Add layout utk tabel
+        // Add layout untuk tabel
         tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
         HSV = null;
         myTableLayout = new TableLayout(getActivity());
         myTableLayout.setLayoutParams(tableParams);
-//            TR = new TableRow(getActivity());
-//            TR.setLayoutParams(tableParams);
     }
 
     private void setHeaderTable (String idLiturgi, String judulAcara) {
@@ -187,7 +188,7 @@ public class LiturgiMingguanFragment extends Fragment {
     }
 
     private void fillingTable (String keterangan, String idSubAcara, String subAcara) {
-        if (keterangan!=null && keterangan!="null" && idSubAcara!="null" && idSubAcara!=null && subAcara!=null && subAcara!="null") {
+        if (keterangan != null && keterangan != "null" && idSubAcara != "null" && idSubAcara != null && subAcara != null && subAcara != "null") {
             TR = new TableRow(getActivity());
             TR.setLayoutParams(tableParams);
 
@@ -248,6 +249,7 @@ public class LiturgiMingguanFragment extends Fragment {
         protected String doInBackground(String... params) {
             if(isNetworkAvailable()) {
                 String result = "";
+                String statu = "";
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet(Controller.url + "view_liturgi.php");
                 HttpResponse response;
@@ -268,6 +270,7 @@ public class LiturgiMingguanFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -282,24 +285,6 @@ public class LiturgiMingguanFragment extends Fragment {
             return "";
         }
 
-        private void IsiTabelHeader(String text) {
-            IsiTabelHeader = new TextView(getActivity());
-            IsiTabelHeader.setText(text);
-            IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
-            IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
-            TR.addView(IsiTabelHeader);
-        }
-
-        private void IsiTabel(String text) {
-            IsiTabel = new TextView(getActivity());
-            IsiTabel.setText(text);
-            IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
-            IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
-            TR.addView(IsiTabel);
-        }
-
         @Override
         protected void onPostExecute(String result) {
             if (arr.length() == 0 && isNetworkAvailable()){
@@ -307,92 +292,6 @@ public class LiturgiMingguanFragment extends Fragment {
             }
             liturgiSaved = new JSONArray();
 
-            String idLiturgi = null, judulAcara = null, subAcara = null, keterangan = null, idSubAcara = null;
-
-            // Add LinearLayout
-            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_liturgi_mingguan);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-
-            // Add LayoutParams
-            LinearLayout.LayoutParams params0 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params0.setMargins(0, 0, 0, 0);
-
-            LinearLayout.LayoutParams paramsJarakIDLiturgiDenganAcara = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakIDLiturgiDenganAcara.setMargins(10, 0, 0, 0);
-
-            LinearLayout.LayoutParams paramsJarakIDLiturgiDenganIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakIDLiturgiDenganIsi.setMargins(0, 10, 0, 0);
-
-            LinearLayout.LayoutParams paramsJarakAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakAntarIsi.setMargins(0, 0, 0, 0);
-
-            LinearLayout.LayoutParams paramsJarakAntarKolom = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsJarakAntarKolom.setMargins(30, 0, 0, 0);
-
-            LinearLayout rowLayout = new LinearLayout(getActivity());
-            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            // Membuat linear layout vertical untuk menampung kata-kata
-            LinearLayout colLayout = new LinearLayout(getActivity());
-            colLayout.setOrientation(LinearLayout.VERTICAL);
-            colLayout.setPadding(0, 0, 0, 0);
-
-            LinearLayout subRowLayout = new LinearLayout(getActivity());
-            subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            // Add layout utk tabel
-            TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
-            HorizontalScrollView HSV = null;
-            myTableLayout = new TableLayout(getActivity());
-            myTableLayout.setLayoutParams(tableParams);
-
-            int dataLength = arr.length();
-
-            // Generate konten Liturgi Mingguan dalam loop for
-            for (int i = 0; i < dataLength; i++) {
-                JSONObject jsonobj = null;
-                try {
-                    jsonobj = arr.getJSONObject(i);
-                    JSONArray jsonArr = jsonobj.getJSONArray("atribut");
-
-                    idLiturgi = jsonobj.getString("idliturgi");
-                    judulAcara = jsonobj.getString("judulacara");
-
-                    HSV = new HorizontalScrollView(getActivity());
-                    TR = new TableRow(getActivity());
-                    TR.setLayoutParams(tableParams);
-
-                    // Tambah atribut header tabel
-                    IsiTabelHeader(idLiturgi);
-                    IsiTabelHeader(judulAcara);
-                    IsiTabelHeader(""); // Untuk kolom ketiga
-                    myTableLayout.addView(TR);
-
-                    for(int j = 0; j < jsonArr.length(); j++) {
-                        keterangan = jsonArr.getJSONObject(j).getString("keterangan");
-                        idSubAcara = jsonArr.getJSONObject(j).getString("idsubacara");
-                        subAcara = jsonArr.getJSONObject(j).getString("subacara");
-
-                        if (keterangan != null && keterangan != "null" && idSubAcara != "null" && idSubAcara != null && subAcara != null && subAcara != "null") {
-                            TR = new TableRow(getActivity());
-                            TR.setLayoutParams(tableParams);
-
-                            // Masukkan ke cell tabel
-                            IsiTabel(""); // Untuk kolom pertama
-                            IsiTabel(idSubAcara + ". " + subAcara);
-                            IsiTabel(keterangan);
-                            myTableLayout.addView(TR, tableParams);
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if(isNetworkAvailable()) {
-                HSV.addView(myTableLayout);
-                myLinearLayout.addView(HSV);
-            }
             liturgiSaved = arr;
             generateKontenLiturgi(arr);
         }

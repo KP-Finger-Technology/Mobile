@@ -83,10 +83,10 @@ public class PasalAlkitabFragment extends Fragment {
         int displayHeight = display.getHeight();
         int sumPaddingDP = 35; // Dalam satuan dp, didapat dari jumlah margin kiri & kanan dari fragment XML
         int sumPadding = (int) (sumPaddingDP * (metrics.xdpi / 160));
-        int jumlahDraw = 6;
+        int jumlahDraw = 5;
 
-        int btnWidth = (displayWidth-sumPadding-(rightMargin*jumlahDraw))/(jumlahDraw);
-        int btnHeight = (int) (btnWidth*0.65);
+        int btnWidth = (displayWidth - sumPadding - (rightMargin * jumlahDraw)) / (jumlahDraw);
+        int btnHeight = (int) (btnWidth * 0.65);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(btnWidth, btnHeight);
         params.setMargins(0, 0, rightMargin, 5);
 
@@ -108,7 +108,7 @@ public class PasalAlkitabFragment extends Fragment {
         divider.setBackgroundColor(getResources().getColor(R.color.dividerLine));
         myLinearLayout.addView(divider);
 
-        // Tambah text view utk memberi penjelasan jika sedang berada di halaman pasal
+        // Tambah text view untuk memberi penjelasan jika sedang berada di halaman pasal
         TextView halPasal = new TextView(getActivity());
         halPasal.setTextAppearance(getActivity().getApplicationContext(), R.style.judulPasal);
         halPasal.setText("Pasal");

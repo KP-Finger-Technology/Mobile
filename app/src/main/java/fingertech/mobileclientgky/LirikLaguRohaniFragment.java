@@ -106,13 +106,17 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 if (!DBH.isTableExists("LirikLaguRohani")) {
                     generateKontenLirikLaguRohani(false);
                 }
+                else
+                    generateKontenLirikLaguRohani(true);
             }
             else {
-                //Newly created, compute data
+                // Newly created, compute data
                 if (!DBH.isTableExists("LirikLaguRohani")) {
                     v = new Viewer();
                     v.execute();
                 }
+                else
+                    generateKontenLirikLaguRohani(true);
             }
         }
     }
@@ -133,7 +137,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
 
         // Add LayoutParams
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         params.setMargins(0, 10, 20, 0);
 
@@ -151,7 +155,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             ListLirikLaguRohani.setText(container);
             ListLirikLaguRohani.setTextColor(defaultColor);
             ListLirikLaguRohani.setLayoutParams(params);
-            ListLirikLaguRohani.setBackgroundColor(0);
+            ListLirikLaguRohani.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
+            ListLirikLaguRohani.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
             final String _judul = containerString.get(i + 1);
             final String _isi = containerString.get(i + 1);
@@ -189,7 +194,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         if (DB.isTableExists("LirikLaguRohani")) {
             // Jika tabel LirikLaguRohani exist, berarti sudah pernah di-download. Tampilkan daftar LirikLaguRohani dari database
             lirikLaguRohani_download.setVisibility(View.INVISIBLE);
-            generateKontenLirikLaguRohani(true);
         }
 
         sv = (SearchView) rootView.findViewById(R.id.lirikLaguRohani_searchview);

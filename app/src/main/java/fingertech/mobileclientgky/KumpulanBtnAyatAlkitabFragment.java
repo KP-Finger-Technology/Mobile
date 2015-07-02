@@ -90,10 +90,10 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
         int displayWidth = display.getWidth();
         int sumPaddingDP = 35;
         int sumPadding = (int) (sumPaddingDP * (metrics.xdpi / 160));
-        int jumlahDraw = 6;
+        int jumlahDraw = 5;
 
-        int btnWidth = (displayWidth-sumPadding-(rightMargin*jumlahDraw))/(jumlahDraw);
-        int btnHeight = (int) (btnWidth*0.65);
+        int btnWidth = (displayWidth - sumPadding - (rightMargin * jumlahDraw)) / (jumlahDraw);
+        int btnHeight = (int) (btnWidth * 0.65);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(btnWidth, btnHeight);
         params.setMargins(0, 0, rightMargin, 5);
 
@@ -110,7 +110,7 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
         // Tambah garis divider
         View divider = new View(getActivity());
         LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,5);
-        LP.setMargins(0,0,0,20);
+        LP.setMargins(0, 0, 0, 20);
         divider.setLayoutParams(LP);
         divider.setBackgroundColor(getResources().getColor(R.color.dividerLine));
         myLinearLayout.addView(divider);
