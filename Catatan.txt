@@ -19,3 +19,27 @@ Versioning & Releasing"
 http://developer.android.com/tools/publishing/versioning.html
 http://developer.android.com/tools/publishing/preparing.html
 http://developer.android.com/tools/publishing/app-signing.html	
+
+Alkitab
+	- Desain button alkitab, pasal alkitab, ayat alkitab
+	- Judul kitab yg ditampilkan dari halaman pasal alkitab
+	- Layout button2 alkitab biar pas di setiap device
+	
+- Tabel yg digenerate (berikut font & ukuran cell)
+- Toast yg tidak penting dihapus
+
+- ImageView di renungan gema diletakkan di tengah
+
+- Margin daftar KPPK & lirik lagu
+- Tombol search di halaman KPPK & lirik lagu yang kalo diklik jadi membuat button "Download" penyok
+
+- Layout daftar Liturgi mingguan
+- Layout daftar rekaman khotbah
+- Layout kolportase & past upcoming event
+- Progress bar utk loading ketika download JSON
+
+Expand the SearchView with searchView.setIconified(false);
+and collapse it with searchView.setIconified(true);
+
+Agar horizontal scrollbar selalu kelihatan
+As of now the best way is to use android:fadeScrollbars="false" in xml which is equivalent to ScrollView.setScrollbarFadingEnabled(false); in java code.

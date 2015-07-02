@@ -1,7 +1,6 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -66,10 +65,10 @@ public class KolportaseFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     // Untuk komponen-komponen
-    private TextView TitleBukuTV;
-    private TextView JudulBukuTV;
-    private TextView TitlePengarangTV;
-    private TextView JudulPengarangTV;
+    private TextView titleBukuTV;
+    private TextView judulBukuTV;
+    private TextView titlePengarangTV;
+    private TextView judulPengarangTV;
     private View rootView;
 
     private SearchView sv;
@@ -84,9 +83,9 @@ public class KolportaseFragment extends Fragment {
     private LinearLayout rowLayout;
     private LinearLayout colLayout;
     private LinearLayout subRowLayout;
-    private TextView TitleKeteranganTV;
-    private TextView IsiKeteranganTV;
-    private Button SelengkapnyaBtn;
+    private TextView titleKeteranganTV;
+    private TextView isiKeteranganTV;
+    private Button selengkapnyaBtn;
 
     public static KolportaseFragment newInstance(String param1, String param2) {
         KolportaseFragment fragment = new KolportaseFragment();
@@ -126,7 +125,7 @@ public class KolportaseFragment extends Fragment {
             generateKontenKolportase();
         }
         else {
-            if ((judulSaved!=null) && (pengarangSaved!=null) && (keteranganSaved!=null) && (linkSaved!=null)) {
+            if ((judulSaved != null) && (pengarangSaved != null) && (keteranganSaved != null) && (linkSaved != null)) {
                 // Returning from backstack, data is fine, do nothing
                 generateKontenKolportase();
             }
@@ -158,15 +157,15 @@ public class KolportaseFragment extends Fragment {
         // Membuat linear layout vertical untuk menampung kata-kata
         colLayout = new LinearLayout(getActivity());
         colLayout.setOrientation(LinearLayout.VERTICAL);
-        colLayout.setPadding(0,10,10,0);
+        colLayout.setPadding(0, 10, 10, 0);
 
         subRowLayout = new LinearLayout(getActivity());
         subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         int dataLength = judulSaved.size();
-        for (int i=0; i<dataLength; i++) {
+        for (int i = 0; i < dataLength; i++) {
             generateUI(judulSaved.get(i), pengarangSaved.get(i), keteranganSaved.get(i), linkSaved.get(i));
-            if (i!=dataLength) {
+            if (i != dataLength) {
                 rowLayout.addView(colLayout);
                 myLinearLayout.addView(rowLayout);
                 rowLayout = new LinearLayout(getActivity());
@@ -181,81 +180,86 @@ public class KolportaseFragment extends Fragment {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int image_width = display.getWidth()/3;
         int image_height = (int) (display.getHeight()/4.3);
-        int defaultColor = getResources().getColor(R.color.defaultFont);
+        int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
         // Add image View
-        ImageView GambarIV = new ImageView(getActivity());
+        ImageView gambarIV = new ImageView(getActivity());
 
         // Loading image from below url into imageView
         Picasso.with(getActivity())
                 .load(linkGambar)
                 .resize(image_height, image_width)
-                .into(GambarIV);
-        GambarIV.setLayoutParams(paramsJarakAntarEvent);
-        rowLayout.addView(GambarIV);
+                .into(gambarIV);
+        gambarIV.setLayoutParams(paramsJarakAntarEvent);
+        rowLayout.addView(gambarIV);
 
-        // Add textView TitleBukuTV
-        TitleBukuTV = new TextView(getActivity());
-        TitleBukuTV.setText("Judul: ");
-        TitleBukuTV.setLayoutParams(paramsJarakAntarIsi);
-        TitleBukuTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        subRowLayout.addView(TitleBukuTV);
+        // Add textView titleBukuTV
+        titleBukuTV = new TextView(getActivity());
+        titleBukuTV.setText("Judul: ");
+        titleBukuTV.setTextColor(defaultColor);
+        titleBukuTV.setLayoutParams(paramsJarakAntarIsi);
+        titleBukuTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        subRowLayout.addView(titleBukuTV);
 
-        // Add textView JudulBukuTV
-        JudulBukuTV = new TextView(getActivity());
-        JudulBukuTV.setText(judul);
-        JudulBukuTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(JudulBukuTV);
+        // Add textView judulBukuTV
+        judulBukuTV = new TextView(getActivity());
+        judulBukuTV.setText(judul);
+        judulBukuTV.setTextColor(defaultColor);
+        judulBukuTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(judulBukuTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add textView TitlePengarangTV
-        TitlePengarangTV = new TextView(getActivity());
-        TitlePengarangTV.setText("Pengarang: ");
-        TitlePengarangTV.setLayoutParams(paramsJarakAntarIsi);
-        TitlePengarangTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        subRowLayout.addView(TitlePengarangTV);
+        // Add textView titlePengarangTV
+        titlePengarangTV = new TextView(getActivity());
+        titlePengarangTV.setText("Pengarang: ");
+        titlePengarangTV.setTextColor(defaultColor);
+        titlePengarangTV.setLayoutParams(paramsJarakAntarIsi);
+        titlePengarangTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        subRowLayout.addView(titlePengarangTV);
 
-        // Add textView JudulPengarangTV
-        JudulPengarangTV = new TextView(getActivity());
-        JudulPengarangTV.setText(pengarang);
-        JudulPengarangTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(JudulPengarangTV);
+        // Add textView judulPengarangTV
+        judulPengarangTV = new TextView(getActivity());
+        judulPengarangTV.setText(pengarang);
+        judulPengarangTV.setTextColor(defaultColor);
+        judulPengarangTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(judulPengarangTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add textView TitleKeteranganTV
-        TitleKeteranganTV = new TextView(getActivity());
-        TitleKeteranganTV.setText("Keterangan: ");
-        TitleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        TitleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(TitleKeteranganTV);
+        // Add textView titleKeteranganTV
+        titleKeteranganTV = new TextView(getActivity());
+        titleKeteranganTV.setText("Keterangan: ");
+        titleKeteranganTV.setTextColor(defaultColor);
+        titleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        titleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(titleKeteranganTV);
 
-        // Add text View IsiKeteranganTV
-        IsiKeteranganTV = new TextView(getActivity());
-        if (keterangan.length()>80) {
+        // Add text View isiKeteranganTV
+        isiKeteranganTV = new TextView(getActivity());
+        if (keterangan.length() > 80) {
             keterangan = keterangan.substring(0, 80);
             keterangan = keterangan + "...";
         }
-        IsiKeteranganTV.setText(keterangan);
-        IsiKeteranganTV.setLayoutParams(paramsJarakIsiDenganButton);
+        isiKeteranganTV.setText(keterangan);
+        isiKeteranganTV.setLayoutParams(paramsJarakIsiDenganButton);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
         // Add selengkapnya button
-        SelengkapnyaBtn = new Button(getActivity());
-        SelengkapnyaBtn.setText("Selengkapnya");
-        SelengkapnyaBtn.setTextColor(getResources().getColor(R.color.white));
-        SelengkapnyaBtn.setLayoutParams(paramsJarakIsiDenganButton);
-        SelengkapnyaBtn.setBackgroundColor(getResources().getColor(R.color.header));
-        subRowLayout.addView(SelengkapnyaBtn);
+        selengkapnyaBtn = new Button(getActivity());
+        selengkapnyaBtn.setText("Selengkapnya");
+        selengkapnyaBtn.setTextColor(getResources().getColor(R.color.white));
+        selengkapnyaBtn.setLayoutParams(paramsJarakIsiDenganButton);
+        selengkapnyaBtn.setBackgroundColor(getResources().getColor(R.color.header));
+        subRowLayout.addView(selengkapnyaBtn);
         colLayout.addView(subRowLayout);
 
         final String finalJudul = judul;
         final String finalPengarang = pengarang;
         final String finalKeterangan = keterangan;
         final String finalLinkGambar = linkGambar;
-        SelengkapnyaBtn.setOnClickListener(
+        selengkapnyaBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -295,7 +299,6 @@ public class KolportaseFragment extends Fragment {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-//                Toast.makeText(getActivity(), "Buku yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
                 cll.removeAllViews();
                 ViewerSearch vs = new ViewerSearch();
                 vs.execute();
@@ -342,7 +345,6 @@ public class KolportaseFragment extends Fragment {
     }
 
     class Viewer extends AsyncTask<String, String, String> {
-
         JSONArray arr = new JSONArray();
 
         public JSONArray getArr() {
@@ -359,9 +361,7 @@ public class KolportaseFragment extends Fragment {
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet(Controller.url + "view_kolportase.php");
                 HttpResponse response;
-
                 try {
-
                     response = client.execute(request);
 
                     // Get the response
@@ -372,16 +372,12 @@ public class KolportaseFragment extends Fragment {
                         result += line;
                     }
 
-                    Log.d("Result", result);
-
                     try {
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -426,7 +422,7 @@ public class KolportaseFragment extends Fragment {
             // Membuat linear layout vertical untuk menampung kata-kata
             colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
-            colLayout.setPadding(0,10,10,0);
+            colLayout.setPadding(0, 10, 10, 0);
 
             subRowLayout = new LinearLayout(getActivity());
             subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -440,7 +436,6 @@ public class KolportaseFragment extends Fragment {
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judulbuku");
                     pengarang = jsonobj.getString("pengarang");
                     keterangan = jsonobj.getString("keterangan");
@@ -477,9 +472,7 @@ public class KolportaseFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
@@ -508,7 +501,6 @@ public class KolportaseFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -526,13 +518,9 @@ public class KolportaseFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            if (arr.length() == 0 && isNetworkAvailable()){
-                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada kolportase", Toast.LENGTH_SHORT).show();
-            }
-
             String judul = null, pengarang = null, keterangan = null, linkGambar = null;
 
-            if(arr.length()==0){
+            if (arr.length() == 0 && isNetworkAvailable()){
                 Toast.makeText(getActivity().getApplicationContext(), "Kolportase yang Anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
 
@@ -554,7 +542,7 @@ public class KolportaseFragment extends Fragment {
             // Membuat linear layout vertical untuk menampung kata-kata
             colLayout = new LinearLayout(getActivity());
             colLayout.setOrientation(LinearLayout.VERTICAL);
-            colLayout.setPadding(0,10,10,0);
+            colLayout.setPadding(0, 10, 10, 0);
 
             subRowLayout = new LinearLayout(getActivity());
             subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -572,7 +560,6 @@ public class KolportaseFragment extends Fragment {
                     judul = jsonobj.getString("judulbuku");
                     pengarang = jsonobj.getString("pengarang");
                     keterangan = jsonobj.getString("keterangan");
-Log.d("from kolportase, fetch keterangan:"+keterangan,"..");
                     linkGambar = Controller.urlgambar;
                     linkGambar += jsonobj.getString("gambarbuku");
                 } catch (JSONException e) {

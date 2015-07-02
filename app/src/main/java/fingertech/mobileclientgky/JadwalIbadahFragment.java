@@ -1,7 +1,6 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -115,7 +114,6 @@ public class JadwalIbadahFragment extends Fragment {
         private LinearLayout myLinearLayout;
         private TableLayout myTableLayout;
         private TableRow TR;
-        private TextView JudulTabel;
         private TextView IsiTabelHeader;
         private TextView IsiTabel;
         private LinearLayout.LayoutParams params;
@@ -127,9 +125,7 @@ public class JadwalIbadahFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
@@ -158,7 +154,6 @@ public class JadwalIbadahFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -174,7 +169,7 @@ public class JadwalIbadahFragment extends Fragment {
             return "";
         }
 
-        private void IsiTabelHeader (String text) {
+        private void IsiTabelHeader(String text) {
             IsiTabelHeader = new TextView(getActivity());
             IsiTabelHeader.setText(text);
             IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -183,7 +178,7 @@ public class JadwalIbadahFragment extends Fragment {
             TR.addView(IsiTabelHeader);
         }
 
-        private void IsiTabel (String text) {
+        private void IsiTabel(String text) {
             IsiTabel = new TextView(getActivity());
             IsiTabel.setText(text);
             IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -207,7 +202,7 @@ public class JadwalIbadahFragment extends Fragment {
 
             int dataLength = arr.length();
             Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int defaultColor = getResources().getColor(R.color.defaultFont);
+            int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
             TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
             TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
@@ -238,7 +233,6 @@ public class JadwalIbadahFragment extends Fragment {
 
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     tanggal = jsonobj.getString("tanggal");
                     isi = jsonobj.getString("isi");
 
@@ -257,8 +251,10 @@ public class JadwalIbadahFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-            HSV.addView(myTableLayout);
-            myLinearLayout.addView(HSV);
+            if(isNetworkAvailable()) {
+                HSV.addView(myTableLayout);
+                myLinearLayout.addView(HSV);
+            }
         }
     }
 }

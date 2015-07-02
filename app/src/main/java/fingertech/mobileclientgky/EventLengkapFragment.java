@@ -1,6 +1,5 @@
 package fingertech.mobileclientgky;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
+
 
 /**
  * Created by Andarias Silvanus
@@ -28,14 +28,14 @@ public class EventLengkapFragment extends Fragment {
     private LinearLayout myLinearLayout;
     private View rootView;
 
-    private TextView TitleEventTV;
-    private TextView JudulEventTV;
-    private TextView TitleTanggalTV;
-    private TextView JudulTanggalTV;
-    private TextView TitleWaktuTV;
-    private TextView JudulWaktuTV;
-    private TextView TitleKeteranganTV;
-    private TextView IsiKeteranganTV;
+    private TextView titleEventTV;
+    private TextView judulEventTV;
+    private TextView titleTanggalTV;
+    private TextView judulTanggalTV;
+    private TextView titleWaktuTV;
+    private TextView judulWaktuTV;
+    private TextView titleKeteranganTV;
+    private TextView isiKeteranganTV;
     private String judul = null, tanggal = null, keterangan = null, linkGambar = null;
 
     public static EventLengkapFragment newInstance(String param1, String param2) {
@@ -74,7 +74,6 @@ public class EventLengkapFragment extends Fragment {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -86,6 +85,7 @@ public class EventLengkapFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
     }
@@ -120,73 +120,83 @@ public class EventLengkapFragment extends Fragment {
         int image_width = display.getWidth()/3;
         int image_height = (int) (display.getHeight()/4.3);
 
-        ImageView GambarIV = new ImageView(getActivity());
+        ImageView gambarIV = new ImageView(getActivity());
 
         // Loading image from below url into imageView
         Picasso.with(getActivity())
                 .load(linkGambar)
                 .resize(image_height, image_width)
-                .into(GambarIV);
-        GambarIV.setLayoutParams(paramsJarakAntarEvent);
-        rowLayout.addView(GambarIV);
+                .into(gambarIV);
+        gambarIV.setLayoutParams(paramsJarakAntarEvent);
+        rowLayout.addView(gambarIV);
 
-        // Add text View TitleEventTV
-        TitleEventTV = new TextView(getActivity());
-        TitleEventTV.setText("Event: ");
-        TitleEventTV.setLayoutParams(paramsJarakAntarIsi);
-        TitleEventTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        subRowLayout.addView(TitleEventTV);
+        int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
-        // Add text View JudulEventTV
-        JudulEventTV = new TextView(getActivity());
-        JudulEventTV.setText(judul);
-        JudulEventTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(JudulEventTV);
+        // Add text View titleEventTV
+        titleEventTV = new TextView(getActivity());
+        titleEventTV.setText("Event: ");
+        titleEventTV.setTextColor(defaultColor);
+        titleEventTV.setLayoutParams(paramsJarakAntarIsi);
+        titleEventTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        subRowLayout.addView(titleEventTV);
+
+        // Add text View judulEventTV
+        judulEventTV = new TextView(getActivity());
+        judulEventTV.setText(judul);
+        judulEventTV.setTextColor(defaultColor);
+        judulEventTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(judulEventTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add text View TitleTanggalTV
-        TitleTanggalTV = new TextView(getActivity());
-        TitleTanggalTV.setText("Tanggal: ");
-        TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        TitleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(TitleTanggalTV);
+        // Add text View titleTanggalTV
+        titleTanggalTV = new TextView(getActivity());
+        titleTanggalTV.setText("Tanggal: ");
+        titleTanggalTV.setTextColor(defaultColor);
+        titleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        titleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(titleTanggalTV);
 
-        // Add text View JudulTanggalTV
-        JudulTanggalTV= new TextView(getActivity());
-        JudulTanggalTV.setText(tanggal);
-        JudulTanggalTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(JudulTanggalTV);
+        // Add text View judulTanggalTV
+        judulTanggalTV = new TextView(getActivity());
+        judulTanggalTV.setText(tanggal);
+        judulTanggalTV.setTextColor(defaultColor);
+        judulTanggalTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(judulTanggalTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add text View TitleWaktuTV
-        TitleWaktuTV = new TextView(getActivity());
-        TitleWaktuTV.setText("Waktu: ");
-        TitleWaktuTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        TitleWaktuTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(TitleWaktuTV);
+        // Add text View titleWaktuTV
+        titleWaktuTV = new TextView(getActivity());
+        titleWaktuTV.setText("Waktu: ");
+        titleWaktuTV.setTextColor(defaultColor);
+        titleWaktuTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        titleWaktuTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(titleWaktuTV);
 
-        // Add text View JudulWaktuTV
-        JudulWaktuTV = new TextView(getActivity());
-        JudulWaktuTV.setText(tanggal);
-        JudulWaktuTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(JudulWaktuTV);
+        // Add text View judulWaktuTV
+        judulWaktuTV = new TextView(getActivity());
+        judulWaktuTV.setText(tanggal);
+        judulWaktuTV.setTextColor(defaultColor);
+        judulWaktuTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(judulWaktuTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add text View TitleKeteranganTV
-        TitleKeteranganTV = new TextView(getActivity());
-        TitleKeteranganTV.setText("Keterangan: ");
-        TitleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        TitleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(TitleKeteranganTV);
+        // Add text View titleKeteranganTV
+        titleKeteranganTV = new TextView(getActivity());
+        titleKeteranganTV.setText("Keterangan: ");
+        titleKeteranganTV.setTextColor(defaultColor);
+        titleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        titleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(titleKeteranganTV);
 
-        // Add text View IsiKeteranganTV
-        IsiKeteranganTV = new TextView(getActivity());
-        IsiKeteranganTV.setText(keterangan);
-        IsiKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
-        subRowLayout.addView(IsiKeteranganTV);
+        // Add text View isiKeteranganTV
+        isiKeteranganTV = new TextView(getActivity());
+        isiKeteranganTV.setText(keterangan);
+        isiKeteranganTV.setTextColor(defaultColor);
+        isiKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
+        subRowLayout.addView(isiKeteranganTV);
         colLayout.addView(subRowLayout);
 
         rowLayout.addView(colLayout);

@@ -1,7 +1,6 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -27,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -144,11 +142,13 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             String container = "KPPK " + Integer.toString(cnt) + " - " + containerString.get(i);
             cnt++;
 
-            // Add Button Judul KPPk
+            int defaultColor = getResources().getColor(R.color.defaultFontColor);
+
+            // Add Button Judul KPPK
             ListKPPK = new Button(getActivity());
             ListKPPK.setText(container);
+            ListKPPK.setTextColor(defaultColor);
             ListKPPK.setLayoutParams(params);
-//            ListKPPK.setBackgroundColor(0);
             ListKPPK.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
             ListKPPK.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
@@ -189,8 +189,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             // Jika tabel KPPK exist, berarti sudah pernah di-download. Tampilkan daftar KPPK dari database
             kppk_download.setVisibility(View.INVISIBLE);
             generateKontenKPPK(true);
-        }
-        else {
+        } else {
             // Belum pernah download KPPK, maka tampilkan dari ambil JSON ke server
         }
 
@@ -205,7 +204,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-//                Toast.makeText(getActivity(), "KPPK yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
 
                 if (DB.isTableExists("KPPK")) {
                     arrKPPK = DB.searchKPPK(keyword);
@@ -364,10 +362,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             params.setMargins(0, 0, 0, 10);
 
             int dataLength = arr.length();
-
-            int defaultColor = getResources().getColor(R.color.defaultFont);
             String container, judul, isi = null;
-
             kppkSaved = new ArrayList<String>();
 
             // Generate konten KPPK dalam loop for
@@ -376,7 +371,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 judul = "";
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
 
@@ -387,14 +381,13 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 }
 
                 container = "KPPK " + Integer.toString(i + 1) + " - " + judul;
+                int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
                 // Add Button Judul KPPk
                 ListKPPK = new Button(getActivity());
                 ListKPPK.setText(container);
+                ListKPPK.setTextColor(defaultColor);
                 ListKPPK.setLayoutParams(params);
-
-//                ListKPPK.setTextColor(colorBlack);
-//                ListKPPK.setBackgroundColor(0);
                 ListKPPK.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
                 ListKPPK.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
@@ -479,7 +472,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         public void downloadKPPK() {
             int dataLength = arr.length();
             ArrayList<String> tmp = new ArrayList<String>();
-
             String judul = null, isi = null;
 
             // Generate konten KPPK dalam loop for
@@ -487,7 +479,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
                     tmp.add(judul);
@@ -505,11 +496,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
         @Override
         protected void onPostExecute(String result) {
-            if (arr.length() == 0 && isNetworkAvailable()){
-                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada KPPK", Toast.LENGTH_SHORT).show();
-            }
-
-            if(arr.length()==0){
+            if (arr.length() == 0 && isNetworkAvailable()) {
                 Toast.makeText(getActivity().getApplicationContext(), "KPPK yang Anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
 
@@ -521,11 +508,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             params.setMargins(0, 0, 0, 10);
 
             int dataLength = arr.length();
-
-            int defaultColor = getResources().getColor(R.color.defaultFont);
-
+            int defaultColor = getResources().getColor(R.color.defaultFontColor);
             String container, judul = null, isi = null;
-
             kppkSaved = new ArrayList<String>();
 
             // Cari dari server
@@ -549,9 +533,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     // Add Button Judul KPPk
                     ListKPPK = new Button(getActivity());
                     ListKPPK.setText(container);
+                    ListKPPK.setText(defaultColor);
                     ListKPPK.setLayoutParams(params);
-//                    ListKPPK.setTextColor(getResources().getColor(R.color.defaultFont));
-//                    ListKPPK.setBackgroundColor(0);
                     ListKPPK.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
                     ListKPPK.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
@@ -580,8 +563,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
             // Cari dari basis data KPPK
             else {
-                Log.d("adaKPPK", "generate dari DB");
-                Toast.makeText(getActivity(), "KPPK yang Anda cari: " + keyword + " digenerate dari DB", Toast.LENGTH_LONG).show();
                 // Generate konten KPPK dalam loop for
                 for (int i = 0; i < arrKPPK.size(); i = i + 2) {
                     try {
@@ -597,9 +578,9 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     // Add Button Judul KPPK
                     ListKPPK = new Button(getActivity());
                     ListKPPK.setText(container);
+                    ListKPPK.setTextColor(defaultColor);
                     ListKPPK.setLayoutParams(params);
-                    ListKPPK.setTextColor(getResources().getColor(R.color.defaultFont));
-//                    ListKPPK.setBackgroundColor(0);
+                    ListKPPK.setTextColor(getResources().getColor(R.color.defaultFontColor));
                     ListKPPK.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
                     ListKPPK.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 

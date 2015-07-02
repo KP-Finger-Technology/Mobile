@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 /**
  * Created by Andarias Silvanus
  */
@@ -78,7 +79,6 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
 
         // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_btnAyatAlkitab);
-        // Add LayoutParams
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
         int rightMargin = 5;
@@ -103,7 +103,6 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
         TextView namaKitab = new TextView(getActivity());
         namaKitab.setText(kitab + " " + Integer.toString(pasal));
         namaKitab.setTextAppearance(getActivity().getApplicationContext(), R.style.judulPasal);
-//        namaKitab.setLayoutParams(params);
         namaKitab.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         rowLayout.addView(namaKitab);
         myLinearLayout.addView(rowLayout);
@@ -132,8 +131,7 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
         int cnt = 0;
         Button pasalBtn;
 
-
-        for (int i=0; i<jumAyat; i++) {
+        for (int i = 0; i < jumAyat; i++) {
             cnt++;
             pasalBtn = new Button(getActivity());
             pasalBtn.setText(Integer.toString(i+1));
@@ -141,7 +139,7 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
             pasalBtn.setTextAppearance(getActivity().getApplicationContext(), R.style.pasalAyatButtonStyle);
             pasalBtn.setLayoutParams(params);
 
-            final int finalI = i+1;
+            final int finalI = i + 1;
             pasalBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -157,7 +155,7 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
             );
 
             // Coba-coba
-            if (pasalBtn.getParent()!= null) {
+            if (pasalBtn.getParent() != null) {
                 ((ViewGroup) pasalBtn.getParent()).removeView(pasalBtn);
             }
 
@@ -167,7 +165,7 @@ public class KumpulanBtnAyatAlkitabFragment extends Fragment {
                 colLayout.addView(rowLayout);
                 rowLayout = new LinearLayout(getActivity());
             }
-            if ((i==jumAyat-1) && (jumAyat> jumlahDraw)) {
+            if ((i == jumAyat - 1) && (jumAyat > jumlahDraw)) {
                 colLayout.addView(rowLayout);
                 rowLayout = new LinearLayout(getActivity());
             }

@@ -10,7 +10,6 @@ import java.util.LinkedHashMap;
  * Created by William Stefan Hartono
  */
 public class NavigationDrawerDataProvider {
-
     private static Context context;
 
     public NavigationDrawerDataProvider(Context _context) {

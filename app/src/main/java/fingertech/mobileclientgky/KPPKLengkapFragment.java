@@ -60,9 +60,12 @@ public class KPPKLengkapFragment extends Fragment {
         LinearLayout.LayoutParams paramsAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         paramsAntarIsi.setMargins(0, 0, 0, 0);
 
+        int defaultColor = getResources().getColor(R.color.defaultFontColor);
+
         if (judul != null) {
             TextView kppkTV = new TextView(getActivity());
             kppkTV.setText(judul);
+            kppkTV.setTextColor(defaultColor);
             kppkTV.setTypeface(null, Typeface.BOLD);
             kppkTV.setGravity(Gravity.CENTER);
             kppkTV.setLayoutParams(paramsJudul);
@@ -77,6 +80,7 @@ public class KPPKLengkapFragment extends Fragment {
 
             kppkTV = new TextView(getActivity());
             kppkTV.setText(isi);
+            kppkTV.setTextColor(defaultColor);
             kppkTV.setGravity(Gravity.CENTER);
             kppkTV.setLayoutParams(paramsAntarIsi);
             myLinearLayout.addView(kppkTV);

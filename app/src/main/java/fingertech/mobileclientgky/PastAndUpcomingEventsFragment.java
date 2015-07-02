@@ -1,8 +1,6 @@
 package fingertech.mobileclientgky;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -21,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -257,7 +254,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         int image_width = display.getWidth()/3;
         int image_height = (int) (display.getHeight()/4.3);
 
-        int defaultColor = getResources().getColor(R.color.defaultFont);
+        int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
         // Add image View
         ImageView GambarIV = new ImageView(getActivity());
@@ -273,13 +270,15 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         // Add text View TitleEventTV
         TitleEventTV = new TextView(getActivity());
         TitleEventTV.setText("Event: ");
+        TitleEventTV.setTextColor(defaultColor);
         TitleEventTV.setLayoutParams(paramsJarakAntarIsi);
-        TitleEventTV.setTextColor(getResources().getColor(R.color.defaultFont));
+        TitleEventTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
         subRowLayout.addView(TitleEventTV);
 
         // Add text View JudulEventTV
         JudulEventTV = new TextView(getActivity());
         JudulEventTV.setText(judul);
+        JudulEventTV.setTextColor(defaultColor);
         JudulEventTV.setLayoutParams(paramsJarakAntarIsi);
 
         if (subRowLayout.getParent() != null) {
@@ -293,13 +292,15 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         // Add text View TitleTanggalTV
         TitleTanggalTV = new TextView(getActivity());
         TitleTanggalTV.setText("Tanggal: ");
-        TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFont));
+        TitleTanggalTV.setTextColor(defaultColor);
+        TitleTanggalTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
         TitleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleTanggalTV);
 
         // Add text View JudulTanggalTV
         JudulTanggalTV= new TextView(getActivity());
         JudulTanggalTV.setText(tanggal);
+        JudulTanggalTV.setTextColor(defaultColor);
         JudulTanggalTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(JudulTanggalTV);
         colLayout.addView(subRowLayout);
@@ -308,13 +309,15 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         // Add text View TitleWaktuTV
         TitleWaktuTV = new TextView(getActivity());
         TitleWaktuTV.setText("Waktu: ");
-        TitleWaktuTV.setTextColor(getResources().getColor(R.color.defaultFont));
+        TitleWaktuTV.setTextColor(defaultColor);
+        TitleWaktuTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
         TitleWaktuTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleWaktuTV);
 
         // Add text View JudulWaktuTV
         JudulWaktuTV = new TextView(getActivity());
         JudulWaktuTV.setText(tanggal);
+        JudulWaktuTV.setTextColor(defaultColor);
         JudulWaktuTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(JudulWaktuTV);
         colLayout.addView(subRowLayout);
@@ -323,7 +326,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         // Add text View TitleKeteranganTV
         TitleKeteranganTV = new TextView(getActivity());
         TitleKeteranganTV.setText("Keterangan: ");
-        TitleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
+        TitleKeteranganTV.setTextColor(defaultColor);
         TitleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(TitleKeteranganTV);
 
@@ -334,6 +337,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             keterangan = keterangan + "...";
         }
         IsiKeteranganTV.setText(keterangan);
+        IsiKeteranganTV.setTextColor(defaultColor);
         IsiKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(IsiKeteranganTV);
         colLayout.addView(subRowLayout);
@@ -385,17 +389,11 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         dropdownKomisi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> arg0, View v, int position, long id) {
                 if (position != 0) {
-                    Log.d("Spinner ", "masuk set onItemSelected");
-                    Log.d("from Event, posisi dropdown yang terpilih:" + Integer.toString(position), "..");
                     setUpLayout();
                     ArrayList<JSONObject> jsonKomisi = cntKomEv.get(position-1).getJSON();
                     for (int i = 0; i < jsonKomisi.size(); i++) {
                         try {
-                            Log.d("Spinner", "komisi yang dipilih: " + position);
-                            Log.d("Spinner ", "masuk generate UI");
-                            Log.d("Spinner, judul:"+jsonKomisi.get(i).getString("judul")+", tanggal:"+jsonKomisi.get(i).getString("tanggal")+", keterangan: "+jsonKomisi.get(i).getString("keterangan"),"..");
                             generateUI(jsonKomisi.get(i).getString("judul"), jsonKomisi.get(i).getString("tanggal"), jsonKomisi.get(i).getString("keterangan"), jsonKomisi.get(i).getString("linkGambar"));
-                            Log.d("Spinner ", "selesai generate UI");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -410,6 +408,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                         }
                     }
                 } else {
+
                     // Terpilih menu dropdown "Semua Komisi", generate UI semuanya
                     generateKontenEvent();
                 }
@@ -422,7 +421,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     }
 
     class Viewer extends AsyncTask<String, String, String> {
-
         JSONArray arr = new JSONArray();
 
 //        ProgressDialog progressDialog;
@@ -432,7 +430,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             return arr;
         }
 
-//        public Viewer(ProgressBar pb){
+//        public Viewer(ProgressBar pb) {
 //            progressBar = pb;
 //        }
 
@@ -498,16 +496,16 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         private int isExistContainerKomisiEvent(String _namaKomisi){
             int len = cntKomEv.size();
             int idx = -999;
-            boolean Mark=false;
-            int i=0;
-            while (i<len && !Mark) {
+            boolean Mark = false;
+            int i = 0;
+            while (i < len && !Mark) {
                 if (cntKomEv.get(i).getNamaKomisi().equals(_namaKomisi))
                     Mark=true;
                 else
                     i++;
             }
             if (Mark)
-                idx=i;
+                idx = i;
             return idx;
         }
 
@@ -530,11 +528,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             cntKomEv = new ArrayList<ContainerKomisiEvent>();
 
             // Generate konten Event dalam loop for
-            for (int i=0; i<dataLength; i++){
+            for (int i = 0; i < dataLength; i++){
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject",arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     tanggal = jsonobj.getString("tanggal");
                     keterangan = jsonobj.getString("keterangan");
@@ -547,8 +544,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     for (int j=0; j<length2; j++) {
                     // Mengisi nama komisi dan event
                         String tmp_namaKomisi = tmp_komisi.getJSONObject(j).getString("namakomisi");
-                        Log.d("from event, hasil tmp_namaKomisi:"+tmp_namaKomisi,"..");
-
                         int idx = isExistContainerKomisiEvent(tmp_namaKomisi);
 
                         JSONObject tmpJSON = new JSONObject();
@@ -567,7 +562,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                             container.setJSON(tmpJSON);
                             cntKomEv.add(container);
                         }
-                        Log.d("from Event, namaKomisi:"+tmp_namaKomisi+", isi cntKomEv:"+cntKomEv.get(j).printArrayJSON(),"..");
                     }
 
                     judulSaved.add(judul);
@@ -594,7 +588,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     }
 
     class ViewerSearch extends AsyncTask<String, String, String> {
-
         JSONArray arr = new JSONArray();
 
         public JSONArray getArr() {

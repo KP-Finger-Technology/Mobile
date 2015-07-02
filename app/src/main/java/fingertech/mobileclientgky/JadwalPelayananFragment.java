@@ -1,5 +1,8 @@
 package fingertech.mobileclientgky;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -29,7 +34,7 @@ import java.io.InputStreamReader;
 /**
  * Created by William Stefan Hartono
  */
-public class JadwalPelayananFragment extends Fragment implements View.OnClickListener {
+public class JadwalPelayananFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -38,7 +43,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
     private OnFragmentInteractionListener mListener;
 
-    private Button buttonFetchData;
     private View rootView;
 
     public static JadwalPelayananFragment newInstance(String param1, String param2) {
@@ -66,12 +70,8 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_jadwal_pelayanan, container, false);
-
-//        buttonFetchData = (Button)rootView.findViewById(R.id.jadwalPelayanan_fetchData);
-//        buttonFetchData.setOnClickListener(this);
-
         return rootView;
     }
 
@@ -87,13 +87,26 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         mListener = null;
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
+    }
+
+    // Untuk mengecek apakah ada koneksi internet
+    public boolean isNetworkAvailable() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
 
     class Viewer extends AsyncTask<String, String, String> {
@@ -112,50 +125,51 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
-            SessionManager sm = new SessionManager(getActivity().getApplicationContext());
+            if(isNetworkAvailable()) {
+                SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
-            Log.d("jadwalpel",sm.pref.getAll().toString());
-            Log.d("Nm",sm.pref.getAll().get("name").toString());
-            Log.d("ID", sm.pref.getAll().get("id").toString());
-            String result = "";
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_jadwalpelayanan.php?id="+sm.pref.getAll().get("id").toString()); // ngikutin ip disini loh
-            HttpResponse response;
-
-            try {
-                response = client.execute(request);
-
-                // Get the response
-                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-                String line = "";
-                while ((line = rd.readLine()) != null) {
-                    result += line;
-                }
+                String result = "";
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet(Controller.url + "view_jadwalpelayanan.php?id=" + sm.pref.getAll().get("id").toString()); // ngikutin ip disini loh
+                HttpResponse response;
 
                 try {
-                    JSONObject res = new JSONObject(result);
-                    arr = res.getJSONArray("data");
-                    Log.d("Array", arr.toString());
-                } catch (JSONException e) {
+                    response = client.execute(request);
+
+                    // Get the response
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                    String line = "";
+                    while ((line = rd.readLine()) != null) {
+                        result += line;
+                    }
+                    try {
+                        JSONObject res = new JSONObject(result);
+                        arr = res.getJSONArray("data");
+                        Log.d("Array", arr.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity().getApplicationContext(), "Anda tidak terhubung ke internet", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
-//            }
             return "";
         }
 
-        private void IsiTabelHeader (String text) {
+        private void IsiTabelHeader(String text) {
             IsiTabelHeader = new TextView(getActivity());
             IsiTabelHeader.setText(text);
             IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -164,7 +178,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
             TR.addView(IsiTabelHeader);
         }
 
-        private void IsiTabel (String text) {
+        private void IsiTabel(String text) {
             IsiTabel = new TextView(getActivity());
             IsiTabel.setText(text);
             IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -175,6 +189,9 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
         @Override
         protected void onPostExecute(String result) {
+            if (arr.length() == 0 && isNetworkAvailable()){
+                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada event", Toast.LENGTH_SHORT).show();
+            }
             myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
 
             // Add LayoutParams
@@ -183,8 +200,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
             params.setMargins(0, 10, 20, 0);
 
             int dataLength = arr.length();
-
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
 
             TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
             TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
@@ -234,8 +249,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
                     int length2 = jsonArr.length();
                     for (int j = 0; j < length2; j++) {
-//                        tanggal = jsonArr.getJSONObject(j).getString("tanggal");
-                        tanggal = "2015-6-29";
                         gedung = jsonArr.getJSONObject(j).getString("gedung");
                         kebaktian = jsonArr.getJSONObject(j).getString("kebaktian");
                         waktuMulai = jsonArr.getJSONObject(j).getString("waktumulai");
@@ -264,9 +277,10 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                         // Add row to table
                         myTableLayout.addView(TR, tableParams);
                     }
-                    HSV.addView(myTableLayout);
-                    myLinearLayout.addView(HSV);
-
+                    if(isNetworkAvailable()) {
+                        HSV.addView(myTableLayout);
+                        myLinearLayout.addView(HSV);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

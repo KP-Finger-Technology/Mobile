@@ -1,7 +1,6 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -139,21 +138,23 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         params.setMargins(0, 10, 20, 0);
 
         int dataLength = containerString.size();
+        int defaultColor = getResources().getColor(R.color.defaultFontColor);
         Button ListLirikLaguRohani;
 
         int cnt = 1;
-        for (int i=0; i<dataLength; i=i+2) {
+        for (int i = 0; i < dataLength; i = i + 2) {
             String container = "LirikLaguRohani " + Integer.toString(cnt) + " - " + containerString.get(i);
             cnt++;
 
             // Add Button Judul Lirik Lagu Rohani
             ListLirikLaguRohani = new Button(getActivity());
             ListLirikLaguRohani.setText(container);
+            ListLirikLaguRohani.setTextColor(defaultColor);
             ListLirikLaguRohani.setLayoutParams(params);
             ListLirikLaguRohani.setBackgroundColor(0);
 
-            final String _judul = containerString.get(i+1);
-            final String _isi = containerString.get(i+1);
+            final String _judul = containerString.get(i + 1);
+            final String _isi = containerString.get(i + 1);
 
             // Add button listener here
             ListLirikLaguRohani.setOnClickListener(
@@ -188,14 +189,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         if (DB.isTableExists("LirikLaguRohani")) {
             // Jika tabel LirikLaguRohani exist, berarti sudah pernah di-download. Tampilkan daftar LirikLaguRohani dari database
             lirikLaguRohani_download.setVisibility(View.INVISIBLE);
-            Log.d("tabel LirikLaguRohani sudah exist","..");
             generateKontenLirikLaguRohani(true);
-        }
-        else {
-            // Belum pernah download LirikLaguRohani, maka tampilkan dari ambil JSON ke server
-
-//            isLirikLaguRohaniExist = false;
-//            v.execute();
         }
 
         sv = (SearchView) rootView.findViewById(R.id.lirikLaguRohani_searchview);
@@ -236,7 +230,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -371,7 +364,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             params.setMargins(0, 10, 20, 0);
 
             int dataLength = arr.length();
-            int defaultColor = getResources().getColor(R.color.defaultFont);
+            int defaultColor = getResources().getColor(R.color.defaultFontColor);
             String container, judul, isi = null;
 
             // Generate konten LirikLaguRohani dalam loop for
@@ -380,7 +373,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 judul = "";
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
 
@@ -393,10 +385,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 // Add Button Judul Lirik Lagu Rohani
                 ListLirikLaguRohani = new Button(getActivity());
                 ListLirikLaguRohani.setText(container);
+                ListLirikLaguRohani.setTextColor(defaultColor);
                 ListLirikLaguRohani.setLayoutParams(params);
-
-//                ListLirikLaguRohani.setTextColor(colorBlack);
-//                ListLirikLaguRohani.setBackgroundColor(0);
                 ListLirikLaguRohani.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
                 ListLirikLaguRohani.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
@@ -483,6 +473,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
             String judul = null, isi = null;
             laguSaved = new ArrayList<String>();
+
             // Generate konten Event dalam loop for
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
@@ -500,6 +491,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     e.printStackTrace();
                 }
             }
+
             if (DB.isTableExists("LirikLaguRohani")) {
                 DB.deleteTableLirikLaguRohani();
             }
@@ -510,9 +502,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         @Override
         protected void onPostExecute(String result) {
             if (arr.length() == 0 && isNetworkAvailable()){
-                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada lirik lagu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Lagu yang Anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
-
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
 
             // Add LayoutParams
@@ -521,12 +512,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             params.setMargins(0, 0, 0, 10);
 
             int dataLength = arr.length();
-
-            if(arr.length()==0){
-                Toast.makeText(getActivity().getApplicationContext(), "Lagu yang Anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
-            }
-
-            int defaultColor = getResources().getColor(R.color.defaultFont);
+            int defaultColor = getResources().getColor(R.color.defaultFontColor);
             String container = null, judul = null, isi = null;
 
             // Cari dari server
@@ -537,10 +523,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     JSONObject jsonobj = null;
                     try {
                         jsonobj = arr.getJSONObject(i);
-                        Log.d("JSONObject", arr.getJSONObject(i).toString());
                         judul = jsonobj.getString("judul");
                         isi = jsonobj.getString("isi");
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -550,9 +534,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     // Add Button Judul Lirik Lagu Rohani
                     ListLirikLaguRohani = new Button(getActivity());
                     ListLirikLaguRohani.setText(container);
+                    ListLirikLaguRohani.setTextColor(defaultColor);
                     ListLirikLaguRohani.setLayoutParams(params);
-//                    ListLirikLaguRohani.setTextColor(getResources().getColor(R.color.defaultFont));
-//                    ListLirikLaguRohani.setBackgroundColor(0);
                     ListLirikLaguRohani.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
                     ListLirikLaguRohani.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 
@@ -583,6 +566,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
             else {
                 Log.d("adaLirik", "generate dari DB");
                 Toast.makeText(getActivity(), "Lagu yang Anda cari: " + keyword + " digenerate dari DB", Toast.LENGTH_LONG).show();
+
                 // Generate konten LirikLaguRohani dalam loop for
                 for (int i = 0; i < arrLirik.size(); i = i + 2) {
                     try {
@@ -598,9 +582,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     // Add Button Judul Lirik Lagu Rohani
                     ListLirikLaguRohani = new Button(getActivity());
                     ListLirikLaguRohani.setText(container);
+                    ListLirikLaguRohani.setTextColor(defaultColor);
                     ListLirikLaguRohani.setLayoutParams(params);
-//                    ListLirikLaguRohani.setTextColor(getResources().getColor(R.color.defaultFont));
-//                    ListLirikLaguRohani.setBackgroundColor(0);
                     ListLirikLaguRohani.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
                     ListLirikLaguRohani.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);
 

@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+
 /**
  * Created by Andarias Silvanus on 15/06/03.
  */
@@ -40,18 +41,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public DataBaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
         this.myContext = context;
-//        pasalAlkitab = new String[jumlah_kitab];
-//        jumlahPasal = new int[jumlah_kitab];
         pasalAlkitab = new ArrayList<String>();
         jumlahPasal = new ArrayList<Integer>();
 
         DB_PATH = context.getDatabasePath(DB_NAME).getAbsolutePath();
-        Log.d("path absolut database", DB_PATH);
         try {
-            Log.d("persiapan buat database dari konstruktor DB","...");
             createDataBase();
         } catch (IOException e) {
-            Log.d("gagal buat database dari konstruktor DB!","...");
+            Log.e("DataBaseHelper", e.getMessage(), e);
         }
     }
 
@@ -63,18 +60,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         if(dbExist){
             // Do nothing - database already exist
-            Log.d("database already exist, not create","");
         }
         else{
             // By calling this method and empty database will be created into the default system path
             // of your application so we are gonna be able to overwrite that database with our database.
             this.getReadableDatabase();
             try {
-                Log.d("persiapan copy database","...");
                 copyDataBase();
             }
             catch (IOException e) {
-                Log.d("error copy database!","...");
                 throw new Error("Error copying database");
             }
         }
@@ -84,27 +78,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * Check if the database already exist to avoid re-copying the file each time you open the application.
      * @return true if it exists, false if it doesn't
      */
-    private boolean checkDataBase(){
+    private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
 
-        try{
-//            String myPath = DB_PATH + DB_NAME;
+        try {
             String myPath = DB_PATH;
             File file = new File(myPath);
             if (file.exists() && !file.isDirectory())
                 checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
         }
-        catch(SQLiteException e){
+        catch(SQLiteException e) {
             // Database does't exist yet.
-            Log.d("database tidak exist!","...");
         }
 
         boolean res = false;
-        if(checkDB != null){
+        if(checkDB != null) {
             checkDB.close();
             res = true;
         }
-        Log.d("nilai boolean res",Boolean.toString(res));
         return res;
     }
 
@@ -113,16 +104,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * system folder, from where it can be accessed and handled.
      * This is done by transfering bytestream.
      * */
-    private void copyDataBase() throws IOException{
-        Log.d("masuk copyDatabase!","...");
+    private void copyDataBase() throws IOException {
         SQLiteDatabase.openOrCreateDatabase(DB_PATH,null);
         // Open your local db as the input stream
         InputStream myInput = myContext.getAssets().open(DB_NAME);
-
-        if (myInput != null)
-            Log.d("get Asset berhasil","...");
-        else
-            Log.d("get Asset gagal","...");
 
         // Path to the just created empty db
         // String outFileName = DB_PATH + DB_NAME;
@@ -131,15 +116,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         // Open the empty db as the output stream
         OutputStream myOutput = new FileOutputStream(outFileName);
 
-        if (myOutput != null)
-            Log.d("output Stream berhasil!","link filename: "+outFileName);
-        else
-            Log.d("output Stream gagal!","link filename: "+outFileName);
-
         // Transfer bytes from the inputfile to the outputfile
         byte[] buffer = new byte[1024];
         int length;
-        while ((length = myInput.read(buffer))>0){
+        while ((length = myInput.read(buffer)) > 0) {
             myOutput.write(buffer, 0, length);
         }
 
@@ -252,7 +232,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public int getJumlahAyat (String kitab, int pasal) {
+    public int getJumlahAyat(String kitab, int pasal) {
         int jumAyat = 0;
         Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\"" + kitab + "\" AND BIBLE.pasal=" + pasal + " AND BOOKS_1.keyid=BIBLE.kitab", null);
 
@@ -261,13 +241,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             // Loop through all results
             do {
                 jumAyat++;
-            }while(cursor.moveToNext());
+            } while(cursor.moveToNext());
             cursor.close();
         }
         return jumAyat;
     }
 
-    public ArrayList<String> getPasalAlkitab () {
+    public ArrayList<String> getPasalAlkitab() {
         return pasalAlkitab;
     }
 
@@ -314,7 +294,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean createTableKPPK () {
+    public boolean createTableKPPK() {
         boolean isSuccess = false;
         if (isTableExists("KPPK"))
             return isSuccess;
@@ -346,12 +326,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues(2);
         int len = container.size();
         myDataBase=this.getWritableDatabase() ;
-        for (int i=0; i<len; i=i+2) {
+        for (int i = 0; i < len; i = i + 2) {
             String judul = container.get(i);
-            String isi = container.get(i+1);
+            String isi = container.get(i + 1);
             cv.put("judul", judul);
             cv.put("isi", isi);
-            myDataBase.insert("KPPK",null,cv);
+            myDataBase.insert("KPPK", null, cv);
         }
     }
 
@@ -369,7 +349,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String isi = cursor.getString(colIsi);
                 res.add(judul);
                 res.add(isi);
-            }while(cursor.moveToNext());
+            } while(cursor.moveToNext());
             cursor.close();
         }
         return res;
@@ -388,18 +368,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String isi = cursor.getString(colIsi);
                 res.add(judul);
                 res.add(isi);
-            }while(cursor.moveToNext());
+            } while(cursor.moveToNext());
             cursor.close();
         }
         return res;
     }
 
-    public boolean createTableLirikLaguRohani () {
+    public boolean createTableLirikLaguRohani() {
         boolean isSuccess = false;
         if (isTableExists("LirikLaguRohani"))
             return isSuccess;
         else {
-            myDataBase=this.getWritableDatabase() ;
+            myDataBase = this.getWritableDatabase() ;
             String query = "CREATE TABLE LirikLaguRohani ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, judul TEXT, isi TEXT)";
             myDataBase.execSQL(query);
 
@@ -408,12 +388,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteTableLirikLaguRohani () {
+    public boolean deleteTableLirikLaguRohani() {
         boolean isSuccess = false;
         if (!isTableExists("LirikLaguRohani"))
             return isSuccess;
         else {
-            myDataBase=this.getWritableDatabase() ;
+            myDataBase = this.getWritableDatabase() ;
             String query = "DROP TABLE LirikLaguRohani";
             myDataBase.execSQL(query);
 
@@ -425,13 +405,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void insertDataLirikLaguRohani(ArrayList<String> container) {
         ContentValues cv = new ContentValues(2);
         int len = container.size();
-        myDataBase=this.getWritableDatabase() ;
-        for (int i=0; i<len; i=i+2) {
+        myDataBase = this.getWritableDatabase() ;
+        for (int i = 0; i < len; i = i + 2) {
             String judul = container.get(i);
             String isi = container.get(i+1);
             cv.put("judul", judul);
             cv.put("isi", isi);
-            myDataBase.insert("LirikLaguRohani",null,cv);
+            myDataBase.insert("LirikLaguRohani", null, cv);
         }
     }
 }

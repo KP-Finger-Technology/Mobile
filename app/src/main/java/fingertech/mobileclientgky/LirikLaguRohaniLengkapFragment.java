@@ -60,10 +60,12 @@ public class LirikLaguRohaniLengkapFragment extends Fragment {
         LinearLayout.LayoutParams paramsAntarIsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         paramsAntarIsi.setMargins(0, 0, 0, 0);
 
+        int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
         if (judul != null) {
             TextView lirikLaguRohaniTV = new TextView(getActivity());
             lirikLaguRohaniTV.setText(judul);
+            lirikLaguRohaniTV.setTextColor(defaultColor);
             lirikLaguRohaniTV.setTypeface(null, Typeface.BOLD);
             lirikLaguRohaniTV.setGravity(Gravity.CENTER);
             lirikLaguRohaniTV.setLayoutParams(paramsJudul);
@@ -78,6 +80,7 @@ public class LirikLaguRohaniLengkapFragment extends Fragment {
 
             lirikLaguRohaniTV = new TextView(getActivity());
             lirikLaguRohaniTV.setText(isi);
+            lirikLaguRohaniTV.setTextColor(defaultColor);
             lirikLaguRohaniTV.setGravity(Gravity.CENTER);
             lirikLaguRohaniTV.setLayoutParams(paramsAntarIsi);
             myLinearLayout.addView(lirikLaguRohaniTV);

@@ -46,6 +46,7 @@ import org.json.JSONException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+
 /**
  * Created by William Stefan Hartono
  */
@@ -76,10 +77,6 @@ public class Home extends ActionBarActivity
 
     // Untuk controller server
     Controller cont = new Controller(this);
-
-    // Untuk Map
-    private double latitude = -6.113887;
-    private double longitude = 106.791796;
 
     private Bundle bundleState;
 
@@ -409,14 +406,9 @@ public class Home extends ActionBarActivity
     }
 
     private void unsubscribePush() {
-
         SessionManager smn = new SessionManager(this);
-        Log.d("id",smn.pref.getAll().get("email").toString());
-        Log.d("namakomisis", smn.pref.getAll().get("namakomisi").toString());
         try {
-
             JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
-            Log.d("komisi",arrKomisi.toString());
 
             for ( int i = 0 ; i < arrKomisi.length(); i++){
                 Log.d("iterasi ke-" + i, "isi komisi:" + arrKomisi.get(i).toString());
@@ -430,9 +422,7 @@ public class Home extends ActionBarActivity
                         }
                     }
                 });
-
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -445,19 +435,11 @@ public class Home extends ActionBarActivity
         } else {
             super.onBackPressed();
         }
-
-        // Jika backstack hanya berisi 1 fragment, langsung keluar dari aplikasi
-        /*if (getSupportFragmentManager().getBackStackEntryCount() == 1){
-            finish();
-        }
-        else {
-            super.onBackPressed();
-        }*/
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
+        // Update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
@@ -561,7 +543,7 @@ public class Home extends ActionBarActivity
     }
 
     // Mengambil data yang berada di formulir permohonan doa
-    public void ambilDataDoa(View view){
+    public void ambilDataDoa(View view) {
         EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
         EditText umurET = (EditText) findViewById(R.id.permohonanDoa_editUmur);
         EditText emailET = (EditText) findViewById(R.id.permohonanDoa_editEmail);
@@ -583,21 +565,19 @@ public class Home extends ActionBarActivity
             email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
             telepon = URLEncoder.encode(teleponET.getText().toString(), "utf-8");
             doa = URLEncoder.encode(doaET.getText().toString(), "utf-8");
-
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        cont.addDoa(nama,umur,email,telepon,jenisKelamin, doa);
+        cont.addDoa(nama, umur, email, telepon, jenisKelamin, doa);
     }
 
-    public String encryptPass(String password){
+    public String encryptPass(String password) {
         MessageDigest md = null;
         StringBuffer hexString = new StringBuffer();
         try {
             md = MessageDigest.getInstance("MD5");
             md.update(password.getBytes());
-
             byte byteData[] = md.digest();
 
             //convert the byte to hex format method 1
@@ -606,16 +586,12 @@ public class Home extends ActionBarActivity
                 sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
             }
 
-            System.out.println("Digest(in hex format):: " + sb.toString());
-
             //convert the byte to hex format method 2
             for (int i=0;i<byteData.length;i++) {
                 String hex=Integer.toHexString(0xff & byteData[i]);
                 if(hex.length()==1) hexString.append('0');
                 hexString.append(hex);
             }
-            System.out.println("Digest(in hex format):: " + hexString.toString());
-
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -657,7 +633,6 @@ public class Home extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
         private ArrayAdapter<String> mAdapter;
-//        private ListView mDrawerList;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -683,12 +658,6 @@ public class Home extends ActionBarActivity
 
     // Untuk mengganti tampilan fragment
     public void switchFragment(Fragment fragment) {
-        /*fragManager = getSupportFragmentManager();
-        fragTransaction = fragManager.beginTransaction();
-        fragTransaction.replace(R.id.container, frag);
-        fragTransaction.addToBackStack(null);
-        fragTransaction.commit();*/
-
         // Resume fragment bila ada di backstack dan hapus semua fragment sisanya
         String backStateName =  fragment.getClass().getName();
         String fragmentTag = backStateName;
@@ -698,33 +667,10 @@ public class Home extends ActionBarActivity
 
         FragmentTransaction ft = manager.beginTransaction();
         if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null) { // fragment not in back stack, create it.
-            /*ft.replace(R.id.container, fragment, fragmentTag);*/
             ft.replace(R.id.container, fragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.addToBackStack(backStateName);
             ft.commit();
         }
-        /*else {
-            ft.detach(backStateName);
-            ft.addToBackStack(backStateName);
-        }*/
     }
-
-    /*private android.app.FragmentManager.OnBackStackChangedListener getListener() {
-        android.app.FragmentManager.OnBackStackChangedListener result = new android.app.FragmentManager.OnBackStackChangedListener() {
-            public void onBackStackChanged() {
-                FragmentManager manager = getSupportFragmentManager();
-                if (manager != null) {
-                    int backStackEntryCount = manager.getBackStackEntryCount();
-                    if (backStackEntryCount == 0) {
-                        finish();
-                    }
-                    Fragment fragment = manager.getFragments()
-                            .get(backStackEntryCount - 1);
-                    fragment.onResume();
-                }
-            }
-        };
-        return result;
-    }*/
 }

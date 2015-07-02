@@ -1,6 +1,5 @@
 package fingertech.mobileclientgky;
 
-
 import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -48,7 +47,6 @@ public class ProfilFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private View rootView;
-    private Button Button;
     private int pYear;
     private int pMonth;
     private int pDay;
@@ -411,13 +409,10 @@ public class ProfilFragment extends Fragment {
             }*/
 
             cont.editprofil(nama, email, telepon, alamat,idbaptis, komisi, pelayanan);
-        Log.d("edit profilkomisi ",komisi);
-        Log.d("edit profil pel",pelayanan);
+        Log.d("edit profilkomisi ", komisi);
+        Log.d("edit profil pel", pelayanan);
             SessionManager smn = new SessionManager(getActivity().getApplicationContext());
            smn.editLoginSession(nama,email,alamat,telepon,idbaptis,komisiArr.toString(),pelayananArr.toString());
-
-
-
     }
 
     public void generateProfilContent(){
@@ -615,6 +610,7 @@ public class ProfilFragment extends Fragment {
             dateET.setText(Integer.toString(pDay) + "/" + bulan + "/" + Integer.toString(pYear));
         }
     }*/
+
     class Viewer extends AsyncTask<String, String, String> {
         private LinearLayout myLinearLayout;
         private LinearLayout.LayoutParams params;
@@ -709,9 +705,9 @@ public class ProfilFragment extends Fragment {
             SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
             String komisistring = sm.pref.getAll().get("komisi").toString();
-            Log.d("isi string komisi",komisistring);
+            Log.d("isi string komisi", komisistring);
             String pelayananstring = sm.pref.getAll().get("pelayanan").toString();
-            Log.d("isi string pelayanan",pelayananstring);
+            Log.d("isi string pelayanan", pelayananstring);
 
             // Generate konten Register dalam loop for
             for (int i = 0; i < dataLength; i++) {
@@ -827,7 +823,6 @@ public class ProfilFragment extends Fragment {
         }
     }
     private void unsubscribePush() {
-
         SessionManager smn = new SessionManager(getActivity().getApplicationContext());
         Log.d("id",smn.pref.getAll().get("email").toString());
         Log.d("namakomisis", smn.pref.getAll().get("namakomisi").toString());

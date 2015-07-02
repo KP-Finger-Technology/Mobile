@@ -14,9 +14,7 @@ import com.parse.SaveCallback;
  */
 public class Application extends android.app.Application {
 
-    public Application() {
-
-    }
+    public Application() {}
 
     @Override
     public void onCreate() {

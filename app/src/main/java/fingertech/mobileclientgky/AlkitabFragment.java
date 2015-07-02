@@ -97,7 +97,6 @@ public class AlkitabFragment extends Fragment {
                     kitabBtn.setBackground(getResources().getDrawable(R.drawable.alkitabbuttonpbstyle));
 
                 kitabBtn.setTextAppearance(getActivity().getApplicationContext(), R.style.alkitabButtonStyle);
-//            kitabBtn.setBackgroundColor(0);
 
                 final int finalI = i;
                 kitabBtn.setOnClickListener(
@@ -109,7 +108,6 @@ public class AlkitabFragment extends Fragment {
                         }
                     }
                 );
-//                myLinearLayout.addView(kitabBtn);
                 containerKitabLayout.addView(kitabBtn);
             }
         }
@@ -117,7 +115,6 @@ public class AlkitabFragment extends Fragment {
             TextView TV = new TextView(getActivity());
             TV.setText("Pencarian terhadap kata " + req + " tidak ditemukan");
             TV.setLayoutParams(params);
-//            myLinearLayout.addView(TV);
             containerKitabLayout.addView(TV);
         }
         myLinearLayout.addView(containerKitabLayout);

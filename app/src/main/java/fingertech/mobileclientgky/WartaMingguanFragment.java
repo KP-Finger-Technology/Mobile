@@ -111,11 +111,9 @@ public class WartaMingguanFragment extends Fragment {
         private LinearLayout myLinearLayout;
         private TableLayout myTableLayout;
         private TableRow TR;
-        private TextView JudulTabel;
-        private TextView IsiTabelHeader;
-        private TextView IsiTabel;
-        private TextView judulTV;
-        private TextView deskripsiTV;
+        private TextView judulTabel;
+        private TextView isiTabelHeader;
+        private TextView isiTabel;
         private LinearLayout.LayoutParams params;
         private LinearLayout.LayoutParams paramsDeskripsi;
 
@@ -171,21 +169,21 @@ public class WartaMingguanFragment extends Fragment {
         }
 
         private void IsiTabelHeader (String text) {
-            IsiTabelHeader = new TextView(getActivity());
-            IsiTabelHeader.setText(text);
-            IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
-            IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
-            TR.addView(IsiTabelHeader);
+            isiTabelHeader = new TextView(getActivity());
+            isiTabelHeader.setText(text);
+            isiTabelHeader.setTextColor(getResources().getColor(R.color.white));
+            isiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            isiTabelHeader.setBackground(getResources().getDrawable(R.drawable.header_tabel));
+            TR.addView(isiTabelHeader);
         }
 
         private void IsiTabel (String text) {
-            IsiTabel = new TextView(getActivity());
-            IsiTabel.setText(text);
-            IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
-            IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
-            TR.addView(IsiTabel);
+            isiTabel = new TextView(getActivity());
+            isiTabel.setText(text);
+            isiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
+            isiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            isiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
+            TR.addView(isiTabel);
         }
 
         @Override
@@ -259,10 +257,10 @@ public class WartaMingguanFragment extends Fragment {
 
                     myTableLayout.addView(TR, tableParams);  // Add row to table
 
-                    JudulTabel = new TextView(getActivity());
-                    JudulTabel.setText("Jadwal khotbah pada tanggal "+tanggal);
-                    JudulTabel.setLayoutParams(params);
-                    myLinearLayout.addView(JudulTabel);
+                    judulTabel = new TextView(getActivity());
+                    judulTabel.setText("Jadwal khotbah pada tanggal " + tanggal);
+                    judulTabel.setLayoutParams(params);
+                    myLinearLayout.addView(judulTabel);
 
                     int length2 = jsonAtribut.length();
                     for (int j = 0; j < length2; j++) {
@@ -289,9 +287,11 @@ public class WartaMingguanFragment extends Fragment {
                         // Add row to table
                         myTableLayout.addView(TR, tableParams);
                     }
-                    HSV.setScrollbarFadingEnabled(false);
-                    HSV.addView(myTableLayout);
-                    myLinearLayout.addView(HSV);
+                    if(isNetworkAvailable()) {
+                        HSV.setScrollbarFadingEnabled(false);
+                        HSV.addView(myTableLayout);
+                        myLinearLayout.addView(HSV);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -299,11 +299,10 @@ public class WartaMingguanFragment extends Fragment {
 
             dataLength = warta.length();
 
-            for (int i=0; i < dataLength; i++){
+            for (int i = 0; i < dataLength; i++){
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = warta.getJSONObject(i);
-                    Log.d("JSONObject", warta.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     deskripsi = jsonobj.getString("deskripsi");
                 } catch (JSONException e) {

@@ -1,7 +1,6 @@
 package fingertech.mobileclientgky;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -9,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,16 +43,10 @@ public class LiturgiMingguanFragment extends Fragment {
 
     // Untuk komponen-komponen
     private LinearLayout myLinearLayout;
-    private TextView idLiturgiTV;
-    private TextView judulAcaraTV;
-    private TextView keteranganTV;
-    private TextView idSubAcaraTV;
-    private TextView subAcaraTV;
     private View rootView;
 
     private TableLayout myTableLayout;
     private TableRow TR;
-    private TextView JudulTabel;
     private TextView IsiTabelHeader;
     private TextView IsiTabel;
 
@@ -89,7 +81,6 @@ public class LiturgiMingguanFragment extends Fragment {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -103,7 +94,6 @@ public class LiturgiMingguanFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
@@ -139,7 +129,6 @@ public class LiturgiMingguanFragment extends Fragment {
         protected String doInBackground(String... params) {
             if(isNetworkAvailable()) {
                 String result = "";
-                String statu = "";
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet(Controller.url + "view_liturgi.php");
                 HttpResponse response;
@@ -161,7 +150,6 @@ public class LiturgiMingguanFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -177,7 +165,7 @@ public class LiturgiMingguanFragment extends Fragment {
             return "";
         }
 
-        private void IsiTabelHeader (String text) {
+        private void IsiTabelHeader(String text) {
             IsiTabelHeader = new TextView(getActivity());
             IsiTabelHeader.setText(text);
             IsiTabelHeader.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -186,7 +174,7 @@ public class LiturgiMingguanFragment extends Fragment {
             TR.addView(IsiTabelHeader);
         }
 
-        private void IsiTabel (String text) {
+        private void IsiTabel(String text) {
             IsiTabel = new TextView(getActivity());
             IsiTabel.setText(text);
             IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -236,14 +224,10 @@ public class LiturgiMingguanFragment extends Fragment {
 
             // Add layout utk tabel
             TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
-            TableLayout.LayoutParams rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
             HorizontalScrollView HSV = null;
             myTableLayout = new TableLayout(getActivity());
             myTableLayout.setLayoutParams(tableParams);
-//            TR = new TableRow(getActivity());
-//            TR.setLayoutParams(tableParams);
 
-            int defaultColor = getResources().getColor(R.color.defaultFont);
             int dataLength = arr.length();
 
             // Generate konten Liturgi Mingguan dalam loop for
@@ -263,105 +247,28 @@ public class LiturgiMingguanFragment extends Fragment {
                     // Tambah atribut header tabel
                     IsiTabelHeader(idLiturgi);
                     IsiTabelHeader(judulAcara);
-                    IsiTabelHeader(""); // utk kolom ketiga
+                    IsiTabelHeader(""); // Untuk kolom ketiga
                     myTableLayout.addView(TR);
-
-//                    // Add textView idLiturgiTV
-//                    idLiturgiTV = new TextView(getActivity());
-//                    idLiturgiTV.setText(idLiturgi);
-//                    idLiturgiTV.setLayoutParams(paramsJarakIDLiturgiDenganIsi);
-//                    idLiturgiTV.setTextColor(getResources().getColor(R.color.defaultFont));
-//                    subRowLayout.addView(idLiturgiTV);
-//                    rowLayout.addView(subRowLayout);
-//
-//                    // Add textView judulAcaraTV
-//                    subRowLayout = new LinearLayout(getActivity());
-//                    judulAcaraTV = new TextView(getActivity());
-//                    judulAcaraTV.setText(judulAcara);
-//                    judulAcaraTV.setLayoutParams(paramsJarakIDLiturgiDenganIsi);
-//                    judulAcaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
-//                    subRowLayout.addView(judulAcaraTV);
-//                    rowLayout.addView(subRowLayout);
-//                    colLayout.addView(rowLayout);
 
                     for(int j = 0; j < jsonArr.length(); j++) {
                         keterangan = jsonArr.getJSONObject(j).getString("keterangan");
                         idSubAcara = jsonArr.getJSONObject(j).getString("idsubacara");
                         subAcara = jsonArr.getJSONObject(j).getString("subacara");
 
-                        if (keterangan!=null && keterangan!="null" && idSubAcara!="null" && idSubAcara!=null && subAcara!=null && subAcara!="null") {
+                        if (keterangan != null && keterangan != "null" && idSubAcara != "null" && idSubAcara != null && subAcara != null && subAcara != "null") {
                             TR = new TableRow(getActivity());
                             TR.setLayoutParams(tableParams);
 
                             // Masukkan ke cell tabel
-                            IsiTabel(""); // utk tambal kolom pertama
+                            IsiTabel(""); // Untuk kolom pertama
                             IsiTabel(idSubAcara + ". " + subAcara);
                             IsiTabel(keterangan);
                             myTableLayout.addView(TR, tableParams);
                         }
-
-//                        // Add textView idSubAcaraTV
-//                        rowLayout = new LinearLayout(getActivity());
-//                        subRowLayout = new LinearLayout(getActivity());
-//                        idSubAcaraTV = new TextView(getActivity());
-//                        idSubAcaraTV.setText(idSubAcara);
-//                        idSubAcaraTV.setLayoutParams(paramsJarakAntarIsi);
-//                        idSubAcaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
-//                        subRowLayout.addView(idSubAcaraTV);
-//                        rowLayout.addView(subRowLayout);
-//
-//                        // Add textView subAcaraTV
-//                        subRowLayout = new LinearLayout(getActivity());
-//                        subAcaraTV = new TextView(getActivity());
-//                        subAcaraTV.setText(subAcara);
-//                        subAcaraTV.setLayoutParams(paramsJarakAntarKolom);
-//                        subAcaraTV.setTextColor(getResources().getColor(R.color.defaultFont));
-//                        subRowLayout.addView(subAcaraTV);
-//                        rowLayout.addView(subRowLayout);
-//
-//                        // Add textView keteranganTV
-//                        subRowLayout = new LinearLayout(getActivity());
-//                        keteranganTV = new TextView(getActivity());
-//                        keteranganTV.setText(keterangan);
-//                        keteranganTV.setLayoutParams(paramsJarakAntarKolom);
-//                        keteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
-//                        subRowLayout.addView(keteranganTV);
-//                        rowLayout.addView(subRowLayout);
-//                        colLayout.addView(rowLayout);
-
-//                        myLinearLayout.addView(colLayout);
-//                        rowLayout = new LinearLayout(getActivity());
-//                        subRowLayout = new LinearLayout(getActivity());
-//                        colLayout = new LinearLayout(getActivity());
-//                        colLayout.setOrientation(LinearLayout.VERTICAL);
-
-//                        if (j != jsonArr.length()) {
-//                            rowLayout.addView(colLayout);
-//                            myLinearLayout.addView(rowLayout);
-//                            rowLayout = new LinearLayout(getActivity());
-//                            colLayout = new LinearLayout(getActivity());
-//                            colLayout.setOrientation(LinearLayout.VERTICAL);
-//                            subRowLayout = new LinearLayout(getActivity());
-//                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-//                myLinearLayout.addView(colLayout);
-//                rowLayout = new LinearLayout(getActivity());
-//                subRowLayout = new LinearLayout(getActivity());
-//                colLayout = new LinearLayout(getActivity());
-//                colLayout.setOrientation(LinearLayout.VERTICAL);
-//
-//                if (i != dataLength) {
-//                    rowLayout.addView(colLayout);
-//                    myLinearLayout.addView(rowLayout);
-//                    rowLayout = new LinearLayout(getActivity());
-//                    colLayout = new LinearLayout(getActivity());
-//                    colLayout.setOrientation(LinearLayout.VERTICAL);
-//                    subRowLayout = new LinearLayout(getActivity());
-//                }
             }
 
             if(isNetworkAvailable()) {
