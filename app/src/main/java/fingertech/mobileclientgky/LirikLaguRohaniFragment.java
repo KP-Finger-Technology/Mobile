@@ -304,7 +304,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     try {
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -479,7 +478,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
                     tmp.add(judul);
@@ -564,7 +562,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
             // Cari dari basis data LirikLaguRohani
             else {
-                Log.d("adaLirik", "generate dari DB");
                 Toast.makeText(getActivity(), "Lagu yang Anda cari: " + keyword + " digenerate dari DB", Toast.LENGTH_LONG).show();
 
                 // Generate konten LirikLaguRohani dalam loop for

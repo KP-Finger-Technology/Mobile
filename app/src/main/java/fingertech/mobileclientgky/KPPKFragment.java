@@ -333,7 +333,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
                     tmp.add(judul);
@@ -449,7 +448,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     try {
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

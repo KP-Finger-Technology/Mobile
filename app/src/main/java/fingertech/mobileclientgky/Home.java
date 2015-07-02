@@ -411,7 +411,6 @@ public class Home extends ActionBarActivity
             JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
 
             for ( int i = 0 ; i < arrKomisi.length(); i++){
-                Log.d("iterasi ke-" + i, "isi komisi:" + arrKomisi.get(i).toString());
                 ParsePush.unsubscribeInBackground(arrKomisi.get(i).toString().replace(" ","").replace("&",""), new SaveCallback() {
                     @Override
                     public void done(com.parse.ParseException e) {

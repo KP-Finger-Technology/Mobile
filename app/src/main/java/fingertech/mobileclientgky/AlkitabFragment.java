@@ -134,7 +134,6 @@ public class AlkitabFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_alkitab, container, false);
 
         DB = new DataBaseHelper(getActivity().getApplicationContext());
-        Log.d("Fro AlkitabFragment","Persiapan buka database..");
         DB.openDataBase();
         generateBtnKitab(0,"");
 

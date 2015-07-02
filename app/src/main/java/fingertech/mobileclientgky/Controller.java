@@ -108,7 +108,6 @@ public class Controller {
         });
 
         try {
-            Log.d("Controller ", "masuk try");
             GMailSender sender = new GMailSender("parkmonitoringsystem@gmail.com", "pplhawai");
             sender.sendMail("Permohonan Doa",
                     "Dari: " + nama + " dengan umur " + umur + " dan jenis kelamin " + jk + " tahun" + "\nEmail: " + email + "\nTelepon: " + tlp + "\nIsi doa: " + isiDoa,
@@ -159,7 +158,6 @@ public class Controller {
     public void login (final String email, final String password ) {
         Writer w = new Writer();
         w.execute(url + "login.php?email=" + email + "&password=" + password);
-        Log.d("url login", url + "login.php?email=" + email + "&password=" + password);
     }
 
     // Untuk mengecek apakah ada koneksi internet
@@ -193,11 +191,8 @@ public class Controller {
         protected void onPostExecute(Long result) {
             try {
                 for (int i = 0; i < 2; i++) {
-                    Log.d("Process", "Parsing json");
                     JSONObject judulobj = arr.getJSONObject(i);
-                    Log.d("JSONObject",arr.getJSONObject(i).toString());
                     String judulx = judulobj.getString("judul");
-                    Log.d("Judulx", judulx);
                     // Use the same for remaining values
                 }
             } catch (JSONException e) {
@@ -327,10 +322,8 @@ public class Controller {
                         smn.createLoginSession(nama, pass, id, email, alamat, telepon, idbaptis, tgllahir, komisi, pelayanan, namakomisi);
                         try {
                             JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
-                            Log.d("komisi", arrKomisi.toString());
 
                             for (int i = 0; i < arrKomisi.length(); i++) {
-                                Log.d("iterasi ke-" + i, "isi komisi:" + arrKomisi.get(i).toString());
                                 ParsePush.subscribeInBackground(arrKomisi.get(i).toString().replace(" ", "").replace("&", ""), new SaveCallback() {
                                     @Override
                                     public void done(com.parse.ParseException e) {

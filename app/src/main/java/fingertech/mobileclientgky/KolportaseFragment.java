@@ -497,7 +497,6 @@ public class KolportaseFragment extends Fragment {
                     try {
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -556,7 +555,6 @@ public class KolportaseFragment extends Fragment {
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judulbuku");
                     pengarang = jsonobj.getString("pengarang");
                     keterangan = jsonobj.getString("keterangan");

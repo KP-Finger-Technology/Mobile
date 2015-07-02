@@ -265,7 +265,6 @@ public class LiturgiMingguanFragment extends Fragment {
                     try {
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

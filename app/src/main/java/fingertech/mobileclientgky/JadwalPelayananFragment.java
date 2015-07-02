@@ -284,7 +284,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject",arr.getJSONObject(i).toString());
                     jenisPelayanan = jsonobj.getString("jenispelayanan");
                     JSONArray jsonArr = jsonobj.getJSONArray("atribut");
 

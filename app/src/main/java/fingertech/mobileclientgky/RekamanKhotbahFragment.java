@@ -208,8 +208,6 @@ public class RekamanKhotbahFragment extends Fragment {
                     try {
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -269,7 +267,6 @@ public class RekamanKhotbahFragment extends Fragment {
                 judul = "";
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
                     tanggal = jsonobj.getString("tanggal");
@@ -408,9 +405,7 @@ public class RekamanKhotbahFragment extends Fragment {
                     try {
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
-
-                    } catch (JSONException e) {
+					} catch (JSONException e) {
                         e.printStackTrace();
                     }
 
@@ -471,7 +466,6 @@ public class RekamanKhotbahFragment extends Fragment {
                 judul = "";
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     isi = jsonobj.getString("isi");
                     tanggal = jsonobj.getString("tanggal");

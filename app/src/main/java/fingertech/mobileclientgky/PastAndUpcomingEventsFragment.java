@@ -619,7 +619,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     try {
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -655,7 +654,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject",arr.getJSONObject(i).toString());
                     judul = jsonobj.getString("judul");
                     tanggal = jsonobj.getString("tanggal");
                     keterangan = jsonobj.getString("keterangan");
