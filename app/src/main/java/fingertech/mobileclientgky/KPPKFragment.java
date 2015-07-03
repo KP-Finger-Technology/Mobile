@@ -133,10 +133,10 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             containerString = kppkSaved;
 
         myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
+        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
         // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
         params.setMargins(0, 0, 0, 10);
 
         int dataLength = containerString.size();
@@ -359,9 +359,10 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             }
 
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
             // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 0, 0, 10);
 
             int dataLength = arr.length();
@@ -385,7 +386,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
                 container = "KPPK " + Integer.toString(i + 1) + " - " + judul;
 
-                // Add Button Judul KPPk
+                // Add Button Judul KPPK
                 ListKPPK = new Button(getActivity());
                 ListKPPK.setText(container);
                 ListKPPK.setLayoutParams(params);
@@ -501,10 +502,10 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             }
 
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_kppk);
+            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            myLinearLayout.setOrientation(LinearLayout.VERTICAL);
             params.setMargins(0, 0, 0, 10);
 
             int dataLength = arr.length();
@@ -526,7 +527,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
                     container = "KPPK " + Integer.toString(i + 1) + " - " + judul;
 
-                    // Add Button Judul KPPk
+                    // Add Button Judul KPPK
                     ListKPPK = new Button(getActivity());
                     ListKPPK.setText(container);
                     ListKPPK.setLayoutParams(params);

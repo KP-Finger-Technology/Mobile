@@ -71,7 +71,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private TextView TitleKeteranganTV;
     private TextView IsiKeteranganTV;
     private Button SelengkapnyaBtn;
-    private LinearLayout.LayoutParams params;
     private LinearLayout.LayoutParams paramsJarakAntarEvent;
     private LinearLayout.LayoutParams paramsJarakAntarIsi;
     private LinearLayout.LayoutParams paramsJarakIsiDenganButton;
@@ -650,7 +649,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
             String judul = null, tanggal = null, keterangan = null, linkGambar = null;
 
             // Generate konten Event dalam loop for
-            for (int i=0; i<dataLength; i++){
+            for (int i = 0; i < dataLength; i++){
                 JSONObject jsonobj = null;
                 try {
                     jsonobj = arr.getJSONObject(i);

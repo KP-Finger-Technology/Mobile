@@ -205,6 +205,7 @@ public class LiturgiMingguanFragment extends Fragment {
 
         int dataLength = json_arr.length();
         String idLiturgi = null, judulAcara = null, subAcara = null, keterangan = null, idSubAcara = null;
+
         // Generate konten Liturgi Mingguan dalam loop for
         for (int i = 0; i < dataLength; i++) {
             JSONObject jsonobj = null;
