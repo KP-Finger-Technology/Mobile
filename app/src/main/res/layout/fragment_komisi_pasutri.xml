@@ -44,11 +44,19 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:background="@drawable/komisi"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/container_komisiPasutri_image">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginBottom="20dp"
+                            android:id="@+id/image_komisiPasutri"/>
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -57,7 +65,7 @@
                         android:text="@string/komisiPasutri_textParagraf1"
                         android:id="@+id/komisiPasutri_textParagraf1"/>
 
-                    <TextView
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -87,10 +95,19 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/komisiPasutri_textDetailPembina"
-                        android:id="@+id/komisiPasutri_textDetailPembina"/>
+                        android:id="@+id/komisiPasutri_textDetailPembina"/>-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/container_komisiPasutri"
+                        android:layout_marginTop="5dp"/>
 
                 </LinearLayout>
+
             </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>

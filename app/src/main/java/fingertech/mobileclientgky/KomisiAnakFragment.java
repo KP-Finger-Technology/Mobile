@@ -213,8 +213,9 @@ public class KomisiAnakFragment extends Fragment {
     private void createTitleTable(String text) {
         TextView TV = new TextView(getActivity());
         TV.setText(text);
+        TV.setTextColor(getResources().getColor(R.color.defaultFontColor));
         TV.setLayoutParams(params);
-//            TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerKomisiPelayanan);
+        TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerDefault);
         myLinearLayout.addView(TV);
     }
 
@@ -253,8 +254,8 @@ public class KomisiAnakFragment extends Fragment {
         }
 
         if (arrData != null) {
-            // antisipasi jika kode ini mau dipakai di berbagai komisi, ada komisi yg tidak ada JSON "data"
-            // Membuat Tabel
+            // Aantisipasi jika kode ini mau dipakai di berbagai komisi, ada komisi yang tidak ada JSON "data"
+            // Membuat tabel
             int dataLength = arrData.length();
             for (int i = 0; i < dataLength; i++) {
                 // Looping membuat 1 tabel
@@ -334,11 +335,8 @@ public class KomisiAnakFragment extends Fragment {
 
                     try {
                         JSONObject res = new JSONObject(result);
-                        arrIsi = res.getJSONArray("isikomisi");
-                        Log.d("Komisi anak isikomisi", arrIsi.toString());
-
                         arrData = res.getJSONArray("data");
-                        Log.d("Komisi anak data", arrData.toString());
+                        arrIsi = res.getJSONArray("isikomisi");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

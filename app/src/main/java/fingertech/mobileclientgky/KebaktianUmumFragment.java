@@ -128,7 +128,7 @@ public class KebaktianUmumFragment extends Fragment {
     private void fillTextViewHeader (String target) {
         TextView TV = new TextView(getActivity());
         TV.setText(target);
-        TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerKomisiPelayanan);
+        TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerDefault);
         TV.setLayoutParams(params);
         myLinearLayout.addView(TV);
     }
