@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,11 +23,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 
 /**
@@ -134,7 +130,7 @@ public class KebaktianDoaFragment extends Fragment {
     private void fillTextViewHeader (String target) {
         TextView TV = new TextView(getActivity());
         TV.setText(target);
-        TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerKomisiPelayanan);
+        TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerDefault);
         TV.setLayoutParams(params);
         myLinearLayout.addView(TV);
     }
@@ -211,7 +207,7 @@ public class KebaktianDoaFragment extends Fragment {
 
             String result = "";
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url + "view_pelayanan.php?id="+idKebaktianDoa);
+            HttpGet request = new HttpGet(Controller.url + "view_pelayanan.php?id=" + idKebaktianDoa);
             HttpResponse response;
 
             try {
