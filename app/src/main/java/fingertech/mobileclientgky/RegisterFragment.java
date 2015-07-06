@@ -548,6 +548,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         namaPelayanan = jsonArr.getJSONObject(j).getString("jenispelayanan");
                         waktuMulai = jsonArr.getJSONObject(j).getString("waktumulai");
                         waktuSelesai = jsonArr.getJSONObject(j).getString("waktuselesai");
+                        int idPelayanan = jsonArr.getJSONObject(j).getInt("idpelayanan");
 //                        idPelayanan = jsonArr.getJSONObject(j).getInt("idpelayanan");
 
                         Log.d("nama pelayanan"+namaPelayanan,"..");
@@ -563,7 +564,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                             pelayanan.setId(idViewPelayanan);
                             pelayanan.setEnabled(false);
                             idViewPelayanan--;
-                            final int idx_pelayanan_tmp = idx_pelayanan;
+//                            final int idx_pelayanan_tmp = idx_pelayanan;
+                            final int idx_pelayanan_tmp = idPelayanan-1;
 
                             // Set listener pada setiap checkbox
                             final String finalNamaPelayanan = namaPelayanan;
@@ -571,7 +573,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                                 @Override
                                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (finalNamaPelayanan != "null")
-                                    checkedPelayanan[idx_pelayanan_tmp] = komisi.isChecked();
+                                    checkedPelayanan[idx_pelayanan_tmp] = pelayanan.isChecked();
 //                                Log.d("from register-> checkedPelayanan["+Integer.toString(finalI)+"] = "+Boolean.toString(checkedKomisi[finalI]),"..");
                                 }
                             });

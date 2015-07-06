@@ -81,7 +81,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
     private LinearLayout rowLayout;
     private LinearLayout colLayout;
     private LinearLayout subRowLayout;
-//    ProgressBar pb;
+    ProgressBar pb;
 
     public static PastAndUpcomingEventsFragment newInstance(String param1, String param2) {
         PastAndUpcomingEventsFragment fragment = new PastAndUpcomingEventsFragment();
@@ -125,7 +125,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 generateKontenEvent();
                 addItemsOnSpinner();
             } else {
-                Viewer v = new Viewer();
+                Viewer v = new Viewer(pb);
                 v.execute();
             }
         }
@@ -148,7 +148,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         sv = (SearchView) rootView.findViewById(R.id.pastupcoming_searchView);
         cll = (LinearLayout) rootView.findViewById(R.id.container_pastupcoming);
-//        pb = (ProgressBar) rootView.findViewById(R.id.pbDefault);
+        pb = (ProgressBar) rootView.findViewById(R.id.pbDefault);
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -421,43 +421,46 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         });
     }
 
-    class Viewer extends AsyncTask<String, String, String> {
+    class Viewer extends AsyncTask<String, Integer, String> {
 
         JSONArray arr = new JSONArray();
 
 //        ProgressDialog progressDialog;
-//        ProgressBar progressBar;
+        ProgressBar progressBar;
 
         public JSONArray getArr() {
             return arr;
         }
 
-//        public Viewer(ProgressBar pb){
-//            progressBar = pb;
-//        }
+        public Viewer(ProgressBar pb){
+            progressBar = pb;
+        }
 
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
-//            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
 //            progressDialog = ProgressDialog.show(getActivity(),"Wait","Downloading..");
+
         };
 
         @Override
-        protected void onProgressUpdate(String... progress) {
+        protected void onProgressUpdate(Integer... progress) {
 
-//            super.onProgressUpdate(String.valueOf(progress[0]));
-//            if (this.progressBar != null) {
-//                progressBar.setProgress(Integer.parseInt(progress[0]));
-//            }
-//            progressBar.setProgress(Integer.parseInt(progress[0]));
+            super.onProgressUpdate(progress[0]);
+            if (this.progressBar != null) {
+                progressBar.setProgress(progress[0]);
+            }
+            progressBar.setProgress(progress[0]);
         }
 
         @Override
         protected String doInBackground(String... params) {
+
+            String result = "";
             if (isNetworkAvailable()) {
-                String result = "";
+
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet(Controller.url + "view_event.php");
                 HttpResponse response;
@@ -492,7 +495,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 });
             }
 
-            return "";
+            return result;
         }
 
         private int isExistContainerKomisiEvent(String _namaKomisi){
@@ -513,6 +516,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+//            progressBar.setVisibility(View.INVISIBLE);
+
             if (arr.length() == 0 && isNetworkAvailable()){
                 Toast.makeText(getActivity().getApplicationContext(), "Tidak ada event", Toast.LENGTH_SHORT).show();
             }
