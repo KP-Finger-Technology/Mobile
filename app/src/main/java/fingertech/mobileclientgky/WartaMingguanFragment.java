@@ -283,6 +283,7 @@ public class WartaMingguanFragment extends Fragment {
 
     class Viewer extends AsyncTask<String, String, String> {
         JSONObject obj = new JSONObject();
+        boolean isStatusOK;
 
         public JSONObject getObj() {
             return obj;
@@ -314,6 +315,14 @@ public class WartaMingguanFragment extends Fragment {
                         // Data
                         JSONObject res = new JSONObject(result);
                         obj = res.getJSONObject("data");
+
+                        // Cek Status
+                        String statusString = res.getString("status");
+                        if (statusString.equals("ok"))
+                            isStatusOK = true;
+                        else
+                            isStatusOK = false;
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -337,20 +346,23 @@ public class WartaMingguanFragment extends Fragment {
             if (obj.length() == 0 && isNetworkAvailable()){
                 Toast.makeText(getActivity().getApplicationContext(), "Tidak ada warta mingguan", Toast.LENGTH_SHORT).show();
             }
-            wartaSaved = new ArrayList<JSONArray>();
+            if (isStatusOK) {
+                wartaSaved = new ArrayList<JSONArray>();
 
-            JSONArray jadwal = new JSONArray();
-            JSONArray warta = new JSONArray();
-            try {
-                jadwal = obj.getJSONArray("jadwal");
-                wartaSaved.add(jadwal);
-                warta = obj.getJSONArray("warta");
-                wartaSaved.add(warta);
+                JSONArray jadwal = new JSONArray();
+                JSONArray warta = new JSONArray();
+                try {
+                    jadwal = obj.getJSONArray("jadwal");
+                    wartaSaved.add(jadwal);
+                    warta = obj.getJSONArray("warta");
+                    wartaSaved.add(warta);
+                } catch (JSONException e) {
+                    Log.e("Warta Mingguan:", e.getMessage());
+                }
+                generateKontenWarta(jadwal, warta);
             }
-            catch (JSONException e) {
-                Log.e("Warta Mingguan:", e.getMessage());
-            }
-            generateKontenWarta(jadwal, warta);
+            else
+                Toast.makeText(getActivity(), "Ada kesalahan pada koneksi internet atau kesalahan pada server, silahkan coba lagi", Toast.LENGTH_SHORT).show();
         }
     }
 }

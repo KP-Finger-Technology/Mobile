@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -190,6 +191,7 @@ public class KebaktianDoaFragment extends Fragment {
     class Viewer extends AsyncTask<String, String, String> {
         JSONArray arr = new JSONArray();
         String idKebaktianDoa = "2";
+        boolean isStatusOK;
 
         ProgressDialog progressDialog;
 
@@ -226,6 +228,13 @@ public class KebaktianDoaFragment extends Fragment {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
+
+                    // Cek Status
+                    String statusString = res.getString("status");
+                    if (statusString.equals("ok"))
+                        isStatusOK = true;
+                    else
+                        isStatusOK = false;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -238,9 +247,13 @@ public class KebaktianDoaFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             progressDialog.dismiss();
-            kebaktianDoaSaved = new JSONArray();
-            kebaktianDoaSaved = arr;
-            generateKontenUI(arr);
+            if (isStatusOK) {
+                kebaktianDoaSaved = new JSONArray();
+                kebaktianDoaSaved = arr;
+                generateKontenUI(arr);
+            }
+            else
+                Toast.makeText(getActivity(), "Ada kesalahan pada koneksi internet atau kesalahan pada server, silahkan coba lagi", Toast.LENGTH_SHORT).show();
         }
     }
 }
