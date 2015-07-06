@@ -86,36 +86,9 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        Log.d("from renungan, year-month-day:"+Integer.toString(year)+"-"+Integer.toString(month+1)+"-"+Integer.toString(day),"..");
-        now = Integer.toString(year)+"-"+Integer.toString(month+1)+"-"+Integer.toString(day);
+        now = Integer.toString(year) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(day);
         Viewer v = new Viewer();
         v.execute();
-    }
-
-    public void generateRenunganContent() {
-        // Add LinearLayout
-        myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
-
-        // Add LayoutParams
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0,0,0,30);
-        myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        // Isi Ayat
-        String IsiAyat = "Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal. - Yohanes 3:16";
-        TextView ayatRenungan = new TextView(getActivity());
-        ayatRenungan.setText(IsiAyat);
-        ayatRenungan.setLayoutParams(params);
-        ayatRenungan.setGravity(1);
-        myLinearLayout.addView(ayatRenungan);
-
-        // Isi Renungan
-        String IsiRenungan = "ROMA sedang berada di puncak kejayaannya pada abad pertama M. Kekuatan legiun-legiun Romawi memungkinkan kota itu mengendalikan sebagian besar dunia yang dikenal kala itu. Seorang sejarawan melukiskan bala tentara ini sebagai organisasi militer yang paling sukses sepanjang sejarah. Bala tentara profesional Romawi terdiri dari para prajurit berdisiplin tinggi yang menjalani pelatihan yang berat, tetapi keberhasilan mereka sebagai mesin perang yang efektif juga bergantung pada perlengkapan senjata mereka. Rasul Paulus menggunakan perlengkapan senjata prajurit Romawi untuk menggambarkan perlengkapan rohani yang dibutuhkan orang Kristen agar berhasil dalam perang melawan Iblis.\n Kita membaca uraian perlengkapan senjata rohani ini di Efesus 6:14-17. Paulus menulis, Berdirilah teguh, dengan pinggangmu berikatkan kebenaran, dan mengenakan pelindung dada keadilbenaran, dan kakimu berkasutkan kabar baik tentang perdamaian. Di atas segala hal, ambillah perisai besar iman, yang dengannya kamu akan sanggup memadamkan semua senjata lempar yang berapi dari si fasik. Juga, terimalah ketopong keselamatan, dan pedang roh, yaitu firman Allah. Dari sudut pandang manusia, perlengkapan senjata yang diuraikan Paulus bisa melindungi seorang prajurit Romawi dengan sangat baik. Selain itu, sang prajurit diperlengkapi pedang, senjata utamanya untuk pertarungan jarak dekat.";
-        TextView isiRenungan = new TextView(getActivity());
-        isiRenungan.setText(IsiRenungan);
-        isiRenungan.setLayoutParams(params);
-        isiRenungan.setGravity(0);
-        myLinearLayout.addView(isiRenungan);
     }
 
     private Button setDateBtn;
@@ -131,7 +104,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         setDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getActivity(), "clicking submit datepicker..", Toast.LENGTH_LONG).show();
                 myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_renunganGema);
                 myLinearLayout.removeAllViews();
                 Viewer newViewer = new Viewer();
@@ -152,12 +124,9 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         getActivity().showDialog(999);
-        Toast.makeText(getActivity().getApplicationContext(), "ca", Toast.LENGTH_SHORT)
-                .show();
     }
 
     protected Dialog onCreateDialog(int id) {
-        // TODO Auto-generated method stub
         if (id == 999) {
             return new DatePickerDialog(getActivity(), myDateListener, year, month, day);
         }
@@ -176,7 +145,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
                 .append(month).append("/").append(year));
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -230,9 +198,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
@@ -243,7 +209,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
                 HttpClient client = new DefaultHttpClient();
 
-                HttpGet request = new HttpGet(Controller.url + "view_gema.php?Tanggal=" + now); // ngikutin ip disini loh
+                HttpGet request = new HttpGet(Controller.url + "view_gema.php?Tanggal=" + now);
                 HttpResponse response;
 
                 try {
@@ -257,12 +223,10 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
                     while ((line = rd.readLine()) != null) {
                         result += line;
                     }
-                    Log.d("Result", result);
 
                     try {
                         JSONObject res = new JSONObject(result);
                         arr = res.getJSONArray("data");
-                        Log.d("Array", arr.toString());
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -306,7 +270,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             JSONObject jsonobj = null;
             try {
                 jsonobj = arr.getJSONObject(0);
-                Log.d("JSONObject", arr.getJSONObject(0).toString());
                 judul = jsonobj.getString("judul");
                 IsiAyat = jsonobj.getString("firman");
                 IsiRenungan = jsonobj.getString("deskripsi");
@@ -317,16 +280,16 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             }
 
             // Add image View
-            ImageView GambarIV = new ImageView(getActivity());
+            ImageView gambarIV = new ImageView(getActivity());
 
             // Loading image from below url into imageView
             Picasso.with(getActivity())
                     .load(linkGambar)
                     .resize(image_width, image_height)
                     .centerCrop()
-                    .into(GambarIV);
-            GambarIV.setLayoutParams(params);
-            myLinearLayout.addView(GambarIV);
+                    .into(gambarIV);
+            gambarIV.setLayoutParams(params);
+            myLinearLayout.addView(gambarIV);
 
             TextView ayatRenungan = new TextView(getActivity());
             ayatRenungan.setText(IsiAyat);

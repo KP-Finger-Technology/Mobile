@@ -45,7 +45,7 @@ public class SessionManager {
     public static final String KEY_ID = "id";
 
     // Constructor
-    public SessionManager(Context context){
+    public SessionManager(Context context) {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
@@ -58,7 +58,7 @@ public class SessionManager {
         }
     }
 
-    public void createLoginSession(String name, String pass, String id, String email, String alamat, String telepon, String idbaptis, String tgllahir, String komisi, String pelayanan,String namakomisi){
+    public void createLoginSession(String name, String pass, String id, String email, String alamat, String telepon, String idbaptis, String tgllahir, String komisi, String pelayanan,String namakomisi) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -81,7 +81,7 @@ public class SessionManager {
         editor.commit();
     }
 
-    public void editLoginSession(String name, String email, String alamat, String telepon, String idbaptis, String komisi, String pelayanan){
+    public void editLoginSession(String name, String email, String alamat, String telepon, String idbaptis, String komisi, String pelayanan) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -101,7 +101,7 @@ public class SessionManager {
     /**
      * Get stored session data
      * */
-    public HashMap<String, String> getUserDetails(){
+    public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<String, String>();
         // User name
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
@@ -113,7 +113,7 @@ public class SessionManager {
         return user;
     }
 
-    public void logoutUser(){
+    public void logoutUser() {
         // Clearing all data from Shared Preferences
         editor.clear();editor.commit();
     }

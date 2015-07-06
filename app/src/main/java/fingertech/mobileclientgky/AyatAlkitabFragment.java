@@ -52,7 +52,6 @@ public class AyatAlkitabFragment extends Fragment {
         this.kitab = _kitab;
         this.pasal = _pasal;
         this.ayat = _ayat;
-        Log.d("AyatAlkitab", Integer.toString(_ayat));
     }
 
     @Override

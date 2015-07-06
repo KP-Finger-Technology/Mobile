@@ -44,11 +44,25 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:background="@drawable/komisi"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/container_kebaktianUmum_Image">
+
+                        <!--<ImageView-->
+                        <!--android:background="@drawable/komisi"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="100dp"-->
+                        <!--android:layout_marginBottom="20dp"/>-->
+                        <ImageView
+                            android:id="@+id/image_kebaktianUmum"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginBottom="20dp"/>
+
+                    </LinearLayout>
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -57,37 +71,46 @@
                         android:text="@string/kebaktianUmum_textParagraf1"
                         android:id="@+id/kebaktianUmum_textParagraf1"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kebaktianUmum_textJadwal1"
-                        android:id="@+id/kebaktianUmum_textJadwal1"
-                        android:layout_marginTop="20dp"
-                        android:textStyle="bold"/>
+                        android:orientation="vertical"
+                        android:id="@+id/container_kebaktianUmum"
+                        android:layout_marginBottom="5dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kebaktianUmum_textDetailJadwal1"
-                        android:id="@+id/kebaktianUmum_textDetailJadwal1"/>
+                    </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kebaktianUmum_textJadwal2"
-                        android:id="@+id/kebaktianUmum_textJadwal2"
-                        android:layout_marginTop="5dp"
-                        android:textStyle="bold"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                        <!--android:text="@string/kebaktianUmum_textJadwal1"-->
+                        <!--android:id="@+id/kebaktianUmum_textJadwal1"-->
+                        <!--android:layout_marginTop="20dp"-->
+                        <!--android:textStyle="bold"/>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/kebaktianUmum_textDetailJadwal2"
-                        android:id="@+id/kebaktianUmum_textDetailJadwal2"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                        <!--android:text="@string/kebaktianUmum_textDetailJadwal1"-->
+                        <!--android:id="@+id/kebaktianUmum_textDetailJadwal1"/>-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                        <!--android:text="@string/kebaktianUmum_textJadwal2"-->
+                        <!--android:id="@+id/kebaktianUmum_textJadwal2"-->
+                        <!--android:layout_marginTop="5dp"-->
+                        <!--android:textStyle="bold"/>-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                        <!--android:text="@string/kebaktianUmum_textDetailJadwal2"-->
+                        <!--android:id="@+id/kebaktianUmum_textDetailJadwal2"/>-->
 
                 </LinearLayout>
             </ScrollView>

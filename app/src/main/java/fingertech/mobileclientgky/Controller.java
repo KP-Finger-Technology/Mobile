@@ -42,9 +42,11 @@ import javax.mail.MessagingException;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-    public static final String url = "http://192.168.0.111/gky_web_service/";
-    public static final String urlgambar = "http://192.168.0.111/gereja/assets/images/";
-    public static final String urlaudio = "http://192.168.0.111/gereja/video/";
+
+    public static final String basicurl = "http://192.168.0.107/";
+    public static final String url = basicurl + "gky_web_service/";
+    public static final String urlgambar = basicurl + "gereja/assets/images/";
+    public static final String urlaudio = basicurl + "gereja/video/";
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;
@@ -66,8 +68,7 @@ public class Controller {
     public boolean isArrEmpty(){
         if(arrData.length()==0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -80,13 +81,13 @@ public class Controller {
             @Override
             public void run() {
                 v.execute(url + "view_event.php");
-                while(isArrEmpty()){}
+                while(isArrEmpty()) {}
             }
         });
         return true;
     }
 
-    public boolean viewJadwalPelayanan(){
+    public boolean viewJadwalPelayanan() {
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             Viewer v = new Viewer();
@@ -99,57 +100,38 @@ public class Controller {
         return true;
     }
 
-    public void addDoa(final String nama, final int umur, final String email , final String tlp , final String jk , final String isiDoa){
+    public void addDoa(final String nama, final int umur, final String email , final String tlp , final String jk , final String isiDoa) {
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
                 new Writer().execute(url + "add_doa.php?nama=" + nama + "&umur=" + umur + "&email=" + email + "&nomortelepon=" + tlp + "&jeniskelamin=" + jk + "&doa=" + isiDoa);
-                Log.d("URL", url + "add_doa.php?nama=" + nama + "&umur=" + umur + "&email=" + email + "&nomortelepon=" + tlp + "&jeniskelamin=" + jk + "&doa=" + isiDoa);
             }
         });
 
-        // Mengirimkan isi form kepada email.
-        /*Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"williamstefanh@yahoo.com"});
-        i.putExtra(Intent.EXTRA_SUBJECT, "Permohonan Doa");
-        i.putExtra(Intent.EXTRA_TEXT   , "body of email");
         try {
-            context.startActivity(i);
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-        }*/
-
-        Log.d("Controller ", "sebelum masuk try");
-        try {
-            Log.d("Controller ", "masuk try");
             GMailSender sender = new GMailSender("parkmonitoringsystem@gmail.com", "pplhawai");
             sender.sendMail("Permohonan Doa",
                     "Dari: " + nama + " dengan umur " + umur + " dan jenis kelamin " + jk + " tahun" + "\nEmail: " + email + "\nTelepon: " + tlp + "\nIsi doa: " + isiDoa,
                     "parkmonitoringsystem@gmail.com",
                     "williamstefanh@yahoo.com");
-            Log.d("Controller ", "selesai try");
         } catch (Exception e) {
             Log.e("SendMail", e.getMessage(), e);
-            Log.d("Controller ", "masuk catch");
         }
-        Log.d("Controller ", "keluar try & catch");
     }
 
-    public void register(final String nama, final String password ,final String email , final String tlp , final String alamat , final String tgllahir, final String idbaptis, final String komisi ,final String pelayanan ){
+    public void register(final String nama, final String password ,final String email , final String tlp , final String alamat , final String tgllahir, final String idbaptis, final String komisi ,final String pelayanan ) {
         // Post to server
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
                 new Writer().execute(url + "register.php?nama=" + nama + "&pass=" + password + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&tgl=" + tgllahir);
-                Log.d("url", url + "register.php?nama=" + nama + "&pass=" + password + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&tgl=" + tgllahir);
             }
         });
     }
 
-    public void editprofil(final String nama, final String email , final String tlp , final String alamat ,final String idbaptis, final String komisi ,final String pelayanan ){
+    public void editprofil(final String nama, final String email , final String tlp , final String alamat ,final String idbaptis, final String komisi ,final String pelayanan ) {
         // Post to server
         SessionManager sm = new SessionManager(context);
         final String id = sm.pref.getAll().get("id").toString();
@@ -163,7 +145,7 @@ public class Controller {
         });
     }
 
-    public void editPass(final String pass){
+    public void editPass(final String pass) {
         // Post to server
         SessionManager sm = new SessionManager(context);
         final String id = sm.pref.getAll().get("id").toString();
@@ -176,10 +158,9 @@ public class Controller {
         });
     }
 
-    public void login (final String email, final String password ){
+    public void login (final String email, final String password ) {
         Writer w = new Writer();
         w.execute(url + "login.php?email=" + email + "&password=" + password);
-        Log.d("url login", url + "login.php?email=" + email + "&password=" + password);
     }
 
     // Untuk mengecek apakah ada koneksi internet
@@ -213,11 +194,8 @@ public class Controller {
         protected void onPostExecute(Long result) {
             try {
                 for (int i = 0; i < 2; i++) {
-                    Log.d("Process", "Parsing json");
                     JSONObject judulobj = arr.getJSONObject(i);
-                    Log.d("JSONObject",arr.getJSONObject(i).toString());
                     String judulx = judulobj.getString("judul");
-                    Log.d("Judulx", judulx);
                     // Use the same for remaining values
                 }
             } catch (JSONException e) {
@@ -339,7 +317,6 @@ public class Controller {
                         komisi = result.getString("komisi");
                         pelayanan = result.getString("pelayanan");
                         namakomisi = result.getString("namakomisi");
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -348,10 +325,8 @@ public class Controller {
                         smn.createLoginSession(nama, pass, id, email, alamat, telepon, idbaptis, tgllahir, komisi, pelayanan, namakomisi);
                         try {
                             JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
-                            Log.d("komisi", arrKomisi.toString());
 
                             for (int i = 0; i < arrKomisi.length(); i++) {
-                                Log.d("iterasi ke-" + i, "isi komisi:" + arrKomisi.get(i).toString());
                                 ParsePush.subscribeInBackground(arrKomisi.get(i).toString().replace(" ", "").replace("&", ""), new SaveCallback() {
                                     @Override
                                     public void done(com.parse.ParseException e) {
@@ -406,38 +381,4 @@ public class Controller {
             return sb.toString();
         }
     }
-
-    /*class SendEmailAsyncTask extends AsyncTask <Void, Void, Boolean> {
-        GMailSender m = new GMailSender("parkmonitoringsystem@gmail.com", "pplhawai");
-
-        public SendEmailAsyncTask() {
-            if (BuildConfig.DEBUG)
-                Log.v(SendEmailAsyncTask.class.getName(), "SendEmailAsyncTask()");
-            String[] toArr = {"to mail@gmail.com"};
-            m.setTo(toArr);
-            m.setFrom("from mail@gmail.com");
-            m.setSubject("Email from Android");
-            m.setBody("body.");
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            if (BuildConfig.DEBUG) Log.v(SendEmailAsyncTask.class.getName(), "doInBackground()");
-            try {
-                m.send();
-                return true;
-            } catch (AuthenticationFailedException e) {
-                Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
-                e.printStackTrace();
-                return false;
-            } catch (MessagingException e) {
-                Log.e(SendEmailAsyncTask.class.getName(), m.getTo(null) + "failed");
-                e.printStackTrace();
-                return false;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-    }*/
 }

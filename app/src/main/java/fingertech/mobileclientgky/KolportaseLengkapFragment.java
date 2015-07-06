@@ -1,6 +1,5 @@
 package fingertech.mobileclientgky;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,12 +29,12 @@ public class KolportaseLengkapFragment extends Fragment {
     private View rootView;
 
     private ImageView GambarIV;
-    private TextView TitleBukuTV;
-    private TextView JudulBukuTV;
-    private TextView TitlePengarangTV;
-    private TextView JudulPengarangTV;
-    private TextView TitleKeteranganTV;
-    private TextView IsiKeteranganTV;
+    private TextView titleBukuTV;
+    private TextView judulBukuTV;
+    private TextView titlePengarangTV;
+    private TextView judulPengarangTV;
+    private TextView titleKeteranganTV;
+    private TextView isiKeteranganTV;
 
     // Untuk komponen-komponen
     private String judul = null, pengarang = null, keterangan = null, linkGambar = null;
@@ -118,7 +117,7 @@ public class KolportaseLengkapFragment extends Fragment {
         int image_width = display.getWidth()/3;
         int image_height = (int) (display.getHeight()/4.3);
 
-        int defaultColor = getResources().getColor(R.color.defaultFont);
+        int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
         // Add image View
         ImageView GambarIV = new ImageView(getActivity());
@@ -131,47 +130,47 @@ public class KolportaseLengkapFragment extends Fragment {
         GambarIV.setLayoutParams(params);
         rowLayout.addView(GambarIV);
 
-        // Add textView TitleBukuTV
-        TitleBukuTV = new TextView(getActivity());
-        TitleBukuTV.setText("Judul: ");
-        TitleBukuTV.setLayoutParams(params);
-        TitleBukuTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        subRowLayout.addView(TitleBukuTV);
+        // Add textView titleBukuTV
+        titleBukuTV = new TextView(getActivity());
+        titleBukuTV.setText("Judul: ");
+        titleBukuTV.setLayoutParams(params);
+        titleBukuTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        subRowLayout.addView(titleBukuTV);
 
-        // Add textView JudulBukuTV
-        JudulBukuTV = new TextView(getActivity());
-        JudulBukuTV.setText(judul);
-        JudulBukuTV.setLayoutParams(params);
-        subRowLayout.addView(JudulBukuTV);
+        // Add textView judulBukuTV
+        judulBukuTV = new TextView(getActivity());
+        judulBukuTV.setText(judul);
+        judulBukuTV.setLayoutParams(params);
+        subRowLayout.addView(judulBukuTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add textView TitlePengarangTV
-        TitlePengarangTV = new TextView(getActivity());
-        TitlePengarangTV.setText("Pengarang: ");
-        TitlePengarangTV.setLayoutParams(params);
-        TitlePengarangTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        subRowLayout.addView(TitlePengarangTV);
+        // Add textView titlePengarangTV
+        titlePengarangTV = new TextView(getActivity());
+        titlePengarangTV.setText("Pengarang: ");
+        titlePengarangTV.setLayoutParams(params);
+        titlePengarangTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        subRowLayout.addView(titlePengarangTV);
 
-        // Add textView JudulPengarangTV
-        JudulPengarangTV = new TextView(getActivity());
-        JudulPengarangTV.setText(pengarang);
-        JudulPengarangTV.setLayoutParams(params);
-        subRowLayout.addView(JudulPengarangTV);
+        // Add textView judulPengarangTV
+        judulPengarangTV = new TextView(getActivity());
+        judulPengarangTV.setText(pengarang);
+        judulPengarangTV.setLayoutParams(params);
+        subRowLayout.addView(judulPengarangTV);
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add textView TitleKeteranganTV
-        TitleKeteranganTV = new TextView(getActivity());
-        TitleKeteranganTV.setText("Keterangan: ");
-        TitleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFont));
-        TitleKeteranganTV.setLayoutParams(params);
-        subRowLayout.addView(TitleKeteranganTV);
+        // Add textView titleKeteranganTV
+        titleKeteranganTV = new TextView(getActivity());
+        titleKeteranganTV.setText("Keterangan: ");
+        titleKeteranganTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
+        titleKeteranganTV.setLayoutParams(params);
+        subRowLayout.addView(titleKeteranganTV);
 
-        // Add text View IsiKeteranganTV
-        IsiKeteranganTV = new TextView(getActivity());
-        IsiKeteranganTV.setText(keterangan);
-        IsiKeteranganTV.setLayoutParams(params);
+        // Add text View isiKeteranganTV
+        isiKeteranganTV = new TextView(getActivity());
+        isiKeteranganTV.setText(keterangan);
+        isiKeteranganTV.setLayoutParams(params);
         colLayout.addView(subRowLayout);
 
         rowLayout.addView(colLayout);

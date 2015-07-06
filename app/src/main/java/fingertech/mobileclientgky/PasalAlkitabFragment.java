@@ -69,10 +69,8 @@ public class PasalAlkitabFragment extends Fragment {
     private void generateBtnPasal(){
         // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_pasalAlkitab);
-        // Add LayoutParams
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        myLinearLayout.setPadding(0,0,0,10);
-//        myLinearLayout.setHorizontalGravity(LinearLayout.TEXT_ALIGNMENT_CENTER);
+        myLinearLayout.setPadding(0, 0, 0, 10);
         myLinearLayout.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
 
         int rightMargin = 5;
@@ -83,15 +81,12 @@ public class PasalAlkitabFragment extends Fragment {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int displayWidth = display.getWidth();
         int displayHeight = display.getHeight();
-        int sumPaddingDP = 35; // dalam satuan dp, didapat dari jumlah margin kiri&kanan dari fragment XML
+        int sumPaddingDP = 35; // Dalam satuan dp, didapat dari jumlah margin kiri & kanan dari fragment XML
         int sumPadding = (int) (sumPaddingDP * (metrics.xdpi / 160));
-//        int jumlahDraw = ((displayWidth-sumPadding-sumMargin)/btnWidth);
-        int jumlahDraw = 6;
+        int jumlahDraw = 5;
 
-//        int btnWidth = 150;
-//        int btnHeight = 100;
-        int btnWidth = (displayWidth-sumPadding-(rightMargin*jumlahDraw))/(jumlahDraw);
-        int btnHeight = (int) (btnWidth*0.65);
+        int btnWidth = (displayWidth - sumPadding - (rightMargin * jumlahDraw)) / (jumlahDraw);
+        int btnHeight = (int) (btnWidth * 0.65);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(btnWidth, btnHeight);
         params.setMargins(0, 0, rightMargin, 5);
 
@@ -108,12 +103,12 @@ public class PasalAlkitabFragment extends Fragment {
         // Tambah garis divider
         View divider = new View(getActivity());
         LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,5);
-        LP.setMargins(0,0,0,20);
+        LP.setMargins(0, 0, 0, 20);
         divider.setLayoutParams(LP);
         divider.setBackgroundColor(getResources().getColor(R.color.dividerLine));
         myLinearLayout.addView(divider);
 
-        // Tambah text view utk memberi penjelasan jika sedang berada di halaman pasal
+        // Tambah text view untuk memberi penjelasan jika sedang berada di halaman pasal
         TextView halPasal = new TextView(getActivity());
         halPasal.setTextAppearance(getActivity().getApplicationContext(), R.style.judulPasal);
         halPasal.setText("Pasal");
@@ -138,7 +133,7 @@ public class PasalAlkitabFragment extends Fragment {
             pasalBtn.setTextAppearance(getActivity().getApplicationContext(), R.style.pasalAyatButtonStyle);
             pasalBtn.setLayoutParams(params);
 
-            final int finalI = i+1;
+            final int finalI = i + 1;
             pasalBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -164,7 +159,7 @@ public class PasalAlkitabFragment extends Fragment {
                 colLayout.addView(rowLayout);
                 rowLayout = new LinearLayout(getActivity());
             }
-            if ((i==pasal-1) && (pasal > jumlahDraw)) {
+            if ((i == pasal - 1) && (pasal > jumlahDraw)) {
                 colLayout.addView(rowLayout);
                 rowLayout = new LinearLayout(getActivity());
             }

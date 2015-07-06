@@ -43,8 +43,7 @@ public class KatekisasiFragment extends Fragment {
         return fragment;
     }
 
-    public KatekisasiFragment() {
-    }
+    public KatekisasiFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

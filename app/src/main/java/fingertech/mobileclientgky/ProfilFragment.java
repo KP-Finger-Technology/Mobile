@@ -1,6 +1,5 @@
 package fingertech.mobileclientgky;
 
-
 import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -48,7 +47,6 @@ public class ProfilFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private View rootView;
-    private Button Button;
     private int pYear;
     private int pMonth;
     private int pDay;
@@ -203,9 +201,6 @@ public class ProfilFragment extends Fragment {
             SessionManager smn = new SessionManager(getActivity().getApplicationContext());
            smn.editLoginSession(namaET.getText().toString(),emailET.getText().toString(),alamatET.getText().toString(),teleponET.getText().toString(),idbaptisET.getText().toString(),komisiArr.toString(),pelayananArr.toString());
         Log.d("pelayananArr.tostring",pelayananArr.toString());
-
-
-
     }
 
     public void generateProfilContent(){
@@ -341,6 +336,7 @@ public class ProfilFragment extends Fragment {
             dateET.setText(Integer.toString(pDay) + "/" + bulan + "/" + Integer.toString(pYear));
         }
     }*/
+
     class Viewer extends AsyncTask<String, String, String> {
         private LinearLayout myLinearLayout;
         private LinearLayout.LayoutParams params;
@@ -435,9 +431,9 @@ public class ProfilFragment extends Fragment {
             SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
             String komisistring = sm.pref.getAll().get("komisi").toString();
-            Log.d("isi string komisi",komisistring);
+            Log.d("isi string komisi", komisistring);
             String pelayananstring = sm.pref.getAll().get("pelayanan").toString();
-            Log.d("isi string pelayanan",pelayananstring);
+            Log.d("isi string pelayanan", pelayananstring);
 
             JSONArray arrKomisi = null;
             JSONArray arrPelayanan = null;
@@ -549,9 +545,6 @@ public class ProfilFragment extends Fragment {
                         waktuMulai = jsonArr.getJSONObject(j).getString("waktumulai");
                         waktuSelesai = jsonArr.getJSONObject(j).getString("waktuselesai");
                         int idPelayanan = jsonArr.getJSONObject(j).getInt("idpelayanan");
-                        //dpt in id pelayanan dari json
-
-//                        idPelayanan = jsonArr.getJSONObject(j).getInt("idpelayanan");
 
                         namaPelayananArr.add(namaPelayanan);
                         jumPelayanan++;
@@ -586,7 +579,6 @@ public class ProfilFragment extends Fragment {
                                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                     if (finalNamaPelayanan != "null")
                                         checkedPelayanan[idx_pelayanan_tmp] = pelayanan.isChecked();
-//                                Log.d("from register-> checkedPelayanan["+Integer.toString(finalI)+"] = "+Boolean.toString(checkedKomisi[finalI]),"..");
                                 }
                             });
                             idx_pelayanan++;
@@ -602,7 +594,6 @@ public class ProfilFragment extends Fragment {
         }
     }
     private void unsubscribePush() {
-
         SessionManager smn = new SessionManager(getActivity().getApplicationContext());
         try {
             JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());

@@ -15,6 +15,10 @@ import java.io.OutputStream;
 import java.security.Security;
 import java.util.Properties;
 
+
+/**
+ * Created by William Stefan Hartono
+ */
 public class GMailSender extends javax.mail.Authenticator {
     private String mailhost = "smtp.gmail.com";
     private String user;
@@ -59,7 +63,7 @@ public class GMailSender extends javax.mail.Authenticator {
             else
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
             Transport.send(message);
-        }catch(Exception e){
+        } catch(Exception e){
 
         }
     }

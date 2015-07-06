@@ -56,11 +56,6 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
-    private ActionBar supportActionBar;
-
-    private Fragment frag;
-    private FragmentTransaction fragTransaction;
-    private FragmentManager fragManager;
 
     Controller cont = new Controller();
 
@@ -90,12 +85,6 @@ public class NavigationDrawerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
-    }
-
-    public void switchFragment() {
-        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag);
-        fragTransaction.addToBackStack(null);
-        fragTransaction.commit();
     }
 
     @Override
@@ -254,10 +243,6 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
-    }
-
-    public ActionBar getSupportActionBar() {
-        return supportActionBar;
     }
 
     /**

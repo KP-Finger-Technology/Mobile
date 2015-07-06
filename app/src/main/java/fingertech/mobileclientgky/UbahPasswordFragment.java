@@ -14,7 +14,7 @@ import android.widget.Toast;
 /**
  * Created by William Stefan Hartono
  */
-public class UbahPasswordFragment extends Fragment implements View.OnClickListener{
+public class UbahPasswordFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -82,7 +82,7 @@ public class UbahPasswordFragment extends Fragment implements View.OnClickListen
         public void onFragmentInteraction(Uri uri);
     }
 
-    public void ubahPassClicked(View v){
+    public void ubahPassClicked(View v) {
         EditText lamaET = (EditText) rootView.findViewById(R.id.ubahPassword_editPasswordLama);
         EditText baruET = (EditText) rootView.findViewById(R.id.ubahPassword_editPasswordBaru);
         EditText baruconET = (EditText) rootView.findViewById(R.id.ubahPassword_editKonfirmasiPasswordBaru);
@@ -90,19 +90,19 @@ public class UbahPasswordFragment extends Fragment implements View.OnClickListen
         SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
         String lama = lamaET.getText().toString();
-        if(lama.equals(sm.pref.getAll().get("pass").toString())){
+        if(lama.equals(sm.pref.getAll().get("pass").toString())) {
 
             String pass = baruET.getText().toString();
             String passcon = baruconET.getText().toString();
                 if (pass.equals(passcon)) {
                     Controller cont = new Controller(getActivity().getApplicationContext());
                     cont.editPass(pass);
-                }else{
-                    Toast.makeText(getActivity(), "Re-enter New Password", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "Masukkan lagi password baru Anda", Toast.LENGTH_LONG).show();
                 }
     
-            }else {
-                Toast.makeText(getActivity(), "Re-enter Old Password", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getActivity(), "Masukkan lagi password lama Anda", Toast.LENGTH_LONG).show();
             }
     }
 }
