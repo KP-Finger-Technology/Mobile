@@ -196,7 +196,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void searchKitab(String _kitab) {
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS_1 WHERE isi_books LIKE \"%"+_kitab+"%\"", null);
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS_1 WHERE isi_books LIKE \"%"+_kitab+"%\" ORDER BY keyid ASC", null);
         int colKitab = cursor.getColumnIndex("isi_books");
         int colPasal = cursor.getColumnIndex("pasal");
 

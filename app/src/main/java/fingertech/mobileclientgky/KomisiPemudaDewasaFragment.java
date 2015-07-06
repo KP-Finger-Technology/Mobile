@@ -47,6 +47,7 @@ public class KomisiPemudaDewasaFragment extends Fragment {
 
     // Untuk load ketika back
     private JSONArray komisiPemudaSaved;
+    private JSONArray arrIsiKomisiPemuda;
 
     public static KomisiPemudaDewasaFragment newInstance(String param1, String param2) {
         KomisiPemudaDewasaFragment fragment = new KomisiPemudaDewasaFragment();
@@ -58,6 +59,33 @@ public class KomisiPemudaDewasaFragment extends Fragment {
     }
 
     public KomisiPemudaDewasaFragment() {}
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putStringArrayList("kppkSaved",kppkSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Probably orientation change
+//            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
+        }
+        else {
+            if (arrIsiKomisiPemuda != null){
+                // Returning from backstack, data is fine, do nothing
+                generateKontenUI(arrIsiKomisiPemuda);
+            }
+            else {
+                // Newly created, compute data
+                Viewer v = new Viewer();
+                v.execute();
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +101,6 @@ public class KomisiPemudaDewasaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_komisi_pemuda_dewasa, container, false);
-        Viewer v = new Viewer();
-        v.execute();
 
         return rootView;
     }
@@ -221,6 +247,7 @@ public class KomisiPemudaDewasaFragment extends Fragment {
             progressDialog.dismiss();
             /*komisiPemudaSaved = new JSONArray();
             komisiPemudaSaved = arrData;*/
+            arrIsiKomisiPemuda = arrIsi;
             generateKontenUI(arrIsi);
         }
     }

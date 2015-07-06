@@ -279,6 +279,14 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
                 e.printStackTrace();
             }
 
+            // Judul renungan
+            TextView judulRenungan = new TextView(getActivity());
+            judulRenungan.setText(judul);
+            judulRenungan.setLayoutParams(params);
+            judulRenungan.setTextAppearance(getActivity().getApplicationContext(), R.style.headerDefault);
+            judulRenungan.setGravity(1);
+            myLinearLayout.addView(judulRenungan);
+
             // Add image View
             ImageView gambarIV = new ImageView(getActivity());
 
@@ -291,6 +299,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             gambarIV.setLayoutParams(params);
             myLinearLayout.addView(gambarIV);
 
+            // Ayat Renungan
             TextView ayatRenungan = new TextView(getActivity());
             ayatRenungan.setText(IsiAyat);
             ayatRenungan.setLayoutParams(params);

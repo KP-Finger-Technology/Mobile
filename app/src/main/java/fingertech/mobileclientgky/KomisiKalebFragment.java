@@ -47,7 +47,9 @@ public class KomisiKalebFragment extends Fragment {
     private LinearLayout.LayoutParams params;
 
     // Untuk load ketika back
-    private JSONArray komisiKalebSaved;
+//    private JSONArray komisiKalebSaved;
+    private JSONArray arrIsiKomisiKaleb;
+    private JSONArray arrDataKomisiKaleb;
 
     public static KomisiKalebFragment newInstance(String param1, String param2) {
         KomisiKalebFragment fragment = new KomisiKalebFragment();
@@ -59,6 +61,33 @@ public class KomisiKalebFragment extends Fragment {
     }
 
     public KomisiKalebFragment() {}
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putStringArrayList("kppkSaved",kppkSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Probably orientation change
+//            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
+        }
+        else {
+            if (arrIsiKomisiKaleb != null){
+                // Returning from backstack, data is fine, do nothing
+                generateKontenUI(arrIsiKomisiKaleb, arrDataKomisiKaleb);
+            }
+            else {
+                // Newly created, compute data
+                Viewer v = new Viewer();
+                v.execute();
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,8 +103,6 @@ public class KomisiKalebFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_komisi_kaleb, container, false);
-        Viewer v = new Viewer();
-        v.execute();
 
         return rootView;
     }
@@ -278,6 +305,8 @@ public class KomisiKalebFragment extends Fragment {
             progressDialog.dismiss();
             /*komisiKalebSaved = new JSONArray();
             komisiKalebSaved = arrData;*/
+            arrDataKomisiKaleb = arrData;
+            arrIsiKomisiKaleb = arrIsi;
             generateKontenUI(arrData, arrIsi);
         }
     }

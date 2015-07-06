@@ -46,7 +46,8 @@ public class KomisiPasutriFragment extends Fragment {
     private LinearLayout.LayoutParams params;
 
     // Untuk load ketika back
-    private JSONArray komisiPasutriSaved;
+//    private JSONArray komisiPasutriSaved;
+    private JSONArray arrIsiKomisiPasutri;
 
     public static KomisiPasutriFragment newInstance(String param1, String param2) {
         KomisiPasutriFragment fragment = new KomisiPasutriFragment();
@@ -58,6 +59,33 @@ public class KomisiPasutriFragment extends Fragment {
     }
 
     public KomisiPasutriFragment() {}
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putStringArrayList("kppkSaved",kppkSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Probably orientation change
+//            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
+        }
+        else {
+            if (arrIsiKomisiPasutri != null){
+                // Returning from backstack, data is fine, do nothing
+                generateKontenUI(arrIsiKomisiPasutri);
+            }
+            else {
+                // Newly created, compute data
+                Viewer v = new Viewer();
+                v.execute();
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +101,6 @@ public class KomisiPasutriFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_komisi_pasutri, container, false);
-        Viewer v = new Viewer();
-        v.execute();
 
         return rootView;
     }
@@ -221,6 +247,7 @@ public class KomisiPasutriFragment extends Fragment {
             progressDialog.dismiss();
             /*komisiPasutriSaved = new JSONArray();
             komisiPasutriSaved = arrData;*/
+            arrIsiKomisiPasutri = arrIsi;
             generateKontenUI(arrIsi);
         }
     }
