@@ -299,7 +299,7 @@ public class KomisiAnakFragment extends Fragment {
     }
 
     class Viewer extends AsyncTask<String, String, String> {
-        private String idKomisiAnak = "1";
+        private String id = "1";
 
         JSONArray arrData = new JSONArray();
         public JSONArray getArrData() {
@@ -319,7 +319,7 @@ public class KomisiAnakFragment extends Fragment {
             if(isNetworkAvailable()) {
                 String result = "";
                 HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet(Controller.url + "view_komisi.php?id="+idKomisiAnak);
+                HttpGet request = new HttpGet(Controller.url + "view_komisi.php?id=" + id);
                 HttpResponse response;
 
                 try {
