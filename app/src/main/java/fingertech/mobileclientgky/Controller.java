@@ -42,10 +42,11 @@ import javax.mail.MessagingException;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-    public static final String basicurl = "http://192.168.0.107/";
-    public static final String url = basicurl + "gky_web_service/";
-    public static final String urlgambar = basicurl + "gereja/assets/images/";
-    public static final String urlaudio = basicurl + "gereja/video/";
+//    public static final String basicurl = "http://192.168.0.107/";
+    public static final String basicurl = "http://finger-technology.com/";
+    public static final String url = basicurl + "gky/";
+    public static final String urlgambar = url + "gereja/assets/images/";
+    public static final String urlaudio = url + "gereja/video/";
 
     private JSONArray arrData = new JSONArray();
     private String writeResponse = null;

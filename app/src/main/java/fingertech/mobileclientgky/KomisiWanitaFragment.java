@@ -65,8 +65,7 @@ public class KomisiWanitaFragment extends Fragment {
         super.onSaveInstanceState(outState);
 //        outState.putStringArrayList("kppkSaved",kppkSaved);
     }
-
-    @Override
+@Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -101,8 +100,6 @@ public class KomisiWanitaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_komisi_wanita, container, false);
-        Viewer v = new Viewer();
-        v.execute();
         return rootView;
     }
 
