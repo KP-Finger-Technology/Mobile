@@ -9,11 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -24,11 +23,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 
 /**
@@ -133,7 +130,7 @@ public class KebaktianDoaFragment extends Fragment {
     private void fillTextViewHeader (String target) {
         TextView TV = new TextView(getActivity());
         TV.setText(target);
-        TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerKomisiPelayanan);
+        TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerDefault);
         TV.setLayoutParams(params);
         myLinearLayout.addView(TV);
     }
@@ -190,6 +187,7 @@ public class KebaktianDoaFragment extends Fragment {
     class Viewer extends AsyncTask<String, String, String> {
         JSONArray arr = new JSONArray();
         String idKebaktianDoa = "2";
+        boolean isStatusOK;
 
         ProgressDialog progressDialog;
 
@@ -209,7 +207,7 @@ public class KebaktianDoaFragment extends Fragment {
 
             String result = "";
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url + "view_pelayanan.php?id="+idKebaktianDoa);
+            HttpGet request = new HttpGet(Controller.url + "view_pelayanan.php?id=" + idKebaktianDoa);
             HttpResponse response;
 
             try {
@@ -226,6 +224,13 @@ public class KebaktianDoaFragment extends Fragment {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
+
+                    // Cek Status
+                    String statusString = res.getString("status");
+                    if (statusString.equals("ok"))
+                        isStatusOK = true;
+                    else
+                        isStatusOK = false;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -238,9 +243,13 @@ public class KebaktianDoaFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             progressDialog.dismiss();
-            kebaktianDoaSaved = new JSONArray();
-            kebaktianDoaSaved = arr;
-            generateKontenUI(arr);
+            if (isStatusOK) {
+                kebaktianDoaSaved = new JSONArray();
+                kebaktianDoaSaved = arr;
+                generateKontenUI(arr);
+            }
+            else
+                Toast.makeText(getActivity(), "Ada kesalahan pada koneksi internet atau kesalahan pada server, silahkan coba lagi", Toast.LENGTH_SHORT).show();
         }
     }
 }

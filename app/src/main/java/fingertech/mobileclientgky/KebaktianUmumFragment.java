@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -128,7 +129,7 @@ public class KebaktianUmumFragment extends Fragment {
     private void fillTextViewHeader (String target) {
         TextView TV = new TextView(getActivity());
         TV.setText(target);
-        TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerKomisiPelayanan);
+        TV.setTextAppearance(getActivity().getApplicationContext(), R.style.headerDefault);
         TV.setLayoutParams(params);
         myLinearLayout.addView(TV);
     }
@@ -180,6 +181,7 @@ public class KebaktianUmumFragment extends Fragment {
     class Viewer extends AsyncTask<String, String, String> {
         JSONArray arr = new JSONArray();
         String idKebaktianUmum = "3";
+        boolean isStatusOK;
 
         ProgressDialog progressDialog;
 
@@ -216,6 +218,13 @@ public class KebaktianUmumFragment extends Fragment {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     Log.d("Array", arr.toString());
+
+                    // Cek Status
+                    String statusString = res.getString("status");
+                    if (statusString.equals("ok"))
+                        isStatusOK = true;
+                    else
+                        isStatusOK = false;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -227,10 +236,15 @@ public class KebaktianUmumFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            kebaktianUmumSaved = new JSONArray();
-            kebaktianUmumSaved = arr;
-            generateKontenUI(arr);
             progressDialog.dismiss();
+
+            if (isStatusOK) {
+                kebaktianUmumSaved = new JSONArray();
+                kebaktianUmumSaved = arr;
+                generateKontenUI(arr);
+            }
+            else
+                Toast.makeText(getActivity(), "Ada kesalahan pada koneksi internet atau kesalahan pada server, silahkan coba lagi", Toast.LENGTH_SHORT).show();
         }
     }
 }
