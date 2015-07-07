@@ -112,6 +112,7 @@ public class JadwalIbadahFragment extends Fragment {
             fillingTable(jadwalSaved.get(i), jadwalSaved.get(i + 1));
         }
         HSV.addView(myTableLayout);
+        HSV.setScrollbarFadingEnabled(false);
         myLinearLayout.addView(HSV);
     }
 

@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,15 +155,20 @@ public class KebaktianUmumFragment extends Fragment {
             isiJadwal1 = json_arr.getJSONObject(0).getString("jadwal1");
             isiJadwal2 = json_arr.getJSONObject(0).getString("jadwal2");
 
-            // Pasang gambar
-            ImageView GambarIV = (ImageView)rootView.findViewById(R.id.image_kebaktianUmum);
-            if (GambarIV.getParent() != null)
-                ((ViewGroup) GambarIV.getParent()).removeView(GambarIV);
+            // Memasang Gambar
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            int image_width = display.getWidth();
+            int image_height = (int) (display.getHeight() / 4.3);
+
+            // Loading image from below url into imageView
+            ImageView gambarIV = new ImageView(getActivity());
             Picasso.with(getActivity())
                     .load(linkGambar)
-                    .into(GambarIV);
-            GambarIV.setLayoutParams(params);
-            imageLayout.addView(GambarIV);
+                    .resize(image_width, image_height)
+                    .centerCrop()
+                    .into(gambarIV);
+            gambarIV.setLayoutParams(params);
+            imageLayout.addView(gambarIV);
 
             // Pasang Header Jadwal 1
             fillTextViewHeader(headerJadwal1);

@@ -140,6 +140,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         IsiTabel.setText(text);
         IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
+//        IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel_border_topbottom));
         IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
         TR.addView(IsiTabel);
     }
@@ -198,6 +199,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         for (int i = 0; i < sumTable; i++) {
             setTitleText(jenisPelayananSaved.get(i));
             createHeaderTable();
+//            Log.d("from jadwalPelayanan, utk tabel ke-"+Integer.toString(i)+", sumRowTable="+Integer.toString(sumRowTable.get(i)),"..");
             for (int j = 0; j < sumRowTable.get(i); j++) {
                 String tanggal = null, gedung = null, kebaktian = null, waktu = null, judulLagu = null;
                 try {
@@ -207,6 +209,8 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                     waktu = pelayananSaved.get(cnt).getString("waktu");
                     judulLagu = pelayananSaved.get(cnt).getString("judulLagu");
 
+//                    Log.d("from jadwalPelayanan, tanggal:"+tanggal+", gedung="+gedung+", kebaktian="+kebaktian+", waktu="+waktu+", judulLagu="+judulLagu,"..");
+
                     fillingTable(tanggal, gedung, kebaktian, waktu, judulLagu);
                     cnt++;
                 } catch (JSONException e) {
@@ -214,6 +218,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                 }
             }
             HSV.addView(myTableLayout);
+            HSV.setScrollbarFadingEnabled(false);
             myLinearLayout.addView(HSV);
         }
     }
@@ -293,6 +298,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                     int length2 = jsonArr.length();
                     sumRowTable.add(length2);
                     for (int j = 0; j < length2; j++) {
+                        tanggal = jsonArr.getJSONObject(j).getString("tanggal");
                         gedung = jsonArr.getJSONObject(j).getString("gedung");
                         kebaktian = jsonArr.getJSONObject(j).getString("kebaktian");
                         waktuMulai = jsonArr.getJSONObject(j).getString("waktumulai");
@@ -307,10 +313,10 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                         tmp_json.put("waktu", waktu);
                         tmp_json.put("judulLagu", judulLagu);
                         pelayananSaved.add(tmp_json);
-
                         fillingTable(tanggal, gedung, kebaktian, waktu, judulLagu);
                     }
                     HSV.addView(myTableLayout);
+                    HSV.setScrollbarFadingEnabled(false);
                     myLinearLayout.addView(HSV);
 
                 } catch (JSONException e) {

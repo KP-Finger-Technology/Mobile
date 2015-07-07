@@ -46,7 +46,8 @@ public class KomisiRemajaDanPemudaFragment extends Fragment {
     private LinearLayout.LayoutParams params;
 
     // Untuk load ketika back
-    private JSONArray komisiRemajaSaved;
+//    private JSONArray komisiRemajaSaved
+    private JSONArray arrIsiKomisiRemaja;
 
     public static KomisiRemajaDanPemudaFragment newInstance(String param1, String param2) {
         KomisiRemajaDanPemudaFragment fragment = new KomisiRemajaDanPemudaFragment();
@@ -58,6 +59,33 @@ public class KomisiRemajaDanPemudaFragment extends Fragment {
     }
 
     public KomisiRemajaDanPemudaFragment() {}
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putStringArrayList("kppkSaved",kppkSaved);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Probably orientation change
+//            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
+        }
+        else {
+            if (arrIsiKomisiRemaja != null){
+                // Returning from backstack, data is fine, do nothing
+                generateKontenUI(arrIsiKomisiRemaja);
+            }
+            else {
+                // Newly created, compute data
+                Viewer v = new Viewer();
+                v.execute();
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +101,6 @@ public class KomisiRemajaDanPemudaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_komisi_remaja_dan_pemuda, container, false);
-        Viewer v = new Viewer();
-        v.execute();
 
         return rootView;
     }
@@ -221,6 +247,7 @@ public class KomisiRemajaDanPemudaFragment extends Fragment {
             progressDialog.dismiss();
             /*komisiRemajaSaved = new JSONArray();
             komisiRemajaSaved = arrData;*/
+            arrIsiKomisiRemaja = arrIsi;
             generateKontenUI(arrIsi);
         }
     }

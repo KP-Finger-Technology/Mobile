@@ -232,6 +232,7 @@ public class LiturgiMingguanFragment extends Fragment {
 
         if(isNetworkAvailable()) {
             HSV.addView(myTableLayout);
+            HSV.setScrollbarFadingEnabled(false);
             myLinearLayout.addView(HSV);
         }
     }

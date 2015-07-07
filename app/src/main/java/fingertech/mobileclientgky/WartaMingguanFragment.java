@@ -257,7 +257,7 @@ public class WartaMingguanFragment extends Fragment {
 
         dataLength = warta.length();
 
-        for (int i=0; i < dataLength; i++){
+        for (int i = 0; i < dataLength; i++){
             JSONObject jsonobj = null;
             try {
                 jsonobj = warta.getJSONObject(i);

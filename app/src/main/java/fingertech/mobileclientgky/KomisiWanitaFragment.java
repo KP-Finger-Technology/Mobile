@@ -46,7 +46,8 @@ public class KomisiWanitaFragment extends Fragment {
     private LinearLayout.LayoutParams params;
 
     // Untuk load ketika back
-    private JSONArray komisiWanitaSaved;
+//    private JSONArray komisiWanitaSaved;
+    private JSONArray arrIsiKomisiWanita;
 
     public static KomisiWanitaFragment newInstance(String param1, String param2) {
         KomisiWanitaFragment fragment = new KomisiWanitaFragment();
@@ -58,6 +59,32 @@ public class KomisiWanitaFragment extends Fragment {
     }
 
     public KomisiWanitaFragment() {}
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putStringArrayList("kppkSaved",kppkSaved);
+    }
+@Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Probably orientation change
+//            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
+        }
+        else {
+            if (arrIsiKomisiWanita != null){
+                // Returning from backstack, data is fine, do nothing
+                generateKontenUI(arrIsiKomisiWanita);
+            }
+            else {
+                // Newly created, compute data
+                Viewer v = new Viewer();
+                v.execute();
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +100,6 @@ public class KomisiWanitaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_komisi_wanita, container, false);
-        Viewer v = new Viewer();
-        v.execute();
         return rootView;
     }
 
@@ -220,6 +245,7 @@ public class KomisiWanitaFragment extends Fragment {
             progressDialog.dismiss();
             /*komisiWanitaSaved = new JSONArray();
             komisiWanitaSaved = arrData;*/
+            arrIsiKomisiWanita = arrIsi;
             generateKontenUI(arrIsi);
         }
     }

@@ -193,7 +193,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
         DB.openDataBase();
         if (DB.isTableExists("LirikLaguRohani")) {
             // Jika tabel LirikLaguRohani exist, berarti sudah pernah di-download. Tampilkan daftar LirikLaguRohani dari database
-            lirikLaguRohani_download.setVisibility(View.INVISIBLE);
+            lirikLaguRohani_download.setText("Update Lirik");
         }
 
         sv = (SearchView) rootView.findViewById(R.id.lirikLaguRohani_searchview);

@@ -290,6 +290,7 @@ public class KomisiAnakFragment extends Fragment {
                         fillingTable(kebaktianWaktu, kelas, gedung);
                     }
                     HSV.addView(myTableLayout);
+                    HSV.setScrollbarFadingEnabled(false);
                     myLinearLayout.addView(HSV);
                 } catch (JSONException e) {
                     e.printStackTrace();
