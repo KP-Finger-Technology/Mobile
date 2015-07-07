@@ -190,7 +190,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
         DB.openDataBase();
         if (DB.isTableExists("KPPK")) {
             // Jika tabel KPPK exist, berarti sudah pernah di-download. Tampilkan daftar KPPK dari database
-            kppk_download.setVisibility(View.INVISIBLE);
+            kppk_download.setText("Update KPPK");
         } else {
             // Belum pernah download KPPK, maka tampilkan dari ambil JSON ke server
         }
