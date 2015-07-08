@@ -169,7 +169,7 @@ public class RekamanKhotbahFragment extends Fragment {
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
-        String namaFile = deskripsi + "_" + judul;
+        String namaFile = deskripsi + "_" + judul + ".mp3";
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, namaFile);
 
         DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
