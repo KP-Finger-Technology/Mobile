@@ -37,7 +37,7 @@ public class HubungiKamiFragment extends Fragment {
     private GoogleMap googleMap;
     private UiSettings mapSettings;
 
-    // Latitude and longitude
+    // Latitude and longitude berisi koordinat GKY Pluit
     double latitude = -6.113887;
     double longitude = 106.791796;
     LatLng ll = new LatLng(latitude, longitude);
@@ -83,8 +83,8 @@ public class HubungiKamiFragment extends Fragment {
 
         // Settings
         mapSettings = googleMap.getUiSettings();
-        mapSettings.setZoomControlsEnabled(true);
-        mapSettings.setScrollGesturesEnabled(true);
+        mapSettings.setZoomControlsEnabled(true); // Tombol zoom
+        mapSettings.setScrollGesturesEnabled(true); // Tombol scroll
 
         // User's location
         if (googleMap != null)
@@ -102,7 +102,7 @@ public class HubungiKamiFragment extends Fragment {
         googleMap.addMarker(marker);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(latitude, longitude)).zoom(11).build();
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, 17));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, 15));
         ;
 
         // Perform any camera updates here

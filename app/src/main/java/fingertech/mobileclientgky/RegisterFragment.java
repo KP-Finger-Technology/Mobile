@@ -431,7 +431,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     sumPelayanan = res.getInt("count");
-                    Log.d("Array", arr.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -481,7 +480,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
                 try {
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject",arr.getJSONObject(i).toString());
                     namaKomisi = jsonobj.getString("namakomisi");
                     JSONArray jsonArr = jsonobj.getJSONArray("atribut");
                     namaKomisiArr[i] = namaKomisi;
@@ -502,13 +500,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                             checkedKomisi[finalI] = komisi.isChecked();
-                            Log.d("from register-> checkedKomisi["+Integer.toString(finalI)+"] = "+Boolean.toString(checkedKomisi[finalI]),"..");
                             int id = finalIdViewPelayanan;
                             for (int i = 0; i < length2; i++) {
                                 CheckBox tmp_pelayanan = (CheckBox) rootView.findViewById(id);
-                                Log.d("iterasi ke-"+Integer.toString(i)+" utk mencoba setEnabled anak2 checkbox","");
                                 if (tmp_pelayanan != null) {
-                                    Log.d("tmp_pelayanan tidak null","..");
                                     if (komisi.isChecked())
                                         tmp_pelayanan.setEnabled(true);
                                     else {
@@ -535,7 +530,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         waktuSelesai = jsonArr.getJSONObject(j).getString("waktuselesai");
                         int idPelayanan = jsonArr.getJSONObject(j).getInt("idpelayanan");
 
-                        Log.d("nama pelayanan"+namaPelayanan,"..");
                         namaPelayananArr.add(namaPelayanan);
                         jumPelayanan++;
 

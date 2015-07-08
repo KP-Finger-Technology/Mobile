@@ -305,6 +305,7 @@ public class JadwalIbadahFragment extends Fragment {
                 }
             }
             HSV.addView(myTableLayout);
+            HSV.setScrollbarFadingEnabled(false);
             myLinearLayout.addView(HSV);
         }
     }

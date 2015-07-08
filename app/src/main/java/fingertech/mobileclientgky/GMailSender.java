@@ -29,6 +29,7 @@ public class GMailSender extends javax.mail.Authenticator {
         Security.addProvider(new JSSEProvider());
     }
 
+    // Membuat profil GMail berdasarkan user dan password yang diberikan
     public GMailSender(String user, String password) {
         this.user = user;
         this.password = password;
@@ -47,10 +48,12 @@ public class GMailSender extends javax.mail.Authenticator {
         session = Session.getDefaultInstance(props, this);
     }
 
+    // Autentikasi profil GMail berdasarkan user dan password yang diberikan
     protected PasswordAuthentication getPasswordAuthentication() {
         return new PasswordAuthentication(user, password);
     }
 
+    // Mengirimkan pesan berdasarkan profil yang tersedia
     public synchronized void sendMail(String subject, String body, String sender, String recipients) throws Exception {
         try{
             MimeMessage message = new MimeMessage(session);
@@ -58,6 +61,8 @@ public class GMailSender extends javax.mail.Authenticator {
             message.setSender(new InternetAddress(sender));
             message.setSubject(subject);
             message.setDataHandler(handler);
+
+            // Cek apakah jumlah penerima lebih dari 1
             if (recipients.indexOf(',') > 0)
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
             else

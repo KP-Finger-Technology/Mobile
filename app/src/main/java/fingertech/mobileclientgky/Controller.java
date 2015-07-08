@@ -65,8 +65,10 @@ public class Controller {
         return arrData;
     }
 
+    // Untuk mengecek apakah suatu array kosong atau tidak
+    // Mengembalikan true jika kosong dan false jika tidak
     public boolean isArrEmpty(){
-        if(arrData.length()==0) {
+        if(arrData.length() == 0) {
             return true;
         } else {
             return false;
@@ -140,7 +142,6 @@ public class Controller {
             @Override
             public void run() {
                 new Writer().execute(url + "edit_profil.php?nama=" + nama + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&id=" + id);
-                Log.d("url",url + "edit_profil.php?nama=" + nama + "&email=" + email + "&no=" + tlp + "&alamat=" + alamat + "&idbaptis=" + idbaptis + "&komisi=" + komisi + "&pel=" + pelayanan + "&id=" + id);
             }
         });
     }

@@ -90,6 +90,7 @@ public class Home extends ActionBarActivity
         generateMenu();
     }
 
+    // Untuk membuat menu-menu pada navigation drawer
     public void generateMenu() {
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -378,22 +379,24 @@ public class Home extends ActionBarActivity
                     }
                     // Logout
                     else if (groupPosition == 8 && childPosition == 3) {
+                        // Buat sebuah alert dialog
                         new AlertDialog.Builder(Home.this)
                                 .setTitle("Logout")
                                 .setMessage("Apakah Anda yakin ingin logout dari aplikasi?")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // continue with delete
+                                        // Lanjutkan apabila user mengonfirmasi untuk logout dari aplikasi
                                         SessionManager sm = new SessionManager(getApplicationContext());
-                                        unsubscribePush();
+                                        unsubscribePush(); // Hapus semua channel push notification
                                         sm.logoutUser();
-                                        invalidateOptionsMenu();
-                                        Toast.makeText(Home.this, "Anda berhasil logout", Toast.LENGTH_LONG).show();
+
+                                        invalidateOptionsMenu(); // Ganti menu yang ada pada navigation drawer dengan menu sebelum user login
+                                        Toast.makeText(Home.this, "Anda berhasil logout", Toast.LENGTH_LONG).show(); // Tampilkan pesan
                                     }
                                 })
                                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // do nothing
+                                        // Do nothing
                                     }
                                 })
                                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -405,6 +408,7 @@ public class Home extends ActionBarActivity
         });
     }
 
+    // Untuk menghapus semua channel push notification
     private void unsubscribePush() {
         SessionManager smn = new SessionManager(this);
         try {
@@ -427,8 +431,10 @@ public class Home extends ActionBarActivity
         }
     }
 
+    // Dipanggil saat tombol back ditekan
     @Override
     public void onBackPressed() {
+        // Tutup navigation drawer apabila sedang terbuka
         if(mDrawerLayout.isDrawerOpen(Gravity.START)) {
             mDrawerLayout.closeDrawer(Gravity.START);
         } else {
@@ -453,6 +459,7 @@ public class Home extends ActionBarActivity
     }
 
     // Untuk menyiapkan menu sebelum digambar
+    // Dipanggil dengan invalidateOptionsMenu();
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
         generateMenu();
@@ -543,6 +550,7 @@ public class Home extends ActionBarActivity
 
     // Mengambil data yang berada di formulir permohonan doa
     public void ambilDataDoa(View view) {
+        // Ambil data dari formulir yang disediakan sesuai dengan id masing-masing
         EditText namaET = (EditText) findViewById(R.id.permohonanDoa_editNama);
         EditText umurET = (EditText) findViewById(R.id.permohonanDoa_editUmur);
         EditText emailET = (EditText) findViewById(R.id.permohonanDoa_editEmail);
@@ -550,6 +558,8 @@ public class Home extends ActionBarActivity
         EditText doaET = (EditText) findViewById(R.id.permohonanDoa_editDoa);
         String jenisKelamin = null;
 
+        // Cek apakah checkbox jenis kelamin pria dicentang atau tidak
+        // Jika iya, maka jenis kelamin user adalah pria, jika tidak maka jenis kelamin user adalah wanita
         boolean checked = ((RadioButton)findViewById(R.id.jenisKelaminPria)).isChecked();
         if (checked)
             jenisKelamin = "p";
@@ -558,6 +568,8 @@ public class Home extends ActionBarActivity
 
         String nama = null, email = null, telepon = null, doa = null;
         int umur = 0;
+
+        // Parse data sesuai kebutuhan dan tipe yang diinginkan
         try {
             nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
             umur = Integer.parseInt(umurET.getText().toString());
@@ -571,6 +583,7 @@ public class Home extends ActionBarActivity
         cont.addDoa(nama, umur, email, telepon, jenisKelamin, doa);
     }
 
+    // Untuk mengenkripsi password user pada basis data dengan menggunakan metode MD5
     public String encryptPass(String password) {
         MessageDigest md = null;
         StringBuffer hexString = new StringBuffer();
@@ -579,13 +592,13 @@ public class Home extends ActionBarActivity
             md.update(password.getBytes());
             byte byteData[] = md.digest();
 
-            //convert the byte to hex format method 1
+            // Convert the byte to hex format method 1
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < byteData.length; i++) {
                 sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
             }
 
-            //convert the byte to hex format method 2
+            // Convert the byte to hex format method 2
             for (int i=0;i<byteData.length;i++) {
                 String hex=Integer.toHexString(0xff & byteData[i]);
                 if(hex.length()==1) hexString.append('0');
@@ -598,11 +611,15 @@ public class Home extends ActionBarActivity
     }
 
     // Login
+    // Dipanggil saat tombol login pada halaman Login ditekan
     public void loginClicked(View v) {
+        // Ambil data dari formulir yang disediakan sesuai dengan id masing-masing
         EditText emailET = (EditText) findViewById(R.id.login_editEmail);
         EditText passET = (EditText) findViewById(R.id.login_editPassword);
 
         String email = null, pass = null;
+
+        // Parse data sesuai kebutuhan dan tipe yang diinginkan
         try {
             email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
             pass = URLEncoder.encode(passET.getText().toString(),"utf-8");
@@ -611,15 +628,15 @@ public class Home extends ActionBarActivity
         }
 
         cont.login(email,encryptPass(pass));
-        invalidateOptionsMenu();
+
+        invalidateOptionsMenu(); // Ubah menu pada navigation drawer karena user sudah melakukan login
         SessionManager sm = new SessionManager(this);
 
+        // Jika user berhasil login kembalikan user ke halaman utama
         if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")) {
             frag = new Home.PlaceholderFragment();
             switchFragment(frag);
         }
-
-
     }
 
     /**

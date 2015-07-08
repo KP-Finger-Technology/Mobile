@@ -363,9 +363,11 @@
     <string name="profil_textPelayanan">Pelayanan</string>
 
     <!-- Untuk halaman Ubah Password-->
+    <string name="ubahPassword_textPasswordLama">Masukkan password lama</string>
     <string name="ubahPassword_textPasswordBaru">Password Baru</string>
     <string name="ubahPassword_textKonfirmasiPasswordBaru">Konfirmasi Password Baru</string>
-    <string name="ubahPassword_textPasswordLama">Masukkan password lama untuk melanjutkan</string>
+
+    <!-- Untuk halaman Rekaman Gema -->
     <string name="queryHintRekaman">Cari apapun pada halaman rekaman</string>
 
 </resources>

@@ -104,8 +104,8 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         setDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_renunganGema);
-                myLinearLayout.removeAllViews();
+                /*myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_renunganGema);
+                myLinearLayout.removeAllViews();*/
                 Viewer newViewer = new Viewer();
                 newViewer.execute();
             }
@@ -250,13 +250,14 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
         @Override
         protected void onPostExecute(String result) {
             if (arr.length() == 0 && isNetworkAvailable()){
-                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada renungan gema", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Tidak ada renungan gema untuk hari ini", Toast.LENGTH_SHORT).show();
             }
 
             String judul = null, IsiAyat = null, kitab, pasal, ayat, IsiRenungan = null, linkGambar = null;
 
             // Add LinearLayout
-            myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_renunganGema);
+            myLinearLayout = (LinearLayout)rootView.findViewById(R.id.container_renunganGema);
+            myLinearLayout.removeAllViews();
 
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             int image_width = display.getWidth();

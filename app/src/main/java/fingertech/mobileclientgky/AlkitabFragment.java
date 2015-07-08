@@ -135,7 +135,7 @@ public class AlkitabFragment extends Fragment {
 
         DB = new DataBaseHelper(getActivity().getApplicationContext());
         DB.openDataBase();
-        generateBtnKitab(0,"");
+        generateBtnKitab(0, "");
 
         SearchView SV = (SearchView) rootView.findViewById(R.id.alkitab_searchView);
         SV.setOnQueryTextListener(new SearchView.OnQueryTextListener(){

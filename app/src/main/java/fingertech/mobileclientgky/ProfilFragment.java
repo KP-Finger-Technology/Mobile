@@ -100,19 +100,6 @@ public class ProfilFragment extends Fragment {
             }
         });
 
-/*        dateET.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                setDate(v);
-                DatePickerDialogFragment datePicker = new DatePickerDialogFragment();
-                datePicker.show(getFragmentManager(), "datePicker");
-//                Toast.makeText(getActivity(), "clicking datepicker..", Toast.LENGTH_LONG).show();
-                *//*Log.d("tanggal yg dipilih, tahun:"+ Integer.toString(datePicker.getpYear()) +" bulan:"+Integer.toString(datePicker.getpMonth())+" hari:"+Integer.toString(datePicker.getpDay()),"..");*//*
-            }
-        });*/
-
-        // Inflate the layout for this fragment
-        /*return inflater.inflate(R.layout.fragment_profil,, container, false);*/
         generateProfilContent();
         return rootView;
     }
@@ -147,9 +134,8 @@ public class ProfilFragment extends Fragment {
             if (checkedKomisi[i]) {
                 if (komisi != "")
                     komisi += ",";
-                komisi += Integer.toString(i+1);
-                komisiArr.put(i+1);
-//                Log.d("iterasi ke-"+Integer.toString(i)+", isi string komisi:"+komisi,"..");
+                komisi += Integer.toString(i + 1);
+                komisiArr.put(i + 1);
                 ParsePush.subscribeInBackground(namaKomisiArr[i].replace(" ", "").replace("&",""), new SaveCallback() {
                     @Override
                     public void done(com.parse.ParseException e) {
@@ -186,21 +172,9 @@ public class ProfilFragment extends Fragment {
             /*Date date = new Date();*/
             String dateInString = null;
 
-            /*try {
-                *//*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");*//*
-                dateInString = tglLahir;
-                *//*date = formatter.parse(dateInString);
-                Log.d("now", now);*//*
-                Log.d("registerdate", dateInString);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }*/
             cont.editprofil(nama, email, telepon, alamat, idbaptis, komisi, pelayanan);
-        Log.d("edit profilkomisi ",komisi);
-        Log.d("edit profil pel",pelayanan);
             SessionManager smn = new SessionManager(getActivity().getApplicationContext());
-           smn.editLoginSession(namaET.getText().toString(),emailET.getText().toString(),alamatET.getText().toString(),teleponET.getText().toString(),idbaptisET.getText().toString(),komisiArr.toString(),pelayananArr.toString());
-        Log.d("pelayananArr.tostring",pelayananArr.toString());
+			smn.editLoginSession(namaET.getText().toString(),emailET.getText().toString(),alamatET.getText().toString(),teleponET.getText().toString(),idbaptisET.getText().toString(),komisiArr.toString(),pelayananArr.toString());
     }
 
     public void generateProfilContent(){
@@ -244,98 +218,6 @@ public class ProfilFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
     }
-
-    /*public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
-        private DatePickerDialog.OnDateSetListener mDateSetListener;
-
-        public DatePickerDialogFragment() {
-            // nothing to see here, move along
-        }
-
-        public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {
-            mDateSetListener = (DatePickerDialog.OnDateSetListener) callback;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Log.d("DatePicker", "masuk create");
-            Calendar cal = Calendar.getInstance();
-
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            Log.d("DatePicker", "keluar create");
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            Log.d("DatePicker", "masuk set");
-            pYear = year;
-            pDay = day;
-            pMonth = month;
-
-            Toast.makeText(getActivity(), "Tanggal yang Anda pilih: " + Integer.toString(pDay) + "/" + Integer.toString(pMonth + 1) + "/" + Integer.toString(pYear), Toast.LENGTH_LONG).show();
-
-            String bulan = null;
-            // Januari
-            if (pMonth == 0) {
-                bulan = "01";
-            }
-            // Februari
-            else if (pMonth == 1) {
-                bulan = "02";
-            }
-            // Maret
-            else if (pMonth == 2) {
-                bulan = "03";
-            }
-            // April
-            else if (pMonth == 3) {
-                bulan = "04";
-            }
-            // Mei
-            else if (pMonth == 4) {
-                bulan = "05";
-            }
-            // Juni
-            else if (pMonth == 5) {
-                bulan = "06";
-            }
-            // Juli
-            else if (pMonth == 6) {
-                bulan = "07";
-            }
-            // Agustus
-            else if (pMonth == 7) {
-                bulan = "08";
-            }
-            // September
-            else if (pMonth == 8) {
-                bulan = "09";
-            }
-            // Oktober
-            else if (pMonth == 9) {
-                bulan = "10";
-            }
-            // November
-            else if (pMonth == 10) {
-                bulan = "11";
-            }
-            // Desember
-            else if (pMonth == 11) {
-                bulan = "12";
-            }
-
-            now = Integer.toString(pYear) + "-" + bulan + "-" + Integer.toString(pDay);
-            dateET.setText(Integer.toString(pDay) + "/" + bulan + "/" + Integer.toString(pYear));
-        }
-    }*/
 
     class Viewer extends AsyncTask<String, String, String> {
         private LinearLayout myLinearLayout;
@@ -381,7 +263,6 @@ public class ProfilFragment extends Fragment {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
                     sumPelayanan = res.getInt("count");
-                    Log.d("Array", arr.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -431,9 +312,7 @@ public class ProfilFragment extends Fragment {
             SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
             String komisistring = sm.pref.getAll().get("komisi").toString();
-            Log.d("isi string komisi", komisistring);
             String pelayananstring = sm.pref.getAll().get("pelayanan").toString();
-            Log.d("isi string pelayanan", pelayananstring);
 
             JSONArray arrKomisi = null;
             JSONArray arrPelayanan = null;
@@ -444,16 +323,12 @@ public class ProfilFragment extends Fragment {
                 arrKomisi = new JSONArray(komisistring);
                 arrPelayanan = new JSONArray(pelayananstring);
 
-                Log.d("arpelayanan",arrPelayanan.toString());
-
                 if(arrPelayanan.length()>0) {
                     for (int j = 0; j < arrPelayanan.length(); j++) {
                         arrayPelayanan.add(arrPelayanan.getString(j));
                         //aray dari shared preferences
                     }
                 }
-
-                Log.d("isi arr pelayanan", arrayPelayanan.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -464,17 +339,15 @@ public class ProfilFragment extends Fragment {
                 JSONObject jsonobj = null;
 
                 try {
-                    if(arrKomisi.length()!=0){
+                    if(arrKomisi.length() != 0){
                        //ada isi array komisi
 
                     }else{
                         //array komisi kosong
-                        it=99;
-                        Log.d("iterator","99");
+                        it = 99;
                     }
 
                     jsonobj = arr.getJSONObject(i);
-                    Log.d("JSONObject", arr.getJSONObject(i).toString());
                     namaKomisi = jsonobj.getString("namakomisi");
                     idKomisi = jsonobj.getInt("idkomisi");
                     JSONArray jsonArr = jsonobj.getJSONArray("atribut");
@@ -513,13 +386,10 @@ public class ProfilFragment extends Fragment {
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 //                            checkedArray.add(komisi.isChecked());
                             checkedKomisi[finalI] = komisi.isChecked();
-                            Log.d("from register-> checkedKomisi[" + Integer.toString(finalI) + "] = " + Boolean.toString(checkedKomisi[finalI]), "..");
                             int id = finalIdViewPelayanan;
                             for (int i = 0; i < length2; i++) {
                                 CheckBox tmp_pelayanan = (CheckBox) rootView.findViewById(id);
-                                Log.d("iterasi ke-" + Integer.toString(i) + " utk mencoba setEnabled anak2 checkbox", "");
                                 if (tmp_pelayanan != null) {
-                                    Log.d("tmp_pelayanan tidak null", "..");
                                     if (komisi.isChecked())
                                         tmp_pelayanan.setEnabled(true);
                                     else {
@@ -559,18 +429,12 @@ public class ProfilFragment extends Fragment {
                             if(arrayPelayanan.contains(Integer.toString(idPelayanan))){
                                 pelayanan.setChecked(true);
                                 checkedPelayanan[idPelayanan -1 ] = true;
-//                                Log.d("pelayanan contains",Integer.toString(idPelayanan -1 ));
                             }
                             else {
-//                                pelayanan.setChecked(false);
-//                                checkedPelayanan[idPelayanan -1 ] = false;
                             }
-
-//                            pelayanan.setEnabled(false);
 
                             idViewPelayanan--;
                             final int idx_pelayanan_tmp = idPelayanan-1;
-//                            final int idx_pelayanan_tmp = idx_pelayanan;
 
                             // Set listener pada setiap checkbox
                             final String finalNamaPelayanan = namaPelayanan;
@@ -599,7 +463,6 @@ public class ProfilFragment extends Fragment {
             JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
 
             for ( int i = 0 ; i < arrKomisi.length(); i++){
-//                Log.d("iterasi ke-" + i, "isi komisi:" + arrKomisi.get(i).toString());
                 ParsePush.unsubscribeInBackground(arrKomisi.get(i).toString().replace(" ","").replace("&",""), new SaveCallback() {
                     @Override
                     public void done(com.parse.ParseException e) {

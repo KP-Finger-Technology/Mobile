@@ -113,16 +113,19 @@ public class DiakoniaDanOikumeneFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
     }
 
+    // Untuk menyiapkan layout sebelum diisi data
     private void setUpLayout() {
         imageLayout = (LinearLayout)rootView.findViewById(R.id.container_diakonia_Image);
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 4);
     }
 
+    // Untuk meletakkan data pada layout yang sudah disiapkan
     private void generateKontenUI (JSONArray json_arr) {
         setUpLayout();
 
@@ -132,7 +135,6 @@ public class DiakoniaDanOikumeneFragment extends Fragment {
             linkGambar = Controller.urlgambar ;
             linkGambar += json_arr.getJSONObject(0).getString("gambar");
 
-            // Memasang Gambar
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             int image_width = display.getWidth();
             int image_height = (int) (display.getHeight() / 4.3);
@@ -140,10 +142,10 @@ public class DiakoniaDanOikumeneFragment extends Fragment {
             // Loading image from below url into imageView
             ImageView gambarIV = new ImageView(getActivity());
             Picasso.with(getActivity())
-                    .load(linkGambar)
+                    .load(linkGambar) // Mengunduh gambar dari URL yang disediakan
                     .resize(image_width, image_height)
                     .centerCrop()
-                    .into(gambarIV);
+                    .into(gambarIV); // Meletakkan gambar pada Image View yang sudah disiapkan
             gambarIV.setLayoutParams(params);
             imageLayout.addView(gambarIV);
         } catch (JSONException e) {
@@ -190,7 +192,6 @@ public class DiakoniaDanOikumeneFragment extends Fragment {
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
-                    Log.d("Array", arr.toString());
 
                     // Cek Status
                     String statusString = res.getString("status");

@@ -199,7 +199,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         for (int i = 0; i < sumTable; i++) {
             setTitleText(jenisPelayananSaved.get(i));
             createHeaderTable();
-//            Log.d("from jadwalPelayanan, utk tabel ke-"+Integer.toString(i)+", sumRowTable="+Integer.toString(sumRowTable.get(i)),"..");
+			
             for (int j = 0; j < sumRowTable.get(i); j++) {
                 String tanggal = null, gedung = null, kebaktian = null, waktu = null, judulLagu = null;
                 try {
@@ -208,8 +208,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                     kebaktian = pelayananSaved.get(cnt).getString("kebaktian");
                     waktu = pelayananSaved.get(cnt).getString("waktu");
                     judulLagu = pelayananSaved.get(cnt).getString("judulLagu");
-
-//                    Log.d("from jadwalPelayanan, tanggal:"+tanggal+", gedung="+gedung+", kebaktian="+kebaktian+", waktu="+waktu+", judulLagu="+judulLagu,"..");
 
                     fillingTable(tanggal, gedung, kebaktian, waktu, judulLagu);
                     cnt++;

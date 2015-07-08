@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     private static String my_package = "fingertech.mobileclientgky";
+
     // The Android's default system path of your application database.
     private static String DB_PATH;
     private static String DB_NAME = "gky_pluit.db";
@@ -57,11 +58,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * */
     public void createDataBase() throws IOException {
         boolean dbExist = checkDataBase();
-
-        if(dbExist){
+        if(dbExist) {
             // Do nothing - database already exist
         }
-        else{
+        else {
             // By calling this method and empty database will be created into the default system path
             // of your application so we are gonna be able to overwrite that database with our database.
             this.getReadableDatabase();
@@ -140,6 +140,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         myDataBase.close();
     }
 
+
+    // Untuk mengecek apakah ada suatu tabel dengan nama tertentu di dalam basis data
+    // Mengembalikan true jika ada dan false jika tidak
     public boolean isTableExists(String tableName) {
         if (tableName == null || myDataBase == null || !myDataBase.isOpen()) {
             return false;
@@ -170,21 +173,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
     // to you to create adapters for your views.
 
-    // Untuk Alkitab
+    // ****Untuk Alkitab****
+
+    // Getter
+    public ArrayList<String> getPasalAlkitab() {
+        return pasalAlkitab;
+    }
+
+    public ArrayList<Integer> getJumlahPasal() {
+        return jumlahPasal;
+    }
+
+    // Prosedur untuk mendapatkan daftar-daftar kitab yang ada
     public void getDaftarKitab() {
         if (DB_PATH != null) {
-            String tableName = "BOOKS";
+            String tableName = "BOOKS_1";
             boolean check = isTableExists(tableName);
+
+            // Jika ada tabel berisi kitab
             if (check) {
-                Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS ORDER BY keyid ASC", null);
-                int colKitab = cursor.getColumnIndex("isi");
+                Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS_1 ORDER BY keyid ASC", null);
+                int colKitab = cursor.getColumnIndex("isi_books");
                 int colPasal = cursor.getColumnIndex("pasal");
 
                 // Check if our result was valid
                 int i = 0;
                 if (cursor != null && cursor.moveToFirst()) {
-                    // Loop through all Results
+                    // Loop through all results
                     do {
+                        // Tambahkan ke dalam array string untuk pasal dan jumlah pasalnya
                         pasalAlkitab.add(cursor.getString(colKitab));
                         jumlahPasal.add(cursor.getInt(colPasal));
                         i++;
@@ -195,11 +212,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Untuk mengecek apakah ada suatu kitab dengan nama tertentu di dalam basis data
+    // Mengembalikan true jika ada dan false jika tidak
     public void searchKitab(String _kitab) {
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS_1 WHERE isi_books LIKE \"%"+_kitab+"%\" ORDER BY keyid ASC", null);
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BOOKS_1 WHERE isi_books LIKE \"%" + _kitab + "%\" ORDER BY keyid ASC", null);
         int colKitab = cursor.getColumnIndex("isi_books");
         int colPasal = cursor.getColumnIndex("pasal");
 
+        // Buat array baru untuk menampug hasil pencarian
         pasalAlkitab = new ArrayList<String>();
         jumlahPasal = new ArrayList<Integer>();
 
@@ -209,6 +229,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 String judul = cursor.getString(colKitab);
                 int pasal = cursor.getInt(colPasal);
+
+                // Tambahkan ke dalam array string untuk pasal dan jumlah pasalnya
                 pasalAlkitab.add(judul);
                 jumlahPasal.add(pasal);
             } while(cursor.moveToNext());
@@ -216,30 +238,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Untuk mendapatkan pasal dari suatu kitab
+    // Mengembalikan dalam bentuk array of string yang berisi isi dari suatu pasal
     public ArrayList<String> getPasal(String kitab, int pasal) {
         ArrayList<String> res = new ArrayList<String>();
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\""+kitab+"\" AND BIBLE.pasal="+pasal+" AND BOOKS_1.keyid=BIBLE.kitab", null);
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books = \"" + kitab + "\" AND BIBLE.pasal = " + pasal + " AND BOOKS_1.keyid = BIBLE.kitab", null);
         int colIsi = cursor.getColumnIndex("isi");
-        int colJudul = cursor.getColumnIndex("judul");
 
         // Check if our result was valid
         if (cursor != null && cursor.moveToFirst()) {
             do {
+                // Tambahkan hasil search kepada array hasil
                 res.add(cursor.getString(colIsi));
-            }while(cursor.moveToNext());
+            } while(cursor.moveToNext());
             cursor.close();
         }
         return res;
     }
 
+    // Untuk mendapatkan jumlah ayat dari suatu kitab dan pasal
+    // Mengembalikan dalam bentuk integer
     public int getJumlahAyat(String kitab, int pasal) {
         int jumAyat = 0;
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books=\"" + kitab + "\" AND BIBLE.pasal=" + pasal + " AND BOOKS_1.keyid=BIBLE.kitab", null);
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM BIBLE JOIN BOOKS_1 WHERE isi_books = \"" + kitab + "\" AND BIBLE.pasal = " + pasal + " AND BOOKS_1.keyid = BIBLE.kitab", null);
 
         // Check if our result was valid
         if (cursor != null && cursor.moveToFirst()) {
             // Loop through all results
             do {
+                // Increment jumlah ayat selama belum menemukan akhir dari hasil
                 jumAyat++;
             } while(cursor.moveToNext());
             cursor.close();
@@ -247,15 +274,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return jumAyat;
     }
 
-    public ArrayList<String> getPasalAlkitab() {
-        return pasalAlkitab;
-    }
+    // ****Untuk KPPK****
 
-    public ArrayList<Integer> getJumlahPasal() {
-        return jumlahPasal;
-    }
-
-    // Untuk KPPK
+    // Untuk mendapatkan KPPK dari basis data
+    // Mengembalikan dalam bentuk array of string yang berisi judul dan isi KPPK
     public ArrayList<String> getKPPK() {
         ArrayList<String> res = new ArrayList<String>();
         Cursor cursor = myDataBase.rawQuery("SELECT * FROM KPPK", null);
@@ -267,14 +289,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 String judul = cursor.getString(colJudul);
                 String isi = cursor.getString(colIsi);
+
+                // Tambahkan hasil query kepada array hasil
                 res.add(judul);
                 res.add(isi);
-            }while(cursor.moveToNext());
+            } while(cursor.moveToNext());
             cursor.close();
         }
         return res;
     }
 
+    // Untuk mengecek apakah ada suatu KPPK tertentu
     public ArrayList<String> searchKPPK(String _KPPK) {
         ArrayList<String> res = new ArrayList<String>();
         Cursor cursor = myDataBase.rawQuery("SELECT * FROM KPPK WHERE judul LIKE \"%" + _KPPK + "%\" OR isi LIKE \"%" + _KPPK + "%\"", null);
@@ -286,28 +311,33 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 String judul = cursor.getString(colJudul);
                 String isi = cursor.getString(colIsi);
+
+                // Tambahkan ke dalam array string untuk judul dan isinya
                 res.add(judul);
                 res.add(isi);
-            }while(cursor.moveToNext());
+            } while(cursor.moveToNext());
             cursor.close();
         }
         return res;
     }
 
+    // Untuk mengecek apakah tabel KPPK dapat dibuat atau tidak
+    // Mengembalikan true jika berhasil dibuat dan false jika tidak
     public boolean createTableKPPK() {
         boolean isSuccess = false;
         if (isTableExists("KPPK"))
             return isSuccess;
         else {
             myDataBase=this.getWritableDatabase() ;
-            String query = "CREATE TABLE KPPK ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, judul TEXT, isi TEXT)";
+            String query = "CREATE TABLE KPPK (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, judul TEXT, isi TEXT)";
             myDataBase.execSQL(query);
-
             isSuccess = true;
             return isSuccess;
         }
     }
 
+    // Untuk mengecek apakah tabel KPPK dapat dihapus atau tidak
+    // Mengembalikan true jika berhasil dihapus dan false jika tidak
     public boolean deleteTableKPPK () {
         boolean isSuccess = false;
         if (!isTableExists("KPPK"))
@@ -316,26 +346,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             myDataBase=this.getWritableDatabase() ;
             String query = "DROP TABLE KPPK";
             myDataBase.execSQL(query);
-
             isSuccess = true;
             return isSuccess;
         }
     }
 
+    // Untuk menambahkan data baru pada tabel KPPK
     public void insertDataKPPK(ArrayList<String> container) {
+        // Nilai cv bergantung pada jumlah atribut
         ContentValues cv = new ContentValues(2);
         int len = container.size();
         myDataBase=this.getWritableDatabase() ;
+
+        // i diincrement sebanyak dua karena cv bernilai 2, dengan struktur judul dan isi selang-seling/saling bergantian
         for (int i = 0; i < len; i = i + 2) {
             String judul = container.get(i);
             String isi = container.get(i + 1);
+
+            // Tambahkan data baru
             cv.put("judul", judul);
             cv.put("isi", isi);
             myDataBase.insert("KPPK", null, cv);
         }
     }
 
-    // Untuk Lirik Lagu Rohani
+    // Untuk ****Lirik Lagu Rohani****
+
+    // Untuk mendapatkan lirik lagu rohani dari basis data
+    // Mengembalikan dalam bentuk array of string yang berisi judul dan isi lirik lagu rohani
     public ArrayList<String> getLirikLaguRohani() {
         ArrayList<String> res = new ArrayList<String>();
         Cursor cursor = myDataBase.rawQuery("SELECT * FROM LirikLaguRohani", null);
@@ -347,6 +385,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 String judul = cursor.getString(colJudul);
                 String isi = cursor.getString(colIsi);
+
+                // Tambahkan hasil query kepada array hasil
                 res.add(judul);
                 res.add(isi);
             } while(cursor.moveToNext());
@@ -355,6 +395,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    // Untuk mengecek apakah ada suatu lirik lagu rohani tertentutertentu
     public ArrayList<String> searchLirik(String _lirik) {
         ArrayList<String> res = new ArrayList<String>();
         Cursor cursor = myDataBase.rawQuery("SELECT * FROM LirikLaguRohani WHERE judul LIKE \"%" + _lirik + "%\" OR isi LIKE \"%" + _lirik + "%\"", null);
@@ -366,6 +407,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 String judul = cursor.getString(colJudul);
                 String isi = cursor.getString(colIsi);
+
+                // Tambahkan ke dalam array string untuk judul dan isinya
                 res.add(judul);
                 res.add(isi);
             } while(cursor.moveToNext());
@@ -374,20 +417,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    // Untuk mengecek apakah tabel LirikLaguRohani dapat dibuat atau tidak
+    // Mengembalikan true jika berhasil dibuat dan false jika tidak
     public boolean createTableLirikLaguRohani() {
         boolean isSuccess = false;
         if (isTableExists("LirikLaguRohani"))
             return isSuccess;
         else {
             myDataBase = this.getWritableDatabase() ;
-            String query = "CREATE TABLE LirikLaguRohani ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, judul TEXT, isi TEXT)";
+            String query = "CREATE TABLE LirikLaguRohani (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, judul TEXT, isi TEXT)";
             myDataBase.execSQL(query);
-
             isSuccess = true;
             return isSuccess;
         }
     }
 
+    // Untuk mengecek apakah tabel LirikLaguRohani dapat dihapus atau tidak
+    // Mengembalikan true jika berhasil dihapus dan false jika tidak
     public boolean deleteTableLirikLaguRohani() {
         boolean isSuccess = false;
         if (!isTableExists("LirikLaguRohani"))
@@ -396,19 +442,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             myDataBase = this.getWritableDatabase() ;
             String query = "DROP TABLE LirikLaguRohani";
             myDataBase.execSQL(query);
-
             isSuccess = true;
             return isSuccess;
         }
     }
 
+    // Untuk menambahkan data baru pada tabel LirikLaguRohani
     public void insertDataLirikLaguRohani(ArrayList<String> container) {
+        // Nilai cv bergantung pada jumlah atribut
         ContentValues cv = new ContentValues(2);
         int len = container.size();
         myDataBase = this.getWritableDatabase() ;
+
+        // i diincrement sebanyak dua karena cv bernilai 2, dengan struktur judul dan isi selang-seling/saling bergantian
         for (int i = 0; i < len; i = i + 2) {
             String judul = container.get(i);
-            String isi = container.get(i+1);
+            String isi = container.get(i + 1);
+
+            // Tambahkan data baru
             cv.put("judul", judul);
             cv.put("isi", isi);
             myDataBase.insert("LirikLaguRohani", null, cv);

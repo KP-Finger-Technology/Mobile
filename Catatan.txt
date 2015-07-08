@@ -4,42 +4,14 @@
 - komisi (mungkin) bisa dinamis untuk web; untuk mobile dengan update aplikasi,
 - renungan gema di-update mungkin setiap 3 bulan sekali --> bisa melihat tanggal yang belum dilalui,	
 - update app --> yang sudah didownload tidak hilang,
-- dinamiskan halaman komisi dan pelayanan (tunggu database Ko Arvin),
-- event dibuat per komisi,
-
-Referensi email:
-http://stackoverflow.com/questions/2020088/sending-email-in-android-using-javamail-api-without-using-the-default-built-in-a/2033124#2033124
-http://www.jondev.net/articles/Sending_Emails_without_User_Intervention_%28no_Intents%29_in_Android
-http://stackoverflow.com/questions/2197741/how-can-i-send-emails-from-my-android-application
-http://stackoverflow.com/questions/3585556/how-to-send-email-in-android
-http://stackoverflow.com/questions/21202069/sending-form-data-to-email
-http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
 
 Versioning & Releasing"
 http://developer.android.com/tools/publishing/versioning.html
 http://developer.android.com/tools/publishing/preparing.html
-http://developer.android.com/tools/publishing/app-signing.html	
+http://developer.android.com/tools/publishing/app-signing.html
 
-Alkitab
-	- Desain button alkitab, pasal alkitab, ayat alkitab
-	- Judul kitab yg ditampilkan dari halaman pasal alkitab
-	- Layout button2 alkitab biar pas di setiap device
-	
-- Tabel yg digenerate (berikut font & ukuran cell)
-- Toast yg tidak penting dihapus
-
-- ImageView di renungan gema diletakkan di tengah
-
-- Margin daftar KPPK & lirik lagu
-- Tombol search di halaman KPPK & lirik lagu yang kalo diklik jadi membuat button "Download" penyok
-
-- Layout daftar Liturgi mingguan
-- Layout daftar rekaman khotbah
-- Layout kolportase & past upcoming event
-- Progress bar utk loading ketika download JSON
-
-Expand the SearchView with searchView.setIconified(false);
-and collapse it with searchView.setIconified(true);
-
-Agar horizontal scrollbar selalu kelihatan
-As of now the best way is to use android:fadeScrollbars="false" in xml which is equivalent to ScrollView.setScrollbarFadingEnabled(false); in java code.
+Email-email yang dibutuhkan:
+Harus GMail
+	Di Controller.java:	untuk mengirim email, untuk tujuan email
+	Di google_maps_api.xml: untuk setting google maps
+Di Application.java: untuk inisialisasi

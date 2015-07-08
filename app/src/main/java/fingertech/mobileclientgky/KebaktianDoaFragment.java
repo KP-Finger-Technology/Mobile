@@ -229,7 +229,6 @@ public class KebaktianDoaFragment extends Fragment {
                 try {
                     JSONObject res = new JSONObject(result);
                     arr = res.getJSONArray("data");
-                    Log.d("Array", arr.toString());
 
                     // Cek Status
                     String statusString = res.getString("status");

@@ -84,6 +84,8 @@ public class NavigationDrawerDataProvider {
         parentHashMap.put(" Events", eventsList);               // position 5
         parentHashMap.put(" Tentang Kami", tentangKamiList);    // position 6
         parentHashMap.put(" Hubungi Kami", hubungiKamiList);    // position 7
+
+        // Jika user belum login, berikan menu untuk login dan register
         if (!isLogin) {
             parentHashMap.put(" Login", loginList);             // position 8
             parentHashMap.put(" Register", registerList);       // position 9

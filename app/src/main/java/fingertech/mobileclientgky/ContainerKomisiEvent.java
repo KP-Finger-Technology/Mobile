@@ -37,7 +37,7 @@ public class ContainerKomisiEvent {
     public String printArrayJSON() {
         String res = "";
         for (int i = 0; i < json.size(); i++) {
-            res = res + json.get(i).toString()+"\n";
+            res = res + json.get(i).toString() + "\n";
         }
         return res;
     }
