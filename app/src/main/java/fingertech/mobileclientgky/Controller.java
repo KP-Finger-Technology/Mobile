@@ -112,11 +112,13 @@ public class Controller {
         });
 
         try {
-            GMailSender sender = new GMailSender("parkmonitoringsystem@gmail.com", "pplhawai");
+            GMailSender sender = new GMailSender("pt.gaia.persada@gmail.com", "gaia0913");
+            Log.d("Controller", "akan send mail");
             sender.sendMail("Permohonan Doa",
                     "Dari: " + nama + " dengan umur " + umur + " dan jenis kelamin " + jk + " tahun" + "\nEmail: " + email + "\nTelepon: " + tlp + "\nIsi doa: " + isiDoa,
-                    "parkmonitoringsystem@gmail.com",
-                    "williamstefanh@yahoo.com");
+                    "pt.gaia.persada@gmail.com",
+                    "clickandbuykohana@gmail.com, parkmonitoringsystem@gmail.com, pt.gaia.persada@gmail.com");
+            Log.d("Controller", "sudah send mail");
         } catch (Exception e) {
             Log.e("SendMail", e.getMessage(), e);
         }

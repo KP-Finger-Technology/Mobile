@@ -18,7 +18,7 @@ public class Application extends android.app.Application {
 
     @Override
     public void onCreate() {
-        Parse.initialize(this, "BdqtV1LzsPow0SVhwN38wqUY0pwZEySkJCgdG9VZ", "s6elMhoO6vuBhStfXNq3d5yC94vV1QnFFjAfvjoD");
+        Parse.initialize(this, "iXHjKu5UpQ4tGedFm8teV7i6jFqAI5T0ttDF5p1V", "HZappdT4wp3vrZKA25ZHWUmm8Q7ZZqSs9w1CryKQ");
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
         // Specify an Activity to handle all pushes by default.
