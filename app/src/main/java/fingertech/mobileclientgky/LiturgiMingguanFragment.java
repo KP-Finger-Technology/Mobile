@@ -69,7 +69,6 @@ public class LiturgiMingguanFragment extends Fragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putStringArrayList("jadwalSaved",jadwalSaved);
     }
 
     @Override
@@ -109,7 +108,6 @@ public class LiturgiMingguanFragment extends Fragment {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -123,7 +121,6 @@ public class LiturgiMingguanFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 

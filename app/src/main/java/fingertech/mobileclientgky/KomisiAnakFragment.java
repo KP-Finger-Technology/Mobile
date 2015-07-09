@@ -68,7 +68,6 @@ public class KomisiAnakFragment extends Fragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putStringArrayList("kppkSaved",kppkSaved);
     }
 
     @Override
@@ -77,7 +76,6 @@ public class KomisiAnakFragment extends Fragment {
 
         if (savedInstanceState != null) {
             // Probably orientation change
-//            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
         }
         else {
             if ((arrIsiKomisiAnak != null) && (arrDataKomisiAnak != null)){

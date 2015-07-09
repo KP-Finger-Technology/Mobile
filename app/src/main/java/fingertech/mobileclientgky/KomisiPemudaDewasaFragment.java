@@ -67,7 +67,6 @@ public class KomisiPemudaDewasaFragment extends Fragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putStringArrayList("kppkSaved",kppkSaved);
     }
 
     @Override
@@ -76,9 +75,7 @@ public class KomisiPemudaDewasaFragment extends Fragment {
 
         if (savedInstanceState != null) {
             // Probably orientation change
-//            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
-        }
-        else {
+        } else {
             if (arrIsiKomisiPemuda != null){
                 // Returning from backstack, data is fine, do nothing
                 generateKontenUI(arrIsiKomisiPemuda);

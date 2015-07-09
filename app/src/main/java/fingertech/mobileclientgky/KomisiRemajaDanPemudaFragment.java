@@ -50,7 +50,6 @@ public class KomisiRemajaDanPemudaFragment extends Fragment {
     private LinearLayout.LayoutParams params;
 
     // Untuk load ketika back
-//    private JSONArray komisiRemajaSaved
     private JSONArray arrIsiKomisiRemaja;
 
     public static KomisiRemajaDanPemudaFragment newInstance(String param1, String param2) {
@@ -67,7 +66,6 @@ public class KomisiRemajaDanPemudaFragment extends Fragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putStringArrayList("kppkSaved",kppkSaved);
     }
 
     @Override
@@ -76,7 +74,6 @@ public class KomisiRemajaDanPemudaFragment extends Fragment {
 
         if (savedInstanceState != null) {
             // Probably orientation change
-//            kppkSaved = savedInstanceState.getStringArrayList("kppkSaved");
         }
         else {
             if (arrIsiKomisiRemaja != null){

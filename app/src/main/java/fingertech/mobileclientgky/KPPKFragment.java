@@ -150,7 +150,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             // Add Button Judul KPPK
             ListKPPK = new Button(getActivity());
             ListKPPK.setText(container);
-//            ListKPPK.setTextColor(defaultColor);
             ListKPPK.setLayoutParams(params);
             ListKPPK.setBackground(getResources().getDrawable(R.drawable.kppkliturgibutton));
             ListKPPK.setTextAppearance(getActivity().getApplicationContext(), R.style.kppkLiturgiButtonStyle);

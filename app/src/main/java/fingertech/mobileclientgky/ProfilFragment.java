@@ -95,7 +95,6 @@ public class ProfilFragment extends Fragment {
         ubahButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setDate(v);
                 ubahClicked(rootView);
             }
         });
@@ -169,7 +168,6 @@ public class ProfilFragment extends Fragment {
             }
         }
 
-            /*Date date = new Date();*/
             String dateInString = null;
 
             cont.editprofil(nama, email, telepon, alamat, idbaptis, komisi, pelayanan);
@@ -183,7 +181,6 @@ public class ProfilFragment extends Fragment {
         EditText emailET = (EditText) rootView.findViewById(R.id.profil_editEmail);
         EditText teleponET = (EditText) rootView.findViewById(R.id.profil_editTelepon);
         EditText idbaptisET = (EditText) rootView.findViewById(R.id.profil_editIdBaptis);
-//        EditText tglLahirET = (EditText) rootView.findViewById(R.id.profil_editTanggalLahir);
 
         SessionManager sm = new SessionManager(getActivity().getApplicationContext());
 
@@ -192,15 +189,7 @@ public class ProfilFragment extends Fragment {
         emailET.setText(sm.pref.getAll().get("email").toString(), TextView.BufferType.EDITABLE);
         teleponET.setText(sm.pref.getAll().get("telepon").toString(), TextView.BufferType.EDITABLE);
 
-        /*tglLahir = sm.pref.getAll().get("telepon").toString();
-        int year = Integer.parseInt(tglLahir.substring(0, 3));
-        int month = Integer.parseInt(tglLahir.substring(5, 6));
-        int day = Integer.parseInt(tglLahir.substring(8, 9));*/
-
-        /*tglLahirET.setText(sm.pref.getAll().get("tgllahir").toString(),TextView.BufferType.EDITABLE);*/
-
         idbaptisET.setText(sm.pref.getAll().get("idbaptis").toString(),TextView.BufferType.EDITABLE);
-
     }
 
     public void onButtonPressed(Uri uri) {
@@ -326,7 +315,7 @@ public class ProfilFragment extends Fragment {
                 if(arrPelayanan.length()>0) {
                     for (int j = 0; j < arrPelayanan.length(); j++) {
                         arrayPelayanan.add(arrPelayanan.getString(j));
-                        //aray dari shared preferences
+                        // Array dari shared preferences
                     }
                 }
 
@@ -334,15 +323,14 @@ public class ProfilFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            // Generate konten Register dalam loop for
+            // Generate konten Profil dalam loop for
             for (int i = 0; i < dataLength; i++) {
                 JSONObject jsonobj = null;
 
                 try {
                     if(arrKomisi.length() != 0){
                        //ada isi array komisi
-
-                    }else{
+                    } else {
                         //array komisi kosong
                         it = 99;
                     }
@@ -364,27 +352,25 @@ public class ProfilFragment extends Fragment {
                     final int finalI = i;
                     final int finalIdViewPelayanan = idViewPelayanan;
 
-                    if(it<=idKomisi && idKomisi<=checkedKomisi.length){
+                    if(it <= idKomisi && idKomisi <= checkedKomisi.length){
                         if(arrKomisi.get(it).toString().equals(Integer.toString(idKomisi))) {
                             komisi.setChecked(true);
                             checkedKomisi[idKomisi - 1]= true;
-                            if(it + 1 == arrKomisi.length()){
-                            }
+                            if(it + 1 == arrKomisi.length()){}
                             else {
                                 it++;
                             }
-                        }else {
-                        komisi.setChecked(false);
+                        } else {
+							komisi.setChecked(false);
                        }
-                    }else{
-                        it=0;
+                    } else {
+                        it = 0;
                     }
 
                     // Set listener pada setiap checkbox
                     komisi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                            checkedArray.add(komisi.isChecked());
                             checkedKomisi[finalI] = komisi.isChecked();
                             int id = finalIdViewPelayanan;
                             for (int i = 0; i < length2; i++) {

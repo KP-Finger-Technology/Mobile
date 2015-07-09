@@ -140,7 +140,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         IsiTabel.setText(text);
         IsiTabel.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel));
-//        IsiTabel.setBackground(getResources().getDrawable(R.drawable.background_tabel_border_topbottom));
         IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
         TR.addView(IsiTabel);
     }

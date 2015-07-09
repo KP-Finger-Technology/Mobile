@@ -61,7 +61,6 @@ public class KelompokKecilFragment extends Fragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putStringArrayList("jadwalSaved",jadwalSaved);
     }
 
     @Override

@@ -542,7 +542,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                             pelayanan.setId(idViewPelayanan);
                             pelayanan.setEnabled(false);
                             idViewPelayanan--;
-//                            final int idx_pelayanan_tmp = idx_pelayanan;
                             final int idx_pelayanan_tmp = idPelayanan-1;
 
                             // Set listener pada setiap checkbox

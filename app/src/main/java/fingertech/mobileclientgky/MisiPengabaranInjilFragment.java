@@ -40,7 +40,7 @@ public class MisiPengabaranInjilFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    // untuk generate konten UI
+    // Untuk generate konten UI
     private View rootView;
     private LinearLayout imageLayout;
     private LinearLayout.LayoutParams params;
@@ -61,7 +61,6 @@ public class MisiPengabaranInjilFragment extends Fragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putStringArrayList("jadwalSaved",jadwalSaved);
     }
 
     @Override
