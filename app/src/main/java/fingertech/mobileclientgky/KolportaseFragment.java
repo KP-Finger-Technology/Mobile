@@ -137,6 +137,7 @@ public class KolportaseFragment extends Fragment {
         }
     }
 
+	// Fungsi untuk memanggil generateUI berulang-ulang
     private void generateKontenKolportase() {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_kolportase);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -176,6 +177,7 @@ public class KolportaseFragment extends Fragment {
         }
     }
 
+	// Fungsi untuk generate komponen-komponen tampilan
     private void generateUI(String judul, String pengarang, String keterangan, String linkGambar) {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int image_width = display.getWidth()/3;
@@ -235,7 +237,7 @@ public class KolportaseFragment extends Fragment {
         titleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(titleKeteranganTV);
 
-        // Add text View isiKeteranganTV
+        // Add TextView isiKeteranganTV
         isiKeteranganTV = new TextView(getActivity());
         if (keterangan.length() > 80) {
             keterangan = keterangan.substring(0, 80);
@@ -299,7 +301,7 @@ public class KolportaseFragment extends Fragment {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                cll.removeAllViews();
+
                 ViewerSearch vs = new ViewerSearch();
                 vs.execute();
                 return true;
@@ -517,7 +519,10 @@ public class KolportaseFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            String judul = null, pengarang = null, keterangan = null, linkGambar = null;
+			// Hapus semua tampilan terlebih dahulu sebelum menampilkan hasil pencarian
+			cll.removeAllViews();
+			
+			String judul = null, pengarang = null, keterangan = null, linkGambar = null;
 
             if (arr.length() == 0 && isNetworkAvailable()){
                 Toast.makeText(getActivity().getApplicationContext(), "Kolportase yang Anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();

@@ -59,8 +59,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     Controller cont = new Controller();
 
-    public NavigationDrawerFragment() {
-    }
+    public NavigationDrawerFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,6 +96,7 @@ public class NavigationDrawerFragment extends Fragment {
         return mDrawerListView;
     }
 
+	// Fungsi untuk memerika apakah navigation drawer sedang terbuka atau tidak
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
@@ -122,7 +122,8 @@ public class NavigationDrawerFragment extends Fragment {
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
-            @Override
+            // Aksi yang dilakukan saat navigation drawer ditutup
+			@Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 if (!isAdded()) {
@@ -132,6 +133,7 @@ public class NavigationDrawerFragment extends Fragment {
                 getActivity().supportInvalidateOptionsMenu(); // Calls onPrepareOptionsMenu()
             }
 
+			// Aksi yang dilakukan saat navigation drawer dibuka
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -169,7 +171,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void selectItem(int position) {
+	private void selectItem(int position) {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);

@@ -278,8 +278,6 @@ public class KomisiPasutriFragment extends Fragment {
             }
 
             progressDialog.dismiss();
-            /*komisiPasutriSaved = new JSONArray();
-            komisiPasutriSaved = arrData;*/
             arrIsiKomisiPasutri = arrIsi;
             generateKontenUI(arrIsi);
         }

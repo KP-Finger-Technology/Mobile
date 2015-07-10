@@ -1,17 +1,34 @@
- Notulensi Meeting dengan Klien (Majelis Gereja) 29 Juni 2015
-
+Notulensi Meeting dengan Klien (Majelis Gereja) 29 Juni 2015:
 - bisa download dari Google Play Store / melalui web dengan APK,
 - komisi (mungkin) bisa dinamis untuk web; untuk mobile dengan update aplikasi,
-- renungan gema di-update mungkin setiap 3 bulan sekali --> bisa melihat tanggal yang belum dilalui,	
-- update app --> yang sudah didownload tidak hilang,
+- renungan gema di-update mungkin setiap 3 bulan sekali --> bisa melihat tanggal yang belum dilalui,	 dan
+- update app --> yang sudah didownload tidak hilang.
 
 Versioning & Releasing"
 http://developer.android.com/tools/publishing/versioning.html
 http://developer.android.com/tools/publishing/preparing.html
 http://developer.android.com/tools/publishing/app-signing.html
 
-Email-email yang dibutuhkan:
-Harus GMail
-	Di Controller.java:	untuk mengirim email, untuk tujuan email
-	Di google_maps_api.xml: untuk setting google maps
-Di Application.java: untuk inisialisasi
+Apabila ingin mengganti email, maka yang perlu diurus adalah akun pada parse dan gmail.
+1.	Untuk push notification, buka file Application.java, ganti
+	Parse.initialize(this, "iXHjKu5UpQ4tGedFm8teV7i6jFqAI5T0ttDF5p1V", "HZappdT4wp3vrZKA25ZHWUmm8Q7ZZqSs9w1CryKQ"); dengan kunci yang sesuai
+2.	Untuk pengiriman email, buka file Controller.java, ganti fungsi addDoa pada blok try menjadi berikut:
+	GMailSender sender = new GMailSender("<username email>", "<password email>");
+	sender.sendMail("Permohonan Doa",
+			"Dari: " + nama + " dengan umur " + umur + " dan jenis kelamin " + jk + " tahun" + "\nEmail: " + email + "\nTelepon: " + tlp + "\nIsi doa: " + isiDoa,
+			"<username email>",
+			"<email tujuan>, <email tujuan>, <email tujuan>");
+			
+	Buka https://www.google.com/settings/security/lesssecureapps
+	Pilih "Turn on"
+3.	Untuk google maps, buka google_map_api.xml dan ganti nilai string google_maps_key dengan kunci yang didapat pada saat pendaftaran
+	
+	Cara mendaftarkan kunci baru:
+	Buka https://console.developers.google.com/
+	Pilih akun yang sesuai
+	Pilih project yang diinginkan atau langsung pilih menu Credentials
+	Pilih menu Create New Key (Jangan masukkan apapun pada form, klik OK / Finish)
+	Ganti nilai string google_maps_key dengan kunci yang didapat
+	
+Untuk testing push notification, buka Parse.com
+Login dengan email pt.gaia.persada@gmail.com dan password fingaia0913

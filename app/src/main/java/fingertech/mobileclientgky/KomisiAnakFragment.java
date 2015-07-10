@@ -154,6 +154,7 @@ public class KomisiAnakFragment extends Fragment {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
+	// Fungsi untuk membuat judul kolom
     private void IsiTabelHeader (String text) {
         IsiTabelHeader = new TextView(getActivity());
         IsiTabelHeader.setText(text);
@@ -163,6 +164,7 @@ public class KomisiAnakFragment extends Fragment {
         TR.addView(IsiTabelHeader);
     }
 
+	// Fungsi untuk memberi isi kolom
     private void IsiTabel (String text) {
         IsiTabel = new TextView(getActivity());
         IsiTabel.setText(text);
@@ -172,6 +174,7 @@ public class KomisiAnakFragment extends Fragment {
         TR.addView(IsiTabel);
     }
 
+	// Fungsi untuk menyiapkan layout tampilan
     private void setUpLayout() {
         myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_komisiAnak);
 
@@ -184,6 +187,7 @@ public class KomisiAnakFragment extends Fragment {
         rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
     }
 
+	// Fungsi untuk memanggil isiTabelHeader berulang-ulang
     private void createHeaderTable() {
         myTableLayout = new TableLayout(getActivity());
         myTableLayout.setLayoutParams(tableParams);
@@ -198,6 +202,7 @@ public class KomisiAnakFragment extends Fragment {
         myTableLayout.addView(TR);      // Add row to table
     }
 
+	// Fungsi untuk memanggil isiTabel berulang-ulang
     private void fillingTable(String kebaktianWaktu, String kelas, String tempat) {
         TR = new TableRow(getActivity());
         TR.setLayoutParams(rowTableParams);
@@ -217,6 +222,7 @@ public class KomisiAnakFragment extends Fragment {
         myLinearLayout.addView(TV);
     }
 
+	// Fungsi untuk generate komponen-komponen tampilan
     private void generateKontenUI (JSONArray arrIsi, JSONArray arrData) {
         setUpLayout();
 

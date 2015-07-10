@@ -42,7 +42,6 @@ import javax.mail.MessagingException;
  * Created by Rita on 5/27/2015.
  */
 public class Controller {
-
     public static final String basicurl = "http://finger-technology.com/";
     public static final String url = basicurl + "gky/";
     public static final String urlgambar = url + "gereja/assets/images/";
@@ -74,7 +73,6 @@ public class Controller {
             return false;
         }
     }
-
 
     public boolean viewEvent() {
         final Handler handler = new Handler();
@@ -111,14 +109,13 @@ public class Controller {
             }
         });
 
-        try {
+        // Mengirimkan isi form berupa email kepada anggota gereja
+		try {
             GMailSender sender = new GMailSender("pt.gaia.persada@gmail.com", "gaia0913");
-            Log.d("Controller", "akan send mail");
             sender.sendMail("Permohonan Doa",
                     "Dari: " + nama + " dengan umur " + umur + " dan jenis kelamin " + jk + " tahun" + "\nEmail: " + email + "\nTelepon: " + tlp + "\nIsi doa: " + isiDoa,
                     "pt.gaia.persada@gmail.com",
                     "clickandbuykohana@gmail.com, parkmonitoringsystem@gmail.com, pt.gaia.persada@gmail.com");
-            Log.d("Controller", "sudah send mail");
         } catch (Exception e) {
             Log.e("SendMail", e.getMessage(), e);
         }
@@ -206,7 +203,6 @@ public class Controller {
             }
         }
 
-
         @Override
         protected String doInBackground(String... params) {
             if(isNetworkAvailable()) {
@@ -233,7 +229,6 @@ public class Controller {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -292,7 +287,6 @@ public class Controller {
                     e.printStackTrace();
                 }
             }
-
             return null;
         }
 
@@ -323,13 +317,15 @@ public class Controller {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (writeResponse.equals("ok")) {
+                    
+					if (writeResponse.equals("ok")) {
                         SessionManager smn = new SessionManager(context);
                         smn.createLoginSession(nama, pass, id, email, alamat, telepon, idbaptis, tgllahir, komisi, pelayanan, namakomisi);
                         try {
                             JSONArray arrKomisi = new JSONArray(smn.pref.getAll().get("namakomisi").toString());
 
-                            for (int i = 0; i < arrKomisi.length(); i++) {
+                            // Mendaftarkan komisi pilihan user untuk push notification
+							for (int i = 0; i < arrKomisi.length(); i++) {
                                 ParsePush.subscribeInBackground(arrKomisi.get(i).toString().replace(" ", "").replace("&", ""), new SaveCallback() {
                                     @Override
                                     public void done(com.parse.ParseException e) {
@@ -340,7 +336,6 @@ public class Controller {
                                         }
                                     }
                                 });
-
                             }
 
                         } catch (JSONException e) {

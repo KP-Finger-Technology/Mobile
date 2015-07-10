@@ -76,7 +76,7 @@ public class PasalAlkitabFragment extends Fragment {
         int rightMargin = 5;
         int sumMargin = rightMargin;
 
-        // Untuk menghitung batas horisontal button yang dibuat
+        // Untuk menghitung batas horizontal button yang dibuat
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int displayWidth = display.getWidth();
@@ -124,7 +124,6 @@ public class PasalAlkitabFragment extends Fragment {
         int cnt = 0;
         Button pasalBtn;
 
-
         for (int i = 0; i < pasal; i++) {
             cnt++;
             pasalBtn = new Button(getActivity());
@@ -149,7 +148,7 @@ public class PasalAlkitabFragment extends Fragment {
             );
 
             // Coba-coba
-            if (pasalBtn.getParent()!=null)
+            if (pasalBtn.getParent() != null)
                 ((ViewGroup)pasalBtn.getParent()).removeView(pasalBtn);
 
             rowLayout.addView(pasalBtn);

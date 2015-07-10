@@ -278,8 +278,6 @@ public class KomisiRemajaDanPemudaFragment extends Fragment {
             }
 
             progressDialog.dismiss();
-            /*komisiRemajaSaved = new JSONArray();
-            komisiRemajaSaved = arrData;*/
             arrIsiKomisiRemaja = arrIsi;
             generateKontenUI(arrIsi);
         }

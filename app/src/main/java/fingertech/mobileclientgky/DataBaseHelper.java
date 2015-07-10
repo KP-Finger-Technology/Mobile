@@ -21,7 +21,6 @@ import java.util.ArrayList;
  * Created by Andarias Silvanus on 15/06/03.
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
-
     private static String my_package = "fingertech.mobileclientgky";
 
     // The Android's default system path of your application database.

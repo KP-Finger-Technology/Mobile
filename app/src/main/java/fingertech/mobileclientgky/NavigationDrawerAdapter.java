@@ -37,31 +37,37 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
         this.parentList = _parentList;
     }
 
+	// Fungsi untuk menghitung ada berapa menu utama pada navigation drawer
     @Override
     public int getGroupCount() {
         return parentHashMap.size();
     }
 
+	// Fungsi untuk menghitung ada berapa submenu dari suatu menu utama pada navigation drawer
     @Override
     public int getChildrenCount(int groupPosition) {
         return parentHashMap.get(parentList.get(groupPosition)).size();
     }
 
+	// Fungsi untuk mendapatkan menu utama tertentu pada navigation drawer
     @Override
     public Object getGroup(int groupPosition) {
         return parentList.get(groupPosition);
     }
 
+	// Fungsi untuk mendapatkan submenu tertentu dari suatu menu utama pada navigation drawer
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return parentHashMap.get(parentList.get(groupPosition)).get(childPosition);
     }
 
+	// Fungsi untuk mendapatkan id menu utama
     @Override
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
 
+	// Fungsi untuk mendapatkan id submenu
     @Override
     public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
@@ -72,6 +78,7 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
+	// Fungsi untuk menyiapkan tampilan menu utama
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String groupTitle = (String) getGroup(groupPosition);
@@ -87,9 +94,10 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
         View ind = view.findViewById( R.id.explist_indicator);
         if( ind != null ) {
             ImageView indicator = (ImageView)ind;
-            if( getChildrenCount( groupPosition ) == 0 ) {
+            // Jika menu utama tidak memiliki sub menu, hapus gambar indikator
+			if(getChildrenCount( groupPosition ) == 0) {
                 indicator.setVisibility( View.INVISIBLE );
-            } else {
+            } else { // Jika menu utama memiliki sub menu, berikan gambar indikator
                 indicator.setVisibility( View.VISIBLE );
                 int stateSetIndex = ( isExpanded ? 1 : 0) ;
                 Drawable drawable = indicator.getDrawable();
@@ -100,6 +108,7 @@ public class NavigationDrawerAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+	// Fungsi untuk menyiapkan tampilan submenu
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         String childTitle = (String) getChild(groupPosition, childPosition);

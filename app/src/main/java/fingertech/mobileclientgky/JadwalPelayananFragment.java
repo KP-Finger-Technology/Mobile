@@ -126,6 +126,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         public void onFragmentInteraction(Uri uri);
     }
 
+	// Fungsi untuk memberi judul kolom
     private void IsiTabelHeader (String text) {
         IsiTabelHeader = new TextView(getActivity());
         IsiTabelHeader.setText(text);
@@ -134,7 +135,8 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
         TR.addView(IsiTabelHeader);
     }
-
+	
+	// Fungsi untuk memberi isi kolom
     private void IsiTabel (String text) {
         IsiTabel = new TextView(getActivity());
         IsiTabel.setText(text);
@@ -144,6 +146,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         TR.addView(IsiTabel);
     }
 
+	// Fungsi untuk menyiapkan layout tampilan
     private void setUpLayout() {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalPelayanan);
 
@@ -156,7 +159,8 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         rowTableParams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
     }
 
-    private void createHeaderTable() {
+    // Fungsi untuk memanggil isiTabelHeader berulang-ulang
+	private void createHeaderTable() {
         myTableLayout = new TableLayout(getActivity());
         myTableLayout.setLayoutParams(tableParams);
         HSV = new HorizontalScrollView(getActivity());
@@ -172,6 +176,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         myTableLayout.addView(TR);      // Add row to table
     }
 
+	// Fungsi untuk memanggil isiTabel berulang-ulang
     private void fillingTable(String tanggal, String gedung, String kebaktian, String waktu, String judulLagu) {
         TR = new TableRow(getActivity());
         TR.setLayoutParams(rowTableParams);
@@ -185,13 +190,15 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
         myTableLayout.addView(TR, tableParams);
     }
 
-    private void setTitleText(String jenisPelayanan) {
+    // Fungsi untuk menset judul
+	private void setTitleText(String jenisPelayanan) {
         JudulTabel = new TextView(getActivity());
         JudulTabel.setText(jenisPelayanan);
         JudulTabel.setLayoutParams(params);
         myLinearLayout.addView(JudulTabel);
     }
 
+	// Fungsi untuk generate komponen-komponen tampilan
     private void generateKontenPelayanan() {
         setUpLayout();
         int cnt = 0;
@@ -238,7 +245,7 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
 
             String result = "";
             HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(Controller.url+"view_jadwalpelayanan.php?id="+sm.pref.getAll().get("id").toString()); // ngikutin ip disini loh
+            HttpGet request = new HttpGet(Controller.url + "view_jadwalpelayanan.php?id=" + sm.pref.getAll().get("id").toString());
             HttpResponse response;
 
             try {
@@ -258,7 +265,6 @@ public class JadwalPelayananFragment extends Fragment implements View.OnClickLis
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

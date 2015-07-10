@@ -276,8 +276,6 @@ public class KomisiWanitaFragment extends Fragment {
             }
 
             progressDialog.dismiss();
-            /*komisiWanitaSaved = new JSONArray();
-            komisiWanitaSaved = arrData;*/
             arrIsiKomisiWanita = arrIsi;
             generateKontenUI(arrIsi);
         }

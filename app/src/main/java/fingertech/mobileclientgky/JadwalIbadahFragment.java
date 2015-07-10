@@ -58,7 +58,7 @@ public class JadwalIbadahFragment extends Fragment {
     private TableLayout.LayoutParams rowTableParams;
     private HorizontalScrollView HSV;
 
-    // utk saved instances
+    // untuk saved instances
     private ArrayList<String> jadwalSaved;
 
     public static JadwalIbadahFragment newInstance(String param1, String param2) {
@@ -100,6 +100,7 @@ public class JadwalIbadahFragment extends Fragment {
         }
     }
 
+	// Fungsi untuk generate komponen-komponen tampilan
     private void generateKontenJadwal() {
         setUpLayout();
 
@@ -116,6 +117,7 @@ public class JadwalIbadahFragment extends Fragment {
         myLinearLayout.addView(HSV);
     }
 
+	// Fungsi untuk membuat judul kolom
     private void IsiTabelHeader (String text) {
         IsiTabelHeader = new TextView(getActivity());
         IsiTabelHeader.setText(text);
@@ -125,6 +127,7 @@ public class JadwalIbadahFragment extends Fragment {
         TR.addView(IsiTabelHeader);
     }
 
+	// Fungsi untuk membuat isi kolom
     private void IsiTabel (String text) {
         IsiTabel = new TextView(getActivity());
         IsiTabel.setText(text);
@@ -134,6 +137,7 @@ public class JadwalIbadahFragment extends Fragment {
         TR.addView(IsiTabel);
     }
 
+	// Fungsi untuk menyiapkan layout tampilan
     private void setUpLayout() {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_jadwalIbadah);
 
@@ -153,6 +157,7 @@ public class JadwalIbadahFragment extends Fragment {
         TR.setLayoutParams(tableParams);
     }
 
+	// Fungsi untuk memanggil isiTabel berulang-ulang
     private void fillingTable (String tanggal, String isi) {
         TR = new TableRow(getActivity());
         TR.setLayoutParams(rowTableParams);
@@ -221,9 +226,7 @@ public class JadwalIbadahFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        };
+        protected void onPreExecute() {}
 
         @Override
         protected String doInBackground(String... params) {
@@ -251,7 +254,6 @@ public class JadwalIbadahFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

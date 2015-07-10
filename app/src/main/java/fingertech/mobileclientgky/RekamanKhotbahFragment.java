@@ -97,7 +97,6 @@ public class RekamanKhotbahFragment extends Fragment {
         v.execute();
 
         sv = (SearchView) rootView.findViewById(R.id.rekamanKhotbah_searchview);
-        /*sv.setIconified(false);*/
         crk = (LinearLayout) rootView.findViewById(R.id.container_rekamanKhotbah);
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -109,7 +108,6 @@ public class RekamanKhotbahFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                crk.removeAllViews();
                 ViewerSearch vs = new ViewerSearch();
                 vs.execute();
 
@@ -159,7 +157,7 @@ public class RekamanKhotbahFragment extends Fragment {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
-    // Untuk download rekaman khotbah
+    // Untuk mengunduh rekaman khotbah
     public void DownloadFiles(String url, String deskripsi, String judul) {
         String urlWeb = url;
 
@@ -211,7 +209,6 @@ public class RekamanKhotbahFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -275,14 +272,14 @@ public class RekamanKhotbahFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                // Add text View titleJudulTV
+                // Add TextView titleJudulTV
                 titleJudulTV = new TextView(getActivity());
                 titleJudulTV.setText("Judul: ");
                 titleJudulTV.setTextColor(defaultColor);
                 titleJudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
                 subRowLayout.addView(titleJudulTV);
 
-                // Add text View judulTV
+                // Add TextView judulTV
                 judulTV = new TextView(getActivity());
                 judulTV.setText(judul);
                 judulTV.setTextColor(defaultColor);
@@ -291,14 +288,14 @@ public class RekamanKhotbahFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View titleIsiTV
+                // Add TextView titleIsiTV
                 titleIsiTV = new TextView(getActivity());
                 titleIsiTV.setText("Khotbah ");
                 titleIsiTV.setTextColor(defaultColor);
                 titleIsiTV.setLayoutParams(paramsJarakAntarIsi);
                 subRowLayout.addView(titleIsiTV);
 
-                // Add text View isiTV
+                // Add TextView isiTV
                 isiTV = new TextView(getActivity());
                 isiTV.setText(Html.fromHtml("<a href=\"" + Controller.urlaudio + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
                 isiTV.setClickable(true);
@@ -308,14 +305,14 @@ public class RekamanKhotbahFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View titleTanggalTV
+                // Add TextView titleTanggalTV
                 titleTanggalTV = new TextView(getActivity());
                 titleTanggalTV.setText("Tanggal: ");
                 titleTanggalTV.setTextColor(defaultColor);
                 titleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
                 subRowLayout.addView(titleTanggalTV);
 
-                // Add text View tanggalTV
+                // Add TextView tanggalTV
                 tanggalTV = new TextView(getActivity());
                 tanggalTV.setText(tanggal);
                 tanggalTV.setLayoutParams(paramsJarakAntarIsi);
@@ -323,14 +320,14 @@ public class RekamanKhotbahFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View titlePembicaraTV
+                // Add TextView titlePembicaraTV
                 titlePembicaraTV = new TextView(getActivity());
                 titlePembicaraTV.setText("Pembicara: ");
                 titlePembicaraTV.setTextColor(defaultColor);
                 titlePembicaraTV.setLayoutParams(paramsJarakAntarIsi);
                 subRowLayout.addView(titlePembicaraTV);
 
-                // Add text View pembicaraTV
+                // Add TextView pembicaraTV
                 pembicaraTV = new TextView(getActivity());
                 pembicaraTV.setText(pembicara);
                 pembicaraTV.setTextColor(defaultColor);
@@ -427,7 +424,10 @@ public class RekamanKhotbahFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            if (arr.length() == 0 && isNetworkAvailable()){
+            // Hapus semua tampilan terlebih dahulu sebelum menampilkan hasil pencarian
+			crk.removeAllViews();
+			
+			if (arr.length() == 0 && isNetworkAvailable()){
                 Toast.makeText(getActivity().getApplicationContext(), "Rekaman khotbah yang Anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
 
@@ -474,14 +474,14 @@ public class RekamanKhotbahFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                // Add text View titleJudulTV
+                // Add TextView titleJudulTV
                 titleJudulTV = new TextView(getActivity());
                 titleJudulTV.setText("Judul: ");
                 titleJudulTV.setTextColor(defaultColor);
                 titleJudulTV.setLayoutParams(paramsJarakJudulDenganIsi);
                 subRowLayout.addView(titleJudulTV);
 
-                // Add text View judulTV
+                // Add TextView judulTV
                 judulTV = new TextView(getActivity());
                 judulTV.setText(judul);
                 judulTV.setTextColor(defaultColor);
@@ -490,14 +490,14 @@ public class RekamanKhotbahFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View titleIsiTV
+                // Add TextView titleIsiTV
                 titleIsiTV = new TextView(getActivity());
                 titleIsiTV.setText("Khotbah ");
                 titleIsiTV.setTextColor(defaultColor);
                 titleIsiTV.setLayoutParams(paramsJarakAntarIsi);
                 subRowLayout.addView(titleIsiTV);
 
-                // Add text View isiTV
+                // Add TextView isiTV
                 isiTV = new TextView(getActivity());
                 isiTV.setText(Html.fromHtml("<a href=\"" + Controller.urlaudio + isi + "\">" + "dapat di dengarkan di sini" + "</a>"));
                 isiTV.setClickable(true);
@@ -507,14 +507,14 @@ public class RekamanKhotbahFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View titleTanggalTV
+                // Add TextView titleTanggalTV
                 titleTanggalTV = new TextView(getActivity());
                 titleTanggalTV.setText("Tanggal: ");
                 titleTanggalTV.setTextColor(defaultColor);
                 titleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
                 subRowLayout.addView(titleTanggalTV);
 
-                // Add text View tanggalTV
+                // Add TextView tanggalTV
                 tanggalTV = new TextView(getActivity());
                 tanggalTV.setText(tanggal);
                 tanggalTV.setTextColor(defaultColor);
@@ -523,14 +523,14 @@ public class RekamanKhotbahFragment extends Fragment {
                 colLayout.addView(subRowLayout);
                 subRowLayout = new LinearLayout(getActivity());
 
-                // Add text View titlePembicaraTV
+                // Add TextView titlePembicaraTV
                 titlePembicaraTV = new TextView(getActivity());
                 titlePembicaraTV.setText("Pembicara: ");
                 titlePembicaraTV.setTextColor(defaultColor);
                 titlePembicaraTV.setLayoutParams(paramsJarakAntarIsi);
                 subRowLayout.addView(titlePembicaraTV);
 
-                // Add text View pembicaraTV
+                // Add TextView pembicaraTV
                 pembicaraTV = new TextView(getActivity());
                 pembicaraTV.setText(pembicara);
                 pembicaraTV.setTextColor(defaultColor);

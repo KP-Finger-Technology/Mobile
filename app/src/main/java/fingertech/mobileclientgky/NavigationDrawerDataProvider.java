@@ -16,6 +16,8 @@ public class NavigationDrawerDataProvider {
         this.context = _context;
     }
 
+	// Kelas untuk menambahkan menu utama beserta sub menunya pada LinkedHashMap
+	// Digunakan LinkedHashMap bukan HashMap agar data menu terurut sesuai urutan add
     public static LinkedHashMap<String, ArrayList<String>> getDataHashMap(boolean isLogin) {
         LinkedHashMap<String, ArrayList<String>> parentHashMap = new LinkedHashMap<String, ArrayList<String>>();
 
@@ -89,8 +91,7 @@ public class NavigationDrawerDataProvider {
         if (!isLogin) {
             parentHashMap.put(" Login", loginList);             // position 8
             parentHashMap.put(" Register", registerList);       // position 9
-        }
-        else {
+        } else { // Jika user sudah login, berikan menu untuk manajemen konten
             parentHashMap.put(" Manajemen Konten", sesudahLoginList);   // position 8
         }
 

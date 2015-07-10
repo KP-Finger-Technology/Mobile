@@ -99,7 +99,7 @@ public class AyatAlkitabFragment extends Fragment {
 
             boolean Mark = false;
             TextView ayatTV = null;
-            for (int i=0; i<len; i++) {
+            for (int i = 0; i < len; i++) {
                 ayatTV = new TextView(getActivity());
                 ayatTV.setText(Integer.toString(i+1)+" "+daftarAyat.get(i));
                 ayatTV.setLayoutParams(params);
@@ -112,7 +112,7 @@ public class AyatAlkitabFragment extends Fragment {
                     height_ayat = height_ayat + ayatTV.getMeasuredHeight();
                 }
 
-                if ((i+1)==this.ayat) {
+                if ((i + 1) == this.ayat) {
                     final TextView finalAyatTV = ayatTV;
                     ayatTV.post(new Runnable() {
                         @Override
@@ -125,6 +125,7 @@ public class AyatAlkitabFragment extends Fragment {
                 }
             }
 
+			// Melakukan scrolling agar ayat yang dipilih oleh user diletakkan di bagian paling atas layar
             ScrollView SV = (ScrollView) rootView.findViewById(R.id.scroll_ayatAlkitab);
             SV.post(new Runnable() {
                 public void run(){

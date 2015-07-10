@@ -13,7 +13,6 @@ import com.parse.SaveCallback;
  * Created by William Stefan Hartono
  */
 public class Application extends android.app.Application {
-
     public Application() {}
 
     @Override
@@ -25,6 +24,7 @@ public class Application extends android.app.Application {
         PushService.setDefaultPushCallback(this, Home.class);
 
         // Untuk subscribe, channel default adalah "", yaitu untuk "broadcast"
+		// Broadcast berlaku untuk semua device, bahkan apabila user tidak berlangganan channel apapun
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
             public void done(ParseException e) {

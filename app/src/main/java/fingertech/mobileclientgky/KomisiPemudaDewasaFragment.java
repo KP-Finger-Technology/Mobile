@@ -278,8 +278,6 @@ public class KomisiPemudaDewasaFragment extends Fragment {
             }
 
             progressDialog.dismiss();
-            /*komisiPemudaSaved = new JSONArray();
-            komisiPemudaSaved = arrData;*/
             arrIsiKomisiPemuda = arrIsi;
             generateKontenUI(arrIsi);
         }

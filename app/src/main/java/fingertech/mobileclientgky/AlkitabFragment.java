@@ -74,8 +74,8 @@ public class AlkitabFragment extends Fragment {
         // Add LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        myLinearLayout.setPadding(0,0,0,10);
-        params.setMargins(0,0,0,10);
+        myLinearLayout.setPadding(0, 0, 0, 10);
+        params.setMargins(0, 0, 0, 10);
 
         if ((mode < 2) && (mode > -1)) {
             if (mode == 0) {
@@ -110,8 +110,7 @@ public class AlkitabFragment extends Fragment {
                 );
                 containerKitabLayout.addView(kitabBtn);
             }
-        }
-        else {
+        } else {
             TextView TV = new TextView(getActivity());
             TV.setText("Pencarian terhadap kata " + req + " tidak ditemukan");
             TV.setLayoutParams(params);

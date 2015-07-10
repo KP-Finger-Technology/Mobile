@@ -152,7 +152,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                cll.removeAllViews();
+                
                 ViewerSearch vs = new ViewerSearch();
                 vs.execute();
                 return true;
@@ -201,7 +201,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
-    // Untuk generate tampilan
+    // Fungsi untuk menyiapkan layout tampilan
     public void setUpLayout(){
         myLinearLayout = (LinearLayout)rootView.findViewById(R.id.container_pastupcoming);
         myLinearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -229,7 +229,8 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
     }
 
-    public void generateKontenEvent() {
+    // Fungsi untuk memanggil generateUI berulang-ulang
+	public void generateKontenEvent() {
         setUpLayout();
 
         int dataLength = judulSaved.size();
@@ -246,6 +247,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
         }
     }
 
+	// Fungsi untuk generate komponen-komponen tampilan
     public void generateUI (String judul, String tanggal, String keterangan, String linkGambar) {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int image_width = display.getWidth()/3;
@@ -357,7 +359,7 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Masuk ke konstruktor parameter EventLengkapFragment dengan parameter isi
+                        // Masuk ke konstruktor parameter EventLengkapFragment dengan parameter judul, tanggal, keterangan, dan gambar
                         frag = new EventLengkapFragment(finalJudul, finalTanggal, finalKeterangan, finalLinkGambar);
                         fragManager = getActivity().getSupportFragmentManager();
                         fragTransaction = fragManager.beginTransaction();
@@ -405,7 +407,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                         }
                     }
                 } else {
-
                     // Terpilih menu dropdown "Semua Komisi", generate UI semuanya
                     generateKontenEvent();
                 }
@@ -461,7 +462,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -606,7 +606,6 @@ public class PastAndUpcomingEventsFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -624,7 +623,10 @@ public class PastAndUpcomingEventsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            setUpLayout();
+            // Hapus semua tampilan terlebih dahulu sebelum menampilkan hasil pencarian
+			cll.removeAllViews();
+			
+			setUpLayout();
             int dataLength = arr.length();
 
             if (arr.length() == 0 && isNetworkAvailable()){

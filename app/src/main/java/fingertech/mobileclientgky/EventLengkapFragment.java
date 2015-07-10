@@ -132,7 +132,7 @@ public class EventLengkapFragment extends Fragment {
 
         int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
-        // Add text View titleEventTV
+        // Add TextView titleEventTV
         titleEventTV = new TextView(getActivity());
         titleEventTV.setText("Event: ");
         titleEventTV.setTextColor(defaultColor);
@@ -140,7 +140,7 @@ public class EventLengkapFragment extends Fragment {
         titleEventTV.setTextColor(getResources().getColor(R.color.defaultFontColor));
         subRowLayout.addView(titleEventTV);
 
-        // Add text View judulEventTV
+        // Add TextView judulEventTV
         judulEventTV = new TextView(getActivity());
         judulEventTV.setText(judul);
         judulEventTV.setTextColor(defaultColor);
@@ -149,7 +149,7 @@ public class EventLengkapFragment extends Fragment {
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add text View titleTanggalTV
+        // Add TextView titleTanggalTV
         titleTanggalTV = new TextView(getActivity());
         titleTanggalTV.setText("Tanggal: ");
         titleTanggalTV.setTextColor(defaultColor);
@@ -157,7 +157,7 @@ public class EventLengkapFragment extends Fragment {
         titleTanggalTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(titleTanggalTV);
 
-        // Add text View judulTanggalTV
+        // Add TextView judulTanggalTV
         judulTanggalTV = new TextView(getActivity());
         judulTanggalTV.setText(tanggal);
         judulTanggalTV.setTextColor(defaultColor);
@@ -166,7 +166,7 @@ public class EventLengkapFragment extends Fragment {
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add text View titleWaktuTV
+        // Add TextView titleWaktuTV
         titleWaktuTV = new TextView(getActivity());
         titleWaktuTV.setText("Waktu: ");
         titleWaktuTV.setTextColor(defaultColor);
@@ -174,7 +174,7 @@ public class EventLengkapFragment extends Fragment {
         titleWaktuTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(titleWaktuTV);
 
-        // Add text View judulWaktuTV
+        // Add TextView judulWaktuTV
         judulWaktuTV = new TextView(getActivity());
         judulWaktuTV.setText(tanggal);
         judulWaktuTV.setTextColor(defaultColor);
@@ -183,7 +183,7 @@ public class EventLengkapFragment extends Fragment {
         colLayout.addView(subRowLayout);
         subRowLayout = new LinearLayout(getActivity());
 
-        // Add text View titleKeteranganTV
+        // Add TextView titleKeteranganTV
         titleKeteranganTV = new TextView(getActivity());
         titleKeteranganTV.setText("Keterangan: ");
         titleKeteranganTV.setTextColor(defaultColor);
@@ -191,7 +191,7 @@ public class EventLengkapFragment extends Fragment {
         titleKeteranganTV.setLayoutParams(paramsJarakAntarIsi);
         subRowLayout.addView(titleKeteranganTV);
 
-        // Add text View isiKeteranganTV
+        // Add TextView isiKeteranganTV
         isiKeteranganTV = new TextView(getActivity());
         isiKeteranganTV.setText(keterangan);
         isiKeteranganTV.setTextColor(defaultColor);

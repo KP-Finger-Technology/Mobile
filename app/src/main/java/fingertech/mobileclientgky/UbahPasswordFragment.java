@@ -74,9 +74,7 @@ public class UbahPasswordFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
-
-    }
+    public void onClick(View v) {}
 
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
@@ -91,18 +89,17 @@ public class UbahPasswordFragment extends Fragment implements View.OnClickListen
 
         String lama = lamaET.getText().toString();
         if(lama.equals(sm.pref.getAll().get("pass").toString())) {
-
             String pass = baruET.getText().toString();
             String passcon = baruconET.getText().toString();
-                if (pass.equals(passcon)) {
-                    Controller cont = new Controller(getActivity().getApplicationContext());
-                    cont.editPass(pass);
-                } else {
-                    Toast.makeText(getActivity(), "Masukkan lagi password baru Anda", Toast.LENGTH_LONG).show();
-                }
-    
-            } else {
-                Toast.makeText(getActivity(), "Masukkan lagi password lama Anda", Toast.LENGTH_LONG).show();
-            }
+			
+			if (pass.equals(passcon)) {
+				Controller cont = new Controller(getActivity().getApplicationContext());
+				cont.editPass(pass);
+			} else {
+				Toast.makeText(getActivity(), "Masukkan lagi password baru Anda", Toast.LENGTH_LONG).show();
+			}    
+		} else {
+			Toast.makeText(getActivity(), "Masukkan lagi password lama Anda", Toast.LENGTH_LONG).show();
+		}
     }
 }

@@ -81,7 +81,8 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+		
+		// Set variabel now supaya bernilai hari ini dalam format yyyy-mm-dd
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -190,7 +191,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
     class Viewer extends AsyncTask<String, String, String> {
         private LinearLayout myLinearLayout;
-
         JSONArray arr = new JSONArray();
 
         public JSONArray getArr() {
@@ -231,7 +231,6 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -261,11 +260,11 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
 
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             int image_width = display.getWidth();
-            int image_height = (int) (display.getHeight()/4.3);
+            int image_height = (int) (display.getHeight() / 4.3);
 
             // Add LayoutParams
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0,0,0,30);
+            params.setMargins(0, 0, 0, 30);
             myLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             JSONObject jsonobj = null;
@@ -317,9 +316,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
     }
 
     public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
         private DatePickerDialog.OnDateSetListener mDateSetListener;
-
         public DatePickerDialogFragment() {}
 
         public DatePickerDialogFragment(DatePickerDialog.OnDateSetListener callback) {
@@ -344,6 +341,7 @@ public class RenunganGemaFragment extends Fragment implements DatePickerDialog.O
             pDay = day;
             pMonth = month;
 
+			// Ubah format tanggal sesuai dengan format basis data
             String bulan = null;
             // Januari
             if (pMonth == 0) {

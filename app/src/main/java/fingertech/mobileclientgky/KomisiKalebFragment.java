@@ -279,8 +279,6 @@ public class KomisiKalebFragment extends Fragment {
             }
 
             progressDialog.dismiss();
-            /*komisiKalebSaved = new JSONArray();
-            komisiKalebSaved = arrData;*/
             arrDataKomisiKaleb = arrData;
             arrIsiKomisiKaleb = arrIsi;
             generateKontenUI(arrData, arrIsi);

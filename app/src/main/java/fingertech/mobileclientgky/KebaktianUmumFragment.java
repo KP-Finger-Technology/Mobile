@@ -118,6 +118,7 @@ public class KebaktianUmumFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+	// Fungsi untuk menyiapkan layout tampilan
     private void setUpLayout() {
         myLinearLayout = (LinearLayout)rootView.findViewById(R.id.container_kebaktianUmum);
         imageLayout = (LinearLayout)rootView.findViewById(R.id.container_kebaktianUmum_Image);
@@ -126,6 +127,7 @@ public class KebaktianUmumFragment extends Fragment {
         params.setMargins(0, 0, 0, 4);
     }
 
+	// Fungsi untuk memberi judul
     private void fillTextViewHeader (String target) {
         TextView TV = new TextView(getActivity());
         TV.setText(target);
@@ -134,6 +136,7 @@ public class KebaktianUmumFragment extends Fragment {
         myLinearLayout.addView(TV);
     }
 
+	// Fungsi untuk memberi isi
     private void fillTextView (String target) {
         TextView TV = new TextView(getActivity());
         TV.setText(target);
@@ -141,7 +144,8 @@ public class KebaktianUmumFragment extends Fragment {
         myLinearLayout.addView(TV);
     }
 
-    private void generateKontenUI (JSONArray json_arr) {
+    // Fungsi untuk generate komponen-komponen tampilan
+	private void generateKontenUI (JSONArray json_arr) {
         setUpLayout();
 
         String linkGambar = null, headerJadwal1 = null, headerJadwal2 = null, isiJadwal1 = null, isiJadwal2 = null, pembina = null;
@@ -169,15 +173,10 @@ public class KebaktianUmumFragment extends Fragment {
             gambarIV.setLayoutParams(params);
             imageLayout.addView(gambarIV);
 
-            // Pasang Header Jadwal 1
-            fillTextViewHeader(headerJadwal1);
-            // Pasang Isi Jadwal 1
-            fillTextView(isiJadwal1);
-            // Pasang Header Jadwal 2
-            fillTextViewHeader(headerJadwal2);
-            // Pasang Isi Jadwal 2
-            fillTextView(isiJadwal2);
-
+            fillTextViewHeader(headerJadwal1); // Pasang Header Jadwal 1
+            fillTextView(isiJadwal1); // Pasang Isi Jadwal 1
+            fillTextViewHeader(headerJadwal2); // Pasang Header Jadwal 2
+            fillTextView(isiJadwal2); // Pasang Isi Jadwal 2
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -195,10 +194,9 @@ public class KebaktianUmumFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             progressDialog = ProgressDialog.show(getActivity(),"Loading", "Koneksi ke server");
-        };
+        }
 
         @Override
         protected String doInBackground(String... params) {

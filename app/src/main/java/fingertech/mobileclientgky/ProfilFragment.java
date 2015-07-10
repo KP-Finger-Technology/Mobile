@@ -102,15 +102,21 @@ public class ProfilFragment extends Fragment {
         generateProfilContent();
         return rootView;
     }
+	
+	// Fungsi untuk mengubah profil
+	// Dipanggil saat tombol 'Ubah' ditekan
     public void ubahClicked(View v){
         Controller cont= new Controller(getActivity().getApplicationContext());
 
+		// Cara form sesuai id masing-masing
         EditText namaET = (EditText) rootView.findViewById(R.id.profil_editNama);
         EditText alamatET = (EditText) rootView.findViewById(R.id.profil_editAlamat);
         EditText emailET = (EditText) rootView.findViewById(R.id.profil_editEmail);
         EditText teleponET = (EditText) rootView.findViewById(R.id.profil_editTelepon);
         EditText idbaptisET = (EditText) rootView.findViewById(R.id.profil_editIdBaptis);
-        String nama = null,email = null,telepon = null,alamat = null,idbaptis = null;
+        
+		// Ambil data yang dibutuhkan
+		String nama = null, email = null, telepon = null, alamat = null, idbaptis = null;
         try {
             nama = URLEncoder.encode(namaET.getText().toString(), "utf-8");
             email = URLEncoder.encode(emailET.getText().toString(), "utf-8");
@@ -121,6 +127,7 @@ public class ProfilFragment extends Fragment {
             e.printStackTrace();
         }
 
+		// Lepaskan langganan untuk semua channel karena mungkin data channel yang ingin diikuti diubah oleh user
         unsubscribePush();
 
         String komisi = "";
@@ -128,8 +135,8 @@ public class ProfilFragment extends Fragment {
         JSONArray komisiArr = new JSONArray();
         JSONArray pelayananArr = new JSONArray();
 
-
-        for (int i=0; i<checkedKomisi.length; i++) {
+		// Ubah data langganan untuk komisi
+        for (int i = 0; i < checkedKomisi.length; i++) {
             if (checkedKomisi[i]) {
                 if (komisi != "")
                     komisi += ",";
@@ -148,13 +155,13 @@ public class ProfilFragment extends Fragment {
             }
         }
 
-        for (int i=0; i<checkedPelayanan.length; i++) {
+		// Ubah data langganan untuk pelayanan
+        for (int i = 0; i < checkedPelayanan.length; i++) {
             if (checkedPelayanan[i]) {
                 if (pelayanan != "")
                     pelayanan += ",";
                 pelayanan += Integer.toString(i+1);
                 pelayananArr.put(i+1);
-                Log.d("iterasi ke-"+Integer.toString(i)+", isi string pelayanan:"+pelayanan,"..");
                 ParsePush.subscribeInBackground(namaPelayananArr.get(i).replace(" ", "").replace("&", ""), new SaveCallback() {
                     @Override
                     public void done(com.parse.ParseException e) {
@@ -168,13 +175,14 @@ public class ProfilFragment extends Fragment {
             }
         }
 
-            String dateInString = null;
+		String dateInString = null;
 
-            cont.editprofil(nama, email, telepon, alamat, idbaptis, komisi, pelayanan);
-            SessionManager smn = new SessionManager(getActivity().getApplicationContext());
-			smn.editLoginSession(namaET.getText().toString(),emailET.getText().toString(),alamatET.getText().toString(),teleponET.getText().toString(),idbaptisET.getText().toString(),komisiArr.toString(),pelayananArr.toString());
+		cont.editprofil(nama, email, telepon, alamat, idbaptis, komisi, pelayanan);
+		SessionManager smn = new SessionManager(getActivity().getApplicationContext());
+		smn.editLoginSession(namaET.getText().toString(),emailET.getText().toString(),alamatET.getText().toString(),teleponET.getText().toString(),idbaptisET.getText().toString(),komisiArr.toString(),pelayananArr.toString());
     }
 
+	// Fungsi untuk generate komponen-komponen tampilan
     public void generateProfilContent(){
         EditText namaET = (EditText) rootView.findViewById(R.id.profil_editNama);
         EditText alamatET = (EditText) rootView.findViewById(R.id.profil_editAlamat);
@@ -213,7 +221,6 @@ public class ProfilFragment extends Fragment {
         private LinearLayout.LayoutParams params;
         private int sumPelayanan;
         JSONArray arr = new JSONArray();
-
         ProgressDialog progressDialog;
 
         public JSONArray getArr() {
@@ -224,8 +231,6 @@ public class ProfilFragment extends Fragment {
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(getActivity(), "Loading", "Koneksi ke server");
         }
-
-        ;
 
         @Override
         protected String doInBackground(String... params) {
@@ -278,11 +283,13 @@ public class ProfilFragment extends Fragment {
             int dataLength = arr.length();
             checkedKomisi = new Boolean[dataLength];
             namaKomisiArr = new String[dataLength];
-            checkedPelayanan = new Boolean[sumPelayanan+1];
+            checkedPelayanan = new Boolean[sumPelayanan + 1];
             namaPelayananArr = new ArrayList<String>();
-            for (int idx = 0; idx < checkedKomisi.length; idx++)
+            
+			for (int idx = 0; idx < checkedKomisi.length; idx++)
                 checkedKomisi[idx] = false;
-            for (int idx = 0; idx < checkedPelayanan.length; idx++)
+            
+			for (int idx = 0; idx < checkedPelayanan.length; idx++)
                 checkedPelayanan[idx] = false;
 
             String namaKomisi = null;
@@ -312,7 +319,7 @@ public class ProfilFragment extends Fragment {
                 arrKomisi = new JSONArray(komisistring);
                 arrPelayanan = new JSONArray(pelayananstring);
 
-                if(arrPelayanan.length()>0) {
+                if(arrPelayanan.length() > 0) {
                     for (int j = 0; j < arrPelayanan.length(); j++) {
                         arrayPelayanan.add(arrPelayanan.getString(j));
                         // Array dari shared preferences
@@ -355,7 +362,7 @@ public class ProfilFragment extends Fragment {
                     if(it <= idKomisi && idKomisi <= checkedKomisi.length){
                         if(arrKomisi.get(it).toString().equals(Integer.toString(idKomisi))) {
                             komisi.setChecked(true);
-                            checkedKomisi[idKomisi - 1]= true;
+                            checkedKomisi[idKomisi - 1] = true;
                             if(it + 1 == arrKomisi.length()){}
                             else {
                                 it++;
@@ -412,15 +419,15 @@ public class ProfilFragment extends Fragment {
                             pelayanan.setLayoutParams(childParams);
                             pelayanan.setId(idViewPelayanan);
 
-                            if(arrayPelayanan.contains(Integer.toString(idPelayanan))){
+                            if(arrayPelayanan.contains(Integer.toString(idPelayanan))) {
                                 pelayanan.setChecked(true);
-                                checkedPelayanan[idPelayanan -1 ] = true;
+                                checkedPelayanan[idPelayanan -1] = true;
                             }
                             else {
                             }
 
                             idViewPelayanan--;
-                            final int idx_pelayanan_tmp = idPelayanan-1;
+                            final int idx_pelayanan_tmp = idPelayanan - 1;
 
                             // Set listener pada setiap checkbox
                             final String finalNamaPelayanan = namaPelayanan;
@@ -443,6 +450,8 @@ public class ProfilFragment extends Fragment {
             }
         }
     }
+	
+	// Fungsi untuk menghentikan langganan push notification
     private void unsubscribePush() {
         SessionManager smn = new SessionManager(getActivity().getApplicationContext());
         try {

@@ -116,12 +116,14 @@ public class KelompokKecilFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+	// Fungsi untuk menyiapkan layout tampilan
     private void setUpLayout() {
         imageLayout = (LinearLayout)rootView.findViewById(R.id.container_kelompokKecil_Image);
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 4);
     }
 
+	// Fungsi untuk generate komponen-komponen tampilan
     private void generateKontenUI (JSONArray json_arr) {
         setUpLayout();
 
@@ -162,10 +164,9 @@ public class KelompokKecilFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             progressDialog = ProgressDialog.show(getActivity(),"Loading", "Koneksi ke server");
-        };
+        }
 
         @Override
         protected String doInBackground(String... params) {

@@ -77,8 +77,7 @@ public class LiturgiMingguanFragment extends Fragment {
 
         if (savedInstanceState != null) {
             // Probably orientation change
-        }
-        else {
+        } else {
             if (liturgiSaved != null) {
                 // Returning from backstack, data is fine, do nothing
                 generateKontenLiturgi(liturgiSaved);
@@ -142,6 +141,7 @@ public class LiturgiMingguanFragment extends Fragment {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
+	// Fungsi untuk membuat judul kolom
     private void IsiTabelHeader(String text) {
         IsiTabelHeader = new TextView(getActivity());
         IsiTabelHeader.setText(text);
@@ -151,6 +151,7 @@ public class LiturgiMingguanFragment extends Fragment {
         TR.addView(IsiTabelHeader);
     }
 
+	// Fungsi untuk memberi isi kolom
     private void IsiTabel(String text) {
         IsiTabel = new TextView(getActivity());
         IsiTabel.setText(text);
@@ -160,6 +161,7 @@ public class LiturgiMingguanFragment extends Fragment {
         TR.addView(IsiTabel);
     }
 
+	// Fungsi untuk menyiapkan layout tampilan
     private void setUpLayout() {
         // Add LinearLayout
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_liturgi_mingguan);
@@ -172,6 +174,7 @@ public class LiturgiMingguanFragment extends Fragment {
         myTableLayout.setLayoutParams(tableParams);
     }
 
+	// Fungsi untuk memanggil isiTabelHeader berulang-ulang
     private void setHeaderTable (String idLiturgi, String judulAcara) {
         HSV = new HorizontalScrollView(getActivity());
         TR = new TableRow(getActivity());
@@ -180,17 +183,18 @@ public class LiturgiMingguanFragment extends Fragment {
         // Tambah atribut header tabel
         IsiTabelHeader(idLiturgi);
         IsiTabelHeader(judulAcara);
-        IsiTabelHeader(""); // utk kolom ketiga
+        IsiTabelHeader(""); // Untuk kolom ketiga
         myTableLayout.addView(TR);
     }
 
+	// Fungsi untuk memanggil isiTabel berulang-ulang
     private void fillingTable (String keterangan, String idSubAcara, String subAcara) {
         if (keterangan != null && keterangan != "null" && idSubAcara != "null" && idSubAcara != null && subAcara != null && subAcara != "null") {
             TR = new TableRow(getActivity());
             TR.setLayoutParams(tableParams);
 
             // Masukkan ke cell tabel
-            IsiTabel(""); // utk tambal kolom pertama
+            IsiTabel(""); // Untuk kolom pertama
             IsiTabel(idSubAcara + ". " + subAcara);
             IsiTabel(keterangan);
             myTableLayout.addView(TR, tableParams);
@@ -269,7 +273,6 @@ public class LiturgiMingguanFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -127,6 +127,7 @@ public class KebaktianDoaFragment extends Fragment {
         params.setMargins(0, 0, 0, 4);
     }
 
+	// Fungsi untuk membuat judul
     private void fillTextViewHeader (String target) {
         TextView TV = new TextView(getActivity());
         TV.setText(target);
@@ -135,6 +136,7 @@ public class KebaktianDoaFragment extends Fragment {
         myLinearLayout.addView(TV);
     }
 
+	// Fungsi untuk memberi isi
     private void fillTextView (String target) {
         TextView TV = new TextView(getActivity());
         TV.setText(target);
@@ -142,6 +144,7 @@ public class KebaktianDoaFragment extends Fragment {
         myLinearLayout.addView(TV);
     }
 
+	// Fungsi untuk generate komponen-komponen tampilan
     private void generateKontenUI (JSONArray json_arr) {
         setUpLayout();
 
@@ -171,19 +174,12 @@ public class KebaktianDoaFragment extends Fragment {
             gambarIV.setLayoutParams(params);
             imageLayout.addView(gambarIV);
 
-            // Pasang Header Jadwal 1
-            fillTextViewHeader(headerJadwal1);
-            // Pasang Isi Jadwal 1
-            fillTextView(isiJadwal1);
-            // Pasang Header Jadwal 2
-            fillTextViewHeader(headerJadwal2);
-            // Pasang Isi Jadwal 2
-            fillTextView(isiJadwal2);
-            // Pasang TextView "Pembina"
-            fillTextViewHeader("Pembina");
-            // Pasang isi Pembina
-            fillTextView(pembina);
-
+            fillTextViewHeader(headerJadwal1); // Pasang Header Jadwal 1
+            fillTextView(isiJadwal1); // Pasang Isi Jadwal 1
+            fillTextViewHeader(headerJadwal2); // Pasang Header Jadwal 2
+            fillTextView(isiJadwal2); // Pasang Isi Jadwal 2
+            fillTextViewHeader("Pembina"); // Pasang TextView "Pembina"
+            fillTextView(pembina); // Pasang isi Pembina
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -201,8 +197,7 @@ public class KebaktianDoaFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             progressDialog = ProgressDialog.show(getActivity(),"Loading", "Koneksi ke server");
         };
 

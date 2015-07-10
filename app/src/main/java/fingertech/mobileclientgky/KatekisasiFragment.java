@@ -129,8 +129,6 @@ public class KatekisasiFragment extends Fragment {
             progressDialog = ProgressDialog.show(getActivity(), "Loading", "Koneksi ke server");
         }
 
-        ;
-
         @Override
         protected String doInBackground(String... params) {
             if (isNetworkAvailable()) {

@@ -52,7 +52,6 @@ import java.net.URLEncoder;
  */
 public class Home extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -111,11 +110,9 @@ public class Home extends ActionBarActivity
         // Cek apakah pada saat menu dibuat, user sudah login atau belum
         if(sm.pref.getAll().get("IsLoggedIn").toString().equals("true")){
             isLogin = true;
-        }
-        else if(sm.pref.getAll() == null){
+        } else if(sm.pref.getAll() == null){
             isLogin = false;
-        }
-        else{
+        } else{
             isLogin = false;
         }
 
@@ -599,9 +596,9 @@ public class Home extends ActionBarActivity
             }
 
             // Convert the byte to hex format method 2
-            for (int i=0;i<byteData.length;i++) {
-                String hex=Integer.toHexString(0xff & byteData[i]);
-                if(hex.length()==1) hexString.append('0');
+            for (int i = 0; i < byteData.length; i++) {
+                String hex = Integer.toHexString(0xff & byteData[i]);
+                if(hex.length() == 1) hexString.append('0');
                 hexString.append(hex);
             }
         } catch (NoSuchAlgorithmException e) {

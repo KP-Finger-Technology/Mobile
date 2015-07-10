@@ -41,7 +41,7 @@ public class DiakoniaDanOikumeneFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    // untuk generate konten UI
+    // Untuk generate konten UI
     private View rootView;
     private LinearLayout imageLayout;
     private LinearLayout.LayoutParams params;
@@ -164,8 +164,7 @@ public class DiakoniaDanOikumeneFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             progressDialog = ProgressDialog.show(getActivity(),"Loading", "Koneksi ke server");
         };
 

@@ -84,6 +84,8 @@ public class PermohonanDoaFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+	// Fungsi untuk menuliskan data user secara otomatis pada form permohonan doa
+	// Hanya bisa digunakan apabila user sudah login terlebih dahulu
     public void tulisDataDoa(){
         EditText namaET = (EditText) rootView.findViewById(R.id.permohonanDoa_editNama);
         EditText emailET = (EditText) rootView.findViewById(R.id.permohonanDoa_editEmail);
@@ -94,7 +96,6 @@ public class PermohonanDoaFragment extends Fragment {
             namaET.setText(sm.pref.getAll().get("name").toString(), TextView.BufferType.EDITABLE);
             emailET.setText(sm.pref.getAll().get("email").toString(), TextView.BufferType.EDITABLE);
             teleponET.setText(sm.pref.getAll().get("telepon").toString(), TextView.BufferType.EDITABLE);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

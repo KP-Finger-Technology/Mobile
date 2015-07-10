@@ -143,7 +143,8 @@ public class WartaMingguanFragment extends Fragment {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
-    private void IsiTabelHeader (String text) {
+	// Fungsi untuk membuat judul kolom
+    private void IsiTabelHeader(String text) {
         IsiTabelHeader = new TextView(getActivity());
         IsiTabelHeader.setText(text);
         IsiTabelHeader.setTextColor(getResources().getColor(R.color.white));
@@ -152,7 +153,8 @@ public class WartaMingguanFragment extends Fragment {
         TR.addView(IsiTabelHeader);
     }
 
-    private void IsiTabel (String text) {
+	// Fungsi untuk memberi isi kolom
+    private void IsiTabel(String text) {
         IsiTabel = new TextView(getActivity());
         IsiTabel.setText(text);
         IsiTabel.setTextColor(getResources().getColor(R.color.fontTabel));
@@ -161,6 +163,7 @@ public class WartaMingguanFragment extends Fragment {
         TR.addView(IsiTabel);
     }
 
+	// Fungsi untuk menyiapkan layout tampilan
     private void setUpLayout() {
         myLinearLayout=(LinearLayout)rootView.findViewById(R.id.container_wartaMingguan);
 
@@ -187,7 +190,8 @@ public class WartaMingguanFragment extends Fragment {
         colLayout.setPadding(0, 5, 0, 0);
     }
 
-    private void generateKontenWarta (JSONArray jadwal, JSONArray warta) {
+	// Fungsi untuk generate komponen-komponen tampilan
+    private void generateKontenWarta(JSONArray jadwal, JSONArray warta) {
         setUpLayout();
 
         int dataLength = jadwal.length();
@@ -238,7 +242,8 @@ public class WartaMingguanFragment extends Fragment {
                     // Kebaktian
                     IsiTabel(kebaktian);
                     IsiTabel(gedung);
-                    // Pengkotbah
+                    
+					// Pengkotbah
                     IsiTabel(pengkotbah);
                     IsiTabel(penerjemah);
                     IsiTabel(liturgis);
@@ -322,7 +327,6 @@ public class WartaMingguanFragment extends Fragment {
                             isStatusOK = true;
                         else
                             isStatusOK = false;
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

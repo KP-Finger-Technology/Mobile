@@ -206,7 +206,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     e.printStackTrace();
                 }
 
-                Toast.makeText(getActivity(), "Lagu yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "KPPK yang Anda cari: " + keyword, Toast.LENGTH_LONG).show();
 
                 if (DB.isTableExists("KPPK")) {
                     arrKPPK = DB.searchKPPK(keyword);
@@ -216,7 +216,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     }
                 }
 
-                cllr.removeAllViews();
                 ViewerSearch vs = new ViewerSearch();
                 vs.execute();
 
@@ -248,7 +247,7 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         Toast.makeText(getActivity(), "Downloading..", Toast.LENGTH_LONG).show();
         v.downloadKPPK();
-        Toast.makeText(getActivity(), "Download Success!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Download Succeed!", Toast.LENGTH_LONG).show();
     }
     
 	public interface OnFragmentInteractionListener {
@@ -276,7 +275,8 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
     class Viewer extends AsyncTask<String, String, String> {
         private Button ListKPPK;
         JSONArray arr = new JSONArray();
-        public JSONArray getArr() {
+        
+		public JSONArray getArr() {
             return arr;
         }
 
@@ -309,7 +309,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -418,7 +417,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
     class ViewerSearch extends AsyncTask<String, String, String> {
         private Button ListKPPK;
-
         JSONArray arr = new JSONArray();
 
         public JSONArray getArr() {
@@ -453,7 +451,6 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -496,7 +493,10 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
 
         @Override
         protected void onPostExecute(String result) {
-            if (arr.length() == 0 && isNetworkAvailable()) {
+            // Hapus semua tampilan terlebih dahulu sebelum menampilkan hasil pencarian
+			cllr.removeAllViews();
+			
+			if (arr.length() == 0 && isNetworkAvailable()) {
                 Toast.makeText(getActivity().getApplicationContext(), "KPPK yang Anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
 
@@ -601,5 +601,4 @@ public class KPPKFragment extends Fragment implements View.OnClickListener{
             }
         }
     }
-
 }

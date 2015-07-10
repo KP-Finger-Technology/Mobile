@@ -106,7 +106,7 @@ public class KolportaseLengkapFragment extends Fragment {
         // Membuat linear layout vertical untuk menampung kata-kata
         LinearLayout colLayout = new LinearLayout(getActivity());
         colLayout.setOrientation(LinearLayout.VERTICAL);
-        colLayout.setPadding(0,10,10,0);
+        colLayout.setPadding(0, 10, 10, 0);
 
         LinearLayout subRowLayout = new LinearLayout(getActivity());
         subRowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -114,8 +114,8 @@ public class KolportaseLengkapFragment extends Fragment {
         LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         Display display = getActivity().getWindowManager().getDefaultDisplay();
-        int image_width = display.getWidth()/3;
-        int image_height = (int) (display.getHeight()/4.3);
+        int image_width = display.getWidth() / 3;
+        int image_height = (int) (display.getHeight() / 4.3);
 
         int defaultColor = getResources().getColor(R.color.defaultFontColor);
 
@@ -167,7 +167,7 @@ public class KolportaseLengkapFragment extends Fragment {
         titleKeteranganTV.setLayoutParams(params);
         subRowLayout.addView(titleKeteranganTV);
 
-        // Add text View isiKeteranganTV
+        // Add TextView isiKeteranganTV
         isiKeteranganTV = new TextView(getActivity());
         isiKeteranganTV.setText(keterangan);
         isiKeteranganTV.setLayoutParams(params);

@@ -218,7 +218,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
                     }
                 }
 
-                cllr.removeAllViews();
                 ViewerSearch vs = new ViewerSearch();
                 vs.execute();
 
@@ -250,7 +249,7 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
     public void onClick(View view) {
         Toast.makeText(getActivity(), "Downloading..", Toast.LENGTH_LONG).show();
         v.downloadLirikLaguRohani();
-        Toast.makeText(getActivity(), "Download Success!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Download Succeed!", Toast.LENGTH_LONG).show();
     }
 
     public interface OnFragmentInteractionListener {
@@ -278,7 +277,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
     class Viewer extends AsyncTask<String, String, String> {
         private Button ListLirikLaguRohani;
         JSONArray arr = new JSONArray();
-        public JSONArray getArr() {
+        
+		public JSONArray getArr() {
             return arr;
         }
 
@@ -420,7 +420,8 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
     class ViewerSearch extends AsyncTask<String, String, String> {
         private Button ListLirikLaguRohani;
         JSONArray arr = new JSONArray();
-        public JSONArray getArr() {
+        
+		public JSONArray getArr() {
             return arr;
         }
 
@@ -503,7 +504,10 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
         @Override
         protected void onPostExecute(String result) {
-            if (arr.length() == 0 && isNetworkAvailable()){
+            // Hapus semua tampilan terlebih dahulu sebelum menampilkan hasil pencarian
+            cllr.removeAllViews();
+			
+			if (arr.length() == 0 && isNetworkAvailable()){
                 Toast.makeText(getActivity().getApplicationContext(), "Lagu yang Anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
             myLinearLayout = (LinearLayout) rootView.findViewById(R.id.container_lirikLaguRohani);
@@ -519,7 +523,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
             // Cari dari server
             if (!adaLirik) {
-                Toast.makeText(getActivity(), "Lagu yang Anda cari: " + keyword + " digenerate dari server", Toast.LENGTH_LONG).show();
                 // Generate konten LirikLaguRohani dalam loop for
                 for (int i = 0; i < dataLength; i++) {
                     JSONObject jsonobj = null;
@@ -566,8 +569,6 @@ public class LirikLaguRohaniFragment extends Fragment implements View.OnClickLis
 
             // Cari dari basis data LirikLaguRohani
             else {
-                Toast.makeText(getActivity(), "Lagu yang Anda cari: " + keyword + " digenerate dari DB", Toast.LENGTH_LONG).show();
-
                 // Generate konten LirikLaguRohani dalam loop for
                 for (int i = 0; i < arrLirik.size(); i = i + 2) {
                     try {

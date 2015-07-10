@@ -3,6 +3,8 @@ package fingertech.mobileclientgky;
 /**
  * Created by William Stefan Hartono
  */
+
+// Kelas yang berisi data yang akan ditampilkan pada navigation drawer 
 public class NavigationDrawerData {
     public static String[] berandaArray = {};
     public static String[] alkitabArray = {};
